@@ -108,3 +108,44 @@ public class PublishingAspect {
     }
 }
 ```
+
+#### Q4. What does a ViewResolver do?
+
+- [ ] It supports internationalization of web applications by detecting a user's locale.
+- [x] It generates a view by mapping a logical view name returned by a controller method to a view technology.
+- [ ] It creates a unique view determined by the uers's browser type,supporting cross-browser compatibility.
+- [ ] It maps custom parameters to SQL views in the database, allowing for dynamic content to be created in the response.
+
+#### Explanation
+
+The `ViewResolver` is an interface to be implemented by objects that can resolve views by name.
+
+The `View` interface addresses the preparation of the request and hands the request over to one of the view technologies.
+
+<img src="./src/spring-framework/spring-dispatcher-servlet.png" alt="Aspect-Oriented Programming Spring" width="500"/>
+
+```java
+public interface ViewResolver {
+
+	@Nullable
+	View resolveViewName(String viewName, Locale locale) throws Exception;
+
+}
+```
+
+```java
+public interface View {
+
+	String RESPONSE_STATUS_ATTRIBUTE = View.class.getName() + ".responseStatus";
+	String PATH_VARIABLES = View.class.getName() + ".pathVariables";
+	String SELECTED_CONTENT_TYPE = View.class.getName() + ".selectedContentType";
+
+	@Nullable
+	default String getContentType() {
+		return null;
+	}
+
+	void render(@Nullable Map<String, ?> model, HttpServletRequest request, HttpServletResponse response) throws Exception;
+
+}
+```
