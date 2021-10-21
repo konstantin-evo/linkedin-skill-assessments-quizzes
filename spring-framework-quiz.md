@@ -193,3 +193,97 @@ UserRepository repository = factory.getRepository(UserRepository.class);
 
 #### Explanation
 
+The Spring Expression Language is a powerful expression language that supports querying and manipulating an object graph at runtime. The language syntax is similar to Unified EL but offers additional features, most notably method invocation and basic string templating functionality.
+
+For example, with the help of SpEL, we can access the contents of any Map or List in the context. We will create new bean workersHolder that will store information about some workers and their salaries in a List and a Map:
+
+```java
+@Component("workersHolder")
+public class WorkersHolder {
+    private List<String> workers = new LinkedList<>();
+    private Map<String, Integer> salaryByWorkers = new HashMap<>();
+
+    public WorkersHolder() {
+        workers.add("John");
+        workers.add("Susie");
+        workers.add("George");
+
+        salaryByWorkers.put("John", 35000);
+        salaryByWorkers.put("Susie", 47000);
+        salaryByWorkers.put("George", 14000);
+    }
+
+    //Getters and setters
+}
+```
+
+Now we can access the values of the collections using SpEL:
+
+```java
+@Value("#{workersHolder.salaryByWorkers['John']}") // 35000
+private Integer johnSalary;
+
+@Value("#{workersHolder.salaryByWorkers['George']}") // 14000
+private Integer georgeSalary;
+
+@Value("#{workersHolder.salaryByWorkers['Susie']}") // 47000
+private Integer susieSalary;
+
+@Value("#{workersHolder.workers[0]}") // John
+private String firstWorker;
+
+@Value("#{workersHolder.workers[3]}") // George
+private String lastWorker;
+
+@Value("#{workersHolder.workers.size()}") // 4
+private Integer numberOfWorkers;
+```
+
+#### Q7. The process of linking aspects with other objects to create an advised object is called
+
+- [ ] dynamic chaining
+- [ ] banding
+- [x] weaving
+- [ ] interleaving
+
+#### Explanation
+
+One of the key components of Spring Framework is the Aspect Oriented Programming framework.
+
+Aspect-Oriented Programming entails breaking down program logic into distinct parts called so-called concerns.
+
+The functions that span multiple points of an application are called cross-cutting concerns and these cross-cutting concerns are conceptually separate from the application's business logic.
+
+There are various common good examples of aspects like… 
+1. Logging;
+2. Auditing;
+3. Declarative transactions;
+4. Security;
+5. Caching,
+etc.
+
+**Weaving** is the process of linking Aspects with other application types or objects to create an Advised object.
+
+This can be done at compile time (using the AspectJ compiler, for example), load time, or at runtime. Spring AOP, like other pure Java AOP frameworks, performs weaving at runtime.
+
+<img src="./src/spring-framework/spring-aop-core-concept.jpg" alt="Aspect-Oriented Programming Spring" width="500"/>
+
+An **Aspect** is a modularization of a concern that cuts across multiple classes. Unified logging can be an example of such cross-cutting concern.
+
+Let's see how we define a simple Aspect:
+
+```java
+public class AdderAfterReturnAspect {
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
+    public void afterReturn(Object returnValue) throws Throwable {
+        logger.info("value return was {}",  returnValue);
+    }
+}
+```
+
+In the above example, we defined a simple Java class that has a method called afterReturn, which takes one argument of type Object and logs in that value.
+
+An Advice is an action taken by an aspect at a particular Joinpoint. Different types of advice include “around,” “before,” and “after.”
+
+In Spring, an Advice is modelled as an interceptor, maintaining a chain of interceptors around the Joinpoint.
+
