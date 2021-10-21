@@ -149,3 +149,47 @@ public interface View {
 
 }
 ```
+
+#### Q5. How are Spring Data repositories implemented by Spring at runtime?
+
+- [ ] Spring automatically generated code for you based on your YAML config that defined a MethodInterceptor chain that intercept calls to the instance and computed SQL on the fly.
+- [x] A JDK proxy instance is created, which backs the repository interface, and a MethodInterceptor intercepts calls to the instance and routes as required.
+- [ ] The Spring JDK proxy creates a separate runtime process that acts as an intermediary between the database and the Web server, and intercepts calls to the instance and handles requests.
+- [ ] Spring automatically generated code for you based on your XML config files that define a SpringMethodAutoGeneration factory that intercepts calls to the instance and creates dynamic method that computer SQL on the fly.
+
+#### Explanation
+
+A JDK proxy instance is created programmatically using Spring's ProxyFactory🎓 API to back the interface.
+
+☝🏼 **Note**: there's no code generation going on, which means there's no CGLib, no byte-code generation at all.
+
+<img src="./src/spring-framework/jdk-proxy-interface-based.png" alt="Java Dynamic Proxy"/>
+
+A `MethodInterceptor` intercepts all calls to the instance and routes the method into the appropriate places.
+
+1. If the repository has been initialized with a custom implementation part, and the method invoked is implemented in that class, the call is routed there.
+2. If the method is a query method, the store specific query execution mechanism kicks in and executes the query determined to be executed for that method at startup.
+For that a resolution mechanism is in place that tries to identify explicitly declared queries in various places (using @Query on the method, JPA named queries) eventually falling back to query derivation from the method name.
+3. If none of the above apply the method executed has to be one implemented by a store-specific repository base class (SimpleJpaRepository in case of JPA) and the call is routed into an instance of that.
+
+<img src="./src/spring-framework/java-method-interceptor.png" alt="Method Interceptor"/>
+
+The method interceptor implementing that routing logic is `QueryExecutorMethodInterceptor`.
+
+The creation of those proxies is encapsulated into a standard Java based Factory pattern implementation. The high-level proxy creation can be found in `RepositoryFactorySupport`. The store-specific implementations then add the necessary infrastructure components so that for JPA you can go ahead and just write code like this:
+
+```java
+EntityManager em = ... // obtain an EntityManager
+JpaRepositoryFactory factory = new JpaRepositoryFactory(em);
+UserRepository repository = factory.getRepository(UserRepository.class);
+```
+
+#### Q6. What is SpEL and how is it used in Spring?
+
+- [ ] SpEL(Spring Expression Language) runs in the JVM and can act as a drop-in replacement for Groovy or other languages.
+- [x] SpEL(Spring Expression Language) supports boolean and relational operators and regular expressions, and is used for querying a graph of objects at runtime.
+- [ ] SpEL(Spring Expression Language) allows you to build, configure,and execute tasks such as building artifacts and downloading object dependencies.
+- [ ] SpEL(Spring Expression Language) natively transpiles one JVM language to another, allowing for greater flexibility.
+
+#### Explanation
+
