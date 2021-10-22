@@ -315,5 +315,46 @@ Spring AOP is proxy based. Spring used two types of proxy strategy:
 | 4.      | Final       | Final class and Final method can not be proxy                                  | Final class and Final method can not be proxy                    |
 | 5.      | Use case    | Spring uses JDK proxy when is class is implementing one or more interface      | Spring uses CGLib proxy when class in not implementing interface |
 
+#### Q9. Which of these is not a valid method on the JoinPoint interface?
+
+- [ ] getArgs()
+- [x] getExceptions()
+- [ ] getSignature()
+- [ ] getTarget()
+
+#### Explanation
+
+`public interface JoinPoint` provides reflective access to both the state available at a join point and static information about it.
+
+This information is available from the body of advice using the special form thisJoinPoint. The primary use of this reflective information is for tracing and logging applications.
+
+```java
+ aspect Logging {
+     before(): within(com.bigboxco..*) && execution(public * *(..)) {
+         System.err.println("entering: " + thisJoinPoint);
+         System.err.println("  w/args: " + thisJoinPoint.getArgs());
+         System.err.println("      at: " + thisJoinPoint.getSourceLocation());
+     }
+ }
+ ```
+
+| Return type           | Method Signature                                                                         |
+|-----------------------|------------------------------------------------------------------------------------------|
+|  java.lang.Object[]   | getArgs() Returns the arguments at this join point.                                      |
+|  java.lang.String     | getKind() Returns a String representing the kind of join point.                          |
+|  Signature            | getSignature() Returns the signature at the join point.                                  |
+|  SourceLocation       | getSourceLocation() Returns the source location corresponding to the join point.         |
+|  JoinPoint.StaticPart | getStaticPart() Returns an object that encapsulates the static parts of this join point. |
+|  java.lang.Object     | getTarget() Returns the target object.                                                   |
+|  java.lang.Object     | getThis() Returns the currently executing object.                                        |
+|  java.lang.String     | toLongString() Returns an extended string representation of the join point.              |
+|  java.lang.String     | toShortString()  Returns an abbreviated string representation of the join point.         |
+|  java.lang.String     | toString()                                                                               |
+
+
+
+
+
+
 
 
