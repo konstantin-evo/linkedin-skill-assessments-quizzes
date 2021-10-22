@@ -287,3 +287,33 @@ An Advice is an action taken by an aspect at a particular Joinpoint. Different t
 
 In Spring, an Advice is modelled as an interceptor, maintaining a chain of interceptors around the Joinpoint.
 
+#### Q8. How are JDK Dynamic proxies and CGLIB proxies used in Spring?
+
+- [x] JDK Dynamic proxy can proxy only interface, so it is used if the target implements at least one interface. A CGLIB proxy can create a proxy by subclassing and is used if the target does not implement an interface.
+- [ ] Only JDK Dynamic proxies are used in the Spring Bean Lifecycle. CGLIB proxies are used only for integrating with other frameworks.
+- [ ] Only CGLIB proxies are used in the Spring Bean Lifecycle. JDK Dynamic proxies are used only for integrating with other frameworks.
+- [ ] JDK Dynamic proxy can only using an abstract class extended by a target. A CGLIB proxy can create a proxy through bytecode interweaving and is used if the target does not extend an abstract class.
+
+#### Explanation
+
+Spring AOP is proxy based. Spring used two types of proxy strategy:
+
+- JDK dynamic proxy;
+- CGLIB proxy.
+
+<img src="./src/spring-framework/spring-aop-proxy-process.png" alt="Java Dynamic proxy mechanism" width="600"/>
+
+**JDK dynamic proxy** is available with the JDK. It can be only proxy by interface so the target class needs to implement the interface. If you are implementing one or more interfaces then spring will automatically use JDK dynamic proxies.
+
+**CGLIB proxy** is a third party library which spring used for creating proxies. It can create a proxy by subclassing. Spring uses CGLIB for proxy if the class is not implementing an interface.
+
+| Sr. No. | Key         | JDK dynamic proxy                                                              | CGLIB proxy                                                      |
+|---------|-------------|--------------------------------------------------------------------------------|------------------------------------------------------------------|
+| 1.      | Basic       | It can be only proxy by interface so target class needs to implement interface | It can create proxy by subclassing                               |
+| 2.      | Package     | It is available with the Java                                                  | It is the third  library.                                        |
+| 3.      | Performance | It is a bit slow than CGLIB proxy                                              | It is faster than JDK dynamic proxy                              |
+| 4.      | Final       | Final class and Final method can not be proxy                                  | Final class and Final method can not be proxy                    |
+| 5.      | Use case    | Spring uses JDK proxy when is class is implementing one or more interface      | Spring uses CGLib proxy when class in not implementing interface |
+
+
+
