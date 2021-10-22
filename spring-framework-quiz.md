@@ -338,23 +338,145 @@ This information is available from the body of advice using the special form thi
  }
  ```
 
-| Return type           | Method Signature                                                                         |
-|-----------------------|------------------------------------------------------------------------------------------|
-|  java.lang.Object[]   | getArgs() Returns the arguments at this join point.                                      |
-|  java.lang.String     | getKind() Returns a String representing the kind of join point.                          |
-|  Signature            | getSignature() Returns the signature at the join point.                                  |
-|  SourceLocation       | getSourceLocation() Returns the source location corresponding to the join point.         |
-|  JoinPoint.StaticPart | getStaticPart() Returns an object that encapsulates the static parts of this join point. |
-|  java.lang.Object     | getTarget() Returns the target object.                                                   |
-|  java.lang.Object     | getThis() Returns the currently executing object.                                        |
-|  java.lang.String     | toLongString() Returns an extended string representation of the join point.              |
-|  java.lang.String     | toShortString()  Returns an abbreviated string representation of the join point.         |
-|  java.lang.String     | toString()                                                                               |
+| Method               | Return type          |                                                                          |
+|----------------------|----------------------|--------------------------------------------------------------------------|
+| getArgs()            | java.lang.Object[]   | Returns the arguments at this join point.                                |
+| getKind()            | java.lang.String     | Returns a String representing the kind of join point.                    |
+| getSignature()       | Signature            | Returns the signature at the join point.                                 |
+| getSourceLocation()  | SourceLocation       | Returns the source location corresponding to the join point.             |
+| getStaticPart()      | JoinPoint.StaticPart | Returns an object that encapsulates the static parts of this join point. |
+| getTarget()          | java.lang.Object     | Returns the target object.                                               |
+| getThis()            | java.lang.Object     | Returns the currently executing object.                                  |
+| toLongString()       | java.lang.String     | Returns an extended string representation of the join point.             |
+| toShortString()      | java.lang.String     | Returns an abbreviated string representation of the join point.          |
+| toString()           | java.lang.String     |                                                                          |                                                                   |
 
+#### Q10. In what order do the @PostConstruct annotated method, the init-method parameter method on beans and the afterPropertiesSet() method execute?
 
+- [ ] 1. afterPropertiesSet() 2. init-method 3. @PostConstruct
+- [x] 1. @PostConstruct 2. afterPropertiesSet() 3. init-method
+- [ ] 1. init-method 2. afterPropertiesSet() 3. @PostConstruct
+- [ ] You cannot use these methods together-you must choose only one.
 
+#### Explanation
 
+Running logic during Spring application's startup is a common scenario, but one that causes multiple problems.
+In order to benefit from Inverse of Control, we naturally need to renounce partial control over the application's flow to the container – which is why instantiation, setup logic on startup, etc needs special attention.
 
+We can't simply include our logic in the beans' constructors or call methods after instantiation of any object; we are simply not in control during those processes.
 
+Let's look at the real-life example:
 
+```java
+@Component
+public class InvalidInitExampleBean {
 
+    @Autowired
+    private Environment env;
+
+    public InvalidInitExampleBean() {
+        env.getActiveProfiles();
+    }
+}
+```
+
+Here, we're trying to access an autowired field in the constructor. When the constructor is called, the Spring bean is not yet fully initialized. This is problematic because calling not yet initialized fields will of course result in `NullPointerExceptions`.
+
+Spring gives us a few ways of managing this situation.
+
+##### 1. The @PostConstruct Annotation
+
+Javax's `@PostConstruct` annotation can be used for annotating a method that should be run once immediately after the bean's initialization.
+
+Keep in mind that the annotated method will be executed by Spring even if there is nothing to Inject.
+
+Here's `@PostConstruct` in action:
+
+```java
+@Component
+public class PostConstructExampleBean {
+
+    private static final Logger LOG 
+      = Logger.getLogger(PostConstructExampleBean.class);
+
+    @Autowired
+    private Environment environment;
+
+    @PostConstruct
+    public void init() {
+        LOG.info(Arrays.asList(environment.getDefaultProfiles()));
+    }
+}
+```
+
+In the example above you can see that the Environment instance was safely Injected and then called in the `@PostConstruct` annotated method without throwing a `NullPointerException`.
+
+##### 2. The InitializingBean Interface
+
+The InitializingBean approach works pretty similarly to the previous one. Instead of annotating a method, you need to implement the `InitializingBean interface` and the `afterPropertiesSet()` method.
+
+Here you can see the previous example implemented using the `InitializingBean interface`:
+
+```java
+@Component
+public class InitializingBeanExampleBean implements InitializingBean {
+
+    private static final Logger LOG 
+      = Logger.getLogger(InitializingBeanExampleBean.class);
+
+    @Autowired
+    private Environment environment;
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        LOG.info(Arrays.asList(environment.getDefaultProfiles()));
+    }
+}
+```
+
+##### 3. The @Bean init-method Attribute
+
+The `initMethod` property can be used to execute a method after a bean's initialization. Here's what a bean looks like:
+
+```java
+public class InitMethodExampleBean {
+
+    private static final Logger LOG = Logger.getLogger(InitMethodExampleBean.class);
+
+    @Autowired
+    private Environment environment;
+
+    public void init() {
+        LOG.info(Arrays.asList(environment.getDefaultProfiles()));
+    }
+}
+```
+
+You can notice that there are no special interfaces implemented nor any special annotations used.
+
+Then, we can define the bean using the `@Bean` annotation:
+
+```java
+@Bean(initMethod="init")
+public InitMethodExampleBean initMethodExampleBean() {
+    return new InitMethodExampleBean();
+}
+```
+
+##### 4. Combining Mechanisms
+
+In order to achieve full control over your beans, you might want to combine the above mechanisms together.
+
+The order of execution is as follows:
+1. The constructor
+2. The `@PostConstruct` annotated methods
+3. The InitializingBean's `afterPropertiesSet()` method
+4. The initialization method specified as `init` method in XML
+
+##### 6. Spring Bean LifeCycle
+
+The Spring IoC (Inversion of Control) container manages Spring beans. 
+
+The Spring IoC container is responsible for instantiating, initializing, and wiring beans. The container also manages the life cycle of beans.
+
+<img src="./src/spring-framework/spring-bean-life-cycle.png" alt="Spring - Bean Life Cycle" width="600"/>
