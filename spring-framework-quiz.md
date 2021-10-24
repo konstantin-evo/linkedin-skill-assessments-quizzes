@@ -123,7 +123,7 @@ The `ViewResolver` is an interface to be implemented by objects that can resolve
 
 The `View` interface addresses the preparation of the request and hands the request over to one of the view technologies.
 
-<img src="./src/spring-framework/spring-dispatcher-servlet.png" alt="Aspect-Oriented Programming Spring" width="500"/>
+<img src="./src/spring-framework/spring-dispatcher-servlet.jpg" alt="Aspect-Oriented Programming Spring" width="500"/>
 
 ```java
 public interface ViewResolver {
