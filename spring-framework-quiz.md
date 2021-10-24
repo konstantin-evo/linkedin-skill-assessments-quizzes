@@ -58,16 +58,17 @@ It is similar to an object instance in an object-oriented programming language, 
 
 #### Explanation
 
-Aspect-Oriented Programming complements Object-Oriented Programming by providing another way of thinking about program structure. The key unit of modularity in OOP is the class, whereas in AOP the unit of modularity is the aspect.
+Aspect-Oriented Programming complements Object-Oriented Programming by providing another way of thinking about program structure.
 
-Aspects enable the modularization of concerns such as transaction management that cut across multiple types and objects.
+The key unit of modularity in OOP is the class, whereas in AOP the unit of modularity is the aspect.
+
+**Aspect** is a modularization of a concern that cuts across multiple classes.
+Transaction management is a good example of a crosscutting concern in enterprise Java applications.
 
 <img src="./src/spring-framework/spring-aop-core-concept.jpg" alt="Aspect-Oriented Programming Spring" width="500"/>
 
 Let's begin by defining some central AOP concepts and terminology:
 
-- **Aspect** is a modularization of a concern that cuts across multiple classes.
-Transaction management is a good example of a crosscutting concern in enterprise Java applications.
 - **Join Point** is a point during the execution of a program, such as the execution of a method or the handling of an exception (in Spring AOP, a join point always represents a method execution).
 - **Advice** is action taken by an aspect at a particular join point. Different types of advice include "around," "before" and "after" advice. Many AOP frameworks, including Spring, model an advice as an interceptor, maintaining a chain of interceptors around the join point.
 
