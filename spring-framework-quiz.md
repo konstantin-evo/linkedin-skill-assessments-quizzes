@@ -481,3 +481,47 @@ The Spring IoC (Inversion of Control) container manages Spring beans.
 The Spring IoC container is responsible for instantiating, initializing, and wiring beans. The container also manages the life cycle of beans.
 
 <img src="./src/spring-framework/spring-bean-life-cycle.png" alt="Spring - Bean Life Cycle" width="600"/>
+
+#### Q11. What is the function of the `@Transactional` annotation at the class level?
+
+- [ ] It's a transaction attribute configured by `spring.security.transactions.xml` config file that uses Spring's transaction implementation and validation code.
+- [ ] It's a transaction that must actively validate by the bytecode of a transaction using Spring's `TransactionBytecodeValidator` class. Default Transaction behavior rolls back on validation exception but commits on proper validation
+- [x] It creates a proxy that implements the same interface(s) as the annotated class, allowing Spring to inject behaviors before, after, or around method calls into the object being proxied.
+- [ ] It's a transaction that must be actively validated by Spring's `TransactionValidator` class using Spring's transaction validation code. Default Transaction behavior rolls back on validation exception.
+
+#### Explanation
+
+Annotation `@Transactional` is used when you want the certain method/class(=all methods inside) to be executed in a transaction.
+
+```java
+@Target(value={TYPE,METHOD})
+ @Retention(value=RUNTIME)
+ @Inherited
+ @Documented
+public @interface Transactional
+```
+
+With transactions configured, we can now annotate a bean with 
+
+```java
+@Transactional either at the class or method level:
+@Service
+@Transactional
+public class FooService {
+… 
+}
+```
+
+The annotation supports further configuration as well:
+1. The Propagation Type of the transaction;
+2. The Isolation Level of the transaction;
+3. A Timeout for the operation wrapped by the transaction;
+4. A readOnly flag – a hint for the persistence provider that the transaction should be read only;
+5. The Rollback rules for the transaction.
+
+At a high level, Spring creates proxies for all the classes annotated with `@Transactional`. The proxy allows the framework to Inject transactional logic before and after the running method, mainly for starting and committing the transaction.
+
+<img src="./src/spring-framework/spring-proxy-transaction.png" alt="Spring proxy transaction" width="500"/>
+
+
+
