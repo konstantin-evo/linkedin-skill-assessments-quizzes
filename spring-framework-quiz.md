@@ -616,3 +616,25 @@ So the class loader won't properly Inject the static fields in the bean.
 Static variable is not a property of Object, but it is a property of a Class. Spring `@Autowire` is done on objects and that makes the design clean.
 
 You can deploy the `@Autowire` bean object as a Singleton, and achieve the same as defining it static.
+
+#### Q14. What is the root interface for accessing a Spring bean container?
+
+- [ ] SpringInitContainer
+- [ ] ResourceLoader
+- [ ] ApplicationEventPublisher
+- [x] BeanFactory
+
+#### Explanation
+
+BeanFactory is the root interface for accessing a Spring bean container. Implementation of this interface provides objects that hold a number of bean definitions, each uniquely identified by a String name.
+
+```java
+public interface BeanFactory
+```
+
+Simply put, Beans are the java objects which form the backbone of a Spring application and are managed by Spring IoC Container. Other than being managed by the container, there is nothing special about a Bean (in all other respects it's one of many objects in the application).
+
+The Spring container is responsible for instantiating, configuring, and assembling the beans. The container gets its information on what objects to instantiate, configure, and manage by reading configuration metadata we define for the application.
+
+<img src="./src/spring-framework/spring-bean-factory.jpg
+" alt="Spring BeanFactory"/>
