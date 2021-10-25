@@ -701,11 +701,10 @@ Note that the values of the variables "bar" and "foo" are swapped.
 
 The `@Controller` annotation is used to mark the class as the controller.
 
-The `@RestController` annotation  is a specialized version of the controller. It includes:
-- the `@Controller` annotation
-- the `@ResponseBody` annotations
-… so as a result, simplifies the controller implementation
+The `@RestController` annotation  is a specialized version of the controller. It includes the `@Controller` annotation and the `@ResponseBody` annotations so as a result, simplifies the controller implementation
 
 The `@RequestMapping` annotation is used to map web requests to Spring Controller methods.
 
 The `@RequestParam` annotation is used to extract query parameters, form parameters, and even files from the request.
+
+
