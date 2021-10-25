@@ -636,5 +636,44 @@ Simply put, Beans are the java objects which form the backbone of a Spring appli
 
 The Spring container is responsible for instantiating, configuring, and assembling the beans. The container gets its information on what objects to instantiate, configure, and manage by reading configuration metadata we define for the application.
 
-<img src="./src/spring-framework/spring-bean-factory.jpg
-" alt="Spring BeanFactory"/>
+<img src="./src/spring-framework/spring-bean-factory.jpg" alt="Spring BeanFactory"/>
+
+#### Q15. Which annotation can be used within Spring Security to apply method level security?
+
+- [x] @Secured
+- [ ] @RequiresRole
+- [ ] @RestrictedTo
+- [ ] @SecurePath
+
+#### Explanation
+
+Spring Security is a powerful and highly customizable authentication and access-control framework. It is the de-facto standard for securing Spring-based applications.
+
+Spring Security supports authorization semantics at the method level.
+
+The `@Secured` annotation is used to specify a list of roles on a method. So, a user only can access that method if she has at least one of the specified roles.
+
+Let's define a getUsername method:
+
+```java
+@Secured("ROLE_VIEWER")
+public String getUsername() {
+    SecurityContext securityContext = SecurityContextHolder.getContext();
+    return securityContext.getAuthentication().getName();
+}
+```
+
+Here the `@Secured(“ROLE_VIEWER”)` annotation defines that only users who have the role `ROLE_VIEWER` are able to execute the `getUsername()` method.
+
+Besides, we can define a list of roles in a `@Secured` annotation:
+
+```java
+@Secured({ "ROLE_VIEWER", "ROLE_EDITOR" })
+public boolean isValidUsername(String username) {
+    return userRoleRepository.isValidUsername(username);
+}
+```
+
+In this case, the configuration states that if a user has either `ROLE_VIEWER` or `ROLE_EDITOR`, that user can invoke the isValidUsername method.
+
+The `@Secured` annotation doesn't support Spring Expression Language.
