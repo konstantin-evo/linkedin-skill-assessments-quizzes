@@ -677,3 +677,35 @@ public boolean isValidUsername(String username) {
 In this case, the configuration states that if a user has either `ROLE_VIEWER` or `ROLE_EDITOR`, that user can invoke the isValidUsername method.
 
 The `@Secured` annotation doesn't support Spring Expression Language.
+
+#### Q16. What is the result of calling the map controller method using the HTTP request GET localhost:8080/map?foo=foo&bar=bar ?
+
+```java
+@RestController
+public class SampleController {
+     @RequestMapping("/map")
+     public String map(@RequestParam("bar") String foo, @RequestParam("foo") String bar) {
+          return bar + foo;
+     }
+}
+```
+
+- [ ] An InvalidParameterNameMappingException is thrown at runtime.
+- [ ] barfoo
+- [x] foobar
+- [ ] A status code of 400 Bad Request is returned.
+
+#### Explanation
+
+Note that the values of the variables "bar" and "foo" are swapped.
+
+The `@Controller` annotation is used to mark the class as the controller.
+
+The `@RestController` annotation  is a specialized version of the controller. It includes:
+- the `@Controller` annotation
+- the `@ResponseBody` annotations
+… so as a result, simplifies the controller implementation
+
+The `@RequestMapping` annotation is used to map web requests to Spring Controller methods.
+
+The `@RequestParam` annotation is used to extract query parameters, form parameters, and even files from the request.
