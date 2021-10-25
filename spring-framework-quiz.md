@@ -523,5 +523,47 @@ At a high level, Spring creates proxies for all the classes annotated with `@Tra
 
 <img src="./src/spring-framework/spring-proxy-transaction.png" alt="Spring proxy transaction" width="500"/>
 
+#### Q12. Which is a valid example of the output from this code (ignoring logging statements) ?
 
+```java
+@SpringBootApplication
+public class App {
+     public static void main(String args[]) {
+          SpringApplication.run(App.class, args);
+          System.out.println("startup");
+     }
+}
+
+public class Print implements InitializingBean {
+     @Override
+     public void afterPropertiesSet() throws Exception {
+          System.out.println("init");
+     }
+}
+```
+
+- [ ] Nothing will print
+- [ ] startup
+      init
+- [ ] init
+- [x] startup
+
+#### Explanation
+
+```java
+Output:
+2021-10-04 10:54:47.953  INFO 12988 --- [main] com.example.demo.App : The following profiles are active: education
+2021-10-04 10:54:48.586  INFO 12988 --- [main] com.example.demo.App : Started DemoApplication in 1.121 seconds (JVM running for 2.493)
+startup
+```
+
+The 'init' will not be printed as there is no `@Bean`, `@Component`, `@Service`, etc. annotation above the `Print` class.
+
+The `InitializingBean` interface to be implemented by beans that need to react once all their properties have been set by a BeanFactory: e.g. to perform custom initialization, or merely to check that all mandatory properties have been set.
+
+The `InitializingBean` interface has only one `void afterPropertiesSet() throws Exception` method.
+
+Invoked by the containing BeanFactory after it has set all bean properties and satisfied `BeanFactoryAware`, `ApplicationContextAware` etc.
+
+This method allows the bean instance to perform validation of its overall configuration and final initialization when all bean properties have been set.
 
