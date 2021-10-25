@@ -567,3 +567,52 @@ Invoked by the containing BeanFactory after it has set all bean properties and s
 
 This method allows the bean instance to perform validation of its overall configuration and final initialization when all bean properties have been set.
 
+#### Q13. Which println statement would you remove to stop this code throwing a null pointer exception?
+
+```java
+@Component
+public class Test implements InitializingBean {
+
+     @Autowired
+     ApplicationContext context;
+
+     @Autowired
+     static SimpleDateFormt formatter;
+
+     @Override
+     public void afterPropertiesSet() throws Exception {
+          System.out.println(context.containsBean("formatter") + " ");
+          System.out.println(context.getBean("formatter").getClass());
+          System.out.println(formatter.getClass());
+          System.out.println(context.getClass());
+     }
+}
+
+@Configuration
+class TestConfig {
+     @Bean
+     public SimpleDateFormat formatter() {
+          return new SimpleDateFormat();
+     }
+}
+```
+
+- [x] formatter.getClass()
+- [ ] context.getClass()
+- [ ] context.getBean("formatter").getClass()
+- [ ] context.containsBean("formatter")
+
+#### Explanation
+
+```java
+2021-10-04 11:13:25.591  INFO 12860 --- [main] f.a.AutowiredAnnotationBeanPostProcessor: Autowired annotation is not supported on static fields: static java.text.SimpleDateFormat com.example.demo.Test.formatter
+… 
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'test' defined in file [C:\Users\... \Test.class]: Invocation of init method failed; nested exception is java.lang.NullPointerException
+```
+
+It’s not possible `@Autowire` the static instance variable in the Spring Bean because when the class loader loads the static values, the Spring context is not yet necessarily loaded.
+
+So the class loader won't properly Inject the static fields in the bean.
+Static variable is not a property of Object, but it is a property of a Class. Spring `@Autowire` is done on objects and that makes the design clean.
+
+You can deploy the `@Autowire` bean object as a Singleton, and achieve the same as defining it static.
