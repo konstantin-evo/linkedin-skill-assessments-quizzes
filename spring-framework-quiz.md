@@ -878,7 +878,74 @@ public class ExamplePostController {
 }
 ```
 
+#### Q23. How are mocking frameworks such as Mockito used with Spring?
 
+- [ ] Mockito will spin up a mock web service hosted in a Docker container that can respond to HTTP requests to mock out third-party APIs.
+- [x] Mockito can use annotations or factory methods to create mock objects that may be injected into tests in place of dependencies. The behavior of mocks can be explicitly configured.
+- [ ] Mockito will create mock users to repeatedly perform requests against your Spring application to test your app's ability to take load.
+- [ ] Mockito will spin up a mock web service hosted in a Docker container that can respond to RPC calls to mock out remote resources.
+
+#### Q24. What is the name of the central servlet that dispatches requests to controllers?
+
+- [ ] DispatchingDelegatorServlet
+- [x] DispatcherServlet
+- [ ] Router
+- [ ] FrontControllerServlet
+
+#### Explanation
+
+A `Servlet` is a Java class that subclasses from class `HttpServlet` and usually overrides the `doGet` or `doPost` method.
+
+A `Servlet` is used to extend the capabilities of servers that host applications accessed by means of a request-response programming model. Although servlets can respond to any type of request, they are commonly used to extend the applications hosted by web servers.
+
+`DispatcherServlet` is a central dispatcher for HTTP request handlers/controllers, e.g. for web UI controllers or HTTP-based remote service exporters.
+
+Dispatches to registered handlers for processing a web request, providing convenient mapping and exception handling facilities.
+
+`public class DispatcherServlet extends FrameworkServlet`
+
+The core responsibility of a DispatcherServlet is to dispatch incoming HttpRequests to the correct handlers specified with the `@Controller` or `@RestController` annotations.
+
+<img src="./src/spring-framework/spring-dispatcher-servlet.jpg" alt="Aspect-Oriented Programming Spring" width="500"/>
+
+#### Q25. What is the purpose of the Spring IoC (Inversion of Control) container?
+
+- [x] It instantiates and configures objects, supplied at runtime, to classes that define them as a dependency.
+- [ ] It allows the front-end code to manage the ResponseBody objects provided by a back-end REST API.
+- [ ] It allows a database to define business objects via a shared schema at compile time.
+- [ ] It facilitates a remote server to configure a local application.
+
+#### Explanation
+
+An Inversion of Control container is a common characteristic of frameworks that implement IoC. In the Spring framework, the interface `ApplicationContext` represents the IoC container.
+
+The Spring container is responsible for instantiating, configuring and assembling objects known as Beans, as well as managing their life cycles.
+
+<img src="./src/spring-framework/spring-container.png
+" alt="Spring IoC Container" width="400"/>
+
+Here's how we would create an object dependency in traditional programming:
+
+```java
+public class Store {
+    private Item item;
+    public Store() { item = new ItemImpl1(); }
+}
+```
+
+In the example above, we need to instantiate an implementation of the Item interface within the Store class itself.
+
+By using DI, we can rewrite the example without specifying the implementation of the Item that we want:
+
+```java
+public class Store {
+    private Item item;
+
+    public Store(Item item) {
+        this.item = item;
+    }
+}
+```
 
 
 
