@@ -921,8 +921,7 @@ An Inversion of Control container is a common characteristic of frameworks that 
 
 The Spring container is responsible for instantiating, configuring and assembling objects known as Beans, as well as managing their life cycles.
 
-<img src="./src/spring-framework/spring-container.png
-" alt="Spring IoC Container" width="400"/>
+<img src="./src/spring-framework/spring-container.png" alt="Spring IoC Container" width="400"/>
 
 Here's how we would create an object dependency in traditional programming:
 
