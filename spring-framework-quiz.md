@@ -21,10 +21,8 @@ Example of implementation of the `Filter interface`:
 ```java
 @Component
 public class SimpleFilter implements Filter {
-
    @Override
    public void destroy() {}
-
    @Override
    public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterchain) throws IOException, ServletException {
       
@@ -32,7 +30,6 @@ public class SimpleFilter implements Filter {
       System.out.println("Remote Address:" + request.getRemoteAddr());
       filterchain.doFilter(request, response);
    }
-
    @Override
    public void init(FilterConfig filterconfig) throws ServletException {}
 }
@@ -86,23 +83,17 @@ Example:
 @Component
 @Aspect
 public class PublishingAspect {
-
     private ApplicationEventPublisher eventPublisher;
-
     @Autowired
     public void setEventPublisher(ApplicationEventPublisher eventPublisher) {
         this.eventPublisher = eventPublisher;
     }
-
     @Pointcut("@target(org.springframework.stereotype.Repository)")
     public void repositoryMethods() {}
-
     @Pointcut("execution(* *..create*(Long,..))")
     public void firstLongParamMethods() {}
-
     @Pointcut("repositoryMethods() && firstLongParamMethods()")
     public void entityCreationMethods() {}
-
     @AfterReturning(value = "entityCreationMethods()", returning = "entity")
     public void logMethodCall(JoinPoint jp, Object entity) throws Throwable {
         eventPublisher.publishEvent(new FooCreationEvent(entity));
@@ -127,27 +118,21 @@ The `View` interface addresses the preparation of the request and hands the requ
 
 ```java
 public interface ViewResolver {
-
 	@Nullable
 	View resolveViewName(String viewName, Locale locale) throws Exception;
-
 }
 ```
 
 ```java
 public interface View {
-
 	String RESPONSE_STATUS_ATTRIBUTE = View.class.getName() + ".responseStatus";
 	String PATH_VARIABLES = View.class.getName() + ".pathVariables";
 	String SELECTED_CONTENT_TYPE = View.class.getName() + ".selectedContentType";
-
 	@Nullable
 	default String getContentType() {
 		return null;
 	}
-
 	void render(@Nullable Map<String, ?> model, HttpServletRequest request, HttpServletResponse response) throws Exception;
-
 }
 ```
 
@@ -203,17 +188,14 @@ For example, with the help of SpEL, we can access the contents of any Map or Lis
 public class WorkersHolder {
     private List<String> workers = new LinkedList<>();
     private Map<String, Integer> salaryByWorkers = new HashMap<>();
-
     public WorkersHolder() {
         workers.add("John");
         workers.add("Susie");
         workers.add("George");
-
         salaryByWorkers.put("John", 35000);
         salaryByWorkers.put("Susie", 47000);
         salaryByWorkers.put("George", 14000);
     }
-
     //Getters and setters
 }
 ```
@@ -223,19 +205,14 @@ Now we can access the values of the collections using SpEL:
 ```java
 @Value("#{workersHolder.salaryByWorkers['John']}") // 35000
 private Integer johnSalary;
-
 @Value("#{workersHolder.salaryByWorkers['George']}") // 14000
 private Integer georgeSalary;
-
 @Value("#{workersHolder.salaryByWorkers['Susie']}") // 47000
 private Integer susieSalary;
-
 @Value("#{workersHolder.workers[0]}") // John
 private String firstWorker;
-
 @Value("#{workersHolder.workers[3]}") // George
 private String lastWorker;
-
 @Value("#{workersHolder.workers.size()}") // 4
 private Integer numberOfWorkers;
 ```
@@ -371,10 +348,8 @@ Let's look at the real-life example:
 ```java
 @Component
 public class InvalidInitExampleBean {
-
     @Autowired
     private Environment env;
-
     public InvalidInitExampleBean() {
         env.getActiveProfiles();
     }
@@ -396,13 +371,10 @@ Here's `@PostConstruct` in action:
 ```java
 @Component
 public class PostConstructExampleBean {
-
     private static final Logger LOG 
       = Logger.getLogger(PostConstructExampleBean.class);
-
     @Autowired
     private Environment environment;
-
     @PostConstruct
     public void init() {
         LOG.info(Arrays.asList(environment.getDefaultProfiles()));
@@ -421,13 +393,10 @@ Here you can see the previous example implemented using the `InitializingBean in
 ```java
 @Component
 public class InitializingBeanExampleBean implements InitializingBean {
-
     private static final Logger LOG 
       = Logger.getLogger(InitializingBeanExampleBean.class);
-
     @Autowired
     private Environment environment;
-
     @Override
     public void afterPropertiesSet() throws Exception {
         LOG.info(Arrays.asList(environment.getDefaultProfiles()));
@@ -441,12 +410,9 @@ The `initMethod` property can be used to execute a method after a bean's initial
 
 ```java
 public class InitMethodExampleBean {
-
     private static final Logger LOG = Logger.getLogger(InitMethodExampleBean.class);
-
     @Autowired
     private Environment environment;
-
     public void init() {
         LOG.info(Arrays.asList(environment.getDefaultProfiles()));
     }
@@ -500,9 +466,7 @@ Annotation `@Transactional` is used when you want the certain method/class(=all 
  @Documented
 public @interface Transactional
 ```
-
 With transactions configured, we can now annotate a bean with 
-
 ```java
 @Transactional either at the class or method level:
 @Service
@@ -533,7 +497,6 @@ public class App {
           System.out.println("startup");
      }
 }
-
 public class Print implements InitializingBean {
      @Override
      public void afterPropertiesSet() throws Exception {
@@ -572,13 +535,10 @@ This method allows the bean instance to perform validation of its overall config
 ```java
 @Component
 public class Test implements InitializingBean {
-
      @Autowired
      ApplicationContext context;
-
      @Autowired
      static SimpleDateFormt formatter;
-
      @Override
      public void afterPropertiesSet() throws Exception {
           System.out.println(context.containsBean("formatter") + " ");
@@ -587,7 +547,6 @@ public class Test implements InitializingBean {
           System.out.println(context.getClass());
      }
 }
-
 @Configuration
 class TestConfig {
      @Bean
@@ -631,30 +590,19 @@ BeanFactory is the root interface for accessing a Spring bean container. Impleme
 ```java
 public interface BeanFactory
 ```
-
 Simply put, Beans are the java objects which form the backbone of a Spring application and are managed by Spring IoC Container. Other than being managed by the container, there is nothing special about a Bean (in all other respects it's one of many objects in the application).
-
 The Spring container is responsible for instantiating, configuring, and assembling the beans. The container gets its information on what objects to instantiate, configure, and manage by reading configuration metadata we define for the application.
-
 <img src="./src/spring-framework/spring-bean-factory.jpg" alt="Spring BeanFactory"/>
-
 #### Q15. Which annotation can be used within Spring Security to apply method level security?
-
 - [x] @Secured
 - [ ] @RequiresRole
 - [ ] @RestrictedTo
 - [ ] @SecurePath
-
 #### Explanation
-
 Spring Security is a powerful and highly customizable authentication and access-control framework. It is the de-facto standard for securing Spring-based applications.
-
 Spring Security supports authorization semantics at the method level.
-
 The `@Secured` annotation is used to specify a list of roles on a method. So, a user only can access that method if she has at least one of the specified roles.
-
 Let's define a getUsername method:
-
 ```java
 @Secured("ROLE_VIEWER")
 public String getUsername() {
@@ -706,5 +654,232 @@ The `@RestController` annotation  is a specialized version of the controller. It
 The `@RequestMapping` annotation is used to map web requests to Spring Controller methods.
 
 The `@RequestParam` annotation is used to extract query parameters, form parameters, and even files from the request.
+
+#### Q17. What is the purpose of the @Lazy annotation and why would you use it?
+
+- [ ] It prevents a bean from being created and injected until you run a specific CLI command. It reduces complexity in the application.
+- [ ] It can be applied to a bean so that the bean is not persisted in the database. It reduces the number of database operations.
+- [x] It can be applied to a bean so that the bean is not created and injected until it is needed. It can help speed up startup time for your application.
+- [ ] It prevents a bean from being created and injected until it receives a HTTP request to a callback hook. It reduces disk footprint.
+
+#### Explanation
+
+The `Lazy` interface indicates whether a bean is to be lazily initialized.
+
+```java
+@Target(value={TYPE,METHOD,CONSTRUCTOR,PARAMETER,FIELD})
+ @Retention(value=RUNTIME)
+  @Documented
+public @interface Lazy
+```
+
+##### 1. @Component or @Bean definition
+
+If `@Lazy` annotation is not present on a `@Component` or `@Bean` definition, eager initialization will occur.
+
+If `@Lazy` annotation is present and set to true, the `@Bean` or `@Component` will not be initialized until referenced by another bean or explicitly retrieved from the enclosing `BeanFactory`.
+
+If `@Lazy` annotation is present and set to false, the bean will be instantiated on startup by bean factories that perform eager initialization of singletons.
+
+##### 2. @Configuration class definition
+
+If `@Lazy` annotation is present on a `@Configuration` class, this indicates that all `@Bean` methods within that `@Configuration` should be lazily initialized.
+
+If `@Lazy` annotation is present and false on a `@Bean` method within a `@Lazy` annotated `@Configuration` class, this indicates overriding the 'default lazy' behavior and that the bean should be eagerly initialized.
+
+In addition to its role for component initialization, this annotation may also be placed on Injection points marked with Autowired or Inject: In that context, it leads to the creation of a lazy-resolution proxy for all affected dependencies, as an alternative to using `ObjectFactory` or Provider.
+
+#### Q18. What is dependency injection?
+
+- [x] a method by which objects define dependencies they need as abstractions that allows the framework to instantiate and configure them in a central location at runtime.
+- [ ] a paradigm where dependent code is injected into the bytecode of a Java application on a remote server.
+- [ ] a way of injecting remote dependencies into a pre-packaged JAR file from the file system.
+- [ ] a way of injecting remote dependencies into a pre-packaged WAR file from the file system.
+
+#### Explanation
+
+Dependency Injection is a fundamental aspect of the Spring framework, through which the Spring container “injects” objects into other objects or “dependencies”.
+
+Simply put, this allows for loose coupling of components and moves the responsibility of managing components onto the container.
+
+Here's how we would create an object dependency in traditional programming:
+
+```java
+public class Store {
+    private Item item;
+    public Store() { item = new ItemImpl1(); }
+}
+```
+
+In the example above, we need to instantiate an implementation of the Item interface within the `Store` class itself.
+
+By using DI, we can rewrite the example without specifying the implementation of the Item that we want:
+
+```java
+public class Store {
+    private Item item;
+
+    public Store(Item item) {
+        this.item = item;
+    }
+}
+```
+
+#### Q19. What is a RESTful web service?
+
+- [ ] Reactive Enterprise Status Transfer is a web service comprising a set of guidelines and technical constraints for web services that monitor and alert of a set of mission-critical resources.
+- [x] Representational State Transfer an architectural style for creating web services that includes client-server architecture, statelessness, cacheability, a layered system, and a uniform interface.
+- [ ] Redundant Enumerated State Transfer is a web service that provides redundancy in the case of failure and outlines technical constraints for web services that have access to resources.
+- [ ] Reactive Enterprise State Transfer is a web service comprising a set of guidelines and technical constraints for web services y that have access to resources and are async in nature.
+
+#### Explanation
+
+RESTful Web Services are basically REST Architecture based Web Services. In REST Architecture everything is a resource.
+
+RESTful web services are lightweight, highly scalable and maintainable and are very commonly used to create APIs for web-based applications.
+
+##### 1. RESTFul Principles and Constraints
+
+The REST architecture is based on a few characteristics which are elaborated below. Any RESTful web service has to comply with the below characteristics in order for it to be called RESTful.
+
+##### 1.1. RESTFul Client-Server
+
+This is the most fundamental requirement of a REST based architecture.
+
+It means that the server will have a RESTful web service which would provide the required functionality to the client: 
+
+- The client sends a request to the web service on the server;
+- The server would either reject the request or comply and provide an adequate response to the client.
+
+##### 1.2. Stateless
+
+The concept of stateless means that it’s up to the client to ensure that all the required information is provided to the server.
+
+This is required so that the server can process the response appropriately. The server should not maintain any sort of information between requests from the client.
+
+It’s a very simple independent question-answer sequence. The client asks a question, the server answers it appropriately. The client will ask another question.
+
+☝🏻 **Note**: The server will not remember the previous question-answer scenario and will need to answer the new question independently.
+
+##### 1.3. Cache
+
+The Cache concept is to help with the problem of statelessness which was described in the last point.
+
+Since each server client request is independent in nature, sometimes the client might ask the server for the same request again. This is even though it had already asked for it in the past. This request will go to the server, and the server will give a response. This increases the traffic across the network.
+
+The cache is a concept implemented on the client to store requests which have already been sent to the server. So if the same request is given by the client, instead of going to the server, it would go to the cache and get the required information. This saves the amount of to and from network traffic from the client to the server.
+
+##### 1.4. Layered System
+
+The concept of a layered system is that any additional layer such as a middleware layer can be inserted between the client and the actual server hosting the RESTFul web service.
+
+The middleware layer is where all the business logic is created. This can be an extra service created with which the client could interact with before it makes a call to the web service.
+
+But the introduction of this layer needs to be transparent so that it does not disturb the interaction between the client and the server.
+
+##### 1.5. Uniform Interface
+
+This is the underlying technique of how RESTful web services should work. RESTful basically works on the HTTP web layer and uses the below key verbs to work with resources on the server.
+
+- POST – To create a resource on the server
+- GET – To retrieve a resource from the server
+- PUT – To change the state of a resource or to update it
+- DELETE – To remove or delete a resource from the server
+
+#### Q20. What happens when a class is annotated with the @Controller annotation?
+
+- [x] A controller bean definition is defined in the servlet's WebApplicationContext. The class is marked as a web component, and you can map requests to controller methods.
+- [ ] A controller bean definition is defined in the Web Context, and Web Servlet is marked as a component that reads mapped controller requests from an XML config file.
+- [ ] A controller bean definition is defined in the Tomcat Context, and the Controller Servlet is marked as a web component that reads mapped controller requests from a YAML config file.
+- [ ] A controller bean definition is defined in the Servlet Context, and the Controller Servlet is marked as a component that reads mapped controller requests from an XML config file.
+
+#### Explanation
+
+The `@Controller` annotation indicates that a particular class serves the role of a controller.
+
+The `@Controller` annotation acts as a stereotype for the annotated class, indicating its role.
+
+The dispatcher scans such annotated classes for mapped methods and detects `@RequestMapping` annotations.
+
+```java
+@Controller
+@RequestMapping("/appointments")
+public class AppointmentsController {
+
+    private final AppointmentBook appointmentBook;
+
+    @Autowired
+    public AppointmentsController(AppointmentBook appointmentBook) {
+        this.appointmentBook = appointmentBook;
+    }
+
+    @RequestMapping(method = RequestMethod.GET)
+    public Map<String, Appointment> get() {
+        return appointmentBook.getAppointmentsForToday();
+    }
+```
+
+`WebApplicationContext` in Spring is web aware ApplicationContext i.e it has Servlet Context information.
+
+<img src="./src/spring-framework/spring-web-application-context.png" alt="Spring WebApplicationContext" width="400"/>
+
+#### Q21. Which property can be used to change the port of a Spring application?
+
+- [ ] Port
+- [ ] spring.port
+- [ ] spring.settings.port
+- [x] server.port
+
+#### Explanation
+
+By default, the embedded server starts on port 8080.
+
+So, let's see how to provide a different value in an application.properties file:
+
+```
+server.port=8081
+```
+
+Now the server will start on port 8081.
+And we can do the same if we're using an application.yml file:
+
+```
+server:
+  port : 8081
+```
+
+Both files are loaded automatically by Spring Boot if placed in the `src/main/resources` directory of a Maven application.
+
+#### Q22. What is the purpose of the @ResponseBody annotation?
+
+- [ ] to validate the char array contained in a response to ensure that it is a valid character encoding
+- [ ] to generate a local byte stream from the body of a response that allows a request to be scanned for security risks
+- [x] to indicate whether a handler method return value should be bound to the web response body in servlet environments
+- [ ] to ensure a ThreadLocal byte stream that allows a response to be encoded for reading directly into a socket stream
+
+#### Explanation
+
+The `@ResponseBody` annotation tells a controller that the object returned is automatically serialized into JSON and passed back into the HttpResponse object.
+
+```java
+@Controller
+@RequestMapping("/post")
+public class ExamplePostController {
+
+    @Autowired
+    ExampleService exampleService;
+
+    @PostMapping("/response")
+    @ResponseBody
+    public ResponseTransfer postResponseController(
+      @RequestBody LoginForm loginForm) {
+        return new ResponseTransfer("Thanks For Posting!!!");
+     }
+}
+```
+
+
+
+
 
 
