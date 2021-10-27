@@ -946,6 +946,236 @@ public class Store {
 }
 ```
 
+#### Q26. What is component scanning?
 
+- [x] feature that scans packages for classes with specific annotations and, when found, creates their bean definitions within the IoC container
+- [ ] paradigm where bytecode is actively scanned to identify additional optimizations to inject into components in the application context
+- [ ] a method by which cloud repositories are scanned to identify components for injection into an IoC container
+- [ ] a method by which binary data in a database is searched to identify components for injection into the IoC container
+
+#### Explanation
+
+When working with Spring, we can annotate our classes in order to make them into Spring beans.
+
+Furthermore, we can tell Spring where to search for these annotated classes, as not all of them must become beans in this particular run.
+
+The `@ComponentScan` annotation along with the `@Configuration` annotation to specify the packages that we want to be scanned.
+
+The `@ComponentScan` annotation without arguments tells Spring to scan the current package and all of its sub-packages.
+
+Let's say we have the following `@Configuration` in com.baeldung.componentscan.springapp package:
+
+```java
+@Configuration
+@ComponentScan(basePackages = { "com.baeldung.componentscan.springapp" })
+public class SpringComponentScanApp {
+    private static ApplicationContext applicationContext;
+
+    @Bean
+    public ExampleBean exampleBean() {
+        return new ExampleBean();
+    }
+
+    public static void main(String[] args) {
+        applicationContext = 
+        new AnnotationConfigApplicationContext(SpringComponentScanApp.class);
+
+        for (String beanName : applicationContext.getBeanDefinitionNames()) {
+            System.out.println(beanName);
+        }
+    }
+}
+```
+
+#### Q27. What does @SpringBootApplication do?
+
+- [ ] This annotation takes the String literal passed into the annotation as a parameter and automatically generates all the code for your application as per the passed in template parameter.
+- [x] This compound annotation applies the @Bootable, @Springify, and @StandardConfig annotations that launch a CLI tool after launching the Spring Boot WAR file that will guide you through a series of prompts to set up your app.
+- [ ] This annotation scans the provided spring-boot-config-construction.yaml file in your root directory and automatically generates all the code for your application as defined in the YAML file.
+
+#### Explanation
+
+**Comment**: Strange right answer 🤔
+
+Many Spring Boot developers like their apps to use auto-configuration, component scan and be able to define extra configuration on their `application class`.
+
+A single `@SpringBootApplication` annotation can be used to enable those three features, that is:
+1. `@EnableAutoConfiguration`
+enable Spring Boot’s auto-configuration mechanism
+2. `@ComponentScan` enable `@Component` scan on the package where the application is located
+3. `@Configuration`
+allow to register extra beans in the context or import additional configuration classes
+
+The `@SpringBootApplication` annotation is equivalent to using `@Configuration`, `@EnableAutoConfiguration`, and `@ComponentScan` with their default attributes, as shown in the following example:
+
+```java
+package com.example.myapplication;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class Application {
+
+	public static void main(String[] args) {
+		SpringApplication.run(Application.class, args);
+	}
+}
+```
+
+#### Q28. How does Spring Data facilitate queries against a datastore?
+
+- [ ] Queries are explicitly coded in repository implementations using the Spring Data CriteriaBuilder.
+- [ ] Query metadata is stored in the underlying datastore and retrieved at runtime per repository.
+- [x] Queries are derived from the signatures of methods on a Spring Data repository that contain keywords in their name for constructing the query logic.
+- [ ] A spring-data-queries.xml file contains queries within entity tags that specify the query logic for each repository.
+
+#### Explanation
+
+Spring Data JPA facilitates the implementation of JPA based repositories.
+
+Spring Data JPA:
+- enhances support for JPA based data access layers;
+- makes it easier to build Spring-powered applications that use data access technologies.
+
+Spring Data provides many ways to define a query that we can execute. One of these is the `@Query` annotation.
+
+Let's look at a simple repository method that returns active User entities from the database:
+
+```java
+@Query("SELECT u FROM User u WHERE u.status = 1")
+Collection<User> findAllActiveUsers();
+```
+
+#### Q29. How does Spring generate bean names for classes annotated with @Component that do not specify a name?
+
+- [x] It uses the short name of the class with the first letter in lowercase.
+- [ ] It uses the short name of the class.
+- [ ] It uses the short name of the class in uppercase.
+- [ ] It uses the canonical name of the class in lowercase.
+
+#### Explanation
+
+`@Component` is an annotation that allows Spring to automatically detect our custom beans. In other words, without having to write any explicit code, Spring will:
+1. Scan our application for classes annotated with `@Component`
+2. Instantiate this classes
+3. Inject any specified dependencies into them.
+
+By controlling the naming of our beans, we can tell Spring which beans we want to inject into a target bean.
+
+Let's start with the default bean naming strategy: Spring gets the class name and converts the first letter to lowercase. Then, this value becomes the name of the bean.
+
+We'll use the AuditService interface for the upcoming examples:
+
+```java
+public interface AuditService {
+}
+```
+
+Now, let's see the default name generated for an AuditService implementation:
+
+```java
+@Component
+public class LegacyAuditService implements AuditService {
+ … 
+}
+```
+
+Here, we have the `LegacyAuditService` bean. Spring will register this bean under the name of `legacyAuditService`.
+
+#### Q30. What is the delegating filter proxy?
+
+- [ ] It's the servlet filter chain proxy that handles all requests to the route defined in spring.security.xml. All calls to the filter proxy are forwarded to the ErrorDispatcherServlet.
+- [ ] It's the servlet filter chain that handles requests to the route defined in spring.security.factories. All calls to the filter proxy y are forwarded to the ErrorServlet.
+- [x] It's the servlet filter proxy delegating to a filter bean specified in web.xml. All calls to the filter proxy will be delegated to that servlet filter bean.
+- [ ] It's the web servlet daemon filter proxy that delegates to a bean specified in spring.security.factories. All calls to the filter proxy that do not contain a proper route will return an error.
+
+#### Explanation
+
+The `DelegatingFilterProxy` is a servlet filter that allows passing control to `Filter` classes that have access to the Spring application context.
+
+Spring Security relies on this technique heavily.
+
+The Javadoc for `DelegatingFilterProxy` states that it's a
+“_Proxy for a standard Servlet Filter, delegating to a Spring-managed bean that implements the Filter interface._”
+
+When using servlet filters, we obviously need to declare them as a filter-class in our Java-config or web.xml, otherwise, the servlet container will ignore them.
+
+Let's have a look at how `DelegatingFilterProxy` transfers control to our Spring Bean.
+
+During initialization, `DelegatingFilterProxy` fetches the filter-name and retrieves the bean with that name from Spring Application Context.
+
+☝🏼 **Note**: this bean must be of Type `javax.Servlet.Filter`, i.e. a “normal” servlet filter. Incoming requests will then be passed to this filter bean.
+
+In short, `DelegatingFilterProxy`'s `doFilter()` method will delegate all calls to a Spring Bean, enabling us to use all Spring features within our filter bean.
+
+If we're using Java-based configuration, our filter registration in `ApplicationInitializer` will be defined as:
+
+```java
+@Override
+protected javax.servlet.Filter[] getServletFilters() {
+
+    DelegatingFilterProxy delegateFilterProxy = new DelegatingFilterProxy();
+    delegateFilterProxy.setTargetBeanName("applicationFilter");
+    return new Filter[]{delegateFilterProxy};
+
+}
+```
+
+This means that any request can be made to pass through the filter defined as Spring bean with the name applicationFilter.
+
+Reference: [Overview and Need for DelegatingFilterProxy in Spring](https://www.baeldung.com/spring-delegating-filter-proxy)
+
+#### Q31. What value does Spring Boot Actuator provide?
+
+- [x] It helps monitor and manage a Spring Boot application by providing endpoints such as health checks, auditing, metrics gathering, and HTTP tracing.
+- [ ] It provides out-of-the-box functionality that integrates with third-party metrics platforms to automatically scale up and down the number of threads in threadpools.
+- [ ] It's a CLI that allows you to modify the configuration of a running Spring Boot application without the need for restarting or downtime.
+- [ ] It provides out-of-the-box functionality that integrates wiltr?third-party metrics platforms to automatically scale up and down the number of instances of the Spring Boot application.
+
+#### Explanation
+
+Spring Boot Actuator is mainly used to expose operational information about the running application — health, metrics, info, dump, env, etc.
+
+It uses HTTP endpoints or JMX beans to enable us to interact with it. Once this dependency is on the classpath, several endpoints are available for us out of the box.
+
+In essence, Actuator brings production-ready features to our application:
+- Monitoring our app;
+- Gathering metrics;
+- Understanding traffic;
+- Understanding the state of our database.
+
+To enable Spring Boot Actuator, we just need to add the spring-boot-actuator dependency to our package manager.
+
+```xml
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-actuator</artifactId>
+</dependency>
+```
+
+#### Q32. What is the purpose of the @ContextConfiguration annotation in a JUnit Test?
+
+- [ ] It introspects the local machine and automatically provisions resources based on certain contextual configuration files.
+- [ ] It automatically generates comments for annotated classes on autowired dependencies to provide additional context about dependencies.
+- [x] It defines metadata at the class-level to determine how to load or configure an ApplicationContext in Spring integration tests.
+- [ ] It automatically generates JavaDocs for annotated classes to provide additional context about the purpose of the class.
+
+#### Explanation
+
+Annotation `@ContextConfiguration` defines class-level metadata that is used to determine how to load and configure an `ApplicationContext` for integration tests.
+
+#### Q33. How are authentication and authorization different?
+
+- [ ] Authentication is the act of granting access to specific resources and functions based on config settings. Authorization is the act of introspecting a user's credentials to ensure they are not impersonating another user.
+- [ ] Authentication is the act of verifying certain resources and functions are actually valid. Authorization is the act of verifying a user's credentials have not expired.
+- [ ] Authentication is the act of verifying that certain resources and functions actually exist in the database. Authorization is the act of verifying a user's credentials to ensure they are valid.
+- [x] Authentication is validating that users are who they claim to be. Authorization is granting access to specific resources and functions.
+
+#### Explanation
+
+Authentication is the act of validating that users are whom they claim to be. This is the first step in any security process. 
+
+Authorization in system security is the process of giving the user permission to access a specific resource or function. This term is often used interchangeably with access control or client privilege.
 
 
