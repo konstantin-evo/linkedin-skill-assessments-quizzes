@@ -1178,4 +1178,405 @@ Authentication is the act of validating that users are whom they claim to be. Th
 
 Authorization in system security is the process of giving the user permission to access a specific resource or function. This term is often used interchangeably with access control or client privilege.
 
+#### Q34. What is the purpose of the @RequestBody annotation?
 
+- [ ] to create a ThreadLocal byte stream that allows a request to be encoded for reading directly into a database
+- [ ] to automatically generate a ThreadLocal byte stream from the body of a request that allows a request to scanned for security risks
+- [x] to indicate whether an annotated handler method parameter should be bound to the web request body, which is converted by an HttpMessageConverter
+- [ ] to automatically validate the characters contained in a request to ensure that they are a valid character encoding
+
+#### Explanation
+
+The `@RequestBody` annotation maps the HttpRequest body to a transfer or domain object, enabling automatic deserialization of the inbound HttpRequest body onto a Java object.
+
+First, let's have a look at a Spring controller method:
+
+```java
+@PostMapping("/request")
+public ResponseEntity postController(
+  @RequestBody LoginForm loginForm) {
+ 
+    exampleService.fakeAuthenticate(loginForm);
+    return ResponseEntity.ok(HttpStatus.OK);
+}
+```
+
+Spring automatically deserializes the JSON into a Java type, assuming an appropriate one is specified.
+
+By default, the type we annotate with the `@RequestBody` annotation must correspond to the JSON sent from our client-side controller:
+
+```java
+public class LoginForm {
+    private String username;
+    private String password;
+    … 
+}
+```
+
+Here, the object we use to represent the HttpRequest body maps to our LoginForm object.
+
+#### Q35. What is the DispatcherServlet and what is its function?
+
+- [ ] The DispatcherServlet process daemon assigns a separate Web Servlet Container process to each HTTP request that comes into the web server.
+- [x] It is a servlet that dispatches HTTP requests to registered handlers/controllers for processing.
+- [ ] The DispatcherServlet API assigns a separate Web Servlet Node process to each additional HTTP request that comes into the web server.
+- [ ] It is a servlet that dispatches an array of background daemon processes that allocate memory and CPU cycles to each request.
+
+#### Explanation
+
+The `DispatcherServlet` is the front controller in Spring web applications.
+
+The purpose of the DispatcherServlet is to take an incoming URI and find the right combination of handlers (generally methods on Controller classes) and views that combine to form the page or resource that's supposed to be found at that location.
+
+<img src="./src/spring-framework/spring-dispatcher-servlet.jpg" alt="DispatcherServlet " width="500"/>
+
+🎓 A servlet is a Java programming language class that is used to extend the capabilities of servers that host applications accessed by means of a request-response programming model.
+
+Although servlets can respond to any type of request, they are commonly used to extend the applications hosted by web servers.
+
+
+#### Q36. What is Spring Boot autoconfiguration?
+
+- [ ] It triggers a local automated review of configuration files such as web.xml and detects possible security issues or automatically resolves circular dependencies.
+- [ ] It triggers an automated review of configuration by a web-based agent that reviews your existing web.xml file and detects possible security issues.
+- [x] It's an opinionated, intelligent method of introspecting an app to configure beans that are likely to be needed. This configuration can be overridden over time with manual configuration.
+- [ ] It provides plug-in functionality while editing your web.xml and other config files that will autocomplete common dependencies while typing.
+
+#### Explanation
+
+Spring Boot auto-configuration automatically configures a Spring application based on the dependencies present on the classpath.
+
+Spring Boot detects classes in the classpath and auto-configuration mechanism will ensure to create and wire necessary beans for us.
+
+For example, If HSQLDB is on your classpath, and you have not manually configured any database connection beans, then we will auto-configure an in-memory database.
+
+#### Q37. Which are valid steps to take to enable JPA in Spring Boot?
+
+- [x] Add an @EnableJpaRepositories annotation to your configuration class and create a Spring Data Repository.
+- [ ] Add an @EnableJpaEntities annotation to your configuration class, create a Spring Data YAML configuration file, and manually update the Spring XML config files to define your repository locations.
+- [ ] Add an @EnableDbFunctionality annotation to your configuration class, create a Spring Data XML configuration file, and manually update the Spring factories file to define your repositories.
+- [ ] Add an @InitJpaEntities annotation to your configuration class, create a Spring Data properties configuration file, and manually update the Spring startup parameters to define your repository locations.
+
+#### Explanation
+
+The Spring Data JPA simplifies the development of Spring applications that use JPA technology. With Spring Data, we define a repository interface for each domain entity in the application.
+
+A repository contains methods for performing CRUD operations, sorting and pagination data.
+
+To activate the Spring JPA repository support, we can use the `@EnableJpaRepositories` annotation and specify the package that contains the DAO interfaces:
+
+```java
+@EnableJpaRepositories(basePackages = "com.baeldung.spring.data.persistence.repository") 
+public class PersistenceConfig { 
+    … 
+}
+```
+
+🎓 Java Persistence API is a Jakarta EE application programming interface specification that describes the management of relational data in enterprise Java applications.
+
+#### Q38. What is a transaction in the context of Spring Data?
+
+- [ ] a version-controlled schema change that is applied to a database
+- [x] a sequence of actions representing a single unit of work managed as a single operation that can be either committed or rolled back
+- [ ] an encoded message and response between various shards of a database
+- [ ] an exchange or interaction between various worker nodes in a multithreaded environment
+
+#### Explanation
+
+The `@Transactional` annotation itself defines the scope of a single database transaction.
+
+The database transaction happens inside the scope of persistence context. The persistence context is in JPA the EntityManager, implemented internally using an Hibernate Session (when using Hibernate as the persistence provider).
+
+🎓 Transaction is a single unit of logic or work, sometimes made up of multiple operations. 
+
+Any logical calculation done in a consistent mode in a database is known as a transaction.
+
+#### Q39. Modularization of a concern that cuts across multiple classes is known as a(n)`____`.
+
+- [ ] multiclass
+- [x] aspect
+- [ ] crosscut
+- [ ] sidecut
+
+#### Explanation
+
+Aspect-Oriented Programming complements Object-Oriented Programming by providing another way of thinking about program structure.
+
+The key unit of modularity in OOP is the class, whereas in AOP is the aspect.
+
+<img src="./src/spring-framework/spring-aop-core-concept.jpg" alt="Aspect-Oriented Programming Spring" width="500"/>
+
+**Aspects** enable the modularization of concerns such as transaction management that cut across multiple types and objects.
+
+**Advice** is an action taken by an aspect at a particular join point. Different types of advice include "around," "before" and "after" advice.
+
+**Join Point** is a point during the execution of a program, such as the execution of a method or the handling of an exception. In Spring AOP, a join point always represents a method execution.
+
+**Pointcut** is a predicate that matches join points. Advice is associated with a pointcut expression and runs at any join point matched by the pointcut (for example, the execution of a method with a certain name).
+
+#### Q40. How do you inject a dependency into a Spring bean?
+
+- [x] any of these answers
+- [ ] Annotate a Setter method with the @Autowired annotation.
+- [ ] Specify parameters in the constructor with an optional @Autowired annotation.
+- [ ] Use field injection.
+
+#### Explanation
+
+Dependency Injection is a fundamental aspect of the Spring framework, through which the Spring container “injects” objects into other objects or “dependencies”.
+
+Simply put, this allows for loose coupling of components and moves the responsibility of managing components onto the container.
+
+Connecting objects with other objects, or “injecting” objects into other objects, is done by an assembler rather than by the objects themselves.
+
+<img src="./src/spring-framework/spring-container.png
+" alt="Spring IoC Container" width="400"/>
+
+##### 1. Constructor-Based Dependency Injection
+
+In the case of constructor-based Dependency Injection, the container will invoke a constructor with arguments each representing a dependency we want to set.
+
+Spring resolves each argument primarily by type, followed by name of the attribute, and index for disambiguation. Let's see the configuration of a bean and its dependencies using annotations:
+
+```java
+@Configuration
+public class AppConfig {
+
+    @Bean
+    public Item item1() {
+        return new ItemImpl1();
+    }
+
+    @Bean
+    public Store store() {
+        return new Store(item1());
+    }
+}
+```
+
+The `@Configuration` annotation indicates that the class is a source of Bean definitions. We can also add it to multiple configuration classes.
+
+We use the `@Bean` annotation on a method to define a Bean. If we don't specify a custom name, then the bean name will default to the method name.
+
+For a Bean with the default singleton scope, Spring first checks if a cached instance of the bean already exists, and only creates a new one if it doesn't. If we're using the prototype scope, the container returns a new bean instance for each method call.
+
+##### 2. Setter-Based Dependency Injection
+
+For setter-based DI, the container will call setter methods of our class after invoking a no-argument constructor or no-argument static factory method to instantiate the bean.
+
+Let's create this configuration using annotations:
+
+```java
+@Bean
+public Store store() {
+    Store store = new Store();
+    store.setItem(item1());
+    return store;
+}
+```
+
+We can combine constructor-based and setter-based types of injection for the same bean. The Spring documentation recommends using constructor-based injection for mandatory dependencies, and setter-based injection for optional ones.
+
+##### 3. Field-Based Dependency Injection
+
+In case of Field-Based DI, we can inject the dependencies by marking them with an `@Autowired` annotation:
+
+```java
+public class Store {
+
+    @Autowired
+    private Item item; 
+}
+```
+
+While constructing the Store object, if there's no constructor or setter method to inject the Item bean, the container will use reflection to Inject the Item into Store.
+
+This approach might look simpler and cleaner, but we don't recommend using it because it has a few drawbacks such as:
+- This method uses reflection to inject the dependencies, which is costlier than constructor-based or setter-based injection.
+- It's really easy to keep adding multiple dependencies using this approach. If we were using constructor injection, having multiple arguments would make us think that the class does more than one thing, which can violate the Single Responsibility Principle.
+
+##### 4. Autowiring Dependencies
+
+Wiring allows the Spring container to automatically resolve dependencies between collaborating beans by inspecting the beans that have been defined.
+
+For example, let's autowire the item1 bean defined above by type into the store bean:
+
+```java
+@Bean(autowire = Autowire.BY_TYPE)
+public class Store {
+    
+    private Item item;
+
+    public setItem(Item item){
+        this.item = item;    
+    }
+}
+```
+
+We can also inject beans using the `@Autowired` annotation for autowiring by type:
+
+```java
+public class Store {
+    
+    @Autowired
+    private Item item;
+}
+```
+
+If there's more than one bean of the same type, we can use the `@Qualifier` annotation to reference a bean by name:
+
+```java
+public class Store {
+    
+    @Autowired
+    @Qualifier("item1")
+    private Item item;
+}
+```
+
+#### Q41. Consider the properties file application.properties. How would you load the property my.property?
+
+```java
+my.property=Test
+```
+
+- [ ] A
+
+```java
+@Prop("${my.property}")
+private String val;
+```
+
+- [ ] B
+
+```java
+@GetVal("my.property")
+private String val;
+```
+
+- [ ] C
+
+```java
+@GetProperty("${my.property}")
+private String val;
+```
+
+- [x] D
+
+```java
+@Value("${my.property}")
+private String val;
+```
+
+#### Q42. What is a bean in the context of Spring?
+
+- [x] a managed dependency defined by configuration metadata that can be injected into downstream classes
+- [ ] a binary-encoded, agnostic, named entity that is translatable between different data formats
+- [ ] a payload that is transferable between different services in a Service-Oriented Architecture (SOA)
+- [ ] a discrete piece of data that is encoded in a binary format for persisting to a file system
+
+#### Explanation
+
+A **Bean** is an object that forms the backbone of your application and that is managed by the Spring IoC container.
+
+A **Bean** is an object that is instantiated, assembled, and otherwise managed by a Spring IoC container.
+
+Beans, and the dependencies among them, are reflected in the configuration metadata used by a container.
+
+<img src="./src/spring-framework/spring-container.png
+" alt="Spring IoC Container" width="400"/>
+
+#### Q43. Which property is given precedence by Spring?
+
+- [ ] application properties located in an application.properties file outside the application.jar
+- [ ] @PropertySource annotations on configuration classes
+- [x] profile-specific application-{profile}.properties files
+- [ ] application properties located in an application.properties file inside the application.jar
+
+#### Explanation
+
+If your application package contains the application.properties, Spring Boot will load properties from the external file with higher priority.
+
+#### Q44. In the Spring Bean lifecycle pictured, what should the third step of the process be?
+
+![Alt text](https://usaupload.com/cache/plugins/filepreviewer/69009/c5e6eedce33819dd3b16bff7590d244b0fedf52561323c444b4b63e19e61e2e8/1100x800_cropped.jpg 'Spring bean lifecycle')
+
+- [ ] Persist bean definitions into a database
+- [x] Instance bean objects
+- [ ] De-normalize bean definition
+- [ ] Use reflection to inject bean objects into the servlet container
+
+#### Explanation
+
+Bean is the object that forms the backbone of your application and that is managed by the Spring IoC container.
+
+Bean life cycle:
+
+<img src="./src/spring-framework/spring-bean-life-cycle.png" alt="Spring - Bean Life Cycle" width="600"/>
+
+When we run the program then… 
+1. First of all, the Spring Container gets started;
+2. After that, the container creates the instance of a bean as per the request;
+3. Then dependencies are Injected;
+4. Finally, the bean is destroyed when the spring container is closed.
+
+Spring IoC Initialization Life-cycle looks more complicated:
+
+<img src="./src/spring-framework/spring-container-life-cycle.png" alt="Spring - Container Life Cycle"/>
+
+##### 1. Read and parse the Bean definitions (either as XML, JavaConfig)
+
+Everything starts off by reading in and parsing the Spring beans definitions as specified in either XML configuration or JavaConfig.
+
+At this point none of the beans are created yet, only the blueprint needed to start their creation.
+
+##### 2. Process BeanFactoryPostProcessors
+
+`BeanFactoryPostProcessor` implementation is used to read the configuration metadata and potentially change it before beans are instantiated by IOC container.
+
+An example of such a `BeanFactoryPostProcessor` that comes with Spring is `PropertyPlaceHolderConfigurer` which is used to replace placeholders in Bean definitions with actual values pulled from property files.
+
+After the `BeanFactoryPostProcessors` are called, then the beans can be instantiated.
+
+##### 3. Construct Bean by calling its constructor
+
+The Spring IoC instantiated Bean by calling the respective constructors. 
+
+##### 4. Call setters and dependencies Injected
+
+Once the beans are constructed the next thing that would be done is calling required setters and making sure the defined dependencies are Injected.
+
+##### 5. Inject the required beans as defined by the @Aware Interfaces
+
+Next in line would be to then inject any defined Infrastructured dependencies as defined by any of the `@Aware` Interfaces. At this point in the container life-cycle, the beans are created and all in existence.
+
+For example if a bean implements `ServletContextAware` Interface, then the required overridden method is called with the `ServletContext` provided.
+
+##### 6. Call postProcessBeforeInitialization
+##### 7. Call the initialization callbacks.(like InitializingBean's afterPropertiesSet or a custom init-method)
+##### 8. Call postProcessAfterInitialization
+
+#### Q45. What Spring Boot property is used to set the logging level for the entire application in the application.properties file?
+
+- [ ] logging.settings
+- [ ] log.level
+- [ ] root.logger.level
+- [x] logging.level.root
+
+#### Explanation
+
+All the supported logging systems can have the logger levels set in the Spring Environment in `application.properties` using `logging.level.*=LEVEL` where `LEVEL` is one of
+1. TRACE;
+2. DEBUG;
+3. INFO;
+4. WARN;
+5. ERROR;
+6. FATAL;
+7. OFF.
+
+Example `application.properties`:
+
+```
+logging.level.org.springframework.web: DEBUG
+logging.level.org.hibernate: ERROR
+```
