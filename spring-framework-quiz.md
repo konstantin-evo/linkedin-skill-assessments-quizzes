@@ -1643,3 +1643,217 @@ public class AdvancedAuditService implements AuditService {
 ```
 
 Here, Spring will register the `AdvancedAuditService` bean under two different names: `advanced` and `qualifiedAdvanced`.
+
+#### Q47. What is the difference between a JAR and a WAR distribution in Spring Boot?
+
+- [ ] Spring Boot can create a self-executable WAR file that runs without needing a servlet container. A JAR file has to be deployed to an existing web container such as Tomcat with separate files for dependencies.
+- [ ] Spring Boot can create a JAR file that contains bytecode that interacts directly with the OS without needing a servlet container. A WAR file has to be deployed to an existing web container such as Tomcat with separate files for dependencies.
+- [ ] The Spring Boot JAR file will be deployed to a Servlet container such as Tomcat on an existing running web server locally. The WAR file will be deployed to a cloud-based servlet container.
+- [x] Spring Boot can create a self-executable JAR file that contains all the dependencies and an embedded Servlet container. A WAR file has to be deployed to an existing web container such as Tomcat.
+
+#### Explanation
+
+JAR files allow us to package multiple files in order to use it as a library, plugin, or any kind of application.
+
+WAR files are used only for web applications.
+
+#### Q48. How does the transaction propagation setting impact the behavior of transactions?
+
+- [ ] It ensures that transactions that are commited to the database are propagated to all the shards of a clustered database system.
+- [ ] None of these answers is correct.
+- [ ] It guarantees that transactions that are submitted to the database cluster are propagated to all the nodes of a clustered database cloud.
+- [x] It enforces that a logical transaction scope is created for each method that determines rollback-only status, with an outer transaction scope being logically independent from the inner transaction scope.
+
+#### Explanation
+
+Transaction propagation indicates if any component or service will or will not participate in a transaction and how it will behave if the calling component or service already has or does not have a transaction created already.
+
+#### Q49. What is printed when this code is run as a @SpringBootApplication?
+
+```java
+@Component
+public class Test implements InitializingBean {
+     
+     @Autowired
+     ApplicationContext context;
+
+     private TestService service;
+
+     public void setService(TestService service) {
+          this.service = service;
+     }
+
+     @Override
+     public void afterPropertiesSet() throws Exception {
+          System.out.print(context.containsBean("testService") + " ");
+          System.out.println(service.getClass());
+     }
+}
+
+@Service
+class TestService {
+    ... 
+}
+```
+
+- [x] a null pointer stacktrace
+- [ ] true null
+- [ ] true package.TestService
+- [ ] false package.TestService
+
+#### Explanation
+
+Output:
+
+```
+2021-10-16 15:06:54.391  WARN 16760 --- [main] s.c.a.AnnotationConfigApplicationContext : Exception encountered during context initialization - cancelling refresh attempt:
+
+org.springframework.beans.factory.BeanCreationException:
+
+Error creating bean with name 'test' defined in file [C:\ … \Test.class]: Invocation of init method failed;
+
+nested exception is java.lang.NullPointerException
+```
+
+The `BeanCreationException` is thrown when a BeanFactory encounters an error when attempting to create a bean from a bean definition.
+
+Missing `@Autowired` annotation on `private TestService service` or on the setter.
+
+#### Q50. To register a custom filter that applies only to certain URL patterns, you should remove the **\_** annotation from the filter class and register a @Bean of type `_` in Spring @Configuration.
+
+- [ ] @RequestMapping; WebRequest
+- [ ] @Controller; URLFilter
+- [ ] @WebFilter; ServletContextInitializer
+- [x] @Component; FilterRegistrationBean
+
+#### Explanation
+
+A filter is an object used to intercept the HTTP requests and responses of your application.
+
+By using filter, we can perform two operations at two instances:
+1. Before sending the request to the controller;
+2. Before sending a response to the client.
+
+The following code shows the sample code for a `ServletFilter` implementation class with `@Component` annotation.
+
+```java
+@Component
+public class SimpleFilter implements Filter {
+
+   @Override
+   public void destroy() {}
+
+   @Override
+   public void doFilter
+      (ServletRequest request, ServletResponse response, FilterChain filterchain) 
+      throws IOException, ServletException {
+       … 
+   }
+
+   @Override
+   public void init(FilterConfig filterconfig) throws ServletException {}
+}
+```
+
+In the example above, our filters are registered by default for all of the URLs in our application. However, we may sometimes want a filter to only apply to certain URL patterns.
+
+In this case, we have to remove the `@Component` annotation from the filter class definition and register the filter using a `FilterRegistrationBean`:
+
+```java
+@Bean
+public FilterRegistrationBean<RequestResponseLoggingFilter> loggingFilter(){
+    FilterRegistrationBean<RequestResponseLoggingFilter> registrationBean 
+      = new FilterRegistrationBean<>();
+        
+    registrationBean.setFilter(new RequestResponseLoggingFilter());
+    registrationBean.addUrlPatterns("/users/*");
+        
+    return registrationBean;    
+}
+```
+
+Now the filter will only apply for paths that match the `/users/*` pattern.
+
+#### Q51. What is the correct term for each definition bellow?
+
+1. A predicate that matches join points.
+2. A point during the execution of a program, such as the execution of a method or the handling of an exception.
+3. An action taken by an aspect at a particular join point.
+
+- [ ]
+     ```
+     1. Pointcut
+     2. Advice
+     3. Join point
+     ```
+- [ ]
+     ```
+     1. Join point
+     2. Pointcut
+     3. Advice
+     ```
+- [ ]
+     ```
+     1. Advice
+     2. Pointcut
+     3. Join point
+     ```
+- [x]
+     ```
+     1. Pointcut
+     2. Join point
+     3. Advice
+     ```
+
+#### Explanation
+
+Aspect-Oriented Programming complements Object-Oriented Programming by providing another way of thinking about program structure.
+
+The key unit of modularity in OOP is the class, whereas in AOP the unit of modularity is the aspect.
+
+<img src="./src/spring-framework/spring-aop-core-concept.jpg" alt="Aspect-Oriented Programming Spring" width="500"/>
+
+Let's begin by defining some central AOP concepts and terminology:
+
+- **Join Point** is a point during the execution of a program, such as the execution of a method or the handling of an exception (in Spring AOP, a join point always represents a method execution).
+
+- **Advice** is action taken by an aspect at a particular join point. Different types of advice include "around," "before" and "after" advice.
+
+Many AOP frameworks, including Spring, model an advice as an interceptor, maintaining a chain of interceptors around the join point.
+
+- **Pointcut** is a predicate that matches Join points. Advice is associated with a pointcut expression and runs at any join point matched by the pointcut (for example, the execution of a method with a certain name).
+
+The concept of join points as matched by pointcut expressions is central to AOP, and Spring uses the AspectJ pointcut expression language by default.
+
+#### Q52. How should passwords be stored?
+
+- [x] Passwords should be hashed using an adaptive one-way function such as bcrypt.
+- [ ] Passwords can be stored in a BASE64 encoded format if they are stored in a private database.
+- [ ] Passwords should be salted and hashed using the MD5 algorithm.
+- [ ] Passwords should be hashed using the SHA-1 algorithm, then salted to provide defence against rainbow table attacks.
+
+#### Explanation
+
+Any application, which takes Security seriously, should never store passwords in plain text format.
+
+Passwords should always be encoded using a secure hashing algorithm. There are many standard algorithms like SHA-1 or MD5 which combined with a proper SALT can be a good choice for password encoding.
+
+☝🏼 **Note**: sha-1 is not considered secure anymore: https://en.wikipedia.org/wiki/SHA-1#Attacks
+
+The **bcrypt hashing function** allows us to build a password security platform that scales with computation power and always hashes every password with a salt.
+
+Spring Security provides `BCryptPasswordEncoder`, and implementation of Spring’s `PasswordEncoder` interface that uses the BCrypt strong hashing function to encode the password.
+
+Password Encoding is required… 
+1. During password comparison.
+
+Encode input password before comparing with the one stored in the database which is already encoded.
+
+2. During New user creation/existing user password updation.
+
+Encode the new input password before saving/updating in the database.
+
+🎓 A **Cryptographic Salt** is made up of random bits added to each password instance before its hashing.
+
+Salts create unique passwords even in the instance of two users choosing the same passwords. Salts help us mitigate hash table attacks by forcing attackers to re-compute them using the salts for each user.
+
