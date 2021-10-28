@@ -1857,3 +1857,291 @@ Encode the new input password before saving/updating in the database.
 
 Salts create unique passwords even in the instance of two users choosing the same passwords. Salts help us mitigate hash table attacks by forcing attackers to re-compute them using the salts for each user.
 
+#### Q53. What methods does this Pointcut expression reference?
+
+`@target(com.linkedin.annotation.Loggable)`
+
+- [x] any join point where the target object has a @Loggable annotation
+- [ ] any join point where the executing method has a @Loggable annotation
+- [ ] any method that implements Loggable
+- [ ] any method that extends Loggable
+
+#### Explanation
+
+Annotation `@Target` indicates the contexts in which an annotation type is applicable.
+
+```java
+@Documented
+ @Retention(value=RUNTIME)
+  @Target(value=ANNOTATION_TYPE)
+public @interface Target
+```
+
+Java annotations are marked with a `@Target` annotation to declare possible Joinpoints which can be decorated by that annotation. Values `TYPE`, `FIELD`, `METHOD`, etc. of the `ElementType` enum are clear and simply understandable.
+
+For example, you can use an annotated annotation to create a meta-annotation, for example consider this usage of `@Transactional` in Spring:
+
+```java
+@Target({ElementType.METHOD, ElementType.TYPE})
+@Retention(RetentionPolicy.RUNTIME)
+@Transactional(propagation = Propagation.MANDATORY)
+public @interface RequiresExistingTransaction {
+… 
+}
+```
+
+When you enable Spring to process the `@Transactional` annotation, it will look for classes and methods that carry `@Transactional` or any meta-annotation of it.
+
+---
+
+The `@Loggable` annotation have option to log method parameter and results. By default both option are true you can disable these option by setting attributes.
+
+```java
+@Loggable
+public Integer multiply(int a, int b) {
+Integer res = a * b;
+return res;
+}
+```
+
+☝🏼 **Note**: Don’t forget to set your application log level from application configuration file.
+
+```
+logging.level.root=debug
+```
+
+#### Q54. What is printed when this code is run as a @SpringBootApplication?
+
+```java
+@Component
+public class Test implements InitializingBean {
+
+     @Autowired
+     ApplicationContext context;
+
+     @Autowired
+     SimpleDateFormat formatter;
+
+     @Override
+     public void afterPropertiesSet() throws Exception {
+          System.out.println(context.containsBean("formatter"));
+          System.out.println(formatter.getClass());
+     }
+}
+
+@Configuration
+class TestConfig2 {
+
+    @Bean
+    public final SimpleDateFormat formatter() {
+        return new SimpleDateFormat();
+    }
+}
+```
+
+- [ ] true <br />
+      &emsp; class java.text.SimpleDateFormat <br />
+- [ ] true <br />
+      &emsp; SimpleDateFormat <br />
+- [ ] a NullPointerException stacktrace
+- [x] a BeanDefinitionParsingException stacktrace
+
+#### Explanation
+
+```
+2021-10-19 09:59:02.493  WARN 10196 --- [main] s.c.a.AnnotationConfigApplicationContext:
+
+Exception encountered during context initialization - cancelling refresh attempt:
+
+org.springframework.beans.factory.parsing.BeanDefinitionParsingException:
+
+Configuration problem: @Bean method 'formatter' must not be private or final; change the method's modifiers to continue
+```
+
+Spring creates dynamic proxies for classes annotated with `@Configuration` classes.
+
+Configuration classes can’t be final because Spring uses CGLIB to extend your class to create a proxy.
+
+In other words, `@Bean` - method in `@Configuration` must be overridable so remove the `final` keyword to fix.
+
+---
+
+🎓 **CGLIB proxy** (Code Generation Library) is a proxy provides a surrogate or place holder for the target object to control access to it.
+
+At the core of Cglib is the Enhancer class, which is used to generate dynamic subclasses. It works in a similar fashion to the JDK's Proxy class, but rather than using a JDK `InvocationHandler`, it uses a `Callback` for providing proxy behavior.
+
+Cglib is used extensively by the Spring framework. One example of using a cglib proxy by Spring is adding security constraints to method calls.
+
+Instead of calling a method directly, Spring security will first check (via proxy) if a specified security check passes and delegate to the actual method only if this verification was successful.
+
+<img src="./src/spring-framework/cglib-proxy.png" alt="Code Generation Library"/>
+
+#### Q55. What is the purpose of a web application context?
+
+- [ ] Configures a web application that is able to be deleted and re-created during runtime through hot swap. It adds a **recreateContext()** method and defines a root WebDaemon that must be bound to in the bootstrap process.
+- [ ] It configures a Spring application that is able to be modified on the fly during runtime through bytecode re-encoding. Also it adds an **updateContext()** method and defines a root WebServlet that must be bound to in the bootstrap process.
+- [x] It provides configuration for a web application that is read-only while running. Also, it adds a **getServletContext()** method and defines an attribute name to which the root context must be bound in the bootstrap process.
+- [ ] It provides configuration for a Spring application that is updatable on the fly during runtime through bytecode weaving. Also it adds an **updateServletContext()** method and defines a root servlet that must be bound to in the bootstrap process.
+
+#### Explanation
+
+Every Spring Webapp has an associated application context that is tied to its lifecycle: the root web application context.
+
+The context in a web application is always an instance of `WebApplicationContext`.
+
+A `WebApplicationContext` interface extending `ApplicationContext` with a contract for accessing the `ServletContext`.
+
+Anyway, applications usually should not be concerned about those implementation details: the root web application context is simply a centralized place to define shared beans.
+
+<img src="./src/spring-framework/spring-web-application-context.png" alt="Spring WebApplicationContext" width="400"/>
+
+`ServletContext` is an interface that defines a set of methods that a servlet uses to communicate with its servlet container. For example, … 
+- get the MIME type of a file;
+- dispatch requests;
+- write to a log file and so on.
+
+☝🏻 **Note**: There is one context per "web application" per Java Virtual Machine.
+
+---
+
+🎓 The `ApplicationContext` is the central interface within a Spring application that is used for providing configuration information to the application.
+
+The `ApplicationContext` interface implements the `BeanFactory` interface.
+
+<img src="./src/spring-framework/spring-bean-factory.jpg" alt="Spring BeanFactory"/>
+
+🎓 The `DispatcherServlet` is the front controller in Spring web applications. It's used to create web applications and REST services in Spring MVC.
+
+The job of the `DispatcherServlet` is to take an incoming URI and find the right combination of handlers (generally methods on Controller classes) and views (generally JSPs) that combine to form the page or resource that's supposed to be found at that location.
+
+#### Q56. What is Spring AOP?
+
+- [ ] Aspect-Oriented Programming allows you to define different cross-cutting aspects that isolate beans to be available only in certain environments and profiles.
+- [ ] Aspect-Oriented Programming enables you to perform profiling, which lets you develop different cross-cutting JVM performance-tuning profiles for different aspects of your applications.
+- [x] Aspect-Oriented Programming enables the modularization of cross-cutting concerns so that repeated boilerplate logic, such as logging code, does not pollute business logic.
+- [ ] Aspect-Oriented Programming enables you to persist cross-cutting data across modularized shards of your database.
+
+#### Explanation
+
+Aspect-Oriented Programming complements Object-Oriented Programming by providing another way of thinking about program structure.
+
+The key unit of modularity in OOP is the class, whereas in AOP the unit of modularity is the aspect.
+
+<img src="./src/spring-framework/spring-aop-core-concept.jpg" alt="Aspect-Oriented Programming Spring" width="500"/>
+
+Let's begin by defining some central AOP concepts and terminology:
+- **Aspect** is a modularization of a concern that cuts across multiple classes.
+Transaction management is a good example of a crosscutting concern in enterprise Java applications.
+- **Join Point** is a point during the execution of a program, such as the execution of a method or the handling of an exception (in Spring AOP, a join point always represents a method execution).
+- **Pointcut** is a predicate that matches Join points. Advice is associated with a pointcut expression and runs at any join point matched by the pointcut (for example, the execution of a method with a certain name).
+
+The concept of join points as matched by pointcut expressions is central to AOP, and Spring uses the AspectJ pointcut expression language by default.
+
+- **Advice** is action taken by an aspect at a particular join point. Different types of advice include "around," "before" and "after" advice. Many AOP frameworks, including Spring, model an advice as an interceptor, maintaining a chain of interceptors around the join point.
+
+
+Example: 
+
+```java
+@Component
+@Aspect
+public class PublishingAspect {
+
+    private ApplicationEventPublisher eventPublisher;
+
+    @Autowired
+    public void setEventPublisher(ApplicationEventPublisher eventPublisher) {
+        this.eventPublisher = eventPublisher;
+    }
+
+    @Pointcut("@target(org.springframework.stereotype.Repository)")
+    public void repositoryMethods() {}
+
+    @Pointcut("execution(* *..create*(Long,..))")
+    public void firstLongParamMethods() {}
+
+    @Pointcut("repositoryMethods() && firstLongParamMethods()")
+    public void entityCreationMethods() {}
+
+    @AfterReturning(value = "entityCreationMethods()", returning = "entity")
+
+    public void logMethodCall(JoinPoint jp, Object entity) throws Throwable {
+        eventPublisher.publishEvent(new FooCreationEvent(entity));
+    }
+}
+```
+
+#### Q57. Assuming username and password authentication is in place, what method on the Authentication object can be used to obtain the username?
+
+- [x] getPrincipal
+- [ ] getUsername
+- [ ] getUser
+- [ ] getDn
+
+#### Explanation
+
+Authentication interface represents the token for an authentication request or for an authenticated principal once the request has been processed by the `AuthenticationManager.authenticate(Authentication) method`.
+
+```java
+public interface Authentication extends Principal, Serializable
+```
+
+Once the request has been authenticated, the Authentication will usually be stored in a thread-local `SecurityContext` managed by the `SecurityContextHolder` by the authentication mechanism which is being used. 
+
+<img src="./src/spring-framework/spring-security-context.png" alt="Spring Security Contex"/>
+
+We can retrieve the currently authenticated principal in a `@Controller` annotated bean.
+
+```java
+@Controller
+public class SecurityController {
+
+    @RequestMapping(value = "/username", method = RequestMethod.GET)
+    @ResponseBody
+    public String currentUserName(Authentication authentication) {
+        return authentication.getName();
+    }
+}
+```
+
+The API of the Authentication class is very open so that the framework remains as flexible as possible. Because of this, the Spring Security principal can only be retrieved as an Object and needs to be cast to the correct `UserDetails` instance:
+
+```java
+UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+System.out.println("User has authorities: " + userDetails.getAuthorities());
+```
+
+#### Q58. Assuming no additional configuration is provided, what is the first selection criteria Spring uses to choose a bean when autowiring a property?
+
+- [ ] none of these answers
+- [ ] bean type
+- [ ] bean size
+- [x] bean name
+
+#### Explanation
+
+Autowiring feature of spring framework enables you to inject the object dependency implicitly.
+
+Spring provides a way to automatically detect the relationships between various beans. This can be done by declaring all the bean dependencies in the Spring configuration file. So, Spring is able to utilize the `BeanFactory` to know the dependencies across all the used beans.
+
+By controlling the naming of our beans, we can tell Spring which beans we want to inject into a target bean.
+
+**The default bean naming strategy is getting the class name and converts the first letter to lowercase. Then, this value becomes the name of the bean.**
+
+We'll use the `AuditService` interface for the upcoming examples:
+
+```java
+public interface AuditService {
+}
+```
+
+Now, let's see the default name generated for an AuditService implementation:
+
+```java
+@Component
+public class LegacyAuditService implements AuditService {
+ … 
+}
+```
+
+Here, we have the `LegacyAuditService` bean. Spring will register this bean under the name of `legacyAuditService`.
