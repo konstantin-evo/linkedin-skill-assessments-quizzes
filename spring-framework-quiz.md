@@ -1483,8 +1483,7 @@ A **Bean** is an object that is instantiated, assembled, and otherwise managed b
 
 Beans, and the dependencies among them, are reflected in the configuration metadata used by a container.
 
-<img src="./src/spring-framework/spring-container.png
-" alt="Spring IoC Container" width="400"/>
+<img src="./src/spring-framework/spring-container.png" alt="Spring IoC Container" width="400"/>
 
 #### Q43. Which property is given precedence by Spring?
 
