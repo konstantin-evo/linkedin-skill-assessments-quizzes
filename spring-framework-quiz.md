@@ -2145,3 +2145,220 @@ public class LegacyAuditService implements AuditService {
 ```
 
 Here, we have the `LegacyAuditService` bean. Spring will register this bean under the name of `legacyAuditService`.
+
+### Q59. What is the result of calling the map controller method using the following HTTP request?
+
+```
+POST localhost:8080/map
+{"b" : "b", "d" : "d"}
+```
+
+```java
+@RestController
+public class SampleController {
+    @RequestMapping("/map")
+    public String map(@RequestBody SampleObject sampleObject) {
+        return sampleObject.getB() + sampleObject.getC();
+    }
+}
+```
+
+```java
+public class SampleObject {
+    String b;
+    String c;
+    public String getB() { return b; }
+    public void setB() { this.b = b; }
+    public String getC() { return c; }
+    public void setC() { this.c = c; }
+}
+```
+
+- [ ] An InvalidRequestBodyException is thrown at runtime.
+- [ ] A MissingPropertyException is thrown at runtime.
+- [x] The text "bnull" is returned in the response body.
+- [ ] The text "a" is returned in th response body.
+
+#### Q60. What effect does private static have on the object service below?
+
+```java
+@SpringBootApplication
+public class Question14 {
+    @Autowired
+    private static Service service;
+    public static void main(String[] args) {
+        SpringApplication.run(Question14.class, args);
+    }
+}
+
+@Component
+class Service {
+    ... 
+}
+```
+
+- [ ] The application will result in a compile error because you can't autowire a private variable.
+- [ ] The application will compile and run, and service will have its dependency correctly injected by Spring.
+- [x] The application will compile and run, but service will not be autowired because you cannot autowire a static class member.
+- [ ] The application will result in a compile error because you attempted to autowire a static variable.
+
+#### Explanation
+
+```
+2021-10-29 12:37:43.764  INFO 18020 --- [main] f.a.AutowiredAnnotationBeanPostProcessor:
+
+Autowired annotation is not supported on static fields:
+
+private static com.example.demo.Service com.example.demo.DemoApplication.service
+```
+
+It’s not possible `@Autowire` the static instance variable in the Spring Bean because when the class loader loads the static values, the Spring context is not yet necessarily loaded.
+
+So the class loader won't properly Inject the static fields in the bean.
+
+Static variable is not a property of Object, but it is a property of a Class. Spring `@Autowire` is done on objects and that makes the design clean. You can deploy the `@Autowire` bean object as a Singleton, and achieve the same as defining it static.
+
+#### Q61. What is a security context? 
+
+- [x] The security context includes details of the principal currently using the app, which is stored by default in a `ThreadLocal` in an `Authentication` object.
+- [ ] The security context holds a list of all users and their encrypted passwords in memory and a list of resources that users are able to access. 
+- [ ] The security context includes information about safe network IDs and IP addresses that are able to access the system. 
+- [ ] The security context includes information about permissions on the local file system describing how local file resources can be accessed. 
+
+#### Explanation
+
+The `SecurityContext` and `SecurityContextHolder` are two fundamental classes of Spring Security.
+
+<img src="./src/spring-framework/spring-security-context.png" alt="Spring Security Contex"/>
+
+The `SecurityContext` is used to store the details of the currently authenticated user, also known as a principle. So, if you have to get the username or any other user details, you need to get this SecurityContext first.
+
+```java
+@Controller
+public class SecurityController {
+
+    @RequestMapping(value = "/username", method = RequestMethod.GET)
+    @ResponseBody
+    public String currentUserName(Authentication authentication) {
+        return authentication.getName();
+    }
+}
+```
+
+The `SecurityContextHolder` is a helper class, which provides access to the security context.
+
+By default, it uses a `ThreadLocal` object to store security context, which means that the security context is always available to methods in the same thread of execution, even if you don’t pass the `SecurityContext` object around.
+
+---
+
+🎓 The Java ThreadLocal class enables you to create variables that can only be read and written by the same thread.
+
+Thus, even if two threads are executing the same code, and the code has a reference to the same `ThreadLocal` variable, the two threads cannot see each other's `ThreadLocal` variables.
+
+#### Q62. How might you map an incoming request to a controller method? 
+
+- [ ] Annotate a Controller class with `@Controller`. Then, using a specific naming convention for the methods, the `RequestMappingHandlerAdapter` will automatically configure your endpoints with the proper HTTP verb and URI. 
+- [ ] Register a controller as a bean. Then, using a specific naming convention for the methods, the `RequestMappingHandlerAdapter` will automatically configure your endpoints based on values from the YAML config file. 
+- [x] Annotate a controller method with `@RequestMapping`, or a HTTP verb-specific annotation with a String URI pattern parameter (and other params as needed), which is supported through a `RequestMappingHandlerMapping/Adapter`. 
+- [ ] Register a controller as a bean. Then, using a specific naming convention for the methods, the RequestMappingHandlerAdapter will automatically configure your endpoints based on values passed into the bean definition.
+
+#### Explanation
+
+The `@RequestMapping` annotation sets the specific endpoint at which a handler will be available within the `WebApplicationContext` associated with it.
+
+Let's see an example of a Controller that exposes and handles the `/user/example` endpoint:
+
+```java
+@Controller
+@RequestMapping("/user")
+@ResponseBody
+public class UserController {
+ 
+    @GetMapping("/example")
+    public User fetchUserExample() {
+     … 
+    }
+}
+```
+
+The paths specified by the `@RequestMapping` annotation are managed internally via the `HandlerMapping` interface.
+
+The URLs structure is naturally relative to the DispatcherServlet itself – and determined by the servlet mapping.
+
+Thus, if the `DispatcherServlet` is mapped to `/`, then all mappings are going to be covered by that mapping.
+
+If, however, the servlet mapping is `/dispatcher` instead, then any `@RequestMapping` annotations are going to be relative to that root URL.
+
+☝🏻 **Note**: `/` is not the same as `/*` for servlet mappings!
+
+- `/` is the default mapping and exposes all URL's to the dispatcher's area of responsibility.
+
+- `/*` is confusing to a lot of newer Spring developers.
+
+It does not specify that all paths with the same URL context are under the dispatcher's area of responsibility. Instead, it overrides and ignores the other dispatcher mappings. So, `/example` will come up as a 404!
+
+For that reason, `/*` shouldn't be used except in very limited circumstances (like configuring a filter).
+
+---
+
+🎓 Interface `HandlerMapping` to be implemented by objects that define a mapping between requests and handler objects.
+
+This class can be implemented by application developers, although this is not necessary, as `BeanNameUrlHandlerMapping` and `RequestMappingHandlerMapping` are included in the framework.
+
+The former is the default if no `HandlerMapping` bean is registered in the `ApplicationContext`.
+
+#### Q63. What methods does the Pointcut expression below reference? 
+
+`execution(* setter*(..))`
+
+- [ ] any method with a name that contains the String "setter" with a single parameter 
+- [ ] any method with a name that begins with String "setter" with a single parameter 
+- [x] any method with a name that begins with String "setter" 
+- [ ] any method with a name that contains the String "setter" 
+
+#### Explanation
+
+Pointcut is a predicate that matches join points. Advice is associated with a pointcut expression and runs at any join point matched by the pointcut (for example, the execution of a method with a certain name).
+
+<img src="./src/spring-framework/spring-aop-core-concept.jpg" alt="Aspect-Oriented Programming Spring" width="500"/>
+
+The concept of join points as matched by pointcut expressions is central to AOP, and Spring uses the AspectJ pointcut expression language by default.
+
+A pointcut expression starts with a PCD (pointcut designator), which is a keyword telling Spring AOP what to match. There are several pointcut designators, such as the execution of a method, a type, method arguments, or annotations.
+
+The primary Spring PCD is `execution`, which matches method execution join points.
+
+```java
+@Pointcut("execution(public String com.baeldung.pointcutadvice.dao.FooDao.findById(Long))")
+```
+
+This example pointcut will match exactly the execution of findById method of the FooDao class. This works, but it is not very flexible.
+
+Suppose we would like to match all the methods of the FooDao class, which may have different signatures, return types, and arguments. To achieve this we may use wildcards:
+
+```java
+@Pointcut("execution(* com.baeldung.pointcutadvice.dao.FooDao.*(..))")
+```
+
+Here the first wildcard matches any return value, the second matches any method name, and the `(..)` pattern matches any number of parameters (zero or more).
+
+#### Q64. What pattern does Spring MVC implement to delegate request processing to controllers? 
+
+- [x] Front Controller 
+- [ ] Facade
+- [ ] Reactive Chain
+- [ ] Observer 
+
+#### Explanation
+
+Front Controller - In Spring Web MVC, the `DispatcherServlet` class works as the front controller. It is responsible to manage the flow of the Spring MVC application.
+
+<img src="./src/spring-framework/spring-dispatcher-servlet.jpg" alt="Aspect-Oriented Programming Spring" width="500"/>
+
+`DispatcherServlet` is a central dispatcher for HTTP request handlers/controllers, e.g. for web UI controllers or HTTP-based remote service exporters.
+
+Dispatches to registered handlers for processing a web request, providing convenient mapping and exception handling facilities.
+
+`public class DispatcherServlet extends FrameworkServlet`
+
+The core responsibility of a `DispatcherServlet` is to dispatch incoming HttpRequests to the correct handlers specified with the `@Controller` or `@RestController` annotations.
