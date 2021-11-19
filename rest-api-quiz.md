@@ -144,7 +144,7 @@ The following shows a JWT that has the previous header and payload encoded, and 
 
 <img src="./src/rest-api/jwt-example.png" alt="JSON Web Token" width="500"/>
 
-#### Q4. Which REST contraint specifies that knowledge and understanding obtained from one component of the API should be generally applicable elsewhere in the API?
+#### Q4. Which REST constraint specifies that knowledge and understanding obtained from one component of the API should be generally applicable elsewhere in the API?
 
 - [x] `Uniform Interface`
 - [ ] `Client-Server`
@@ -178,7 +178,7 @@ In order to obtain a uniform interface, multiple architectural constraints are n
 
 Individual resources are identified in requests using URIs as resource identifiers. The resources themselves are conceptually separate from the representations that are returned to the client.
 
-For example, the server doesn’t send its database, but rather, some HTML, XML or JSON that represents some database records expressed.
+For example, the server doesn't send its database, but rather, some HTML, XML or JSON that represents some database records expressed.
 
 ##### 2. Actions on Resources Through Representations
 
@@ -207,11 +207,11 @@ AJAX means the interaction between client and server that enables us to partiall
 
 When the Ajax interaction is complete, JavaScript updates the HTML source of the page so the changes are made immediately without requiring a page refresh.
 
-<img src="./src/rest-api/ajax.png" alt="Asynchronous Javascript and XML" width="500"/>
+<img src="./src/rest-api/ajax.png" alt="Asynchronous Javascript and XML"/>
 
 CORS (Cross-origin resource sharing) is a mechanism that allows restricted resources on a web page to be requested from another domain outside the domain from which the first resource was served.
 
-<img src="./src/rest-api/cors.png" alt="Cross-origin resource" width="500"/>
+<img src="./src/rest-api/cors.png" alt="Cross-origin resource"/>
 
 A web page may freely embed cross-origin images, stylesheets, scripts, iframes, and videos. Certain "cross-domain" requests, notably Ajax requests, are forbidden by default by the same-origin security policy.
 
@@ -353,7 +353,7 @@ Cache constraints require that the data within a response to a request be implic
 
 For example, if you use server-side caching, the average latency for a transactional workload can be reduced by half.
 
-#### Q12. Your API resource does no allow deletion, and a client application attempted to delete the resource. What HTTP respose code should you return?
+#### Q12. Your API resource does not allow deletion, and a client application attempted to delete the resource. What HTTP response code should you return?
 
 - [ ] `409 Conflict`
 - [ ] `400 Bad Request`
@@ -441,3 +441,69 @@ REST Principles:
 
 The Statelessness constraint states that a RESTful Web Service should not keep a client state on the server.It is the responsibility of the client to pass its context to the server and then the server can store this context to process the client's further request.
 
+#### Q16. What purpose does a User-Agent serve?
+
+- [ ] `It identifies the user ID.`
+- [x] `It identifies the client application or SDK.`
+- [ ] `It identifies if the API should expect a user authentication.`
+- [ ] `It identifies if the API should accept microservice traffic.`
+
+#### Explanation
+
+A user agent is any software that retrieves and presents Web content for end users or is implemented using Web technologies. User agents include Web browsers, media players, and plug-ins that help in retrieving, rendering and interacting with Web content.
+
+The family of user agents also includes operating system shells, consumer electronics with Web-widgets, and stand-alone applications or embedded applications whose user interface is implemented as a combination of Web technologies.
+
+#### Q17. If you were to add versioning by using the "Accept" and "Content-Type" header, what would be the correct format of the header value?
+
+- [ ] `application/json`
+- [ ] `application/json_version2`
+- [ ] `text/html`
+- [x] `application/vnd.myapp.v2+json`
+
+#### Explanation
+
+The `Accept` request HTTP header indicates which content types, expressed as MIME types, the client is able to understand.
+
+The server uses content negotiation to select one of the proposals and informs the client of the choice with the Content-Type response header.
+
+Syntax:
+
+```html
+Accept: <MIME_type>/<MIME_subtype>
+Accept: <MIME_type>/*
+Accept: */*
+```
+
+Example with multiple types, weighted with the quality value syntax:
+
+```html
+Accept: text/html, application/xhtml+xml, application/xml;q=0.9, image/webp, */*;q=0.8
+```
+
+---
+
+API versioning is the practice of transparently managing changes to your API. Versioning is effective communication around changes to your API, so consumers know what to expect from it. You are delivering data to the public in some fashion, and you need to communicate when you change the way that data is delivered.
+
+Four REST API Versioning Strategies:
+
+1. Versioning through URI Path
+2. Versioning through query parameters
+3. Versioning through custom headers
+4. Versioning through content negotiation (the `Accept` header)
+
+##### Versioning through content negotiation
+
+Versioning through content negotiation allows us to version a single resource representation instead of versioning the entire API which gives us a more granular control over versioning. It creates a smaller footprint in the code base as we don’t have to fork the entire application when creating a new version.
+
+Another advantage of this approach is that it doesn't require implementing URI routing rules introduced by versioning through the URI path.
+
+One of the drawbacks of this approach is that it is less accessible than URI-versioned APIs: Requiring HTTP headers with media types makes it more difficult to test and explore the API using a browser.
+
+```bash
+curl -H "Accept: application/vnd.xm.device+json; version=1"
+https://www.example.com/api/products
+```
+
+- **Pros**: Allows us to version a single resource representation instead of versioning the entire API, which gives us a more granular control over versioning. Creates a smaller footprint. Doesn't require implementing URI routing rules.
+- **Cons**: Requiring HTTP headers with media types makes it more difficult to test and explore the API using a browser
