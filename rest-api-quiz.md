@@ -329,3 +329,115 @@ Example request URIs:
 - HTTP POST http://www.appdomain.com/users 
 - HTTP POST http://www.appdomain.com/users/123/accounts
 
+#### Q11. What is one benefit of server-side caching in APIs?
+
+- [ ] `Mobile app work better.`
+- [ ] `It improves uptime.`
+- [ ] `It offers better security.`
+- [x] `It reduce load on servers.`
+
+#### Explanation
+
+A REST API is an application programming interface that conforms to the constraints of REST architectural style and allows for interaction with RESTful web services.
+
+REST Principles:
+
+1. Client-server
+2. Stateless
+3. Cacheable
+4. Uniform interface
+5. Layered system
+6. Code on demand (optional)
+
+Cache constraints require that the data within a response to a request be implicitly or explicitly labeled as cacheable or non-cacheable. If a response is cacheable, then a client cache is given the right to reuse that response data for later, equivalent requests.
+
+For example, if you use server-side caching, the average latency for a transactional workload can be reduced by half.
+
+#### Q12. Your API resource does no allow deletion, and a client application attempted to delete the resource. What HTTP respose code should you return?
+
+- [ ] `409 Conflict`
+- [ ] `400 Bad Request`
+- [ ] `406 Not Acceptable`
+- [x] `405 Method Not Allowed`
+
+#### Explanation
+
+`HTTP 405 “Method Not Allowed”` code is an HTTP response status code indicating that the specified request HTTP method was received and recognized by the server, but the server has rejected that particular method for the requested resource.
+
+---
+
+🎓 `HTTP 406 “Not Acceptable”` code is an HTTP response status code indicating that the client has requested a response using `Accept-` headers that the server is unable to fulfill.
+
+This status code indicates that the user agent (the web browser, in most cases) has requested a valid resource, however the request included a special `Accept-` header that indicates to the server a valid response can only contain certain types of information.
+
+For example, the user agent may be localized to a particular locale or language that the server can't provide. A user agent may use the `Accept-Language` request header to specify a valid language of French (`Accept-Language: fr`), but if the server cannot serve a response in French, a `HTTP 406 “Not Acceptable”` code may be the only proper response.
+
+🎓 `HTTP 409 “Conflict”` code is an HTTP response status code indicating that the request could not be completed due to a conflict with the current state of the target resource. This code is used in situations where the user might be able to resolve the conflict and resubmit the request.
+
+Conflicts are most likely to occur in response to a PUT request. For example, if versioning were being used and the representation being PUT included changes to a resource that conflict with those made by an earlier (third-party) request, the origin server might use a `HTTP 409 “Conflict”` response to indicate that it can't complete the request.
+
+In this case, the response representation would likely contain information useful for merging the differences based on the revision history.
+
+🎓 `HTTP 400 “Bad Request”` is an HTTP response status code that indicates that the server was unable to process the request sent by the client due to invalid syntax.
+
+#### Q13. What is OpenID Connect?
+
+- [x] `an identify layer on top of OAuth 2.0`
+- [ ] `the new name for SAML 3.0`
+- [ ] `a modern replacement for API keys`
+- [ ] `an SSO competitor for OAuth 2.0`
+
+#### Explanation
+
+OpenID Connect is an open authentication protocol that profiles and extends OAuth 2.0 to add an identity layer.
+
+OpenID Connect allows clients to confirm an end user's identity using authentication by an authorization server.
+
+<img src="./src/rest-api/openid-connect-flows.png" alt="OpenID Connect Abstract Flow"/>
+
+---
+
+🎓 The OAuth 2.0 authorization framework enables a third-party application to obtain limited access to an HTTP service, either on behalf of a resource owner by orchestrating an approval interaction between the resource owner and the HTTP service, or by allowing the third-party application to obtain access on its own behalf. 
+
+In other words, the OAuth 2.0 provides consented access and restricts actions of what the client app can perform on resources on behalf of the user, without ever sharing the user's credentials.
+
+<img src="./src/rest-api/oauth-abstract-flow.png" alt="Oauth 2.0 Abstract Flow"/>
+
+#### Q14. What is one benefit of GraphQl over REST approaches?
+
+- [x] `flexible querying/responses`
+- [ ] `more stable APIs`
+- [ ] `compatible with more gateways`
+- [ ] `more secure by default`
+
+#### Explanation
+
+GraphQL is a query language for APIs and a runtime for fulfilling those queries with your existing data.
+
+GraphQL provides a complete and understandable description of the data in your API, gives clients the power to ask for exactly what they need and nothing more, makes it easier to evolve APIs over time, and enables powerful developer tools.
+
+Send a GraphQL query to your API and get exactly what you need, nothing more and nothing less. GraphQL queries always return predictable results. Apps using GraphQL are fast and stable because they control the data they get, not the server.
+
+<img src="./src/rest-api/graphql.png" alt="GraphQL"/>
+
+#### Q15. Which REST constraint specifies that there should be no shared context?
+
+- [x] `Stateless`
+- [ ] `Client-Server`
+- [ ] `Uniform Interface`
+- [ ] `Cacheable`
+
+#### Explanation
+
+A REST API is an application programming interface that conforms to the constraints of REST architectural style and allows for interaction with RESTful web services.
+
+REST Principles:
+1.Client-server
+2. Stateless
+3. Cacheable
+4. Uniform interface
+5. Layered system
+6. Code on demand (optional)
+
+The Statelessness constraint states that a RESTful Web Service should not keep a client state on the server.It is the responsibility of the client to pass its context to the server and then the server can store this context to process the client's further request.
+
