@@ -465,7 +465,7 @@ The family of user agents also includes operating system shells, consumer electr
 
 The `Accept` request HTTP header indicates which content types, expressed as MIME types, the client is able to understand.
 
-The server uses content negotiation to select one of the proposals and informs the client of the choice with the Content-Type response header.
+The server uses content negotiation to select one of the proposals and informs the client of the choice with the `Content-Type` response header.
 
 Syntax:
 
@@ -483,7 +483,8 @@ Accept: text/html, application/xhtml+xml, application/xml;q=0.9, image/webp, */*
 
 ---
 
-API versioning is the practice of transparently managing changes to your API. Versioning is effective communication around changes to your API, so consumers know what to expect from it. You are delivering data to the public in some fashion, and you need to communicate when you change the way that data is delivered.
+API versioning is the practice of transparently managing changes to your API. Versioning is effective communication around changes to your API,
+so consumers know what to expect from it. You are delivering data to the public in some fashion, and you need to communicate when you change the way that data is delivered.
 
 Four REST API Versioning Strategies:
 
@@ -494,11 +495,13 @@ Four REST API Versioning Strategies:
 
 ##### Versioning through content negotiation
 
-Versioning through content negotiation allows us to version a single resource representation instead of versioning the entire API which gives us a more granular control over versioning. It creates a smaller footprint in the code base as we don’t have to fork the entire application when creating a new version.
+Versioning through content negotiation allows us to version a single resource representation instead of versioning the entire API which gives us a more granular control over versioning. 
+It creates a smaller footprint in the code base as we don’t have to fork the entire application when creating a new version.
 
 Another advantage of this approach is that it doesn't require implementing URI routing rules introduced by versioning through the URI path.
 
-One of the drawbacks of this approach is that it is less accessible than URI-versioned APIs: Requiring HTTP headers with media types makes it more difficult to test and explore the API using a browser.
+One of the drawbacks of this approach is that it is less accessible than URI-versioned APIs:
+Requiring HTTP headers with media types makes it more difficult to test and explore the API using a browser.
 
 ```bash
 curl -H "Accept: application/vnd.xm.device+json; version=1"
@@ -507,3 +510,226 @@ https://www.example.com/api/products
 
 - **Pros**: Allows us to version a single resource representation instead of versioning the entire API, which gives us a more granular control over versioning. Creates a smaller footprint. Doesn't require implementing URI routing rules.
 - **Cons**: Requiring HTTP headers with media types makes it more difficult to test and explore the API using a browser
+
+#### Q18. What is one benefit that OAuth provides over an API key approach?
+
+- [ ] `A token is encrypted.`
+- [ ] `A token is encoded.`
+- [x] `A token is scoped to the use case.`
+- [ ] `A token can be shared between systems.`
+
+#### Explanation
+
+An `API key` is a code used to identify and authenticate an application or user. API keys also act as a unique identifier and provide a secret token for authentication purposes.
+
+Introducing API keys is an easy thing. Just issue a “secret” or “phrase” between you and the consumer. Every time the API is called this Key must be present and the API proxy will be able to verify it. This works well for most use cases; however, some best practices need to be considered.
+
+For example, you should avoid putting the API Key inside the URL as a “query parameter” because proxies and all involved systems are likely to store it into their logs. Better places are Header or Payload. The header has turned out to be the most practical place.
+
+While the Secret Key is always traveling with your request, OAuth provides an alternative solution.
+
+<img src="./src/rest-api/oauth-over-api-key.png" alt="OAuth and an API key approach"/>
+
+OAuth 2.0 is the industry-standard protocol for authorization. OAuth 2.0 focuses on client developer simplicity while providing specific authorization flows for web applications, desktop applications, mobile phones, and living room devices.
+
+☝🏼 **Note**: OAuth is basically a way to separate the Authentication Process from the Access to the Resource and therefore limit the exposure of the credentials. Delegation is the secret so instead of sending the credentials, the user retrieves a token that will then be used to access the resource.
+
+One scenario you see often is Social Login where you use GitHub, LinkedIn, Google or Facebook to log into a Web app. You might have recognized the Consent Screen that usually talks about which data the Web app would like to read from your Git or Facebook account. If you accept, then you “Grant Access” and the resource can be opened on behalf. This is usually known as “3-legged OAuth Flow” or “Authorization Code Grant Flow.”
+
+<img src="./src/rest-api/oauth-abstract-flow.png" alt="Oauth 2.0 Abstract Flow"/>
+
+#### Q19. The ability to execute the same API request over and over again without changing the resource's state is an example of \_.
+
+- [ ] `stateless architecture`
+- [x] `idempotency`
+- [ ] `a uniform interface`
+- [ ] `cacheability
+
+#### Explanation
+
+From a RESTful service standpoint, for an operation (or service call) to be idempotent, clients can make that same call repeatedly while producing the same result.
+
+In other words, making multiple identical requests has the same effect as making a single request.
+
+HTTP methods include:
+
+| Method  | Description                                   | Idempotent or not                     |
+|---------|-----------------------------------------------|---------------------------------------|
+| POST    | Creates a new resource.                       | is not idempotent and it is not safe. |
+| GET     | Retrieves a resource.                         | is idempotent and it is safe.         |
+| HEAD    | Retrieves a resource (without response body). | is idempotent and it is safe          |
+| PUT     | Updates/replaces a resource.                  | is idempotent but it is not safe      |
+| PATCH   | Partially updates a resource.                 | is not idempotent and it is not safe. |
+| DELETE  | Deletes a resource.                           | is idempotent but it is not safe.     |
+| TRACE   | Performs a loop-back test.                    | is idempotent but it is not safe.     |
+
+---
+
+#####❓ Why DELETE method is idempotent?
+
+Note that while idempotent operations produce the same result on the server (no side effects), the response itself may not be the same (e.g. a resource's state may change between requests).
+The PUT and DELETE methods are defined to be idempotent.
+
+##### ❓ Why PUT method is idempotent and POST is not?
+
+The PUT method is idempotent. So if we retry a request multiple times, that should be equivalent to a single request invocation.
+POST is NOT idempotent. So if we retry the request N times, we will end up having N resources with N different URIs created on the server.
+
+##### ❓ Why PATCH method isn’t  idempotent?
+
+A PATCH is not necessarily idempotent, although it can be. Contrast this with PUT ; which is always idempotent.
+The word "idempotent" means that any number of repeated, identical requests will leave the resource in the same state.
+
+#### Q20. What component can you use to wrap legacy architectures or protocols into a REST interface for easier consumption and integration?
+
+- [x] `API proxy`
+- [ ] `API gateway`
+- [ ] `OpenAPI`
+- [ ] `OAuth authorization server`
+
+#### Explanation
+
+A proxy is something that acts on behalf of something else. Sitting between your application and your backend, API proxies provide an interface to developers for accessing backend services.
+
+First, let's define some terms we'll be using:
+
+1. **API**: Application Programming Interface, an interface that allows different programs to interact with each other.
+2. **Backend services**: The servers, APIs, or databases that make up the parts of the architecture that your applications rely on.
+3. **Consumers**: The applications that interact with your backend. Used interchangeably with "frontends" in this article. Consumers can include mobile, web, or desktop applications as well as anyone or anything making API calls to your services.
+4. **Shim**: A shim is a layer of code which helps provide compatibility between different interfaces or APIs.
+
+An API proxy acts as an intermediary between a consumer and backend services. It can be a small shim, or a larger piece of code that handles data transformations, security, routing, traffic shaping and more. It can expose an interface customized for the consumer, and then makes the appropriate calls to the backend service(s) on behalf of the consumer.
+
+<img src="./src/rest-api/api-proxy.png" alt="API Proxy"/>
+
+Imagine you have a modern web application that needs to get information from a legacy backend that communicates in XML.
+
+Instead of making your web application talk directly to that legacy backend using XML, you can create an API proxy which the web application communicates with in JSON format. The API proxy will then translate the request from the web application into the XML format that the legacy backend is expecting, and translate the response from the backend into the JSON format the web app is expecting.
+
+#### Q21. What protection does a JSON Web Token (JWT) offer to mitigate tampering with its contents?
+
+- [ ] `transport over SSL`
+- [ ] `encrypted payload`
+- [x] `a signature`
+- [ ] `encoded payload`
+
+#### Explanation
+
+JSON Web Token is a JSON encoded representation of a claim(s) that can be transferred between two parties. The claim is digitally signed by the issuer of the token, and the party receiving this token can later use this digital signature to prove the ownership of the claim.
+
+JWTs can be broken down into three parts:
+
+1. header;
+2. payload;
+3. signature.
+
+Each part is separated from the other by dot (.), and will follow the below structure:
+
+```
+Header.Payload.Signature
+```
+
+JSON Web Token is a JSON encoded representation of a claim(s) that can be transferred between two parties. The claim is digitally signed by the issuer of the token, and the party receiving this token can later use this digital signature to prove the ownership of the claim.
+
+Claims constitute the payload part of a JSON web token and represent a set of information exchanged between two parties.
+
+JWTs can be broken down into three parts:
+
+1. Header;
+2. Payload;
+3. Signature.
+
+Each part is separated from the other by dot (.), and will follow the below structure:
+
+```
+Header.Payload.Signature
+```
+
+##### 1. Header
+
+The header typically consists of two parts:
+
+1. The type of the token, which is JWT;
+2. The signing algorithm being used, such as HMAC SHA256 or RSA.
+
+For example:
+
+```json
+{
+  "alg": "HS256",
+  "typ": "JWT"
+}
+```
+
+Then, this JSON is Base64Url encoded to form the first part of the JWT.
+
+##### 2. Payload
+
+The second part of the token is the payload, which contains the claims. Claims are statements about an entity (typically, the user) and additional data.
+
+There are three types of claims:
+
+1. Registered claims,
+2. Public claims,
+3. Private claims.
+
+An example payload could be:
+
+```json
+{
+  "sub": "1234567890",
+  "name": "John Doe",
+  "admin": true
+}
+```
+
+##### 3. Signature
+
+To create the signature part you have to take the encoded header, the encoded payload, a secret, the algorithm specified in the header, and sign that.
+
+For example if you want to use the HMAC SHA256 algorithm, the signature will be created in the following way:
+
+```
+HMACSHA256(
+  base64UrlEncode(header) + "." +
+  base64UrlEncode(payload),
+  secret)
+```
+
+##### 4. Putting all together
+
+The output is three Base64-URL strings separated by dots that can be easily passed in HTML and HTTP environments, while being more compact when compared to XML-based standards such as SAML.
+
+The following shows a JWT that has the previous header and payload encoded, and it is signed with a secret.
+
+<img src="./src/rest-api/jwt-example.png" alt="JSON Web Token"/>
+
+#### Q22. What OAuth term is used to represent permissions?
+
+- [ ] `token`
+- [x] `scope`
+- [ ] `claim`
+- [ ] `back channel`
+
+#### Explanation
+
+The OAuth 2.0 is a standard designed to allow a website or application to access resources hosted by other web apps on behalf of a user.
+
+<img src="./src/rest-api/oauth-abstract-flow.png" alt="Oauth 2.0 Abstract Flow"/>
+
+Scope is a mechanism in OAuth 2.0 to limit an application's access to a user's account. An application can request one or more scopes, this information is then presented to the user in the consent screen, and the access token issued to the application will be limited to the scopes granted.
+
+The OAuth spec allows the authorization server or user to modify the scopes granted to the application compared to what is requested, although there are not many examples of services doing this in practice.
+
+OAuth does not define any particular values for scopes, since it is highly dependent on the service's internal architecture and needs.
+
+#### Q23. What additional type of token would you see when using OpenID Connect?
+
+- [x] `ID token`
+- [ ] `refresh token`
+- [ ] `access token`
+- [ ] `auth code token`
+
+#### Explanation
+
+
