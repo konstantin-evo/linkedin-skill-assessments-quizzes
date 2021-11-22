@@ -732,4 +732,302 @@ OAuth does not define any particular values for scopes, since it is highly depen
 
 #### Explanation
 
+OpenID Connect 1.0 is a simple identity layer on top of the OAuth 2.0 protocol. It allows Clients to verify the identity of the End-User based on the authentication performed by an Authorization Server, as well as to obtain basic profile information about the End-User in an interoperable and REST-like manner.
+
+<img src="./src/rest-api/openid-connect-flows.png" alt="OpenID Connect Abstract Flow"/>
+
+OpenID Connect allows clients of all types, including Web-based, mobile, and JavaScript clients, to request and receive information about authenticated sessions and end-users. The specification suite is extensible, allowing participants to use optional features such as encryption of identity data, discovery of OpenID Providers, and session management, when it makes sense for them.
+
+##### ID Tokens
+
+The core of OpenID Connect is based on a concept called “ID Tokens.” This is a new token type that the authorization server will return which encodes the user’s authentication information.
+
+In contrast to access tokens, which are only intended to be understood by the resource server, ID tokens are intended to be understood by the third-party application. When the client makes an OpenID Connect request, it can request an ID token along with an access token.
+
+OpenID Connect’s ID Tokens take the form of a JWT, which is a JSON payload that is signed with the private key of the issuer, and can be parsed and verified by the application.
+
+Inside the JWT are a handful of defined property names that provide information to the application. They are represented with shorthand names to keep the overall size of the JWT small.
+
+This includes…
+
+- `sub` (short for “subject”) is a unique identifier for the user;
+- `iss` (short for “issued the token“) is the identifier for the server;
+- `aud` (short for “audience”) is the identifier for the client that requested this token,
+… along with a handful of properties such as the lifetime of the token, and how long ago the user was presented with a primary authentication prompt.
+
+```json
+{
+  "iss": "https://server.example.com",
+  "sub": "24400320",
+  "aud": "s6BhdRkqt3",
+  "nonce": "n-0S6_WzA2Mj",
+  "exp": 1311281970,
+  "iat": 1311280970,
+  "auth_time": 1311280969,
+  "acr": "urn:mace:incommon:iap:silver"
+}
+```
+
+Standardizing the endpoints, names, and metadata helps reduce implementation errors, and allows shared knowledge to be passed around about the security considerations of each.
+
+#### Q24. What should you add to a Cache-Control response header to specify that a response should not be stored in an intermediary cache?
+
+- [ ] `no-proxy`
+- [ ] `client-only`
+- [ ] `restricted`
+- [x] `private`
+
+#### Explanation
+
+The `Cache-Control` HTTP header field holds directives — in both requests and responses — that control caching in browsers and shared caches.
+
+The `private` response directive indicates that the response can be stored only in a private cache e.g. local caches in browsers.
+
+```html
+Cache-Control: private
+```
+
+You should add the `private` directive for user-personalized content — in particular, responses received after login, and sessions managed via cookies.
+
+If you forget to add `private` to a response with personalized content, then that response can be stored in a shared cache and end up being used by multiple users, which can cause personal information to leak.
+
+#### Q25. Which OAuth grant type can support a refresh token?
+
+- [x] `Authorization Code Grant`
+- [ ] `Client Credentials Grant`
+- [ ] `Implicit Grant`
+- [ ] `Authentication Grant`
+
+#### Explanation
+
+A refresh token is a special kind of token used to obtain a renewed access token. You can request new access tokens until the refresh token is on the DenyList. Applications must store refresh tokens securely because they essentially allow a user to remain authenticated forever.
+
+Auth0 issues an access token or an ID token in response to an authentication request. You can use access tokens to make authenticated calls to a secured API, while the ID token contains user profile attributes represented in the form of claims.
+
+Both are JSON web tokens and therefore have expiration dates indicated using the `exp` claim, as well as security measures, like signatures. Typically, a user needs a new access token when gaining access to a resource for the first time, or after the previous access token granted to them expires.
+
+<img src="./src/rest-api/oauth-refresh-token.png" alt="OpenID Connect Abstract Flow"/>
+
+---
+
+🎓 The `Authorization Code grant type` is used by confidential and public clients to exchange an authorization code for an access token.
+
+The Authorization Code grant type is probably the most common of the OAuth 2.0 grant types that you’ll encounter. It is used by both web apps and native apps to get an access token after a user authorizes an app.
+
+##### The Authorization Code Flow
+
+The Authorization Code grant type is used by web and mobile apps. It differs from most of the other grant types by first requiring the app launch a browser to begin the flow.
+
+At a high level, the flow has the following steps:
+
+1. The application opens a browser to send the user to the OAuth server
+2. The user sees the authorization prompt and approves the app’s request
+3. The user is redirected back to the application with an authorization code in the query string
+4. The application exchanges the authorization code for Access Token
+
+<img src="./src/rest-api/oauth-the-authorization-code-flow.png" alt="The Authorization Code Flow"/>
+
+##### Get the User’s Permission
+
+OAuth is all about enabling users to grant limited access to applications. The application first needs to decide which permissions it is requesting, then send the user to a browser to get their permission.
+
+To begin the authorization flow, the application constructs a URL like the following and opens a browser to that URL.
+
+```html
+https://authorization-server.com/auth
+?response_type=code
+&client_id=29352915982374239857
+&redirect_uri=https%3A%2F%2Fexample-app.com%2Fcallback
+&scope=create+delete
+&state=xcoiv98y2kd22vusuye3kch
+```
+
+Here’s each query parameter explained:
+
+1. `response_type=code` – This tells the authorization server that the application is initiating the authorization code flow.
+2. `client_id` – The public identifier for the application, obtained when the developer first registered the application.
+3. `redirect_uri` – Tells the authorization server where to send the user back to after they approve the request.
+4. `scope` – One or more space-separated strings indicating which permissions the application is requesting. The specific OAuth API you’re using will define the scopes that it supports.
+5. `state` – The application generates a random string and includes it in the request. It should then check that the same value is returned after the user authorizes the app. This is used to prevent CSRF attacks.
+
+When the user visits this URL, the authorization server will present them with a prompt asking if they would like to authorize this application’s request.
+
+##### Exchange the Authorization Code for Access Token
+
+We’re about ready to wrap up the flow. Now that the application has the authorization code, it can use that to get an access token.
+
+The application makes a POST request to the service’s token endpoint with the following parameters:
+
+1. `grant_type=authorization_code` - This tells the token endpoint that the application is using the Authorization Code grant type.
+2. `code` - The application includes the authorization code it was given in the redirect.
+3. `redirect_uri` - The same redirect URI that was used when requesting the code. Some APIs don’t require this parameter, so you’ll need to double-check the documentation of the particular API you’re accessing.
+4. `client_id` - The application’s client ID.
+5. `client_secret` - The application’s client secret. This ensures that the request to get the access token is made only from the application, and not from a potential attacker that may have intercepted the authorization code.
+
+The token endpoint will verify all the parameters in the request, ensuring the code hasn't expired and that the client ID and secret match. If everything checks out, it will generate an access token and return it in the response!
+
+```http request
+HTTP/1.1 200 OK
+Content-Type: application/json
+Cache-Control: no-store
+Pragma: no-cache
+
+{
+"access_token":"MTQ0NjJkZmQ5OTM2NDE1ZTZjNGZmZjI3",
+"token_type":"bearer",
+"expires_in":3600,
+"refresh_token":"IwOGYzYTlmM2YxOTQ5MGE3YmNmMDFkNTVk",
+"scope":"create delete"
+}
+```
+
+#### Q26. Using OAuth, what scope would you request for write access to the API?
+
+- [ ] `It varies from API to API.`
+- [x] `admin`
+- [ ] `write`
+- [ ] `read-write`
+
+#### Q27. Which property would you use to include subresources directly into a JSON document?
+
+- [ ] `_embedded`
+- [ ] `resources`
+- [x] `subresources`
+- [ ] `_links`
+
+#### Q28. What is the best way to track SDK and version usage?
+
+- [x] `tracking downloads`
+- [ ] `Accept headers`
+- [ ] `user agents`
+- [ ] `polling users`
+
+#### Explanation
+
+To find out which SDKs are inside a mobile app, you can rely on app intelligence tools such as App Annie, Apptopia or 42 Matters. They provide a great way to see at a given time, how many apps use a certain SDK, be it for ad monetization, attribution, analytics, CRM, user support, etc.
+
+---
+
+🎓 SDK stands for Software Development Kit or devkit for short. It’s a set of software tools and programs used by developers to create applications for specific platforms.
+
+#### Q29. Which REST constraint allows for the presence of caching, routing, and other systems between the client and server?
+
+- [ ] `Layered System`
+- [ ] `Stateless`
+- [x] `Client-Server`
+- [ ] `Cacheable`
+
+#### Explanation
+
+A REST API is an application programming interface that conforms to the constraints of REST architectural style and allows for interaction with RESTful web services.
+
+REST Principles:
+1. Client-server
+2. Stateless
+3. Cacheable
+4. Uniform interface
+5. Layered system
+6. Code on demand (optional)
+
+The Client-server constraint essentially means that client applications and server applications MUST be able to evolve separately without any dependency on each other. A client should know only resource URIs, and that's all.
+
+By separating the user interface concerns from the data storage concerns, we improve the portability of the user interface across multiple platforms and improve scalability by simplifying the server components.
+
+#### Q30. Which content is best to include in your documentation?
+
+- [ ] `your tech stack`
+- [ ] `reasoning for your naming schema`
+- [ ] `your mission statement`
+- [x] `sample code`
+
+#### Q31. What metric tracks overall availability for your API?
+
+- [ ] `Response Time`
+- [ ] `Time to First Hello World`
+- [ ] `TTL`
+- [x] `Uptime`
+
+#### Explanation
+
+Uptime is the gold standard for measuring the availability of a service. Many enterprise agreements include an SLA (Service Level Agreement), and uptime is usually rolled up into that. Many times, you’ll hear terms like triple 9’s or four 9’s which is a measure of how much uptime vs downtime there is per year.
+
+|      Availability %     | Downtime per year |
+|:-----------------------:|:-----------------:|
+| 99% –  “two nines”      |     3.65 days     |
+| 99.9% –  “three nines”  |     8.77 hours    |
+| 99.99% –  “four nines”  |   52.60 minutes   |
+| 99.999% –  “five nines” |    5.26 minutes   |
+
+#### Q32. What is the recommended method and URL pattern for retrieving a specific user?
+
+- [ ] `GET /user/{id}`
+- [x] `GET /users/{id}`
+- [ ] `GET /user?id={id}`
+- [ ] `GET /users?id={id}`
+
+#### Explanation
+
+Having a strong and consistent REST resource naming strategy – will prove one of the best design decisions in the long term.
+
+REST APIs use URIs to address resources. REST API designers should create URIs that convey a REST API’s resource model to its potential client developers.
+
+When resources are named well, an API is intuitive and easy to use. If done poorly, that same API can feel difficult to use and understand.
+
+The constraint of a uniform interface is partially addressed by the combination of URIs and HTTP verbs and using them in line with the standards and conventions.
+
+A resource can be… 
+
+- a singleton;
+- a collection.
+
+For example, “customers” is a collection resource and “customer” is a singleton resource.
+
+We can identify “customers” collection resources using the URI:
+
+```
+/customers
+```
+
+We can identify a single “customer” resource using the URI:
+
+```
+/customers/{customerId}
+```
+
+#### Q33. What is the purpose of a link relation?
+
+- [ ] `to describe relationships between resources or actions`
+- [ ] `to describe subresources related to the current one`
+- [x] `to link two resources together`
+- [ ] `to describe a resource and its purpose`
+
+#### Explanation
+
+A link relation is a descriptive attribute attached to a hyperlink in order to define the type of the link, or the relationship between the source and destination resources.
+
+Standardized link relations are one of the foundations of HATEOAS as they allow the user agent to understand the meaning of the available state transitions in a REST system.
+
+Link objects are used to express structural relationships in the API. So for example, the top-level collections, singleton resources and sub-collections (including actions) are all referenced using link objects. Object links are used to express semantic relationships from the application data model.
+
+----
+
+🎓 HATEOAS stands for Hypertext As The Engine Of Application State. It means that hypertext should be used to find your way through the API.
+
+The phrase "hypermedia" can be defined as any content which holds connections for various other types of media like images, text, video clips as well as movies. REST provides an architectural approach that will allow you to use hypermedia links on those media contents so that your clients can navigate to all suitable resources at runtime as they traverse through these hypermedia links. The concept is the same for web page navigation through exact hyperlinks for reaching the desired resources.
+
+#### Q34. When building SDKs, which languages should you support?
+
+- [ ] Java, Javascript, and .NET
+- [ ] and you can support
+- [ ] PHP, Python, and Go
+- [x] the languages that your target users use
+
+#### Q35. Which property would you use to include references to other resources in a JSON document?
+
+- [x] `resources`
+- [ ] `_embedded`
+- [ ] `subresources`
+- [ ] `_links`
+
+#### Explanation
 
