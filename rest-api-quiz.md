@@ -565,7 +565,7 @@ HTTP methods include:
 
 ---
 
-#####❓ Why DELETE method is idempotent?
+##### ❓ Why DELETE method is idempotent?
 
 Note that while idempotent operations produce the same result on the server (no side effects), the response itself may not be the same (e.g. a resource's state may change between requests).
 The PUT and DELETE methods are defined to be idempotent.
@@ -1030,4 +1030,85 @@ The phrase "hypermedia" can be defined as any content which holds connections fo
 - [ ] `_links`
 
 #### Explanation
+
+There is no JSON standard for hypertext references, so we have to define our own technique. We have a really simple and concise implementation.
+
+Here is an example of how an account resource is returned by the Stormpath API:
+
+```http request
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+ 
+{
+  "href" : "https://api.stormpath.com/v1/accounts/cJoiwcorTTmkDDBsf02AbA",
+  "username" : "jlpicard",
+  "email" : "capt@enterprise.com",
+  "givenName" : "Jean-Luc",
+  "middleName" : "",
+  "surname" : "Picard",
+  "status" : "enabled",
+  "directory" : {
+    "href" : "https://api.stormpath.com/v1/directories/WpM9nyZ2TbaEzfbRvLk9KA"
+  },
+  …
+}
+```
+
+This Account resource and every other JSON resource will always have an `href` property, which is the fully qualified canonical URL where that resource resides. Whenever you see an `href` property, you know you can access that resource by executing a GET request to the resource’s URL.
+
+These holds true for resource references too. Notice the `directory` property in the above example. The `directory` property is a complex object that itself has an `href` attribute as well. Because the `directory` object has an `href` property, we know it is a resource itself, and the fact that a href is available means we have a direct reference or ‘link’ to that resource.
+
+#### Q36. What is OAuth?
+
+- [x] an authorization framework for granted delegated access
+- [ ] an approach to single sign-on for APIs
+- [ ] a method for API authentication
+- [ ] HTTP Basic Authentication 2.0
+
+#### Explanation
+
+OAuth is an open-standard authorization protocol or framework that provides applications the ability for “secure designated access”.
+
+For example, you can tell Facebook that it’s OK for ESPN.com to access your profile or post updates to your timeline without having to give ESPN your Facebook password. This minimizes risk in a major way: In the event ESPN suffers a breach, your Facebook password remains safe.
+
+OAuth doesn't share password data but instead uses authorization tokens to prove an identity between consumers and service providers. OAuth is an authentication protocol that allows you to approve one application interacting with another on your behalf without giving away your password.
+
+#### Q37. What should your API documentation describe?
+
+- [ ] JSON
+- [ ] HTTP
+- [x] common use cases
+- [ ] your tech stack
+
+#### Q38. What is the purpose of an OAuth refresh token?
+
+- [ ] to share user profile information
+- [ ] to update an API configuration
+- [ ] to keep a web session active
+- [x] to retrieve Access Token
+
+#### Explanation
+
+A refresh token is a special kind of token used to obtain a renewed access token. You can request new access tokens until the refresh token is on the DenyList. Applications must store refresh tokens securely because they essentially allow a user to remain authenticated forever.
+
+Auth0 issues an access token or an ID token in response to an authentication request. You can use access tokens to make authenticated calls to a secured API, while the ID token contains user profile attributes represented in the form of claims.
+
+Both are JSON web tokens and therefore have expiration dates indicated using the `exp` claim, as well as security measures, like signatures. Typically, a user needs a new access token when gaining access to a resource for the first time, or after the previous access token granted to them expires.
+
+<img src="./src/rest-api/oauth-refresh-token.png" alt="OpenID Connect Abstract Flow"/>
+
+#### Q39. What is Time to First Hello World?
+
+- [x] how long it takes for a developer to do something with your API
+- [ ] how long it takes to start a new programming language
+- [ ] how long it takes to install your SDK
+- [ ] how long it takes to read your documentation
+
+#### Explanation
+
+What does Time To First Hello World mean exactly? Those who are developers understand this Hello World expression and this phrase is used when you are testing the development of something for the first time.
+
+For example, you installed a framework for a programming language and want to know if everything is OK.
+
+But why is the time for this so critical? For context, the Hello World expression means more than the basic meaning, it means the time for the developer to start building an application. It could be minutes, hours or days.
 
