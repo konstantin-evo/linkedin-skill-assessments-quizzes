@@ -1413,3 +1413,151 @@ Access-Control-Max-Age: 86400
 
 The preflight response can be optionally cached for the requests created in the same URL using `Access-Control-Max-Age` header like in the above example.
 
+#### Q51. Which response header will tell the client that the response is cached for 1 minute ?
+
+- [ ] `Expires: 1 minute`
+- [x] `Cache-Control: max-age=60`
+- [ ] `Expires: 1 January 2020`
+- [ ] `Cache-Expires: max-age=60`
+
+#### Explanation
+
+The `Cache-Control` HTTP header dictates browser caching behavior.
+
+In a nutshell, when someone visits a website, their browser will save certain resources, such as images and website data, in a store called the cache. When that user revisits the same website, cache-control sets the rules which determine whether that user will have those resources loaded from their local cache, or whether the browser will have to send a request to the server for fresh resources.
+
+The `Cache-Control` HTTP header field holds directives — in both requests and responses — that control caching in browsers and shared caches (e.g. Proxies, CDNs).
+
+The max-age=N response directive indicates that the response remains fresh until N seconds after the response is generated.
+
+```http request
+Cache-Control: max-age=604800
+```
+
+#### Q52. What is the concept that allows an API client to explore an API via links embedded in payloads?
+
+- [ ] `hypermedia`
+- [x] `link relations`
+- [ ] `parsing`
+- [ ] `browsing`
+
+#### Explanation
+
+An API Client means the software that acts as the interface between the Agency's computer and the server.
+
+A link relation is a descriptive attribute attached to a hyperlink in order to define…
+
+1. the type of the link;
+2. the relationship between the source and destination resources.
+
+Standardized link relations are one of the foundations of HATEOAS as they allow the user agent to understand the meaning of the available state transitions in a REST system.
+
+Link objects are used to express structural relationships in the API. So for example, the top-level collections, singleton resources and sub-collections (including actions) are all referenced using link objects. Object links are used to express semantic relationships from the application data model.
+
+#### Q53. Which HTTP response code describes a new resource as created successfully?
+
+- [ ] `200`
+- [x] `201`
+- [ ] `204`
+- [ ] `202`
+
+#### Explanation
+
+The `HTTP 201 Created` success status response code indicates that the request has succeeded and has led to the creation of a resource.
+
+The new resource is effectively created before this response is sent back and the new resource is returned to the body of the message, its location being either the URL of the request, or the content of the Location header.
+
+The common use case of this status code is as the result of a POST request.
+
+---
+
+The `HTTP 202 Accepted` response status code indicates that the request has been accepted for processing, but the processing has not been completed; in fact, processing may not have started yet.
+
+The request might or might not eventually be acted upon, as it might be disallowed when processing actually takes place.
+
+The HTTP 202 Accepted status is non-committal, meaning that there is no way for the HTTP to later send an asynchronous response indicating the outcome of processing the request. It is intended for cases where another process or server handles the request, or for batch processing.
+
+The `HTTP 204 No Content` success status response code indicates that a request has succeeded, but that the client doesn't need to navigate away from its current page.
+
+This might be used, for example, when implementing "save and continue editing" functionality for a wiki site. In this case a PUT request would be used to save the page, and the 204 No Content response would be sent to indicate that the editor should not be replaced by some other page.
+
+A 204 response is cacheable by default (an ETag header is included in such a response).
+
+#### Q54. Which is an example of Code on Demand?
+
+- [ ] AWS Lambda
+- [ ] downloading open-source software
+- [ ] Serverless
+- [x] JavaScript on a webpage
+
+#### Explanation
+
+A REST API is an application programming interface that conforms to the constraints of REST architectural style and allows for interaction with RESTful web services.
+
+REST Principles:
+1. Client-server
+2. Stateless
+3. Cacheable
+4. Uniform interface
+5. Layered system
+6. Code on demand (optional)
+
+Code on demand is the constraint that allows client functionality to be extended by downloading and executing code in the form of applets or scripts. This simplifies clients by reducing the number of features required to be pre-implemented.
+
+For example, a web browser acts like a REST client and the server passes HTML content that the browser renders. At the server side, there is some sort of server-side language which is performing some logical work at the server side. But if we want to add some logic which will work in the browser then we (as server-side developers) will have to send some JavaScript code to the client side and the browser and then execute that JavaScript.
+
+#### Q55. Which URL pattern should you follow for accessing a subresource attached to a specific resource?
+
+- [ ] /companies/employees/{companyId}/{employeeId}
+- [ ] /company/{companyId}/employees/{employeeId}
+- [x] /companies/{companyId}/employees/{employeeId}
+- [ ] /companies/{companyId}/employee/{employeeId}
+
+#### Explanation
+
+Having a strong and consistent REST resource naming strategy – will prove one of the best design decisions in the long term.
+
+When resources are named well, an API is intuitive and easy to use. If done poorly, that same API can feel difficult to use and understand.
+
+The constraint of a uniform interface is partially addressed by the combination of URIs and HTTP verbs and using them in line with the standards and conventions.
+
+A resource can be…
+- a singleton;
+- a collection.
+
+For example, “customers” is a collection resource and “customer” is a singleton resource.
+
+We can identify “customers” collection resources using the URI:
+
+```
+/customers
+```
+
+We can identify a single “customer” resource using the URI:
+
+```
+/customers/{customerId}
+```
+
+#### Q56. Which REST constraint essentially prohibits the use of cookies?
+
+- [x] Stateless
+- [ ] Cacheable
+- [ ] Layered System
+- [ ] Uniform Interface
+
+#### Explanation
+
+A REST API is an application programming interface that conforms to the constraints of REST architectural style and allows for interaction with RESTful web services.
+
+REST Principles:
+1. Client-server
+2. Stateless
+3. Cacheable
+4. Uniform interface
+5. Layered system
+6. Code on demand (optional)
+
+Statelessness means that every HTTP request happens in complete isolation. When the client makes an HTTP request, it includes all information necessary for the server to fulfill the request.
+
+The server never relies on information from previous requests from the client.
