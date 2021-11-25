@@ -1112,3 +1112,304 @@ For example, you installed a framework for a programming language and want to kn
 
 But why is the time for this so critical? For context, the Hello World expression means more than the basic meaning, it means the time for the developer to start building an application. It could be minutes, hours or days.
 
+#### Q40. Which response header tells the client and intermediaries that the response is not to be cached anywhere?
+
+- [ ] Cache-State: none
+- [ ] Expires:-1
+- [ ] Cache-Control: no-cache
+- [x] Cache-Control: no-store
+
+#### Explanation
+
+The `Cache-Control` HTTP header field holds directives (instructions) — in both requests and responses — that control caching in browsers and shared caches (e.g. Proxies, CDNs).
+
+In a nutshell, when someone visits a website, their browser will save certain resources, such as images and website data, in a store called the cache. When that user revisits the same website, cache-control sets the rules which determine whether that user will have those resources loaded from their local cache, or whether the browser will have to send a request to the server for fresh resources.
+
+The `no-cache` response directive indicates that the response can be stored in caches, but must be validated with the origin server before each reuse — even when the cache is disconnected from the origin server.
+
+```http request
+Cache-Control: no-cache
+```
+
+If you want caches to always check for content updates while reusing stored content when it hasn't changed, no-cache is the directive to use. It does this by requiring caches to revalidate each request with the origin server.
+
+☝ Note: The `no-cache` response  does not mean "don't cache". It's allows caches to store a response, but requires them to revalidate it before reuses. If the sense of "don't cache" that you want is actually "don't store", then `no-store` is the directive to use.
+
+```http request
+Cache-Control: no-store
+```
+
+#### Q41. What component hides the distinctions or boundaries between various microservices from end-client applications?
+
+- [x] `API gateway`
+- [ ] `API logging `
+- [ ] `a layered system `
+- [ ] `API proxy`
+
+#### Explanation
+
+An `API gateway` is an API management tool that sits between a client and a collection of backend services.
+
+An API gateway acts as a reverse proxy to accept all API calls, aggregate the various services required to fulfill them, and return the appropriate result.
+
+<img src="./src/rest-api/api-gateway.png" alt="API Gateway"/>
+
+Most enterprise APIs are deployed via API gateways. It’s common for API gateways to handle common tasks that are used across a system of API services, such as user authentication, rate limiting, and statistics.
+
+At its most basic, an API service accepts a remote request and returns a response. But real life is never that simple. Consider your various concerns when you host large-scale APIs.
+
+1. You want to protect your APIs from overuse and abuse, so you use an authentication service and rate limiting.
+2. You want to understand how people use your APIs, so you’ve added analytics and monitoring tools.
+3. If you have monetized APIs, you’ll want to connect to a billing system.
+4. You may have adopted a microservices' architecture, in which case a single request could require calls to dozens of distinct applications.
+5. Over time, you’ll add some new API services and retire others, but your clients will still want to find all your services in the same place.
+
+Your challenge is offering your clients a simple and dependable experience in the face of all this complexity. An API gateway is a way to decouple the client interface from your backend implementation. When a client makes a request, the API gateway breaks it into multiple requests, routes them to the right places, produces a response, and keeps track of everything.
+
+---
+
+##### ❓ Is API proxy the same as API gateway?
+
+Both an API proxy and API gateway provide access to your backend services. An API gateway can even act as a simple API proxy. However, an API gateway has a more robust set of features — especially around security and monitoring — than an API proxy.
+
+#### Q42. The textbook approach to api versioning is to use **\_**.
+
+- [ ] `common knowledge`
+- [ ] `URLs`
+- [ ] `no versioning`
+- [x] `the Accept header`
+
+#### Explanation
+
+API versioning is the practice of transparently managing changes to your API. Versioning is effective communication around changes to your API,
+so consumers know what to expect from it. You are delivering data to the public in some fashion, and you need to communicate when you change the way that data is delivered.
+
+Four REST API Versioning Strategies:
+
+1. Versioning through URI Path
+2. Versioning through query parameters
+3. Versioning through custom headers
+4. Versioning through content negotiation (the `Accept` header)
+
+##### Versioning through content negotiation
+
+Versioning through content negotiation allows us to version a single resource representation instead of versioning the entire API which gives us a more granular control over versioning.
+It creates a smaller footprint in the code base as we don’t have to fork the entire application when creating a new version.
+
+Another advantage of this approach is that it doesn't require implementing URI routing rules introduced by versioning through the URI path.
+
+One of the drawbacks of this approach is that it is less accessible than URI-versioned APIs:
+Requiring HTTP headers with media types makes it more difficult to test and explore the API using a browser.
+
+```bash
+curl -H "Accept: application/vnd.xm.device+json; version=1"
+https://www.example.com/api/products
+```
+
+- **Pros**: Allows us to version a single resource representation instead of versioning the entire API, which gives us a more granular control over versioning. Creates a smaller footprint. Doesn't require implementing URI routing rules.
+- **Cons**: Requiring HTTP headers with media types makes it more difficult to test and explore the API using a browser
+
+#### Q43. Which is the most secure method to transmit an API key?
+
+- [ ] `URL parameter`
+- [x] `Authorization header`
+- [ ] `Base64 encoding`
+- [ ] `Basic Auth`
+
+#### Explanation
+
+An API key is a code used to identify and authenticate an application or user. API keys also act as a unique identifier and provide a secret token for authentication purposes.
+
+<img src="./src/rest-api/oauth-over-api-key.png" alt="OAuth and an API key approach"/>
+
+Introducing API keys is an easy thing. Just issue a “secret” or “phrase” between you and the consumer. Every time the API is called this Key must be present and the API proxy will be able to verify it. This works well for most use cases; however, some best practices need to be considered.
+
+For example, you should avoid putting the API Key inside the URL as a “query parameter” because proxies and all involved systems are likely to store it into their logs. Better places are Header or Payload. The header has turned out to be the most practical place.
+
+While the Secret Key is always traveling with your request, OAuth provides an alternative solution.
+
+---
+
+The HTTP Authorization request header contains the credentials to authenticate a user agent with a server.
+
+An API key is a token that a client provides when making API calls. With API key auth, you send a key-value pair to the API either in the request headers or query parameters. Some APIs use API keys for authorization.
+
+The key as a request header:
+
+```http request
+X-API-Key: abcdefgh123456789
+```
+
+#### Q44. Within Oauth, what component validates the user's identity?
+
+- [ ] `client`
+- [ ] `not specified`
+- [x] `authorization server`
+- [ ] `resource server`
+
+#### Explanation
+
+The OAuth 2.0 is a standard designed to allow a website or application to access resources hosted by other web apps on behalf of a user.
+
+The OAuth 2.0 authorization framework enables a third-party application to obtain limited access to an HTTP service, either on behalf of a resource owner by…
+
+- orchestrating an approval interaction between the resource owner and the HTTP service or 
+- allowing the third-party application to obtain access on its own behalf.
+
+In other words, the OAuth 2.0 provides consented access and restricts actions of what the client app can perform on resources on behalf of the user, without ever sharing the user's credentials.
+
+<img src="./src/rest-api/oauth-abstract-flow.png" alt="Oauth 2.0 Abstract Flow"/>
+
+##### OAuth2.0 Roles
+
+The idea of roles is part of the core specification of the OAuth2.0 authorization framework.
+
+These define the essential components of an OAuth 2.0 system, and are as follows:  
+
+1. `Resource Owner` is the user or system that owns the protected resources and can grant access to them.
+2. `Client` is the system that requires access to the protected resources. To access resources, the Client must hold the appropriate Access Token.
+3. `Authorization Server` is the server that receives requests from the Client for Access Tokens and issues them upon successful authentication and consent by the Resource Owner.  The Authorization Server exposes two endpoints:
+ - the Authorization endpoint, which handles the interactive authentication and consent of the user;
+ - the Token endpoint, which is involved in a machine to machine interaction.
+4. `Resource Server` is a server that protects the user’s resources and receives access requests from the Client. It accepts and validates an Access Token from the Client and returns the appropriate resources to it.
+
+#### Q45. API traffic that is entirely internal to your organization is normally called \_?
+
+- [ ] `inbound traffic`
+- [ ] `north-south traffic `
+- [x] `internal traffic `
+- [ ] `east-west traffic`
+
+#### Explanation
+
+An internal API is an interface that enables access to a company's backend information and application functionality for use by the organization's developers.
+
+#### Q46. What is the best approach for requesting JSON instead of XML from an API?
+
+- [ ] `Add .json to the URL.`
+- [ ] `APIs do not use XML.`
+- [ ] `Use the Content-Type header.`
+- [x] `Use the Accept header.`
+
+#### Explanation
+
+The `Accept` request HTTP header indicates which content types, expressed as MIME types, the client is able to understand.
+
+The server uses content negotiation to select one of the proposals and informs the client of the choice with the `Content-Type` response header. Browsers set required values for this header based on the context of the request.
+
+For example, a browser uses different values in a request when fetching a CSS stylesheet, image, video, or a script.
+
+```http request
+Accept: <MIME_type>/<MIME_subtype>
+Accept: <MIME_type>/*
+Accept: */*
+
+Accept: text/html, application/xhtml+xml, application/xml;q=0.9, image/webp, */*;q=0.8
+```
+
+#### Q47. When a user attempts to access a record that is not their own, which HTTP response code is the most appropriate?
+
+- [ ] `HTTP 403 Forbidden`
+- [ ] `HTTP 404 Not Found`
+- [x] `HTTP 401 Unauthorized`
+- [ ] `HTTP 405 Method Not Allowed`
+
+#### Explanation
+
+`HTTP 403 Forbidden` client error status response code indicates that the server understands the request but refuses to authorize it.
+
+This status is similar to 401, but in this case, re-authenticating will make no difference. The access is permanently forbidden and tied to the application logic, such as insufficient rights to a resource.
+
+**Note:** the automatic system for analyzing the correct answer gives a `HTTP 401 Unauthorized` result, but I disagree with that.
+
+---
+
+`HTTP 401 Unauthorized` client error status response code indicates that the client request has not been completed because it lacks valid authentication credentials for the requested resource.
+
+`HTTP 404 Not Found` client error response code indicates that the server can't find the requested resource. Links that lead to a 404 page are often called broken or dead links and can be subject to link rot.
+
+You can display a custom 404 page to be more helpful to a user and provide guidance on what to do next.
+
+`HTTP 405 Method Not Allowed` code is an HTTP response status code indicating that the specified request HTTP method was received and recognized by the server, but the server has rejected that particular method for the requested resource.
+
+The server must generate an "Allow" header field in a 405 response containing a list of the target resource's currently supported methods.
+
+#### Q48. Which is a benefit of using an API gateway?
+
+- [ ] `HTTP verbs`
+- [ ] `JSON payloads`
+- [ ] `HTTP response codes`
+- [x] `rate limiting/throttling`
+
+#### Explanation
+
+An `API gateway` is an API management tool that sits between a client and a collection of backend services.
+
+An API gateway acts as a reverse proxy to accept all API calls, aggregate the various services required to fulfill them, and return the appropriate result.
+
+<img src="./src/rest-api/api-gateway.png" alt="API Gateway"/>
+
+Most enterprise APIs are deployed via API gateways. It’s common for API gateways to handle common tasks that are used across a system of API services, such as user authentication, rate limiting, and statistics.
+
+At its most basic, an API service accepts a remote request and returns a response. But real life is never that simple. Consider your various concerns when you host large-scale APIs.
+
+1. You want to protect your APIs from overuse and abuse, so you use an authentication service and rate limiting.
+2. You want to understand how people use your APIs, so you’ve added analytics and monitoring tools.
+3. If you have monetized APIs, you’ll want to connect to a billing system.
+4. You may have adopted a microservices' architecture, in which case a single request could require calls to dozens of distinct applications.
+5. Over time, you’ll add some new API services and retire others, but your clients will still want to find all your services in the same place.
+
+Your challenge is offering your clients a simple and dependable experience in the face of all this complexity. An API gateway is a way to decouple the client interface from your backend implementation. When a client makes a request, the API gateway breaks it into multiple requests, routes them to the right places, produces a response, and keeps track of everything.
+
+#### Q49. API testing must be treated as **\_**?
+
+- [ ] `red team testing`
+- [ ] `white box testing`
+- [ ] `blue box testing`
+- [x] `black box testing`
+
+#### Explanation
+
+An application program interface is a set of rules specifying interaction protocols between software “boxes.”
+
+API testing is a form of black-box testing — i.e., interacting with a function without knowing what's going on inside, through feeding inputs and evaluating outputs.
+
+#### Q50. Which HTTP verb is used in a CORS preflight request?
+
+- [ ] `PUT`
+- [ ] `POST`
+- [ ] `GET`
+- [x] `OPTIONS`
+
+#### Explanation
+
+A CORS preflight request (Cross-Origin Resource Sharing) is a request that checks to see if the CORS protocol is understood and a server is aware using specific methods and headers.
+
+It is an OPTIONS request, using three HTTP request headers:
+
+1. Access-Control-Request-Method;
+2. Access-Control-Request-Headers;
+3. The Origin header.
+
+A preflight request is automatically issued by a browser and in normal cases, front-end developers don't need to craft such requests themselves. It appears when a request is qualified as "to be preflighted" and omitted for simple requests.
+
+For example, a client might be asking a server if it would allow a DELETE request, before sending a DELETE request, by using a preflight request:
+
+```http request
+OPTIONS /resource/foo
+Access-Control-Request-Method: DELETE
+Access-Control-Request-Headers: origin, x-requested-with
+Origin: https://foo.bar.org
+```
+If the server allows it, then it will respond to the preflight request with an `Access-Control-Allow-Methods` response header, which lists DELETE:
+
+```http request
+HTTP/1.1 204 No Content
+Connection: keep-alive
+Access-Control-Allow-Origin: https://foo.bar.org
+Access-Control-Allow-Methods: POST, GET, OPTIONS, DELETE
+Access-Control-Max-Age: 86400
+```
+
+The preflight response can be optionally cached for the requests created in the same URL using `Access-Control-Max-Age` header like in the above example.
+
