@@ -801,7 +801,7 @@ time-zone:
 
 #### Q21. How many times will this code print "Hello World!"?
 
-```java
+```
 class Main {
     public static void main(String[] args) {
         for (int i = 0; i < 10; i = i++) {
@@ -927,6 +927,8 @@ An Anonymous class is an inner class without a name and for which only a single 
 An anonymous inner class can be useful when making an instance of an object with certain “extras” such as overloading
 methods of a class or interface, without having to actually subclass a class.
 
+Implementation without using an anonymous class:
+
 ```java
 class AnonymousDemo {
     public static void main(String[] args) {
@@ -976,7 +978,7 @@ class AnonymousDemo {
         // MyClass is hidden inner class of Age interface
         // whose name is not written but an object to it is created. 
         Age oj1 = new Age() {
-            
+
             @Override
             public void getAge() {
                 System.out.print("Age is " + x);
@@ -986,4 +988,355 @@ class AnonymousDemo {
     }
 }
 ```
+
+#### Q25. What will this program print out to the console when executed?
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        LinkedList<Integer> list = new LinkedList<>();
+        list.add(5);
+        list.add(1);
+        list.add(10);
+        System.out.println(list);
+    }
+}
+```
+
+- [x] [5, 1, 10]
+- [ ] [10, 5, 1]
+- [ ] [1, 5, 10]
+- [ ] [10, 1, 5]
+
+#### Explanation
+
+Java LinkedList class uses a doubly linked list to store the elements. It provides a linked-list data structure.
+
+LinkedList example:
+
+![](src/java/java-collection-linkedlist.png)
+
+It inherits the AbstractList class and implements List and Deque interfaces.
+
+![](src/java/java-collection-hierarchy.png)
+
+The important points about Java LinkedList are:
+
+1. Java LinkedList class can contain duplicate elements.
+2. Java LinkedList class maintains insertion order.
+3. Java LinkedList class is non synchronized.
+4. In Java LinkedList class, manipulation is fast because no shifting needs to occur.
+5. Java LinkedList class can be used as a list, stack or queue.
+
+Example:
+
+```java
+import java.util.*;
+
+public class Test {
+
+    public static void main(String[] args) {
+
+        LinkedList<String> list = new LinkedList<String>();
+
+        list.add("A");
+        list.add("B");
+        list.addLast("C");
+        list.addFirst("D");
+        list.add(2, "E");
+
+        System.out.println(list);
+
+        list.remove("B");
+        list.remove(3);
+        list.removeFirst();
+        list.removeLast();
+
+        System.out.println(list);
+    }
+}
+
+Output:
+        [D,A,E,B,C]
+        [A]
+```
+
+#### Q26. What is the output of this code?
+
+```java
+class Main {
+    public static void main(String[] args) {
+        String message = "Hello";
+        for (int i = 0; i < message.length(); i++) {
+            System.out.print(message.charAt(i + 1));
+        }
+    }
+}
+```
+
+- [ ] "Hello"
+- [x] A runtime exception is thrown.
+- [ ] The code does not compile.
+- [ ] "ello"
+
+#### Explanation
+
+```
+Output:
+ello
+Exception in thread "main" java.lang.StringIndexOutOfBoundsException: String index out of range: 5
+at java.lang.String.charAt(String.java:658)
+at Main.main(Main.java:5)
+```
+
+The `StringIndexOutOfBoundsException` exception thrown by String methods to indicate that an index is either negative or
+greater than the size of the string.
+
+For some methods such as the `String.charAt(int)` method, this exception also is thrown when the index is equal to the
+size of the string.
+
+`StringIndexOutOfBoundsException` class hierarchy
+
+```
+Class StringIndexOutOfBoundsException
+java.lang.Object
+java.lang.Throwable
+java.lang.Exception
+java.lang.RuntimeException
+java.lang.IndexOutOfBoundsException
+java.lang.StringIndexOutOfBoundsException
+```
+
+#### Q27. Object-oriented programming is a style of programming where you organize your program around \_ rather than \_ and data rather than logic.
+
+- [ ] functions; actions
+- [x] objects; actions
+- [ ] actions; functions
+- [ ] actions; objects
+
+#### Explanation
+
+In Object-Oriented Programming, a program is divided into small parts called objects.
+
+Object-oriented programming is based on the concept of objects. In object-oriented programming data structures, or
+objects are defined, each with its own properties or attributes. Each object can also contain its own procedures or
+methods. Software is designed by using objects that interact with one another.
+
+#### Q28. What statement returns true if "nifty" is of type String?
+
+- [ ] `"nifty".getType().equals("String")`
+- [ ] `"nifty".getType() == String`
+- [ ] `"nifty".getClass().getSimpleName() == "String"`
+- [x] `"nifty" instanceof String`
+
+#### Q29. What is the output of this code?
+
+```java
+import java.util.*;
+
+class Main {
+    public static void main(String[] args) {
+        List<Boolean> list = new ArrayList<>();
+        list.add(true);
+        list.add(Boolean.parseBoolean("FalSe"));
+        list.add(Boolean.TRUE);
+        System.out.print(list.size());
+        System.out.print(list.get(1) instanceof Boolean);
+    }
+}
+```
+
+- [ ] A runtime exception is thrown.
+- [ ] 3false
+- [ ] 2true
+- [x] 3true
+
+#### Explanation
+
+```java
+System.out.println(list);
+
+        Output:
+        [true,false,true]
+```
+
+The `size()` method of List interface in Java is used to get the number of elements in this list. That is, this method
+returns the count of elements present in this list container.
+
+The `get(int i)` method of List interface in Java is used to get the element present in this list at a given specific
+index.
+
+The `instanceof` is a binary operator used to test if an object is of a given type. The result of the operation is
+either true or false.
+
+#### Q30. What is the result of this code?
+
+```
+1: class Main {
+2: 	Object message(){
+3: 		return "Hello!";
+4: 	}
+5: 	public static void main(String[] args) {
+6: 		System.out.print(new Main().message());
+7: 		System.out.print(new Main2().message());
+8: 	}
+9: }
+10: class Main2 extends Main {
+11: 	String message(){
+12: 		return "World!";
+13: 	}
+14: }
+```
+
+- [ ] It will not compile because of line 7.
+- [ ] Hello!Hello!
+- [x] Hello!World!
+- [ ] It will not compile because of line 11.
+
+#### Explanation
+
+The `extends` keyword is used to indicate that the class which is being defined is derived from the base class using
+inheritance. So basically, `extends` keyword is used to extend the functionality of the parent class to the subclass.
+
+The `Default` access modifier is package-private, and it is visible only from the same package.
+
+Therefore, we can create objects of this class in any other class of the package (so no exception).
+
+#### Q31. What method can be used to create a new instance of an object?
+
+- [ ] another instance
+- [ ] field
+- [x] constructor
+- [ ] private method
+
+#### Explanation
+
+A Constructor is similar to a method that is invoked when an object of the class is created. Unlike Java methods, a
+constructor has the same name as that of the class and does not have any return type.
+
+#### Q32. Which is the most reliable expression for testing whether the values of two string variables are the same?
+
+- [ ] string1 == string2
+- [ ] string1 = string2
+- [ ] string1.matches(string2)
+- [x] string1.equals(string2)
+
+#### Explanation
+
+The Java String class `equals() `method compares the two given strings based on the content of the string:
+
+- If any character is not matched, it returns false;
+- If all characters are matched, it returns true.
+
+The String `equals()` method overrides the `equals()` method of the Object class.
+
+#### Q33. Which letters will print when this code is run?
+
+```java
+public static void main(String[]args){
+        try{
+        System.out.println("A");
+        badMethod();
+        System.out.println("B");
+        }catch(Exception ex){
+        System.out.println("C");
+        }finally{
+        System.out.println("D");
+        }
+        }
+
+public static void badMethod(){
+        throw new Error();
+        }
+```
+
+- [ ] A, B, and D
+- [ ] A, C, and D
+- [ ] C and D
+- [x] A and D
+
+#### Explanation
+
+The letter "B" will not be printed because the program will terminate with an Error.
+
+The letter "C" will not be printed because the program will throw an Error (not an Exception).
+
+**Note**: `Error` is not inherited from `Exception`
+
+![](src/java/java-exceptions-classes.png)
+
+#### Q34. What is the output of this code?
+
+```java
+class Main {
+    static int count = 0;
+
+    public static void main(String[] args) {
+        if (count < 3) {
+            count++;
+            main(null);
+        } else {
+            return;
+        }
+        System.out.println("Hello World!");
+    }
+}
+```
+
+- [ ] It will throw a runtime exception.
+- [ ] It will not compile.
+- [x] It will print "Hello World!" three times.
+- [ ] It will run forever.
+
+#### Q35. What is the output of this code?
+
+```java
+import java.util.*;
+
+class Main {
+    public static void main(String[] args) {
+        String[] array = {"abc", "2", "10", "0"};
+        List<String> list = Arrays.asList(array);
+        Collections.sort(list);
+        System.out.println(Arrays.toString(array));
+    }
+}
+```
+
+- [ ] `[abc, 0, 2, 10]`
+- [ ] The code does not compile.
+- [ ] `[abc, 2, 10, 0]`
+- [x] `[0, 10, 2, abc]`
+
+#### Explanation
+
+The `asList()` method of `java.util.Arrays` class is used to return a fixed-size list backed by the specified array.
+
+This method acts as a bridge between array-based and collection-based APIs, in combination with `Collection.toArray()`.
+
+The `asList()` method returns a fixed-size list backed by the specified array. Since an array cannot be structurally
+modified, it is impossible to add elements to the list or remove elements from it. The list will throw
+an `UnsupportedOperationException` if any resize operation is performed on it.
+
+```java
+public class UnsupportedOperationException
+        extends RuntimeException
+```
+
+Example:
+
+```java
+class Main {
+    public static void main(String[] args) {
+        String[] array = {"abc", "2", "10", "0"};
+        List<String> list = Arrays.asList(array);
+        list.add("22");
+    }
+}
+
+Output:
+        Exception in thread"main"java.lang.UnsupportedOperationException at java.base/java.util.AbstractList.add(
+        AbstractList.java:153)
+```
+
 
