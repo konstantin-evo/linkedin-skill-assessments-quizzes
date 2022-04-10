@@ -1339,4 +1339,526 @@ Output:
         AbstractList.java:153)
 ```
 
+#### Q36. What is the output of this code?
 
+```
+class Main {
+	public static void main(String[] args) {
+		String message = "Hello";
+		print(message);
+		message += "World!";
+		print(message);
+	}
+	static void print(String message){
+		System.out.print(message);
+		message += " ";
+	}
+}
+```
+
+- [ ] Hello World!
+- [x] HelloHelloWorld!
+- [ ] Hello Hello World!
+- [ ] Hello HelloWorld!
+
+#### Q37. What is displayed when this code is compiled and executed?
+
+```
+public class Main {
+	public static void main(String[] args) {
+		int x = 5;
+		x = 10;
+		System.out.println(x);
+	}
+}
+```
+
+- [ ] x
+- [ ] null
+- [x] 10
+- [ ] 5
+
+#### Q38. Which approach cannot be used to iterate over a List named _theList_?
+
+- [ ] A
+
+```java
+for(int i=0;i<theList.size();i++){
+        System.out.println(theList.get(i));
+        }
+```
+
+- [ ] B
+
+```java
+for(Object object:theList){
+        System.out.println(object);
+        }
+```
+
+- [x] C
+
+```java
+Iterator it=theList.iterator();
+        for(it.hasNext()){
+        System.out.println(it.next());
+        }
+```
+
+- [ ] D
+
+```java
+theList.forEach(System.out::println);
+```
+
+#### Explanation
+
+Consider each answer:
+
+```java
+for(int i=0;i<theList.size();i++){
+        System.out.println(theList.get(i));
+        }
+```
+
+The `size()` method of `List` interface in Java is used to get the number of elements in this list.
+
+```java
+for(Object object:theList){
+        System.out.println(object);
+        }
+```
+
+Class `Object` is the root of the class hierarchy and every class has an Object as a superclass. All objects, including
+arrays, implement the methods of this class.
+
+```java
+Iterator it=theList.iterator();
+
+        for(it.hasNext()){
+        System.out.println(it.next());
+        }
+
+        Warning:cant resolve symbol hasNext.
+```
+
+**Explanation**: `for (it.hasNext())` should be `while (it.hasNext())`.
+
+The `Iterator` is an interface which belongs to the collection framework. It allows us to traverse the collection,
+access the data element and remove the data elements of the collection.
+
+The `java.util` package has public interface `Iterator` and contains three methods:
+
+| Method name        | Description of the method                                                                                                                                       |
+|--------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| boolean hasNext(): | It returns true if the Iterator has more elements to iterate.                                                                                                   |
+| Object next()      | It returns the next element in the collection until the hasNext() method returns true. This method throws ‘NoSuchElementException’ if there is no next element. |
+| void remove()      | It removes the current element in the collection. This method throws ‘IllegalStateException’ if this function is called before next( ) is invoked.              |
+
+```java
+ArrayList<String> people=new ArrayList<String>();
+        people.add("Tom");
+        people.add("Alice");
+        people.add("Kate");
+        people.forEach(System.out::println);
+```
+
+The `forEach()` method of ArrayList is used to perform a certain operation for each element in ArrayList. This method
+traverses each element of the `Iterable` of ArrayList until all elements have been Processed by the method or an
+exception is raised.
+
+#### Q39. What method signature will work with this code?
+
+`boolean healthyOrNot = isHealthy("avocado");`
+
+- [ ] public void isHealthy(String avocado)
+- [x] boolean isHealthy(String string)
+- [ ] public isHealthy("avocado")
+- [ ] private String isHealthy(String food)
+
+#### Q40. Which are valid keywords in a Java module descriptor (module-info.java)?
+
+- [ ] provides, employs
+- [ ] imports, exports
+- [ ] consumes, supplies
+- [x] requires, exports
+
+#### Explanation
+
+A Java Module is a packaging mechanism that enables you to package a Java application or Java API as a separate Java
+module.
+
+A Java module is packaged as a modular JAR file. A Java module can specify which of the Java packages it contains that
+should be visible to other Java modules which use this module.
+
+A Module descriptor is the compiled version of a module declaration that's defined in a file named module-info.java
+
+```java
+module moduleName {
+  ...
+}
+```
+
+The module declaration’s body can be empty or may contain various module directives, including
+
+- requires;
+- exports;
+- provides… with;
+- uses and opens (each of which we discuss).
+
+A `requires` module directive specifies that this module depends on another module — this relationship is called a
+module dependency. Each module must explicitly state its dependencies.
+
+When `module A` requires `module B`, module A is said to read module B and module B is read by module A. To specify a
+dependency on another module, use requires, as in:
+
+```java
+requires moduleName;
+```
+
+An `exports` module directive specifies one of the module’s packages whose public types (and their nested public and
+protected types) should be accessible to code in all other modules.
+
+An `exports… to` directive enables you to specify in a comma-separated list precisely which module’s or modules’ code
+can access the exported package — this is known as a qualified export.
+
+#### Q41. Which type of variable keeps a constant value once it is assigned?
+
+- [ ] non-static
+- [ ] static
+- [x] final
+- [ ] private
+
+#### Explanation
+
+Java `final` keyword is a non-access specifier that is used to restrict a class, variable, and method.
+
+- If we initialize a variable with the `final` keyword, then we can’t modify its value;
+- If we declare a method as `final`, then it can’t be overridden by any subclasses.
+
+#### Q42. How does the keyword `volatile` affect how a variable is handled?
+
+- [ ] It will be read by only one thread at a time.
+- [ ] It will be stored on the hard drive.
+- [x] It will never be cached by the CPU.
+- [ ] It will be preferentially garbage collected.
+
+#### Explanation
+
+The Java `volatile` keyword is used to mark a Java variable as "being stored in main memory".
+
+More precisely that means, that:
+
+1. Every read of a volatile variable will be read from the computer's main memory, and not from the CPU cache;
+2. Every write to a volatile variable will be written to main memory, and not just to the CPU cache.
+
+#### Q43. What is the result of this code?
+
+```java
+char smooch='x';
+        System.out.println((int)smooch);
+```
+
+- [ ] an alphanumeric character
+- [ ] a negative number
+- [x] a positive number
+- [ ] a ClassCastException
+
+#### Explanation
+
+We can convert `char` to `int` in Java using various ways. If we directly assign a char variable to int, it will return
+the ASCII value of the given character.
+
+Let's see the simple code to convert char to int in java.
+
+```
+public class CharToIntExample1 {
+  public static void main(String[] args) {
+    char c = 'a';
+    char c2 = '1';
+    int a = c;
+    int b = c2;
+    System.out.println(a);
+    System.out.println(b);
+  }
+}
+
+Output:
+        97
+        49
+```
+
+#### Q44. You get a NullPointerException. What is the most likely cause?
+
+- [ ] A file that needs to be opened cannot be found.
+- [ ] A network connection has been lost in the middle of communications.
+- [ ] Your code has used up all available memory.
+- [x] The object you are using has not been instantiated.
+
+#### Explanation
+
+`NullPointerException` is raised in an application when we are trying to do some operation on null where an object is
+required.
+
+Some common reasons for `NullPointerException` in java programs are:
+
+1. Invoking a method on an object instance but at runtime the object is null;
+2. Accessing variables of an object instance that is null at runtime;
+3. Throwing null in the program;
+4. Accessing index or modifying value of an index of an array that is null;
+5. Checking the length of an array that is null at runtime.
+
+![](src/java/java-exceptions-classes.png)
+
+#### Q45. How would you fix this code so that it compiles?
+
+```java
+public class Nosey {
+    int age;
+
+    public static void main(String[] args) {
+        System.out.println("Your age is: " + age);
+    }
+}
+```
+
+- [x] Make age static.
+- [ ] Make age global.
+- [ ] Make age public.
+- [ ] Initialize age to a number.
+
+#### Explanation
+
+The error `non static variable can’t be referenced from a static context` in Java is mostly faced by the beginners at
+the time of compilation of Java programs.
+
+The reason for this error is that they use a non-static member variable in the `main()` method. Because the `main()`
+method in Java is a static method, and it is invoked automatically, we need not create an object to invoke it.
+
+To understand the error, first we should understand the static and non-static method in Java:
+
+1. Each instance of a non-static variable has a different value and is created when the `new()` operator initializes an
+   instance of an object;
+2. The static variables are created or initialized when the class loads into JVM.
+
+We need an instance of an object for calling the non-static variable. We can create many objects by giving different
+values to that non-static or instance variable.
+
+#### Q46. Add a Duck called "Waddles" to the ArrayList **ducks**.
+
+```java
+public class Duck {
+    private String name;
+
+    Duck(String name) {
+    }
+}
+```
+
+- [ ] `Duck waddles = new Duck();`
+  `ducks.add(waddles);`
+- [ ] `Duck duck = new Duck("Waddles");`
+  `ducks.add(waddles);`
+- [x] `ducks.add(new Duck("Waddles"));`
+- [ ] `ducks.add(new Waddles());`
+
+#### Q47. If you encounter `UnsupportedClassVersionError` it means the code was `___` on a newer version of Java than the JRE `___` it.
+
+- [ ] executed; interpreting
+- [ ] executed; compiling
+- [x] compiled; executing
+- [ ] compiled, translating
+
+#### Explanation
+
+The `UnsupportedClassVersionError` is a subclass of the `LinkageError` class and specifically, of the `ClassFormatError`
+class. This error is thrown by the JVM when it tries to read a class file whose major and minor version numbers are not
+supported.
+
+The JRE is a software layer that runs on top of a computer’s operating system software and provides the class libraries
+and other resources that a specific Java program needs to run.
+
+Difference between JDK,JRE and JVM:
+
+![](src/java/jdk-jre-jvm.png)
+
+#### Q48. Given this class, how would you make the code compile?
+
+```java
+public class TheClass {
+    private final int x;
+}
+```
+
+- [ ] A
+
+```java
+public TheClass(){
+        x+=77;
+        }
+```
+
+- [ ] B
+
+```java
+public TheClass(){
+        x=null;
+        }
+```
+
+- [x] C
+
+```java
+public TheClass(){
+        x=77;
+        }
+```
+
+- [ ] D
+
+```java
+private void setX(int x){
+        this.x=x;
+        }
+public TheClass(){
+        setX(77);
+        }
+```
+
+#### Explanation
+
+The program gives an error at the compilation stage:
+
+`Variable 'x' might not have been initialized`
+
+This error occurs when you are trying to use a local variable without initializing it. You won't get this error if you
+use an uninitialized class or instance variable because they are initialized with their default value e.g.
+
+Reference types are initialized with `null` and integer types are initialized with `0`, but if you try to use an
+uninitialized local variable in Java, you will get this error.
+
+This is because Java has the rule to initialize the local variable before accessing or using them and this is checked at
+compile time. If the compiler believes that a local variable might not have been initialized before the next statement
+which is using it, you get this error.
+
+The `final` class members are allowed to be assigned only in three places:
+
+1. declaration;
+2. constructor;
+3. instance-initializer block.
+
+#### Q49. How many times f will be printed?
+
+```java
+public class Solution {
+    public static void main(String[] args) {
+        for (int i = 44; i > 40; i--) {
+            System.out.println("f");
+        }
+    }
+}
+```
+
+- [x] 4
+- [ ] 3
+- [ ] 5
+- [ ] A Runtime exception will be thrown
+
+#### Explanation
+
+```
+Output:
+
+i = 44 Print:  f
+i = 43 Print:  f
+i = 42 Print:  f
+i = 41 Print:  f
+```
+
+#### Q50. Which statements about `abstract` classes are true?
+
+1. `abstract` classes can be instantiated.
+2. `abstract` classes allow member variables and methods to be inherited by subclasses.
+3. `abstract` classes can contain constructors.
+
+- [ ] 1, 2, and 3
+- [ ] only 3
+- [x] 2 and 3
+- [ ] only 2
+
+#### Explanation
+
+An abstract class is a template definition of methods and variables of a class that contains one or more abstracted
+methods.
+
+Abstract classes can’t be instantiated, but they can be subclassed.
+
+We can’t instantiate an abstract class in Java because it is abstract, it is not complete, hence it can’t be used.
+
+```java
+public abstract class GraphicObject {
+    // declare fields and non-abstract methods
+    abstract void draw();
+}
+```
+
+An abstract class can have a constructor in Java. You can either explicitly provide a constructor to the abstract class
+or if you don't, the compiler will add a default constructor of no argument in the abstract class.
+
+```java
+abstract class Server {
+    protected final String name;
+
+    public Server(String name) {
+        this.name = name;
+    }
+
+    public abstract boolean start();
+}
+```
+
+#### Q51. Which keyword lets you call the constructor of a parent class?
+
+- [ ] parent
+- [x] super
+- [ ] this
+- [ ] new
+
+#### Explanation
+
+The `super` keyword in Java is a reference variable which is used to refer to an immediate parent class object. Whenever
+you create the instance of a subclass, an instance of the parent class is created implicitly which is referred to by
+`super` reference variable.
+
+Usage of Java super Keyword:
+
+1. `super()` can be used to refer to an immediate parent class instance variable;
+2. `super()` can be used to invoke the immediate parent class method;
+3. `super()` can be used to invoke immediate parent class constructor.
+
+Let's see a simple example:
+
+```java
+class Animal {
+  Animal() {
+    System.out.println("animal is created");
+  }
+}
+
+class Dog extends Animal {
+  Dog() {
+    super();
+    System.out.println("dog is created");
+  }
+}
+
+class TestSuper3 {
+  public static void main(String[] args) {
+    Dog d = new Dog();
+  }
+}
+
+Output:
+        animal is created
+        dog is created
+```
