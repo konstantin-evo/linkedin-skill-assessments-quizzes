@@ -1840,25 +1840,306 @@ Let's see a simple example:
 
 ```java
 class Animal {
-  Animal() {
-    System.out.println("animal is created");
-  }
+    Animal() {
+        System.out.println("animal is created");
+    }
 }
 
 class Dog extends Animal {
-  Dog() {
-    super();
-    System.out.println("dog is created");
-  }
+    Dog() {
+        super();
+        System.out.println("dog is created");
+    }
 }
 
 class TestSuper3 {
-  public static void main(String[] args) {
-    Dog d = new Dog();
-  }
+    public static void main(String[] args) {
+        Dog d = new Dog();
+    }
 }
 
 Output:
         animal is created
         dog is created
+```
+
+#### Q52. What is the result of this code?
+
+```java
+  1:int a=1;
+        2:int b=0;
+        3:int c=a/b;
+        4:System.out.println(c);
+```
+
+- [x] It will throw an ArithmeticException.
+- [ ] It will run and output 0.
+- [ ] It will not compile because of line 3.
+- [ ] It will run and output infinity.
+
+#### Explanation
+
+The `java.lang.ArithmeticException` is an unchecked exception in Java. Usually, one would come across
+`java.lang.ArithmeticException: / by zero` which occurs when an attempt is made to divide two numbers and the number in
+the denominator is zero.
+
+ArithmeticException objects may be constructed by the JVM.
+
+To handle `ArithmeticException` use try and catch blocks. Surround the statements that can throw `ArithmeticException`
+with try and catch blocks;
+
+Take necessary action for our program, as the execution doesn’t abort.
+
+```java
+public class ArithmeticExceptionTest {
+    public static void main(String[] args) {
+        int a = 0, b = 10;
+        int c = 0;
+        try {
+            c = b / a;
+        } catch (ArithmeticException e) {
+            e.printStackTrace();
+            System.out.println("We are just printing the stack trace.\n"
+                    + "ArithmeticException is handled. But take care of the variable \"c\"");
+        }
+        System.out.println("Value of c :" + c);
+    }
+}
+```
+
+#### Q53. Normally, to access a static member of a class such as Math.PI, you would need to specify the class "Math". What would be the best way to allow you to use simply "PI" in your code?
+
+- [x] Add a static import.
+- [ ] Declare local copies of the constant in your code.
+- [ ] This cannot be done. You must always qualify references to static members with the class form which they came
+  from.
+- [ ] Put the static members in an interface and inherit from that interface.
+
+#### Explanation
+
+The static import construct allows unqualified access to static members without inheriting from the type containing the
+static members.
+
+```java
+public class WithoutStaticImport {
+    public static void main(String[] args) {
+        double value = Math.cos(Math.PI * 4);
+        System.out.println(value);
+    }
+}
+```
+
+```java
+package oop;
+
+import static java.lang.Math.PI;
+import static java.lang.Math.cos;
+
+public class StaticImport {
+    public static void main(String[] args) {
+        double value = cos(PI * 4);
+        System.out.println(value);
+    }
+}
+```
+
+#### Q54. Which keyword lets you use an interface?
+
+- [ ] extends
+- [x] implements
+- [ ] inherits
+- [ ] import
+
+#### Explanation
+
+An interface in the Java programming language is an abstract type that is used to specify a behavior that classes must
+implement.
+To access the interface methods, the interface must be "implemented" by another class with the “implements” keyword. The
+body of the interface method is provided by the "implement" class.
+
+Example:
+
+```java
+interface Animal {
+    public void animalSound(); // interface method (does not have a body)
+
+    public void sleep();
+}
+```
+
+```java
+class Pig implements Animal {
+    public void animalSound() {
+        System.out.println("The pig says: wee wee");
+    }
+
+    public void sleep() {
+        System.out.println("Zzz");
+    }
+}
+
+class MyMainClass {
+    public static void main(String[] args) {
+        Pig myPig = new Pig();
+        myPig.animalSound();
+        myPig.sleep();
+    }
+}
+```
+
+#### Q55. Why are ArrayLists better than arrays?
+
+- [x] You don't have to decide the size of an ArrayList when you first make it.
+- [ ] You can put more items into an ArrayList than into an array.
+- [ ] ArrayLists can hold more kinds of objects than arrays.
+- [ ] You don't have to decide the type of an ArrayList when you first make it.
+
+#### Explanation
+
+An ArrayList is a resizable array, also called a dynamic array. It grows its size to accommodate new elements and
+shrinks the size when the elements are removed.
+
+Before discussing the advantages of ArrayList, let’s see what are the drawbacks of arrays:
+
+1. Arrays are of fixed length so you can’t change the size of the arrays once they are created;
+2. You can’t accommodate an extra element in an array after they are created;
+3. Memory is allocated to an array during its creation only, much before the actual elements are added to it.
+
+Because of these drawbacks, use of Arrays is less preferred. Instead of arrays, you can use the ArrayList class which
+addresses all these drawbacks. Here are some advantages of using ArrayList over arrays.
+
+1. You can define ArrayList as a resizable array. Size of the ArrayList is not fixed. ArrayList can grow and shrink
+   dynamically;
+2. Elements can be inserted at or deleted from a particular position;
+3. ArrayList class has many methods to manipulate the stored objects.
+4. If generics are not used, ArrayList can hold any type of objects.
+5. You can traverse an ArrayList in both the directions – forward and backward using ListIterator.
+
+```java
+  class ArrayListDemo {
+    public static void main(String[] args) {
+        ArrayList list = new ArrayList();     //ArrayList without generics
+
+        list.add("ZERO");    //adding string type object
+        list.add(1);        //adding primitive int type
+        list.add(20.24);    //adding primitive double type
+        list.add(new Float(23.56));   //Adding Float wrapper type object
+        list.add(new Long(25));      //Adding Long wrapper type object
+
+        System.out.println(list);     //Output : [ZERO, 1, 20.24, 23.56, 25]
+    }
+}
+```
+
+#### Q56. Declare a variable that holds the first four digits of Π
+
+- [ ] int pi = 3.141;
+- [ ] decimal pi = 3.141;
+- [x] double pi = 3.141;
+- [ ] float pi = 3.141;
+
+#### Explanation
+
+The default Java type which Java will be using for a float variable will be double.
+
+So, even if you declare any variable as float, what the compiler has to actually do is to assign a double value to a
+float variable, which is not possible.
+
+So, to tell the compiler to treat this value as a float, that 'F' is used.
+
+```java
+public class TestReal {
+    public static void main(String[] argv) {
+        double pi = 3.14159265;       //accuracy up to 15 digits
+        float pi2 = 3.141F;           //accuracy up to 6-7 digits
+
+        System.out.println("Pi=" + pi);
+        System.out.println("Pi2=" + pi2);
+    }
+}
+```
+
+#### Q57. Use the magic power to cast a spell
+
+```java
+public class MagicPower {
+    void castSpell(String spell) {
+    }
+}
+```
+
+- [x] `new MagicPower().castSpell("expecto patronum")`
+- [ ] `MagicPower magicPower = new MagicPower();`
+  `magicPower.castSpell();`
+- [ ] `MagicPower.castSpell("expelliarmus");`
+- [ ] `new MagicPower.castSpell();`
+
+#### Q58. What language construct serves as a blueprint containing an object's properties and functionality?
+
+- [ ] constructor
+- [ ] instance
+- [x] class
+- [ ] method
+
+#### Explanation
+
+A class is a user defined blueprint or prototype from which objects are created. It represents the set of properties or
+methods that are common to all objects of one type.
+
+#### Q59. What does this code print?
+
+```java
+public static void main(String[]args){
+        int x=5,y=10;
+        swapsies(x,y);
+        System.out.println(x+" "+y);
+        }
+
+static void swapsies(int a,int b){
+        int temp=a;
+        a=b;
+        b=temp;
+        }
+```
+
+- [ ] 10 10
+- [x] 5 10
+- [ ] 10 5
+- [ ] 5 5
+
+#### Explanation
+
+What happens inside a static method does not affect the variables x and y.
+
+#### Q60. What is the result of this code?
+
+```java
+try{
+        System.out.println("Hello World");
+        }catch(Exception e){
+        System.out.println("e");
+        }catch(ArithmeticException e){
+        System.out.println("e");
+        }finally{
+        System.out.println("!");
+        }
+```
+
+- [ ] Hello World
+- [x] It will not compile because the second catch statement is unreachable
+- [ ] Hello World!
+- [ ] It will throw runtime exception
+
+The `ArithmeticException` is thrown when an exceptional arithmetic condition has occurred. For example, an integer "divide by zero" throws an instance of this class.
+
+```java
+public class ArithmeticException extends RuntimeException
+```
+
+```
+java.lang.Object
+  java.lang.Throwable
+    java.lang.Exception
+      java.lang.RuntimeException
+        java.lang.ArithmeticException
 ```
