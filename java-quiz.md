@@ -2130,7 +2130,8 @@ try{
 - [ ] Hello World!
 - [ ] It will throw runtime exception
 
-The `ArithmeticException` is thrown when an exceptional arithmetic condition has occurred. For example, an integer "divide by zero" throws an instance of this class.
+The `ArithmeticException` is thrown when an exceptional arithmetic condition has occurred. For example, an integer "
+divide by zero" throws an instance of this class.
 
 ```java
 public class ArithmeticException extends RuntimeException
@@ -2142,4 +2143,515 @@ java.lang.Object
     java.lang.Exception
       java.lang.RuntimeException
         java.lang.ArithmeticException
+```
+
+#### Q70. Java programmers commonly use design patterns. Some examples are the **
+
+\_**, which helps create instances of a class, the **
+\_**, which ensures that only one instance of a class can be created; and the **
+\_**, which allows for a group of algorithms to be interchangeable.
+
+- [x] static factory method; singleton; strategy pattern
+- [ ] strategy pattern; static factory method; singleton
+- [ ] creation pattern; singleton; prototype pattern
+- [ ] singleton; strategy pattern; static factory method
+
+#### Explanation
+
+A Design Pattern is a well-proven solution for solving a specific task.
+
+Now, a question will be arising in your mind: what kind of specific problem? Let me explain by taking an example.
+
+Problem:
+
+Suppose you want to create a class for which only a single instance should be created and that single object can be used
+by all other classes.
+
+Solution:
+The Singleton design pattern is the best solution to the above specific problem. So, every design pattern has some
+specification or set of rules for solving the problems. What are those specifications, you will see later in the types
+of design patterns.
+___
+
+
+The `Static Factory Method` is a public static method on the object that returns a new instance of the object.
+The `Singleton` is a design pattern used in object-oriented programming that ensures only a single instance of an object
+exists within a system at any given time.
+The `Strategy` pattern is a behavioral software design pattern that enables selecting an algorithm at runtime.
+
+#### Q71. Using Java's Reflection API, you can use \_ to get the name of a class and \_ to retrieve an array of its methods.
+
+- [x] this.getClass().getSimpleName(); this.getClass().getDeclaredMethods()
+- [ ] this.getName(); this.getMethods()
+- [ ] Reflection.getName(this); Reflection.getMethods(this)
+- [ ] Reflection.getClass(this).getName(); Reflection.getClass(this).getMethods()
+
+#### Explanation
+
+Reflection is an API which is used to examine or modify the behavior of methods, classes, interfaces at runtime.
+
+* The required classes for reflection are provided under `java.lang.reflect` package
+* Reflection gives us information about the class to which an object belongs and also the methods of that class which
+  can be executed by using the object
+* Through reflection, we can invoke methods at runtime irrespective of the access specifier used with them
+
+The `java.lang.Class.getSimpleName()` returns the simple name of the underlying class as given in the source code.
+Returns an empty string if the underlying class is anonymous.
+
+The `java.lang.Class.getDeclaredMethods()` method returns an array of Method objects including public, protected,
+default (package) access, and private methods, but excludes inherited methods.
+
+The method returns an array of length 0 if the class or interface declares no methods, or if this Class object
+represents a primitive type, an array class, or void
+
+#### Q72. Which is not a valid lambda expression?
+
+- [ ] `a -> false;`
+- [ ] `(a) -> false;`
+- [x] `String a -> false;`
+- [ ] `(String a) -> false;`
+
+#### Explanation
+
+A lambda expression is a short block of code which takes in parameters and returns a value. Lambda expressions are
+similar to methods, but they don’t need a name, and they can be implemented right in the body of a method.
+
+The simplest lambda expression contains a single parameter and an expression:
+
+```
+parameter -> expression
+```
+
+Example of using a lambda expression in the ArrayList's forEach() method to print every item in the list:
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        ArrayList<Integer> numbers = new ArrayList<Integer>();
+        numbers.add(9);
+        numbers.add(8);
+        numbers.forEach((n) -> {
+            System.out.println(n);
+        });
+    }
+}
+```
+
+#### Q73. Which access modifier makes variables and methods visible only in the class where they are declared?
+
+- [ ] public
+- [ ] protected
+- [ ] nonmodifier
+- [x] private
+
+#### Explanation
+
+| Modifier  | Description                                                        |
+|-----------|--------------------------------------------------------------------|
+| Default   | declarations are visible only within the package (package private) |
+| Private   | declarations are visible within the class only                     |
+| Protected | declarations are visible within the package or all subclasses      |
+| Public    | declarations are visible everywhere                                |
+
+#### Q74. What type of variable can be assigned to only once?
+
+- [ ] private
+- [ ] non-static
+- [x] final
+- [ ] static
+
+#### Explanation
+
+In Java, when the `final` keyword is used with a variable of primitive data types (int, float, .. etc), the value of the
+variable can’t be changed.
+
+Once a final variable has been assigned, it always contains the same value.
+
+#### Q75. How would you convert a String to an Int?
+
+- [ ] `"21".intValue()`
+- [ ] `String.toInt("21")`
+- [x] `Integer.parseInt("21")`
+- [ ] `String.valueOf("21")
+
+#### Explanation
+
+The `parseInt (String s)`  method parses the String argument as a signed decimal integer object. Example:
+
+```java
+int myVar=Integer.parseInt("20");  
+```
+
+#### Q76. What method should be added to the Duck class to print the name Moby?
+
+```java
+public class Duck {
+
+    private String name;
+
+    Duck(String name) {
+        this.name = name;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(new Duck("Moby"));
+    }
+}
+```
+
+- [x] `public String toString() { return name; } `
+- [ ] `public void println() { System.out.println(name); } `
+- [ ] `String toString() { return this.name; } `
+- [ ] `public void toString() { System.out.println(this.name); } `
+
+#### Explanation
+
+If you want to represent any object as a string, `toString()` method comes into existence.
+
+The `toString()` method returns the string representation of the object.
+
+Example:
+
+```java
+class Student {
+    String name;
+    String city;
+
+    Student(String name, String city) {
+        this.name = name;
+        this.city = city;
+    }
+
+    public String toString() {//overriding the toString() method  
+        return name + " " + city;
+    }
+
+    public static void main(String args[]) {
+        Student s1 = new Student("Raj", "lucknow");
+        Student s2 = new Student("Vijay", "ghaziabad");
+
+        System.out.println(s1);//compiler writes here s1.toString()  
+        System.out.println(s2);//compiler writes here s2.toString()  
+    }
+}  
+```
+
+#### Q77. Which operator is used to concatenate Strings in Java
+
+- [x] `+`
+- [ ] `&`
+- [ ] `.`
+- [ ] `-`
+
+#### Explanation
+
+Concatenation in the Java programming language is the operation of joining two strings together.
+
+You can concatenate Strings in Java using the "+" operator. Example:
+
+```java
+import java.util.Scanner;
+
+public class StringExample {
+    public static void main(String args[]) {
+        System.out.println("Enter the first string: ");
+        String str1 = sc.next();
+        System.out.println("Enter the second string: ");
+        String str2 = sc.next();
+        String result = str1 + str2;
+        System.out.println(result);
+    }
+}
+```
+
+```
+Output:
+Enter the first string:
+Krishna
+Enter the second string:
+Kasyap
+KrishnaKasyap
+```
+
+#### Q78. How many times does this loop print "exterminate"?
+
+```java
+for(int i=44;i>40;i--){
+        System.out.println("exterminate");
+        }
+```
+
+- [ ] two
+- [x] four
+- [ ] three
+- [ ] five
+
+#### Explanation
+
+When you know exactly how many times you want to loop through a block of code, use the “for loop”:
+
+Syntax:
+
+```java
+for(statement 1;statement 2;statement 3){
+// code block to be executed
+        }
+```
+
+* Statement 1 is executed (one time) before the execution of the code block.
+* Statement 2 defines the condition for executing the code block.
+* Statement 3 is executed (every time) after the code block has been executed.
+
+The example below will print the numbers 0 to 4:
+
+```java
+for(int i=0;i< 5;i++){
+        System.out.println(i);
+        }
+```
+
+#### Q79. What is the value of myCharacter after line 3 is run?
+
+```
+1: public class Main {
+2:   public static void main (String[] args) {
+3:     char myCharacter = "piper".charAt(3);
+4:   }
+5: }
+```
+
+- [ ] p
+- [ ] r
+- [x] e
+- [ ] i
+
+#### Explanation
+
+The `charAt()` method returns the character at the specified index in a string.
+
+The index of the first character is 0, the second character is 1, and so on.
+
+```java
+String myStr="Hello";
+        char result=myStr.charAt(1);
+        System.out.println(result);
+```
+
+```
+Output:
+e
+```
+
+#### Q80. When should you use a static method?
+
+- [ ] when your method is related to the object's characteristics
+- [x] when you want your method to be available independently of class instances
+- [ ] when your method uses an object's instance variable
+- [ ] when your method is dependent on the specific instance that calls it
+
+#### Explanation
+
+A static method is a method that belongs to a class rather than an instance of a class.
+A static method invoked without the need for creating an instance of a class.
+
+#### Q81. What phrase indicates that a function receives a copy of each argument passed to it rather than a reference to the objects themselves?
+
+- [ ] pass by reference
+- [ ] pass by occurrence
+- [x] pass by value
+- [ ] API call
+
+#### Explanation
+
+**Pass by value**: makes a copy in memory of the parameter’s value, or a copy of the contents of the parameter.
+
+Here is an example in Java:
+
+```java
+public static void main(String[]args){
+        ...
+        int y=5;
+        System.out.println(y); // prints "5"
+        myMethod(y);
+        System.out.println(y); // prints "5"
+        }
+
+public static void myMethod(int x){
+        ...
+        x=4; // myMethod has a copy of x, so it doesn't
+        // overwrite the value of variable y used
+        // in main() that called myMethod
+        }
+```
+
+**Pass by reference**: a copy of the address (or reference) to the parameter is stored rather than the value itself.
+
+In this case, modifying the value of the parameter will change the value.
+
+Here is an example in C++, which is very similar to Java syntax (count is C++’s way of printing to the terminal):
+
+```cpp
+int main(){
+        ...
+        int y=5;
+        cout<<y; // prints "5"
+        myMethod(y);
+        cout<<y; // prints "4"
+        }
+
+        // & below tells C++ to specifically "pass x by reference"
+        int myMethod(int&x){
+        ...
+        x=4; // myMethod has the address of x, or the
+        // reference to x (rather than the value),
+        // so it overwrites the value of variable y
+        // used in main() that called myMethod
+        }
+```
+
+#### Q82. In Java, what is the scope of a method's argument or parameter?
+
+- [x] inside the method
+- [ ] both inside and outside the method
+- [ ] neither inside nor outside the method
+- [ ] outside the method
+
+#### Explanation
+
+The scope for a parameter is simply the method body in which the parameter is located. Parameter names only have to be
+unique in a parameter list.
+
+For example, we can have two methods testRightTriangle and testScaleneTriangle, both of which have parameter “int”
+hypotenuse. Since the scope is just the method body, we know which hypotenuse is being referred to.
+
+```java
+public class TwoSides {
+    int side1, side2;
+
+    public boolean testRightTriangle(int hypoteneuse) {
+// hypoteneuse refers to parameter above
+// hypoteneuse is NOT same as testScaleneTriangle
+    }
+
+    public boolean testScaleneTriangle(int hypoteneuse) {
+// hypoteneuse refers to parameter above
+// hypoteneuse is NOT same as testRightTriangle
+    }
+}
+```
+
+Each method has its own hypoteneuse and they don’t affect each other.
+
+#### Q83. What is the output of this code?
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        int[] sampleNumbers = {8, 5, 3, 1};
+        System.out.println(sampleNumbers[2]);
+    }
+}
+```
+
+- [ ] 5
+- [ ] 8
+- [ ] 1
+- [x] 3
+
+#### Explanation
+
+An array is a container object that holds a fixed number of values of a single type. The length of an array is
+established when the array is created and after creation, its length is fixed.
+
+Each item in an array is called an element, and each element is accessed by its numerical index. Numbering begins with 0
+so the 9th element, for example, would therefore be accessed at index 8.
+
+#### Q84. Which change will make this code compile successfully?
+
+```
+1: public class Main {
+2:   String MESSAGE ="Hello!";
+3:   static void print(){
+4:     System.out.println(message);
+5:   }
+6:   void print2(){}
+7: }
+```
+
+- [ ] Change line 2 to `public static final String message`
+- [ ] Change line 6 to `public void print2(){}`
+- [ ] Remove the body of the `print2` method and add a semicolon.
+- [x] Remove the body of the `print` method.
+
+#### Explanation
+
+```
+Output:
+Compile-time error: can't resolve symbol 'message'
+```
+
+The 1st answer is not correct due to changing line 2 to `public static final String message` raises the
+error `message not initialized in the default constructor`.
+
+#### Q85. What is the output of this code?
+
+```java
+import java.util.*;
+
+class Main {
+    public static void main(String[] args) {
+        String[] array = new String[]{"A", "B", "C"};
+        List<String> list1 = Arrays.asList(array);
+        List<String> list2 = new ArrayList<>(Arrays.asList(array));
+        List<String> list3 = new ArrayList<>(Arrays.asList("A", new String("B"), "C"));
+        System.out.print(list1.equals(list2));
+        System.out.print(list1.equals(list3));
+    }
+}
+```
+
+- [ ] falsefalse
+- [x] truetrue
+- [ ] falsetrue
+- [ ] truefalse
+
+#### Explanation
+
+The `equals()` method of List interface compares the specified object with this collection for equality.
+
+The `equals()` method returns a Boolean value true if both the lists have the same elements and are of the same size.
+
+Example:
+
+```java
+import java.util.LinkedList;
+import java.util.List;
+
+public class JavaListEqualsExample1 {
+    public static void main(String[] args) {
+        List<Integer> list = new LinkedList<>();
+        for (int i = 0; i < 11; i++) {
+            list.add(i);
+        }
+
+        List<Integer> list1 = new LinkedList<>();
+        for (int i = 0; i < 11; i++) {
+            list1.add(i);
+        }
+//It returns a Boolean value true if both lists have the same elements and size..  
+        Boolean bool = list.equals(list1);
+        if (bool) {
+            System.out.println("Both the lists are equal.\n" + "List  : " + list + "\n" + "List1 : " + list1);
+        } else {
+            System.out.println("Both the lists are equal.\n" + "List : " + list + "\n" + "List1 : " + list1);
+        }
+    }
+}
+```
+
+```
+Output:
+Both the lists are equal.
+List  : [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+List1 : [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 ```
