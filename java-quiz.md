@@ -2655,3 +2655,494 @@ Both the lists are equal.
 List  : [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 List1 : [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 ```
+
+#### Q86. Which code snippet is valid?
+
+- [ ] `ArrayList<String> words = new ArrayList<String>(){"Hello", "World"};`
+- [ ] `ArrayList words = Arrays.asList("Hello", "World");`
+- [ ] `ArrayList<String> words = {"Hello", "World"};`
+- [x] `ArrayList<String> words = new ArrayList<>(Arrays.asList("Hello", "World"));`
+
+#### Explanation
+
+```
+ArrayList<String> words = new ArrayList<String>(){"Hello", "World"};
+Comment: illegal start of type (syntax error)
+```
+
+```
+ArrayList words = Arrays.asList("Hello", "World");
+Comment: Incompatible types. Found: 'java.util.List<java.lang.String>', required: 'java.util.ArrayList'
+```
+
+```
+ArrayList<String> words = {"Hello", "World"};
+Comment: Array initializer is not allowed here
+```
+
+#### Q87. What is the output of this code?
+
+```java
+class Main {
+    public static void main(String[] args) {
+        StringBuilder sb = new StringBuilder("hello");
+        sb.deleteCharAt(0).insert(0, "H"). " World!";
+        System.out.println(sb);
+    }
+}
+```
+
+- [ ] A runtime exception is thrown.
+- [ ] "HelloWorld!"
+- [ ] "hello"
+- [ ] ????
+
+#### Explanation
+
+An incorrect answer is given – in fact, the code will not compile due to a syntax error.
+Let's assume the code would look like this:
+
+```java
+class Main {
+    public static void main(String[] args) {
+        StringBuilder sb = new StringBuilder("hello");
+        sb.deleteCharAt(0).insert(0, "H");
+        System.out.println(sb);
+    }
+}
+```
+
+```
+Output:
+Hello
+```
+
+#### Q88. How would you use the TaxCalculator to determine the amount of tax on $50?
+
+```java
+class TaxCalculator {
+    static calculate(total) {
+        return total * .05;
+    }
+}
+```
+
+- [ ] TaxCalculator.calculate(50);
+- [ ] new TaxCalculator.calculate(50);
+- [ ] calculate(50);
+- [ ] new TaxCalculator.calculate($50);
+
+#### Explanation
+
+This code won't compile, broken code sample.
+
+#### Q89. Which characteristic does not apply to instance of java.util.HashSet=
+
+- [ ] uses hashcode of objects when inserted
+- [ ] contains unordered elements
+- [ ] contains unique elements
+- [x] contains sorted elements
+
+#### Explanation
+
+The `java.util.HashSet` class implements the `Set` interface, backed by a hash table.
+
+Following are the important points about HashSet −
+
+1. This class makes no guarantees as to the iteration order of the set; in particular, it does not guarantee that the
+   order will remain constant over time.
+2. This class permits the null element.
+3. A HashSet is a collection of items where every item is unique.
+
+#### Q90. What is the output?
+
+```java
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+        PriorityQueue<Integer> queue = new PriorityQueue<>();
+        queue.add(4);
+        queue.add(3);
+        queue.add(2);
+        queue.add(1);
+        while (queue.isEmpty() == false) {
+            System.out.printf("%d", queue.remove());
+        }
+    }
+}
+```
+
+- [ ] 1 3 2 4
+- [ ] 4 2 3 1
+- [x] 1 2 3 4
+- [ ] 4 3 2 1
+
+#### Explanation
+
+A `PriorityQueue` is used when the objects are supposed to be processed based on the priority. It is known that
+a `Queue` follows the First-In-First-Out algorithm, but sometimes the elements of the queue are needed to be processed
+according to the priority, that’s when the `PriorityQueue` comes into play.
+
+The `PriorityQueue` is based on the priority heap. The elements of the priority queue are ordered according to the
+natural ordering, or by a `Comparator` provided at queue construction time, depending on which constructor is used.
+
+![](src/java/java-collection-queque.png)
+
+We do not specify a comparator, i.e. the integer elements are sorted according to their natural order.
+
+```java
+public class PriorityQueueExample {
+    public static void main(String[] args) {
+        Queue<Integer> queue = new PriorityQueue<>();
+
+        // Enqueue random numbers
+        for (int i = 0; i < 8; i++) {
+            int element = ThreadLocalRandom.current().nextInt(100);
+            queue.offer(element);
+            System.out.printf("queue.offer(%2d)    -->  queue = %s%n", element, queue);
+        }
+
+        // Dequeue all elements
+        while (!queue.isEmpty()) {
+            Integer element = queue.poll();
+            System.out.printf("queue.poll() = %2d  -->  queue = %s%n", element, queue);
+        }
+    }
+}
+```
+
+The following is an example output of the program:
+
+```
+queue.offer(80)    -->  queue = [80]
+queue.offer(14)    -->  queue = [14, 80]
+queue.offer(10)    -->  queue = [10, 80, 14]
+queue.offer(50)    -->  queue = [10, 50, 14, 80]
+queue.offer( 9)    -->  queue = [9, 10, 14, 80, 50]
+queue.offer(58)    -->  queue = [9, 10, 14, 80, 50, 58]
+queue.offer(41)    -->  queue = [9, 10, 14, 80, 50, 58, 41]
+queue.offer( 1)    -->  queue = [1, 9, 14, 10, 50, 58, 41, 80]
+queue.poll() =  1  -->  queue = [9, 10, 14, 80, 50, 58, 41]
+queue.poll() =  9  -->  queue = [10, 41, 14, 80, 50, 58]
+queue.poll() = 10  -->  queue = [14, 41, 58, 80, 50]
+queue.poll() = 14  -->  queue = [41, 50, 58, 80]
+queue.poll() = 41  -->  queue = [50, 80, 58]
+queue.poll() = 50  -->  queue = [58, 80]
+queue.poll() = 58  -->  queue = [80]
+queue.poll() = 80  -->  queue = []
+```
+
+#### Q91. What will this code print, assuming it is inside the main method of a class?
+
+`System.out.println("hello my friends".split(" ")[0]);`
+
+- [ ] my
+- [ ] hellomyfriends
+- [x] hello
+- [ ] friends
+
+#### Explanation
+
+The string `split()` method breaks a given string around matches of the given regular expression. After splitting
+against the given regular expression, this method returns a string array.
+
+```
+Input String: 016-78967
+Regular Expression: -
+Output : {"016", "78967"}
+```
+
+#### Q92. You have an instance of type Map<String, Integer> named instruments containing the following key-value pairs: guitar=1200, cello=3000, and drum=2000. If you add the new key-value pair cello=4500 to the Map using the put method, how many elements do you have in the Map when you call instruments.size()?
+
+- [ ] 2
+- [ ] When calling the put method, Java will throw an exception
+- [ ] 4
+- [x] 3
+
+#### Explanation
+
+A `Map` contains values on the basis of key, i.e. key and value pair. Each key and value pair is known as an entry.
+A `Map`
+contains unique keys.
+
+A `Map` doesn't allow duplicate keys, but you can have duplicate values. `HashMap` and `LinkedHashMap` allow null keys
+and
+values, but `TreeMap` doesn't allow any null key or value.
+
+```java
+import java.util.*;
+
+public class HashMapExample2 {
+    public static void main(String args[]) {
+        HashMap<Integer, String> map = new HashMap<Integer, String>();//Creating HashMap    
+        map.put(1, "Mango");
+        map.put(2, "Apple");
+        map.put(3, "Banana");
+        map.put(1, "Grapes"); //trying duplicate key
+
+        System.out.println("Iterating Hashmap...");
+        for (Map.Entry m : map.entrySet()) {
+            System.out.println(m.getKey() + " " + m.getValue());
+        }
+    }
+}  
+```
+
+```
+Output:
+
+Iterating Hashmap...
+1 Grapes
+2 Apple
+3 Banana
+```
+
+#### Q93. Which class acts as root class for Java Exception hierarchy?
+
+- [ ] Clonable
+- [x] Throwable
+- [ ] Object
+- [ ] Serializable
+
+#### Explanation
+
+The `Throwable` class is the superclass of every error and exception in the Java language. Only objects that are one of
+the subclasses this class are thrown by any “Java Virtual Machine” or may be thrown by the Java `throw` statement.
+
+For the motives of checking of exceptions during compile-time, `Throwable` and any subclass of Throwable which is not
+also a subclass of either Error or RuntimeException are considered as checked exceptions.
+
+Throwable class is the root class of Java Exception Hierarchy and is inherited by two subclasses:
+
+1. Exception
+2. Error
+
+![](src/java/java-exceptions-classes.png)
+
+#### Q94. Which class does not implement the java.util.Collection interface?
+
+- [ ] java.util.Vector
+- [ ] java.util.ArrayList
+- [ ] java.util.HashSet
+- [x] java.util.HashMap
+
+#### Explanation
+
+The `Collection` interface is the root interface of the Java collections' framework.
+
+There is no direct implementation of this interface. However, it is implemented through its subinterfaces like `List`
+, `Set`, and `Queue`.
+
+For example, the `ArrayList` class implements the `List` interface which is a subinterface of the `Collection`
+Interface.
+
+![](src/java/java-collection-interface.jpg)
+
+**Note**: `HashMap` class implements `Map` interface.
+
+#### Q95. You have a variable of named `employees` of type `List<Employee>` containing multiple entries. The `Employee` type has a method `getName()` that returns te employee name. Which statement properly extracts a list of employee names?
+
+- [ ] `employees.collect(employee -> employee.getName());`
+- [ ] `employees.filter(Employee::getName).collect(Collectors.toUnmodifiableList());`
+- [x] `employees.stream().map(Employee::getName).collect(Collectors.toList());`
+- [ ] `employees.stream().collect((e) -> e.getName());`
+
+#### Explanation
+
+Stream `map(Function mapper)` returns a stream consisting of the results of applying the given function to the elements
+of
+this stream.
+
+Stream `map(Function mapper)` is an intermediate operation. These operations are always lazy. Intermediate operations
+are
+invoked on a Stream instance, and after they finish their processing, they give a Stream instance as output.
+
+Example:
+
+```java
+import java.util.*;
+import java.util.stream.Collectors;
+
+class GFG {
+
+    // Driver code
+    public static void main(String[] args) {
+
+        System.out.println("The stream after applying "
+                + "the function is : ");
+
+        // Creating a list of Integers
+        List<String> list = Arrays.asList("geeks", "gfg", "g", "e", "e", "k", "s");
+
+        // Using Stream map(Function mapper) to
+        // convert the Strings in stream to
+        // UpperCase form
+        List<String> answer = list.stream().map(String::toUpperCase).
+                collect(Collectors.toList());
+
+        // displaying the new stream of UpperCase Strings
+        System.out.println(answer);
+    }
+}
+```
+
+#### Q96. This code does not compile. What needs to be changed so that it does?
+
+```java
+public enum Direction {
+    EAST("E"),
+    WEST("W"),
+    NORTH("N"),
+    SOUTH("S");
+    private final String shortCode;
+
+    public String getShortCode() {
+        return shortCode;
+    }
+}
+```
+
+- [x] Add a constructor that accepts a `String` parameter and assigns it to the field `shortCode`.
+- [ ] Remove the `final` keyword for the field `shortCode`.
+- [ ] All enums need to be defined on a single line of code.
+- [ ] Add a setter method for the field `shortCode`.
+
+#### Explanation
+
+Java program to create an enum with strings. The given enum contains deployment environments and their respective URLs.
+URLs are passed to **the enum constructor** for each enum constant.
+
+```java
+public enum Environment {
+    PROD("https://prod.domain.com:1088/"),
+    SIT("https://sit.domain.com:2019/"),
+    CIT("https://cit.domain.com:8080/"),
+    DEV("https://dev.domain.com:21323/");
+
+    private String url;
+
+    Environment(String envUrl) {
+        this.url = envUrl;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+}
+```
+
+#### Q97. Which language feature ensures that objects implementing the `AutoCloseable` interface are closed when it completes?
+
+- [ ] try-catch-finally
+- [ ] try-finally-close
+- [x] try-with-resources
+- [ ] try-catch-close
+
+#### Explanation
+
+A `Closeable` is a source or destination of the data that needs to be closed.
+
+The `close()` method is invoked when we need to release resources that are being held by objects such as open files. It
+is one of the important interfaces to stream classes.
+
+The `Closeable` interface extends `AutoCloseable` interface therefore any class that implements `Closeable` also
+implements `AutoCloseable`.
+
+![](src/java/java-hierarchy-of-closeable-interface.png)
+
+`AutoCloseable` was specially introduced to work with try-with-resources statements.
+
+Since `Closeable` implements `AutoCloseable`, therefore any class that implements `Closeable` also
+implements `AutoCloseable` interface and can use the
+try-with resources to close the files.
+
+```java
+try(FileInputStream fin=new FileInputStream(input)){
+// Some code here
+        }
+```
+
+#### Q98. What code should go in line 3?
+
+```java
+class Main {
+    public static void main(String[] args) {
+        array[0] = new int[]{1, 2, 3};
+        array[1] = new int[]{4, 5, 6};
+        array[2] = new int[]{7, 8, 9};
+        for (int i = 0; i < 3; i++)
+            System.out.print(array[i][1]); //prints 258
+    }
+}
+```
+
+- [ ] `int[][] array = new int[][];`
+- [x] `int[][] array = new int[3][3];`
+- [ ] `int[][] array = new int[2][2];`
+- [ ] `int[][] array = [][];`
+
+#### Explanation
+
+`Multidimensional` Arrays can be defined in simple words as array of arrays.
+
+Data in multidimensional arrays are stored in tabular form (in row major order).
+
+Examples:
+
+```
+Two dimensional array:
+int[][] twoD_arr = new int[10][20];
+
+Three dimensional array:
+int[][][] threeD_arr = new int[10][20][30];
+```
+
+#### Q99. Is this an example of method overloading or overriding?
+
+```java
+class Car {
+    public void accelerate() {
+    }
+}
+
+class Lambo extends Car {
+    public void accelerate(int speedLimit) {
+    }
+
+    public void accelerate() {
+    }
+}
+```
+
+- [ ] neither
+- [x] both
+- [ ] overloading
+- [ ] overriding
+
+#### Explanation
+
+When two or more methods in the same class have the same name but different parameters, it’s called `Overloading`.
+
+When the method signature (name and parameters) are the same in the superclass and the child class, it’s called `Overriding`.
+
+##### Overriding vs Overloading
+
+1. `Overriding` implements Runtime Polymorphism whereas `Overloading` implements Compile time polymorphism.
+2. The method `Overriding` occurs between superclass and subclass.
+`Overloading` occurs between the methods in the same class.
+3. `Overriding` methods have the same signature i.e. same name and method arguments.
+`Overloaded` method names are the same but the parameters are different.
+
+#### Q100. Which choice is the best data type for working with money in Java?
+
+- [ ] float
+- [ ] String
+- [ ] double
+- [x] BigDecimal
+
+#### Explanation
+
+BigDecimal represents a signed decimal number of arbitrary precision with an associated scale. BigDecimal provides full control over the precision and rounding of the number value. Virtually, it's possible to calculate the value of pi to 2 billion decimal places using BigDecimal, with available physical memory being the only limit.
+
+That’s the reason why we should always prefer BigDecimal or BigInteger for financial calculations.
