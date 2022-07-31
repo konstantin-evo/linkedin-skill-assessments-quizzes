@@ -110,20 +110,15 @@ public static void main(String[]args){
 
 #### Q4. What is the output of this code?
 
-```java
-1:
-
-class Main {
-2:
-
-    public static void main(String[] args) {
-        3:int[] array = {1, 2, 3, 4};
-        4:for (int i = 0; i < array.size(); i++) {
-            5:System.out.print(array[i]);
-            6:}
-        7:}
-8:
-}
+```
+1: class Main {
+2:   public static void main (String[] args) {
+3:     int array[] = {1, 2, 3, 4};
+4:     for (int i = 0; i < array.size(); i++) {
+5:        System.out.print(array[i]);
+6:     }
+7:   }
+8: }
 ```
 
 - [x] It will not compile because of line 4.
@@ -709,7 +704,7 @@ The `sort()` method accepts an instance of Comparator implementing class which m
 contained in the arraylist. Internally, the `sort()` method uses `Arrays.sort()` method to compare and sort the elements
 in the list.
 
-```java
+```
 public void sort(Comparator<? super E>c){
 
 final int expectedModCount=modCount;
@@ -1318,7 +1313,7 @@ The `asList()` method returns a fixed-size list backed by the specified array. S
 modified, it is impossible to add elements to the list or remove elements from it. The list will throw
 an `UnsupportedOperationException` if any resize operation is performed on it.
 
-```java
+```
 public class UnsupportedOperationException
         extends RuntimeException
 ```
@@ -1493,7 +1488,7 @@ should be visible to other Java modules which use this module.
 
 A Module descriptor is the compiled version of a module declaration that's defined in a file named module-info.java
 
-```java
+```
 module moduleName {
   ...
 }
@@ -2326,7 +2321,7 @@ class Student {
         return name + " " + city;
     }
 
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         Student s1 = new Student("Raj", "lucknow");
         Student s2 = new Student("Vijay", "ghaziabad");
 
@@ -2353,7 +2348,7 @@ You can concatenate Strings in Java using the "+" operator. Example:
 import java.util.Scanner;
 
 public class StringExample {
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         System.out.println("Enter the first string: ");
         String str1 = sc.next();
         System.out.println("Enter the second string: ");
@@ -2863,18 +2858,16 @@ Output : {"016", "78967"}
 #### Explanation
 
 A `Map` contains values on the basis of key, i.e. key and value pair. Each key and value pair is known as an entry.
-A `Map`
-contains unique keys.
+A `Map` contains unique keys.
 
 A `Map` doesn't allow duplicate keys, but you can have duplicate values. `HashMap` and `LinkedHashMap` allow null keys
-and
-values, but `TreeMap` doesn't allow any null key or value.
+and values, but `TreeMap` doesn't allow any null key or value.
 
 ```java
 import java.util.*;
 
 public class HashMapExample2 {
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         HashMap<Integer, String> map = new HashMap<Integer, String>();//Creating HashMap    
         map.put(1, "Mango");
         map.put(2, "Apple");
@@ -3124,15 +3117,16 @@ class Lambo extends Car {
 
 When two or more methods in the same class have the same name but different parameters, it’s called `Overloading`.
 
-When the method signature (name and parameters) are the same in the superclass and the child class, it’s called `Overriding`.
+When the method signature (name and parameters) are the same in the superclass and the child class, it’s
+called `Overriding`.
 
 ##### Overriding vs Overloading
 
 1. `Overriding` implements Runtime Polymorphism whereas `Overloading` implements Compile time polymorphism.
 2. The method `Overriding` occurs between superclass and subclass.
-`Overloading` occurs between the methods in the same class.
+   `Overloading` occurs between the methods in the same class.
 3. `Overriding` methods have the same signature i.e. same name and method arguments.
-`Overloaded` method names are the same but the parameters are different.
+   `Overloaded` method names are the same but the parameters are different.
 
 #### Q100. Which choice is the best data type for working with money in Java?
 
@@ -3143,6 +3137,258 @@ When the method signature (name and parameters) are the same in the superclass a
 
 #### Explanation
 
-BigDecimal represents a signed decimal number of arbitrary precision with an associated scale. BigDecimal provides full control over the precision and rounding of the number value. Virtually, it's possible to calculate the value of pi to 2 billion decimal places using BigDecimal, with available physical memory being the only limit.
+BigDecimal represents a signed decimal number of arbitrary precision with an associated scale. BigDecimal provides full
+control over the precision and rounding of the number value. Virtually, it's possible to calculate the value of pi to 2
+billion decimal places using BigDecimal, with available physical memory being the only limit.
 
 That’s the reason why we should always prefer BigDecimal or BigInteger for financial calculations.
+
+#### Q101. Which statement about constructors is not ture?
+
+- [ ] A class can have multiple constructors with a different parameter list.
+- [ ] You can call another constructor with `this` or `super`.
+- [ ] A constructor does not define a return value.
+- [x] Every class must explicitly define a constructor without parameters.
+
+#### Explanation
+
+In Java, a constructor is a block of codes similar to the method. It is called when an instance of the class is created.
+At the time of calling constructor, memory for the object is allocated in the memory.
+
+Constructor is a special type of method which is used to initialize the object.
+
+There are three rules defined for the constructor.
+
+1. Constructor name must be the same as its class name
+2. A Constructor must have no explicit return type
+3. A Java constructor cannot be abstract, static, final, and synchronized
+
+Example:
+
+```java
+public class Foo {
+    private int x;
+
+    public Foo() {
+        this(1);
+    }
+
+    public Foo(int x) {
+        this.x = x;
+    }
+}
+```
+
+Every time an object is created using the new() keyword, at least one constructor is called.
+
+It calls a default constructor if there is no constructor available in the class. In such case, Java compiler provides a
+default constructor by default.
+
+So shouldn't explicitly define a constructor without parameters.
+
+#### Q102. What language feature allows types to be parameters on classes, interfaces, and methods in order to reuse the same code for different data types?
+
+- [ ] Regular Expressions
+- [ ] Reflection
+- [x] Generics
+- [ ] Concurrency
+
+#### Explanation
+
+Java Generic methods and generic classes enable programmers to specify, with a single method declaration, a set of
+related methods, or with a single class declaration, a set of related types, respectively.
+
+Generics also provide compile-time type safety that allows programmers to catch invalid types at compile time.
+
+Using Java Generic concept, we might write a generic method for sorting an array of objects, then invoke the generic
+method with Integer arrays, Double arrays, String arrays and so on, to sort the array elements.
+
+Following example illustrates how we can print an array of different type using a single Generic method:
+
+```java
+public class GenericMethodTest {
+    // generic method printArray
+    public static <E> void printArray(E[] inputArray) {
+        for (E element : inputArray) {
+            System.out.printf("%s ", element);
+        }
+        System.out.println();
+    }
+
+    public static void main(String[] args) {
+
+        Integer[] intArray = {1, 2, 3, 4, 5};
+        Double[] doubleArray = {1.1, 2.2, 3.3, 4.4};
+        Character[] charArray = {'H', 'E', 'L', 'L', 'O'};
+
+        System.out.println("Array integerArray contains:");
+        printArray(intArray);   // pass an Integer array
+
+        System.out.println("\nArray doubleArray contains:");
+        printArray(doubleArray);   // pass a Double array
+
+        System.out.println("\nArray characterArray contains:");
+        printArray(charArray);   // pass a Character array
+    }
+}
+```
+
+#### Q103. What will be printed?
+
+```java
+public class Berries {
+
+    String berry = "blue";
+
+    public static void main(String[] args) {
+        new Berries().juicy("straw");
+    }
+
+    void juicy(String berry) {
+        this.berry = "rasp";
+        System.out.println(berry + "berry");
+    }
+}
+```
+
+- [ ] raspberry
+- [x] strawberry
+- [ ] blueberry
+- [ ] rasp
+
+#### Explanation
+
+Every variable used in a programming language holds a scope. The scope tells the compiler about the segment within a
+program where the variable is accessible or used.
+
+Member variables are members of a class and hence declared inside a class but not inside any method or function.
+
+Thus, we can address such variable scope as class scope or class-level scope. Programmers declare such variables within
+the
+class’s curly braces along with an access modifier. Programmers can use such variables anywhere within the Java
+class but not outside it.
+
+#### Q104. What is the value of `forestCount` after this code executes?
+
+```
+public class MyClass {
+  Map<String, Integer> forestSpecies = new HashMap<>();
+        forestSpecies.put("Amazon", 30000);
+        forestSpecies.put("Congo", 10000);
+        forestSpecies.put("Daintree", 15000);
+        forestSpecies.put("Amazon", 40000);
+  int forestCount = forestSpecies.size();
+}
+```
+
+- [x] 3
+- [ ] 4
+- [ ] 2
+- [ ] When calling the put method, Java will throw an exception
+
+#### Explanation
+
+A `Map` contains values on the basis of key, i.e. key and value pair. Each key and value pair is known as an entry.
+A `Map` contains unique keys.
+
+A `Map` doesn't allow duplicate keys, but you can have duplicate values. `HashMap` and `LinkedHashMap` allow null keys
+and values, but `TreeMap` doesn't allow any null key or value.
+
+```java
+import java.util.*;
+
+public class HashMapExample2 {
+    public static void main(String[] args) {
+        HashMap<Integer, String> map = new HashMap<Integer, String>();//Creating HashMap    
+        map.put(1, "Mango");
+        map.put(2, "Apple");
+        map.put(3, "Banana");
+        map.put(1, "Grapes"); //trying duplicate key
+
+        System.out.println("Iterating Hashmap...");
+        for (Map.Entry m : map.entrySet()) {
+            System.out.println(m.getKey() + " " + m.getValue());
+        }
+    }
+}  
+```
+
+```
+Output:
+
+Iterating Hashmap...
+1 Grapes
+2 Apple
+3 Banana
+```
+
+#### Q105. What is a problem with this code?
+
+```java
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+class Main {
+    public static void main(String[] args) {
+        List<String> list = new ArrayList<String>(Arrays.asList("a", "b", "c"));
+        for (String value : list) {
+            if (value.equals("a")) {
+                list.remove(value);
+            }
+        }
+        System.out.println(list); // outputs [b,c]
+    }
+}
+```
+
+- [ ] String should be compared using == method instead of equals.
+- [x] Modifying a collection while iterating through it can throw a ConcurrentModificationException.
+- [ ] The List interface does not allow an argument of type String to be passed to the remove method.
+- [ ] ArrayList does not implement the List interface.
+
+#### Explanation
+
+The `ConcurrentModificationException` is a very common exception in Java that occurs usually while working with
+Collections.
+
+The `ConcurrentModificationException` is used to fail-fast when something being iterated on is modified.
+
+This exception occurs when an object is attempted to be modified concurrently without permission. For example, if a
+Collection is modified while a thread is traversing it using an Iterator, a ConcurrentModificationException is thrown
+from the `Iterator.next()` method.
+
+Here is an example of a `ConcurrentModificationException` thrown when attempting to remove an element from an ArrayList
+using the `remove()` method while traversing it using an enhanced for loop:
+
+```java
+import java.util.ArrayList;
+import java.util.List;
+
+public class ConcurrentModificationExceptionExample {
+    public static void main(String[] args) {
+        List<String> list = new ArrayList<>();
+        list.add("a");
+        list.add("b");
+        list.add("c");
+        list.add("d");
+
+        for (String elem : list) {
+            if (elem.equals("a")) {
+                list.remove(elem);
+            }
+        }
+    }
+}
+```
+
+Since the enhanced for loop uses an `Iterator` internally to traverse elements in a Collection, running the above code
+causes a `ConcurrentModificationException` since the `remove()` method of the Collection is used instead of the
+iterator:
+
+```
+Exception in thread "main" java.util.ConcurrentModificationException
+at java.base/java.util.ArrayList$Itr.checkForComodification(ArrayList.java:1013)
+at java.base/java.util.ArrayList$Itr.next(ArrayList.java:967)
+at ConcurrentModificationExceptionExample.main(ConcurrentModificationExceptionExample.java:12)
+```
