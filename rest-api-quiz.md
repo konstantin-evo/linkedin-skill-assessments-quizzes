@@ -469,16 +469,14 @@ The server uses content negotiation to select one of the proposals and informs t
 
 Syntax:
 
-```html
-Accept: <MIME_type>/<MIME_subtype>
+```htmlAccept: <MIME_type>/<MIME_subtype>
 Accept: <MIME_type>/*
 Accept: */*
 ```
 
 Example with multiple types, weighted with the quality value syntax:
 
-```html
-Accept: text/html, application/xhtml+xml, application/xml;q=0.9, image/webp, */*;q=0.8
+```htmlAccept: text/html, application/xhtml+xml, application/xml;q=0.9, image/webp, */*;q=0.8
 ```
 
 ---
@@ -783,8 +781,7 @@ The `Cache-Control` HTTP header field holds directives — in both requests and 
 
 The `private` response directive indicates that the response can be stored only in a private cache e.g. local caches in browsers.
 
-```html
-Cache-Control: private
+```htmlCache-Control: private
 ```
 
 You should add the `private` directive for user-personalized content — in particular, responses received after login, and sessions managed via cookies.
@@ -833,8 +830,7 @@ OAuth is all about enabling users to grant limited access to applications. The a
 
 To begin the authorization flow, the application constructs a URL like the following and opens a browser to that URL.
 
-```html
-https://authorization-server.com/auth
+```htmlhttps://authorization-server.com/auth
 ?response_type=code
 &client_id=29352915982374239857
 &redirect_uri=https%3A%2F%2Fexample-app.com%2Fcallback
