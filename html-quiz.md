@@ -20,7 +20,6 @@ media is playing.
 Example: a video with subtitle tracks for two languages.
 
 ```html
-<!--suppress HtmlUnknownTarget -->
 <video width="320" height="240" controls>
     <source src="forrest_gump.mp4" type="video/mp4">
     <source src="forrest_gump.ogg" type="video/ogg">
@@ -1078,4 +1077,363 @@ code {
 
 </body>
 </html>
+```
+
+#### Q31. What does the `<label>` element do?
+
+- [ ] It labels webpages with important information.
+- [ ] It creates an ID for a corresponding input element.
+- [ ] It overrides the name attribute's value on a child input element.
+- [x] It programmatically associates a text label with an interface element.
+
+#### Explanation
+
+The `<label>` tag defines a label for several elements:
+
+- `<input type="checkbox">`
+- `<input type="color">`
+- `<input type="date">`
+
+... and others.
+
+Proper use of labels with the elements above will benefit:
+
+1. Screen reader users (will read out loud the label, when the user is focused on the element)
+2. Users who have difficulty clicking on very small regions (such as checkboxes) - because when a user clicks the text within the <label> element, it toggles the input (this increases the hit area). 
+
+Example:
+
+```html
+<form action="/action_page.php">
+  <input type="radio" id="html" name="fav_language" value="HTML">
+  <label for="html">HTML</label><br>
+  <input type="radio" id="css" name="fav_language" value="CSS">
+  <label for="css">CSS</label><br>
+  <input type="radio" id="javascript" name="fav_language" value="JavaScript">
+  <label for="javascript">JavaScript</label><br><br>
+  <input type="submit" value="Submit">
+</form>
+```
+
+#### Q32. To get a link to open in a new window or tab, use the **\_** attribute
+
+- [x] `_blank`
+- [ ] `_self`
+- [ ] `_new`
+- [ ] `_parent`
+
+#### Explanation
+
+The `target` attribute specifies where to open the linked document.
+
+| Value      | Description                                                                     |
+|------------|---------------------------------------------------------------------------------|
+| **_blank** | **Opens the linked document in a new window or tab**                            |
+| _self      | Opens the linked document in the same frame as it was clicked (this is default) |
+| _parent    | Opens the linked document in the parent frame                                   |
+| _top       | Opens the linked document in the full body of the window                        |
+| framename  | Opens the linked document in the named iframe                                   |
+
+
+#### Q33. What is the most semantically accurate way to mark up the sentence shown below? Note: "TLAs" stands for "three-letter acronyms."
+
+**We are fond of our TLAs in web design.**
+
+- [ ] A
+
+```html
+<p>We are fond of our <span title="three-letter acronyms">TLAs</span> in web design.</p>
+```
+
+- [ ] B
+
+```html
+<p>We are fond of our TLAs in web design.</p>
+```
+
+- [x] C
+
+```html
+<p>we are fond of our <abbr title="three-letter acronyms">TLAs</abbr> in web design.</p>
+```
+
+- [ ] D
+
+```html
+<p>we are fond of our <acronym title="three-letter acronym">TLAs</acronym> in web design.</p>
+```
+
+`<acronym>` has been removed in HTML5 and shouldn't be used anymore. Instead web developers should use the `<abbr>` element.
+
+#### Explanation
+
+The `<abbr>` tag defines an abbreviation or an acronym, like "HTML", "CSS", "Mr.", "Dr.", "ASAP", "ATM".
+
+```html
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>The abbr element</h1>
+
+<p>The <abbr title="World Health Organization">WHO</abbr> was founded in 1948.</p>
+
+</body>
+</html>
+```
+
+#### Q34. What is the correctly nested markup for this list?
+
+![Sample list](src/html/q34.png?raw=true)
+
+- [ ] A
+
+```html
+<ul>
+  <li>
+    office
+    <ol style="circle">
+      <li>staple</li>
+      <li>paper</li>
+    </ol>
+  </li>
+  <li>
+    groceries
+    <ol style="circle">
+      <li>milk</li>
+    </ol>
+  </li>
+</ul>
+```
+
+
+- [x] B
+
+```html
+<ul>
+  <li>
+    Office Supplies
+    <ul>
+      <li>Stapler</li>
+      <li>Paper clips</li>
+    </ul>
+  </li>
+  <li>
+    Groceries
+    <ul>
+      <li>Milk</li>
+    </ul>
+  </li>
+</ul>
+```
+
+- [ ] C
+
+```html
+<ul>
+  <li>office</li>
+  <li>staple</li>
+  <li>paper</li>
+  <li>groceries</li>
+  <li>milk</li>
+</ul>
+```
+
+#### Explanation
+
+A nested list or a sublist is a list within a list. The trick to marking nested lists up correctly in HTML is to recognize that the sublist is actually a child of a list item and not of a list.
+
+Start by creating a list. It can be ordered or unordered:
+
+```html
+<ul>
+  <li>Fruit</li>
+  <li>Vegetables</li>
+  <li>Meat</li>
+</ul>
+```
+
+Now add a nested list to the first list item:
+
+```html
+<ul>
+  <li>Fruit
+    <ul>
+      <li>Bananas</li>
+      <li>Apples</li>
+      <li>Pears</li>
+    </ul>
+  </li>
+  <li>Vegetables</li>
+  <li>Meat</li>
+</ul>
+```
+
+Notice that the sublist is a child and not a sibling of an `<li>` tag.
+
+#### Q35. What should fill the blank below?
+
+```html
+<link href="phone.css" rel="stylesheet" _____="print" />
+```
+
+- [ ] title
+- [ ] type
+- [ ] device
+- [x] media
+
+#### Explanation
+
+The `media` attribute specifies what media/device the target resource is optimized for.
+
+This attribute is mostly used with CSS style sheets to specify different styles for different media types.
+
+The `media` attribute can accept several values.
+
+Example:
+
+```html
+<head>
+  <link rel="stylesheet" type="text/css" href="theme.css">
+  <link rel="stylesheet" type="text/css" href="print.css" media="print">
+</head>
+```
+
+#### Q36. What is the semantically correct way to mark up this layout?
+
+![quote](src/html/q36.png?raw=true)
+
+- [ ] A
+
+```html
+<p>
+  "Making money is what you have to do to sustain a business—being driven to make something of value
+  and purpose is much more powerful."
+</p>
+<p><em>Lynda Weinman</em></p>
+```
+
+- [ ] B
+
+```html
+<blockquote>
+  <q
+    >"Making money is what you have to do to sustain a business—being driven to make something of
+    value and purpose is much more powerful."</q
+  >
+  <cite><em>Lynda Weinman</em></cite>
+</blockquote>
+```
+
+- [x] C
+
+```html
+<blockquote>
+  <p>
+    "Making money is what you have to do to sustain a business—being driven to make something of
+    value and purpose is much more powerful."
+  </p>
+  <cite>Lynda Weinman</cite>
+</blockquote>
+```
+
+- [ ] D
+
+```html
+<section>
+  <q
+    >"Making money is what you have to do to sustain a business—being driven to make something of
+    value and purpose is much more powerful."</q
+  >
+  <cite>Lynda Weinman</cite>
+</section>
+```
+
+#### Explanation
+
+The `<blockquote>` tag specifies a section that is quoted from another source.
+
+Browsers usually indent `<blockquote>` elements (look at example below to see how to remove the indentation).
+
+Example:
+
+```html
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>The blockquote element</h1>
+
+<p>Here is a quote from WWF's website:</p>
+
+<blockquote cite="http://www.worldwildlife.org/who/index.html">
+For 50 years, WWF has been protecting the future of nature. The world's leading conservation organization, WWF works in 100 countries and is supported by 1.2 million members in the United States and close to 5 million globally.
+</blockquote>
+
+</body>
+</html>
+```
+
+#### Q37. Which choice uses the correct terminology in describing this markup: `<p>info</p>`?
+
+- [ ] The element opener is `<p>`, the element closer is `</p>`, and the element information is info.
+- [ ] The start tag is `<p>`, the end tag is `</p>`, and the enclosed HTML is info.
+- [x] The start tag is `<p>`, the end tag is `</p>`, and the element content is info.
+- [ ] The start element is `<p>`, the end element is `</p>`, and the tag content is info.
+
+#### Q38. What is the difference between `<input type="submit" value="click me">` and `<button type="submit">Click me</button>`?
+
+- [ ] There is no difference. Both will render a button that submits a form.
+- [x] Both will submit a form. However, the `<button>` can have content other than text, like an image or nested HTML elements, while the `<input>` cannot.
+- [ ] `<input type="button">` has been deprecated in HTML5. You should use the `<button>` tag instead.
+- [ ] Both will submit a form. However, the `<input>` can have content other than text, like an image or nested HTML elements, while the `<button>` cannot.
+
+#### Explanation
+
+Both `<button type="submit">` and `<input type="submit">` display as buttons and cause the form data to be submitted to the server.
+
+The difference is that `<button>` can have content, whereas `<input>` cannot (it is a null element).
+
+#### Q39. What is the best semantic way to indicate that text refers to keyboard entry?
+
+- [ ] `<p>Press the <tt>Enter</tt> key to proceed.</p>`
+- [x] `<p>Press the <kbd>Enter</kbd> key to proceed.</p>`
+- [ ] `<p>Press the <samp>Enter</samp> key to proceed.</p>`
+- [ ] `<p>Press the Enter key to proceed.</p>`
+
+#### Explanation
+
+The `<kbd>` tag is used to define keyboard input. The content inside is displayed in the browser's default monospace font.
+
+#### Q40. What does this code do?
+
+```html
+<audio controls>
+  <source src="sound.mp3" type="audio/mpeg" />
+  <source src="sound.ogg" type="audio/ogg" />
+  <source src="sound.wav" type="audio/wav" />
+</audio>
+```
+
+- [x] The browser chooses the first supported format to play with the browser's default controls.
+- [ ] The browser chooses the best audio format to play with JavaScript-provided controls.
+- [ ] The browser plays each sound file in order automatically. The user has controls to stop playback.
+- [ ] The browser chooses the first supported sound file and will loop the sound until the user stops it.
+
+#### Explanation
+
+The `src` attribute specifies the location (URL) of the audio file.
+
+The example above uses an Ogg file, and will work in Firefox, Opera, Chrome, and Edge. However, to play the audio file in IE or Safari, we must use an MP3 file.
+
+To make it work in all browsers - use `<source>` elements inside the `<audio>` element.
+
+Each `<source>` element can link to different audio files. The browser will use the first recognized format:
+
+```html
+<audio controls>
+  <source src="horse.ogg" type="audio/ogg">
+  <source src="horse.mp3" type="audio/mpeg">
+  Your browser does not support the audio tag.
+</audio>
 ```
