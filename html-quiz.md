@@ -1437,3 +1437,354 @@ Each `<source>` element can link to different audio files. The browser will use 
   Your browser does not support the audio tag.
 </audio>
 ```
+
+#### Q41. What attribute applies a keyboard shortcut hint to the current element?
+
+- [x] `accesskey`
+- [ ] `shortcut`
+- [ ] `keyboard`
+- [ ] `access`
+
+#### Explanation
+
+The `accesskey` attribute specifies a shortcut key to activate/focus an element.
+
+The `accesskey` attribute value must be a single character (a letter or a digit).
+
+Example:
+
+```html
+<a href="https://www.w3schools.com/html/" accesskey="h">HTML</a><br>
+<a href="https://www.w3schools.com/css/" accesskey="c">CSS</a>
+```
+
+**Note**: Using accesskeys is difficult because they may conflict with other key standards in the browser.
+
+To avoid this problem, most browsers will use accesskeys only if pressed together with the Alt key.
+
+#### Q42. What is the correct way to code a link that, when clicked, will email `email@example.com` with a subject of "Hello"?
+
+- [ ] `<a href="mailto:email@example.com&subject=Hello">Click me</a>`
+- [ ] `<a href="mailto:email@example.com">Hello</a>`
+- [x] `<a href="mailto:email@example.com?subject=Hello">Click me</a>`
+- [ ] `<a href="mailto:email@example.com?&subject=Hello">Click me</a>`
+
+#### Explanation
+
+Adding the subject to the mailto HTML tag is an easy way to help direct e-mails when listing more than one e-mail address on your website or blog.
+
+Using the mailto in the `a href` HTML tag lets you send an e-mail using the installed e-mail client. If you want to add a subject to that e-mail add `?subject=<subject>` to the mailto tag.
+
+Example:
+
+```html
+<a href="mailto:test@example.com?subject=Testing out mailto!">First Example</a>
+```
+
+#### Q43. Which tag is the root element of an HTML document?
+
+- [ ] `<DOCTYPE html>`
+- [x] `<html>`
+- [ ] `<body>`
+- [ ] `<root>`
+
+#### Explanation
+
+The `<html>` tag is the root element of an HTML document, which means that it contains all the contents and tags of the HTML document within it. The html element represents the root of a document.
+
+#### Q44. Which code snippet creates the layout shown, starting at `<table>` and ending at `</table>`?
+
+![Table](src/html/q44.png?raw=true 'table')
+
+- [ ] A
+
+```html
+<tr>
+  <td>Table cell 1</td>
+  <td>Table cell 2</td>
+</tr>
+<tr>
+  <td rowspan="2">Table cell 3</td>
+</tr>
+```
+
+- [ ] B
+
+```html
+<tr>
+  <td>Table cell 1</td>
+  <td>Table cell 2</td>
+  <td>Table cell 3</td>
+</tr>
+```
+
+- [x] C
+
+```html
+<tr>
+  <td>Table cell 1</td>
+  <td>Table cell 2</td>
+</tr>
+<tr>
+  <td colspan="2">Table cell 3</td>
+</tr>
+```
+
+- [ ] D
+
+```html
+<tr>
+  <td>Table cell 1</td>
+  <td>Table cell 2</td>
+</tr>
+<tr>
+  <td>Table cell 3</td>
+</tr>
+```
+
+#### Explanation
+
+The colspan attribute defines the number of columns a cell should span.
+
+Example:
+
+```html
+<table>
+  <tr>
+    <th>Month</th>
+    <th>Savings</th>
+  </tr>
+  <tr>
+    <td>January</td>
+    <td>$100</td>
+  </tr>
+  <tr>
+    <td>February</td>
+    <td>$80</td>
+  </tr>
+  <tr>
+    <td colspan="2">Sum: $180</td>
+  </tr>
+</table>
+```
+
+#### Q45. Which choice is NOT a legal value for the **name** attribute within a `<meta>` tag?
+
+- [x] charset
+- [ ] viewport
+- [ ] generator
+- [ ] author
+
+#### Explanation
+
+The `<meta>` tag defines metadata about an HTML document. Metadata is data (information) about data.
+
+| Attribute  | Value                                                          | Description                                                                |
+|------------|----------------------------------------------------------------|----------------------------------------------------------------------------|
+| charset    | character_set                                                  | Specifies the character encoding for the HTML document                     |
+| content    | text                                                           | Specifies the value associated with the http-equiv or name attribute       |
+| http-equiv | content-security-policy content-type default-style refresh     | Provides an HTTP header for the information/value of the content attribute |
+| name       | application-name author description generatorkeywords viewport | Specifies a name for the metadata                                          |
+
+#### Q46. Which form is coded correctly?
+
+- [ ] A
+
+```html
+<form>
+  <legend>Title</legend>
+  <fieldset>
+    <label for="name">Your name:</label>
+    <input type="text" name="name" id="name" />
+    <button type="submit">Submit</button>
+  </fieldset>
+</form>
+```
+
+- [ ] B
+
+```html
+<form>
+  <fieldset>
+    <legend>Title</legend>
+    <p>Your name:</p>
+    <input type="text" name="name" id="name" />
+    <input type="submit" value="Submit" />
+  </fieldset>
+</form>
+```
+
+- [x] C
+
+```html
+<form>
+  <fieldset>
+    <legend>Title</legend>
+    <label for="name">Your name:</label>
+    <input type="text" name="name" id="name" />
+    <button type="submit">Submit</button>
+  </fieldset>
+</form>
+```
+
+- [ ] D
+
+```html
+<form>
+  <legend>Title</legend>
+  <label for="name">Your name:</label>
+  <input type="text" name="name" id="name" />
+  <input type="submit" value="Submit" />
+</form>
+```
+
+#### Explanation
+
+The `<fieldset>` tag is used to group related elements in a form.
+
+The `<fieldset>` tag draws a box around the related elements.
+
+Example:
+
+```html
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>The fieldset element</h1>
+
+<form action="/action_page.php">
+ <fieldset>
+  <legend>Personalia:</legend>
+  <label for="fname">First name:</label>
+  <input type="text" id="fname" name="fname"><br><br>
+  <label for="lname">Last name:</label>
+  <input type="text" id="lname" name="lname"><br><br>
+  <label for="email">Email:</label>
+  <input type="email" id="email" name="email"><br><br>
+  <label for="birthday">Birthday:</label>
+  <input type="date" id="birthday" name="birthday"><br><br>
+  <input type="submit" value="Submit">
+ </fieldset>
+</form>
+
+</body>
+</html>
+```
+
+#### Q47. What does the **poster** attribute do in the `<video>` tag?
+
+- [x] It specifies an image that should display while the video downloads and until the video is played.
+- [ ] It specifies an image that only displays if there is a problem with the video.
+- [ ] It specifies an image that should display until the video is played.
+- [ ] It specifies an image that should display while the video downloads.
+
+#### Explanation
+
+The `poster` attribute specifies an image to be shown while the video is downloading, or until the user hits the play button. If this is not included, the first frame of the video will be used instead.
+
+Example:
+
+```html
+<video controls poster="/images/w3html5.gif">
+  <source src="movie.mp4" type="video/mp4">
+  <source src="movie.ogg" type="video/ogg">
+  Your browser does not support the video tag.
+</video>
+```
+
+#### Q48. What does this code do?
+
+```html
+<audio controls src="sound.mp3" type="audio/mpeg">When does this text display?</audio>
+```
+
+- [ ] The text displays over the audio controls, unless CSS is used to position it elsewhere.
+- [ ] The text displays under the audio controls.
+- [x] The text displays when the browser cannot play the sound.
+- [ ] The text never displays.
+
+#### Q49. What is the primary purpose of the `<canvas>` tag?
+
+- [ ] It allows raster images to be rendered on the webpage.
+- [ ] It displays annotated images.
+- [x] It allows drawing on a bitmap via JavaScript.
+- [ ] It allows vector images to be rendered on the webpage.
+
+#### Explanation
+
+The HTML `<canvas>` element is used to draw graphics, on the fly, via JavaScript.
+
+The `<canvas>` element is only a container for graphics. You must use JavaScript to actually draw the graphics.
+
+Canvas has several methods for drawing paths, boxes, circles, text, and adding images.
+
+#### Q50. Which choice contains three valid block-level elements?
+
+- [ ] `<details> <abbr> <figcaption>`
+- [ ] `<canvas> <select> <noscript>`
+- [x] `<dt> <table> <pre>`
+- [ ] `<kbd> <p> <main>`
+
+#### Explanation
+
+The `<dt>` tag defines a term/name in a description list.
+
+```html
+<dl>
+  <dt>Coffee</dt>
+  <dd>Black hot drink</dd>
+  <dt>Milk</dt>
+  <dd>White cold drink</dd>
+</dl>
+```
+
+Most browsers will display the `<dt>` element with the following default values:
+
+```css
+dt {
+  display: block;
+}
+```
+
+A table in HTML consists of table cells inside rows and columns.
+
+```html
+<table>
+  <tr>
+    <td>Emil</td>
+    <td>Tobias</td>
+    <td>Linus</td>
+  </tr>
+</table>
+```
+
+The `<table>` tag defines a block html element.
+
+The `<pre>` tag defines preformatted text.
+
+Text in a `<pre>` element is displayed in a fixed-width font, and the text preserves both spaces and line breaks. The text will be displayed exactly as written in the HTML source code.
+
+Example:
+
+```html
+<pre>
+Text in a pre element
+is displayed in a fixed-width
+font, and it preserves
+both      spaces and
+line breaks
+</pre>
+```
+
+Most browsers will display the `<pre>` element with the following default values:
+
+```css
+pre {
+  display: block;
+  font-family: monospace;
+  white-space: pre;
+  margin: 1em 0;
+}
+```
+
