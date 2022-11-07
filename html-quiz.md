@@ -1788,3 +1788,308 @@ pre {
 }
 ```
 
+#### Q51. In the code below, what is the purpose of the **lang** attribute?
+
+```html
+<p lang="en-GB">Welcome to our wonderful website.</p>
+```
+
+- [ ] It establishes the language for the website—in this case, English.
+- [ ] It establishes the language and dialect for the website—in this case, British English.
+- [x] It establishes the language and dialect for the paragraph—in this case, British English.
+- [ ] It establishes the language for the paragraph—in this case, English.
+
+#### Explanation
+
+The `lang` attribute specifies the language of the element's content.
+
+Common examples are "en" for English, "es" for Spanish, "fr" for French, and so on.
+
+[Language code reference](https://www.w3schools.com/tags/att_global_lang.asp#:~:text=Language%20code%20reference)
+
+#### Q52. Which image formats can be displayed by all web browsers?
+
+- [ ] JPG, GIF, TIF
+- [ ] JPG, TIF, BMP
+- [ ] TIF, BMP, GIF
+- [x] PNG, GIF, JPG
+
+#### Q53. Review the code below. What is the absolute URL for a page called **page.html**?
+
+```html
+<base href="http://www.linkedin.com/dir/" />
+```
+
+- [x] `http://www.linkedin.com/dir/page.html`
+- [ ] `page.html`
+- [ ] `http://www.linkedin.com/page.html`
+- [ ] `dir/page.html`
+
+#### Explanation
+
+The `<base>` tag specifies the base URL and/or target for all relative URLs in a document.
+
+The `<base>` tag must have either a href or a target attribute present, or both.
+
+There can only be one single `<base>` element in a document, and it must be inside the `<head>` element.
+
+Example:
+
+```html
+<head>
+  <base href="https://www.w3schools.com/" target="_blank">
+</head>
+
+<body>
+<img src="images/stickman.gif" width="24" height="39" alt="Stickman">
+<a href="tags/tag_base.asp">HTML base Tag</a>
+</body>
+```
+
+#### Q54. What is the correct way to include a stylesheet named **style.css** in the `<head>` of your document?
+
+- [ ] `<style link="style.css">`
+- [x] `<link rel="stylesheet" href="style.css">`
+- [ ] `<style src="style.css"></style>`
+- [ ] `<link style="style.css">`
+
+#### Explanation
+
+The `<link>` tag defines the relationship between the current document and an external resource.
+
+Example of a link to an external style sheet:
+
+```html
+<head>
+  <link rel="stylesheet" href="styles.css">
+</head>
+```
+
+#### Q55. You want to have single spacing in between some lines, like in a poem or an address. Which approach should you use?
+
+- [ ] Wrap the text in a box that is the right width so everything wraps correctly. Set the box width with CSS.
+- [x] Separate lines with a `<p>`, then use CSS to make single spacing.
+- [ ] Use the `<pre>` tag to make the line spacing look exactly like you want.
+- [ ] Separate the lines with the `<br>` tag.
+
+#### Explanation
+
+The `<p>` tag defines a paragraph.
+
+Browsers automatically add a single blank line before and after each `<p>` element.
+
+**Note**: from my point of view the option with <br> is correct too.
+
+Example:
+
+```html
+<address>
+Written by <a href="mailto:webmaster@example.com">Jon Doe</a>.<br>
+Visit us at:<br>
+Example.com<br>
+Box 564, Disneyland<br>
+USA
+</address>
+```
+
+#### Q56. What does the `<wbr>` tag do?
+
+- [ ] It requires the browser to wrap the current line at that point.
+- [ ] It breaks a word into two pieces, using a hyphen to connect the words.
+- [ ] It formats a sentence to be easily breakable.
+- [x] It presents an opportunity for a break in a very long word, if needed for proper page display.
+
+#### Explanation
+
+The `<wbr>` (Word Break Opportunity) tag specifies where in a text it would be ok to add a line-break.
+
+**Note**: When a word is too long, the browser might break it at the wrong place. You can use the `<wbr>` element to add word break opportunities.
+
+```html
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>The wbr element</h1>
+
+<p>Try to shrink the browser window, to view how the very long word in 
+the paragraph below will break:</p>
+
+<p>This is a veryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryvery<wbr>longwordthatwillbreakatspecific<wbr>placeswhenthebrowserwindowisresized.</p>
+
+<p><b>Note:</b> The wbr element is not supported in Internet Explorer 11 (or earlier).</p>
+
+</body>
+</html>
+```
+
+#### Q57. Review the code below. How do you include subnavigation for Link 2 that includes a link?
+
+```html
+<nav>
+  <ul>
+    <li><a href="#">Link 1</a></li>
+    <li><a href="#">Link 2</a></li>
+    <li><a href="#">Link 3</a></li>
+  </ul>
+</nav>
+```
+
+- [ ] A
+
+```html
+<nav>
+  <ul>
+    <li><a href="#">Link 1</a></li>
+    <li><a href="#">Link 2</a></li>
+    <ul>
+      <li><a href="#">Link 2a</a></li>
+    </ul>
+    <li><a href="#">Link 3</a></li>
+  </ul>
+</nav>
+```
+
+- [x] B
+
+```html
+<nav>
+  <ul>
+    <li><a href="#">Link 1</a></li>
+    <li>
+      <a href="#">Link 2</a>
+      <ul>
+        <li><a href="#">Link 2a</a></li>
+      </ul>
+    </li>
+    <li><a href="#">Link 3</a></li>
+  </ul>
+</nav>
+```
+
+- [ ] C
+
+```html
+<ul>
+  <nav>
+    <li><a href="#">Link 1</a></li>
+    <li>
+      <a href="#">Link 2</a>
+      <ul>
+        <nav>
+          <li><a href="#">Link 2a</a></li>
+        </nav>
+      </ul>
+    </li>
+    <li><a href="#">Link 3</a></li>
+  </nav>
+</ul>
+```
+
+- [ ] D
+
+```html
+<nav>
+  <ul>
+    <li><a href="#">Link 1</a></li>
+    <li><a href="#">Link 2</a></li>
+    <nav>
+      <ul>
+        <li><a href="#">Link 2a</a></li>
+      </ul>
+    </nav>
+    <li><a href="#">Link 3</a></li>
+  </ul>
+</nav>
+```
+
+#### Explanation
+
+A nested list or a sublist is a list within a list. The trick to marking nested lists up correctly in HTML is to recognize that the sublist is actually a child of a list item and not of a list.
+
+Start by creating a list. It can be ordered or unordered:
+
+```html
+<ul>
+  <li>Fruit</li>
+  <li>Vegetables</li>
+  <li>Meat</li>
+</ul>
+```
+
+Now add a nested list to the first list item:
+
+```html
+<ul>
+  <li>Fruit
+    <ul>
+      <li>Bananas</li>
+      <li>Apples</li>
+      <li>Pears</li>
+    </ul>
+  </li>
+  <li>Vegetables</li>
+  <li>Meat</li>
+</ul>
+```
+
+Notice that the sublist is a child and not a sibling of an `<li>` tag.
+
+#### Q58. What is the correct way to code a comment in HTML?
+
+- [ ] `//this is a comment`
+- [ ] `/* this is a comment */`
+- [ ] `<! this is a comment ->`
+- [x] `<!-- this is a comment -->`
+
+#### Explanation
+
+You can add comments to your HTML source by using the following syntax:
+
+```html
+<!-- Write your comments here -->
+```
+
+Notice that there is an exclamation point (!) in the start tag, but not in the end tag.
+
+#### Q59. Which statement is **false**?
+
+- [ ] Inline elements can be nested inside inline elements.
+- [ ] Block elements can be nested inside block elements.
+- [ ] Inline elements can be nested inside block elements.
+- [x] Block elements can be nested inside inline elements.
+
+#### Explanation
+
+You shouldn't put block elements within inline elements because it breaks the element structure. Inline elements are meant to reside within block level elements so that they render correctly and follow the flow of content.
+
+#### Q60. What is the best semantic to use Quotes in HTML?
+
+`Steve Kruz Said: "He will Win"`
+
+- [x] `<q>`
+- [ ] `<quote>`
+- [ ] `<blockquote>`
+- [ ] `<notation>`
+
+#### Explanation
+
+The `<q>` tag defines a short quotation.
+
+Browsers normally insert quotation marks around the quotation.
+
+```html
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>The q element</h1>
+
+<p>WWF's goal is to: 
+<q>Build a future where people live in harmony with nature.</q>
+We hope they succeed.</p>
+
+</body>
+</html>
+```
+
