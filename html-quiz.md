@@ -2093,3 +2093,366 @@ We hope they succeed.</p>
 </html>
 ```
 
+#### Q61. How will a video look displayed on a fully loaded webpage if the `<video>` tag is used and the **autoplay** attribute is not set?
+
+- [ ] It will display a random frame from a video, unless the **poster** attribute is set.
+- [x] It will display the first frame of the video, unless the **poster** attribute is set.
+- [ ] It will display nothing unless the **poster** attribute is set.
+- [ ] It will display a black window unless the **poster** attribute is set.
+
+#### Explanation
+
+The `<video>` tag is used to embed video content in a document, such as a movie clip or other video streams.
+
+The `<video>` tag contains one or more `<source>` tags with different video sources. The browser will choose the first source it supports.
+
+The `poster` attribute specifies an image to be shown while the video is downloading, or until the user hits the play button. If this is not included, the first frame of the video will be used instead.
+
+```html
+<video controls poster="/images/w3html5.gif">
+  <source src="movie.mp4" type="video/mp4">
+  <source src="movie.ogg" type="video/ogg">
+  Your browser does not support the video tag.
+</video>
+```
+
+#### Q62. What is the correct way to describe an empty element / Alt.: What is the correct way to describe an empty element, such as a line break tag?
+
+- [ ] It has opening and closing tags but no child content.
+- [ ] It display nothing on a website.
+- [x] It has no child content and no closing tag.
+- [ ] It has child content but no closing tag.
+
+#### Explanation
+
+An empty element is a component that doesn't have any embedded elements or text elements.
+
+Empty elements do not have successor nodes. In other words, the tags that do not contain any closing tags are empty tags. Empty tags contain only the opening tag but they perform some action in the webpage.
+
+The below are the examples of few empty elements using in HTML:
+
+| Elements |                                                                                                               Description                                                                                                               |
+|:--------:|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
+| `<area>` | It is used to map a portion of an image to make it clickable by the end-user. It is used to direct the user to different links after the user clicks on the mapped portions of the image. It is used as a child tag of the `<map>` tag. |
+| `<base>` |                                           For all relative URLs in a document, the base URL is specified to use with the <base> element. Only one `<base>` element can be used in a document.                                           |
+|  `<br>`  |       The `<br>` element is used for a line break in a text (can also be called carriage-return). It is useful in the case of writing an address, story, blogs, etc where the long sentence needs to break for clear visibility.        |
+| `<col>`  |               The `<col>` tag in HTML is used to set the column properties for each column within a `<colgroup>` tag. This tag is used to set the style property to each column. This tag does not contain closing tags.                |
+
+#### Q63. What is the purpose of async in this code?
+
+`<script async src="myscript.js"></script>`
+
+- [ ] It downloads the script from the server when resources allow.
+- [ ] It runs the script after HTML parsing is complete.
+- [x] It runs the script when the script is ready.
+- [ ] It pauses the parsing of HTML code while the script runs.
+
+#### Explanation
+
+The `async` attribute is a boolean attribute.
+
+If the `async` attribute is set, the script is downloaded in parallel to parsing the page, and executed as soon as it is available. The parsing of the page is interrupted once the script is downloaded completely, and then the script is executed, before the parsing of the rest of the page continues.
+
+**Note**: The `async` attribute is only for external scripts (and should only be used if the `src` attribute is present).
+
+There are several ways an external script can be executed:
+
+1. If `async` is present: The script is downloaded in parallel to parsing the page, and executed as soon as it is available (before parsing completes)
+2. If `defer` is present (and not async): The script is downloaded in parallel to parsing the page, and executed after the page has finished parsing
+3. If neither `async` or `defer` is present: The script is downloaded and executed immediately, blocking parsing until the script is completed
+
+#### Q64. What does this code do on a page you are visiting for the first time?
+
+`<audio autoplay loop src="sound.mp3" type="audio/mpeg"></audio>`
+
+- [ ] When the **Play** button is pressed, the browser plays the sound over and over again until the user stops it.
+- [ ] The browser plays the sound once automatically in the background. The user has no control over the sound.
+- [ ] The browser plays the sound automatically and continuously in the background. The user may stop the sound at any tune.
+- [x] It does nothing. Modern browsers require some form of interaction before they let a page autoplay with audio.
+
+#### Explanation
+
+The `autoplay` attribute is a boolean attribute.
+
+When present, the audio/video will automatically start playing as soon as it can do so without stopping.
+
+```html
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>The audio autoplay attribute</h1>
+
+<p>Click on the play button to play a sound:</p>
+
+<audio controls autoplay>
+  <source src="horse.ogg" type="audio/ogg">
+  <source src="horse.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
+
+</body>
+</html>
+```
+
+Automatically starting the playback of audio (or videos with audio tracks) immediately upon page load can be an unwelcome surprise to users. While autoplay of media serves a useful purpose, it should be used carefully and only when needed. **In order to give users control over this, browsers often provide various forms of autoplay blocking**.
+
+#### Q65. What is the difference between the `<head>` and `<header>` tags?
+
+- [ ] There is only one `<head>` tag per page, while there may be many `<header>` tags.
+- [ ] The `<head>` tag may contain CSS and Javascript links, while the `<header>` tag may contain headings and navigational links.
+- [x] all of these answers
+- [ ] The `<head>` tag contains meta information, while the `<header>` tag contains navigation, logos, and other page identifying content.
+
+#### Explanation
+
+The `<head>` tag is used for holding Meta information, title, links, etc. and is not displayed on the page.
+
+The `<header>` tag is used within the body of the website and can be used multiple times if required, e.g. to determine the top of an article .
+
+Example:
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Nick Pettit</title>
+  </head>
+  <body>
+    <header>
+      <a href="index.html">
+        <h1>Nick Pettit</h1>
+        <h2>Designer</h2>
+      </a>
+    </header>
+    <section></section>
+    <footer>
+      <p>&copy; 2013 Nick Pettit.</p>
+    </footer>
+  </body>
+</html>
+```
+
+#### Q66. In this code, what is the purpose of defer?
+
+`<script defer src="myscript.js"></script>`
+
+- [ ] It downloads the script from the server when resources allow.
+- [x] It runs the script after HTML parsing is complete.
+- [ ] It runs the script when the script is ready.
+- [ ] It pauses the parsing of HTML code while the script runs.
+
+#### Explanation
+
+The `defer` attribute is a boolean attribute.
+
+If the `defer` attribute is set, it specifies that the script is downloaded in parallel to parsing the page, and executed after the page has finished parsing.
+
+There are several ways an external script can be executed:
+
+1. If `async` is present: The script is downloaded in parallel to parsing the page, and executed as soon as it is available (before parsing completes)
+2. If `defer` is present (and not async): The script is downloaded in parallel to parsing the page, and executed after the page has finished parsing
+3. If neither `async` or `defer` is present: The script is downloaded and executed immediately, blocking parsing until the script is completed
+
+```html
+<script src="demo_defer.js" defer></script>
+```
+
+#### Q67. The code below contains some errors. Which choice corrects all the errors?
+
+```html
+<table>
+  <tr>
+    Cell 1
+  </tr>
+  <td>Cell 2</td>
+  <caption>
+    A table
+  </caption>
+</table>
+```
+
+- [ ] A
+
+```html
+<caption>
+  A table
+</caption>
+<table>
+  <td>
+    <tr>
+      Cell 1
+    </tr>
+    <tr>
+      Cell 2
+    </tr>
+  </td>
+</table>
+```
+
+- [ ] B
+
+```html
+<caption>
+  A table
+</caption>
+<table>
+  <tr>
+    <td>Cell 1</td>
+    <td>Cell 2</td>
+  </tr>
+</table>
+```
+
+- [x] C
+
+```html
+<table>
+  <caption>
+    A table
+  </caption>
+  <tr>
+    <td>Cell 1</td>
+    <td>Cell 2</td>
+  </tr>
+</table>
+```
+
+- [ ] D
+
+```html
+<table>
+  <tr>
+    <td>Cell 1</td>
+    <td>Cell 2</td>
+  </tr>
+  <caption>
+    A table
+  </caption>
+</table>
+```
+
+#### Explanation
+
+The `<caption>` tag defines a table caption.
+
+The `<caption>` tag must be inserted immediately after the `<table>` tag.
+
+Example:
+
+```html
+<table>
+  <caption>Monthly savings</caption>
+  <tr>
+    <th>Month</th>
+    <th>Savings</th>
+  </tr>
+  <tr>
+    <td>January</td>
+    <td>$100</td>
+  </tr>
+</table>
+```
+
+#### Q68. Given the file and directory structure shown here, what is the correct element to place in file profit.html to link to info.html?
+
+![Image of footer](src/html/q68.png?raw=true)
+
+- [ ] `<a href="../work/info.html">See Information </a>`
+- [x] `<a href="../info.html">See Information </a>`
+- [ ] `<a href="../../info.html">See Information </a>`
+- [ ] `<a href="info.html">See Information </a>`
+
+#### Explanation
+
+In a DOS, Windows or Mac command line, two dots (..) refer to the preceding folder/directory level.
+
+#### Q69. When should you use the `<article>` element?
+
+- [ ] For blog posts and other social media items
+- [ ] For the main content area of your website
+- [x] When the content stands alone as a unit, is suitable for syndication, or is reusable
+- [ ] To associate comments with a blog post
+
+#### Explanation
+
+The `<article>` tag is one of the new semantic elements introduced with HTML5.
+
+According to the HTML5 specification : The article element represents a section of content that forms an independent part of a document or site; for example, a magazine or newspaper article, or a blog entry.
+
+Example:
+
+```html
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>The article element</h1>
+
+<article>
+  <h2>Google Chrome</h2>
+  <p>Google Chrome is a web browser developed by Google, released in 2008. Chrome is the world's most popular web browser today!</p>
+</article>
+
+<article>
+  <h2>Mozilla Firefox</h2>
+  <p>Mozilla Firefox is an open-source web browser developed by Mozilla. Firefox has been the second most popular web browser since January, 2018.</p>
+</article>
+
+<article>
+  <h2>Microsoft Edge</h2>
+  <p>Microsoft Edge is a web browser developed by Microsoft, released in 2015. Microsoft Edge replaced Internet Explorer.</p>
+</article>
+
+</body>
+</html>
+```
+
+#### Q70. Which list comprises three empty elements?
+
+- [ ] A
+
+```html
+<area />
+<embed />
+<strong></strong>
+```
+
+- [ ] B
+
+```html
+<input />
+<br />
+<p></p>
+```
+
+- [ ] C
+
+```html
+<link>
+<meta>
+<title>
+```
+
+- [x] D
+
+```html
+<wbr />
+<base />
+<source />
+```
+
+#### Explanation
+
+An empty element is a component that doesn't have any embedded elements or text elements.
+
+Empty elements do not have successor nodes. In other words, the tags that do not contain any closing tags are empty tags. Empty tags contain only the opening tag but they perform some action in the webpage.
+
+The below are the examples of few empty elements using in HTML:
+
+|  Elements  |                                                                                                                                                           Description                                                                                                                                                            |
+|:----------:|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
+|  `<base>`  |                                                                                       For all relative URLs in a document, the base URL is specified to use with the <base> element. Only one `<base>` element can be used in a document.                                                                                        |
+|  `<wbr>`   |          The `<wbr>` tag in HTML stands for word break opportunity and is used to define the position within the text which is treated as a line break by the browser. It is mostly used when the used word is too long and there are chances that the browser may break lines at the wrong place for fitting the text.          |
+| `<source>` | The `<source>` element is an empty element that provides various media resources for the <image>, <audio>, or <video> elements.  It provides the same media material in several file formats to ensure compatibility with a wide variety of browsers, as image and media file formats are supported by the browsers differently. |
