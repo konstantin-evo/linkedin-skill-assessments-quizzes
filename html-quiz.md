@@ -2456,3 +2456,443 @@ The below are the examples of few empty elements using in HTML:
 |  `<base>`  |                                                                                       For all relative URLs in a document, the base URL is specified to use with the <base> element. Only one `<base>` element can be used in a document.                                                                                        |
 |  `<wbr>`   |          The `<wbr>` tag in HTML stands for word break opportunity and is used to define the position within the text which is treated as a line break by the browser. It is mostly used when the used word is too long and there are chances that the browser may break lines at the wrong place for fitting the text.          |
 | `<source>` | The `<source>` element is an empty element that provides various media resources for the <image>, <audio>, or <video> elements.  It provides the same media material in several file formats to ensure compatibility with a wide variety of browsers, as image and media file formats are supported by the browsers differently. |
+
+#### Q71. Which snippet of HTML, when clicked, makes a phone call on a mobile device?
+
+- [x] `<a href="tel:802-555-1212">Call me</a>`
+- [ ] `<a href="phone">802-555-1212</a>`
+- [ ] `<a href="tel">802-555-1212</a>`
+- [ ] `<a href="phone:802-555-1212">Call me</a>`
+
+#### Explanation
+
+Steps to Add a Clickable Telephone Link in HTML:
+
+1. Create an anchor element.
+2. Enter your phone number in the href attribute.
+3. Add tel: before the number inside the quotation marks.
+4. Include text in the anchor element.
+
+```html
+<a href="tel:6031112298">Click to call a customer support rep.</a>
+```
+
+#### Q72. What is the purpose of the `class` attribute?
+
+- [ ] Classes allow CSS to select specific elements on the page. You may list as many class names within the class attribute as you wish,
+  separated by spaces.
+- [ ] Classes allow CSS and JavaScript to select specific elements on the page. You may list only one class name per class attribute.
+- [ ] Classes allow CSS to select specific elements on the page. You may list only one class name per class attribute.
+- [x] Classes allow CSS and JavaScript to select specific elements on the page. You may list as many class names within the class attribute
+  as you wish, separated by spaces.
+
+#### Explanation
+
+The HTML `class` attribute is used to specify a class for an HTML element.
+
+The `class` attribute is often used to point to a class name in a style sheet. It can also be used by a JavaScript to access and manipulate elements with the specific class name.
+
+Example:
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+.city {
+  background-color: tomato;
+  color: white;
+  border: 2px solid black;
+  margin: 20px;
+  padding: 20px;
+}
+</style>
+</head>
+<body>
+
+<div class="city">
+  <h2>London</h2>
+  <p>London is the capital of England.</p>
+</div>
+
+<div class="city">
+  <h2>Paris</h2>
+  <p>Paris is the capital of France.</p>
+</div>
+
+<div class="city">
+  <h2>Tokyo</h2>
+  <p>Tokyo is the capital of Japan.</p>
+</div>
+
+</body>
+</html>
+```
+
+#### Q73. Which choice is not a legal type attribute for the `<input>` tag?
+
+- [ ] `<input type="color">`
+- [ ] `<input type="tel">`
+- [ ] `<input type="week">`
+- [x] `<input type="num">`
+
+#### Explanation
+
+The `<input type="color">` is used for input fields that should contain a color.
+
+Depending on browser support, a color picker can show up in the input field.
+
+Example:
+
+```html
+<form>
+  <label for="favcolor">Select your favorite color:</label>
+  <input type="color" id="favcolor" name="favcolor">
+</form>
+```
+
+The `<input type="tel">` is used for input fields that should contain a telephone number.
+
+Example:
+
+```html
+<form>
+  <label for="phone">Enter your phone number:</label>
+  <input type="tel" id="phone" name="phone" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}">
+</form>
+```
+
+The `<input type="week">` allows the user to select a week and year.
+
+Depending on browser support, a date picker can show up in the input field.
+
+Example:
+
+```html
+<form>
+  <label for="week">Select a week:</label>
+  <input type="week" id="week" name="week">
+</form>
+```
+
+The `<input type="num">` is not a legal type attribute.
+
+#### Q74. What is the most semantic way to mark up this sentence so that "happy talk must die" is rendered as an inline quote?
+
+As Steve Krug once said, happy talk must die.
+
+- [ ] `<p>`As Steve Krug once said, `<b>`happy talk must die.`</b>` `</p>`
+- [ ] `<p>`As Steve Krug once said, `<i>`happy talk must die.`</i>` `</p>`
+- [ ] `<p>`As Steve Krug once said, `<blockquote>`happy talk must die.`</blockquote>` `</p>`
+- [x] `<p>`As Steve Krug once said, `<q>`happy talk must die.`</q>` `</p>`
+
+#### Explanation
+
+The `<q>` tag defines a short quotation.
+
+Browsers normally insert quotation marks around the quotation.
+
+**Note**: Use `<blockquote>` for long quotations.
+
+Example:
+
+```html
+<p>WWF's goal is to:
+<q>Build a future where people live in harmony with nature.</q>
+We hope they
+```
+
+#### Q75. What is the most semantically accurate way to make up a main navigation bar, displayed in a horizontal direction?
+
+- [ ] A
+
+```html
+<p>
+  <a href="index.html">Home</a>
+  <a href="about.html">About</a>
+  <a href="contact.html">Contact</a>
+</p>
+```
+
+- [ ] B
+
+```html
+<nav>
+  <a href="index.html">Home</a>
+  <a href="about.html">About</a>
+  <a href="contact.html">Contact</a>
+</nav>
+```
+
+- [ ] C
+
+```html
+<nav>
+  <ol>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ol>
+</nav>
+```
+
+- [x] D
+
+```html
+<nav>
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</nav>
+```
+
+#### Explanation
+
+One way to build a horizontal navigation bar is to specify the `<li>` elements as inline.
+
+Example:
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+li {
+display: inline;
+}
+</style>
+</head>
+<body>
+
+<ul>
+  <li><a href="#home">Home</a></li>
+  <li><a href="#news">News</a></li>
+  <li><a href="#contact">Contact</a></li>
+  <li><a href="#about">About</a></li>
+</ul>
+
+</body>
+</html>
+```
+
+#### Q76. Which choice is the best way to mark up this layout?
+
+![Image of footer](src/html/q76.png?raw=true)
+
+- [x] A
+
+```html
+<h4>Mailing Address</h4>
+<address>
+  6410 Via Real <br />
+  Carpinteria, CA 93013<br />
+  <a href="mailto:info@linkedin.com">info@linkedin.com</a>
+</address>
+```
+
+- [ ] B
+
+```html
+<h4><strong>Mailing Address</h4>
+<address><em>
+  6410 Via Real <br>
+  Carpinteria, CA 93013<br>
+  <a href="mailto:info@linkedin.com">info@linkedin.com</a>
+</em></address>
+```
+
+- [ ] C
+
+```html
+<h4>Mailing Address</h4>
+<p>
+  <em>
+    6410 Via Real <br />
+    Carpinteria, CA 93013<br />
+    <a href="mailto:info@linkedin.com">info@linkedin.com</a>
+  </em>
+</p>
+```
+
+- [ ] D
+
+```html
+<p><strong>Mailing Address</strong></p>
+<p>
+  <em>
+    6410 Via Real <br />
+    Carpinteria, CA 93013<br />
+    <a href="mailto:info@linkedin.com">info@linkedin.com</a>
+  </em>
+</p>
+```
+
+#### Explanation
+
+The `<address>` tag defines the contact information for the author/owner of a document or an article.
+
+Example:
+
+```html
+<address>
+Written by <a href="mailto:webmaster@example.com">Jon Doe</a>.<br>
+Visit us at:<br>
+Example.com<br>
+Box 564, Disneyland<br>
+USA
+</address>
+```
+
+#### Q77. What is the primary purpose of HTML?
+
+- [x] HTML structures the webpage, identifying its elements such as paragraphs, headings, and lists.
+- [ ] HTML structures and provides a rudimentary look to webpages.
+- [ ] HTML is responsible for the structure, styling, and interactivity of webpages.
+- [ ] HTML is responsible for the structure and styling of webpages.
+
+#### Q78. For the HTML code below, when will "Sample Text" display to the browser?
+
+```html
+<noscript>Sample Text</noscript>
+```
+
+- [ ] when there is no JavaScript used on this webpage
+- [x] when JavaScript is not supported by the browser or if JavaScript is disabled in the browser
+- [ ] when JavaScript is disabled in the web browser
+- [ ] when JavaScript is not supported by the web browser
+
+#### Explanation
+
+The `<noscript>` tag defines an alternate content to be displayed to users that have disabled scripts in their browser or have a browser that doesn't support script.
+
+```html
+<script>
+document.write("Hello World!")
+</script>
+<noscript>Your browser does not support JavaScript!</noscript>
+```
+
+#### Q79. How will this code render by default in most web browsers?
+
+```html
+<details>
+  <h4>Mixed Berry Tart.</h4>
+  <p>
+    Raspberries, blueberries, and strawberries on top of a creamy filling served in a crispy tart.
+  </p>
+</details>
+```
+
+- [x] A
+  ![A](src/html/q84-1.jpg)
+- [ ] B
+  ![B](src/html/q84-2.jpg)
+- [ ] C
+  ![C](src/html/q84-3.jpg)
+- [ ] D
+  ![D](src/html/q84-4.jpg)
+
+#### Explanation
+
+The `<details>` tag specifies additional details that the user can open and close on demand.
+
+The `<details>` tag is often used to create an interactive widget that the user can open and close. **By default, the
+widget is closed.** When open, it expands, and displays the content within.
+
+Example:
+
+```html
+<details>
+    <summary>Epcot Center</summary>
+    <p>Epcot is a theme park at Walt Disney World Resort featuring exciting attractions, international pavilions,
+        award-winning fireworks and seasonal special events.</p>
+</details>
+```
+
+#### Q80. What is the difference between the `<svg>` and `<canvas>`?
+
+- [x] `<svg>` produces vector graphics, while `<canvas>` produces raster graphics.
+- [ ] `<svg>` integrates with JavaScript, while `<canvas>` does not.
+- [ ] `<svg>` produces raster graphics, while `<canvas>` produces vector graphics.
+- [ ] `<svg>` cannot be used as a background image, while `<canvas>` can be used as a background
+
+#### Explanation
+
+SVG: The Scalable Vector Graphics (SVG) is an XML-based image format that is used to define two-dimensional vector-based graphics for the web. Unlike raster image (Ex .jpg, .gif, .png, etc.), a vector image can be scaled up or down to any extent without losing the image quality.
+
+Example:
+
+```html
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        #svgelem {
+            position: relative;
+            left: 50%;
+            -webkit-transform: translateX(-20%);
+            -ms-transform: translateX(-20%);
+            transform: translateX(-20%);
+        }
+    </style>
+    <title>HTML5 SVG</title>
+</head>
+
+<body>
+    <h2 align="center">
+        SVG Circle(Geeks For Geeks)
+    </h2>
+
+    <svg id="svgelem" height="200">
+        <circle id="greencircle" cx="60"
+            cy="60" r="50" fill="green" />
+    </svg>
+</body>
+
+</html>
+```
+
+**Canvas**: The HTML element is used to draw graphics on the fly, via scripting (usually JavaScript). The element is only a container for graphics. You must use a script to actually draw the graphics. Canvas has several methods for drawing paths, boxes, circles, text, and adding images.
+
+```html
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>HTML5 Canvas Tag</title>
+</head>
+
+<body>
+	<h2>Canvas Square(Geeks For Geeks)</h2>
+
+	<canvas id="newCanvas" width="100" height="100"
+		style="border:1px solid #000000;">
+	</canvas>
+	
+	<script>
+		var c = document.getElementById('newCanvas');
+		var ctx = c.getContext('2d');
+		ctx.fillStyle = '#7cce2b';
+		ctx.fillRect(0, 0, 100, 100);
+	</script>
+</body>
+
+</html>
+```
+
+| SVG                                                                                   | Canvas                                                                                   |
+|---------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------|
+| Vector based (composed of shapes)                                                     | Raster based (composed of pixel)                                                         |
+| SVG has better scalability. So it can be printed with high quality at any resolution. | Canvas has poor scalability. Hence it is not suitable for printing on higher resolution. |
+| SVG gives better performance with smaller number of objects or larger surface.        | Canvas gives better performance with smaller surface or larger number of objects.        |
+| SVG can be modified through script and CSS.                                           | Canvas can be modified through script only.                                              |
+| Multiple graphical elements, which become the part of the page’s DOM tree.            | Single element similar to <img> in behavior. Canvas dia                                  |
