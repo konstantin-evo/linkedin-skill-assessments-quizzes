@@ -2896,3 +2896,136 @@ Example:
 | SVG gives better performance with smaller number of objects or larger surface.        | Canvas gives better performance with smaller surface or larger number of objects.        |
 | SVG can be modified through script and CSS.                                           | Canvas can be modified through script only.                                              |
 | Multiple graphical elements, which become the part of the page’s DOM tree.            | Single element similar to <img> in behavior. Canvas dia                                  |
+
+
+#### Q81. What is the difference between the _readonly_ and _disabled_ attributes for the `<textarea>` element?
+
+- [x] _readonly_ allows clicking in the `<textarea>` element. _disabled_ prevents all interaction with the control.
+- [ ] _readonly_ is invalid attribute for `<textarea>`, while _disabled_ is a valid attribute.
+- [ ] _disabled_ allows clicking in the `<textarea>` element. _readonly_ prevents all interaction with the control.
+- [ ] _disabled_ is invalid attribute for `<textarea>`, while _readonly_ is a valid attribute.
+
+#### Explanation
+
+The difference between disabled and readonly is that read-only controls can still function and are still focusable, whereas disabled controls can not receive focus and are not submitted with the form and generally do not function as controls until they are enabled.
+
+#### Q82. In this code, what is _target_?
+
+`<a target="_blank">...</a>`
+
+- [x] an attribute
+- [ ] a tag
+- [ ] content
+- [ ] an element
+
+#### Explanation
+
+An HTML attribute is a piece of markup language used to adjust the behavior or display of an HTML element.
+
+For example, attributes can be used to change the color, size, or functionality of HTML elements.
+
+Attributes are used by including them in an opening HTML tag:
+
+```html
+<tag_name attribute_name="value">Content</tag_name>
+```
+
+The `target` attribute specifies where to open the linked document.
+
+Example:
+
+```html
+<a href="https://www.w3schools.com" target="_blank">Visit W3Schools</a>
+```
+
+#### Q83. What is the correct way to add a submit URL to a `button` element?
+
+- [ ] A
+
+```html
+<button submit="http://example.com/process">Process data</button>
+```
+
+- [ ] B
+
+```html
+<button action="http://example.com/process">Process data</button>
+```
+
+- [x] C
+
+```html
+<button formaction="http://example.com/process">Process data</button>
+```
+
+- [ ] D
+
+```html
+<button method="http://example.com/process">Process data</button>
+```
+
+#### Explanation
+
+The `formaction` attribute specifies where to send the form-data when a form is submitted. This attribute overrides the form's `action` attribute.
+
+The `formaction` attribute is only used for buttons with `type="submit"`.
+
+Example:
+
+```html
+<form action="/action_page.php" method="get">
+  <label for="fname">First name:</label>
+  <input type="text" id="fname" name="fname"><br><br>
+  <label for="lname">Last name:</label>
+  <input type="text" id="lname" name="lname"><br><br>
+  <button type="submit">Submit</button>
+  <button type="submit" formaction="/action_page2.php">Submit to another page</button>
+</form>
+```
+
+#### Q84. Which is the best markup to produce this text?
+
+`x<y&z>w`
+
+- [ ] `<p>x<y&z>w</p>`
+- [x] `<p>x\<y&z\>w</p>`
+- [ ] `<p>x<<y&&z>>w`
+- [ ] `<p>x<y&z>w</p>`
+
+#### Explanation
+
+This question has an issue, however this answer will count as correct
+It's too strange question because all of that methods doesn't work. The good method is &amp, &lt, &gt using.
+
+#### Q85. What is wrong with this code snippet?
+
+```html
+<label>Address:</label> <input type="text" name="address" id="address-input" />
+```
+
+- [ ] The `<label>` and `<input>` should be nested inside of a `<fieldset>` element.
+- [ ] **"address"** is not a valid value for the attribute **name** on an `<input>` element.
+- [ ] The `<label>` element is missing an **id** set to "address-input".
+- [x] The `<label>` element is missing a **for** attribute set to "address-input".
+
+#### Explanation
+
+The `<label> `tag defines a label for several elements:
+
+`<input type="checkbox">`
+`<input type="color">`
+`<input type="date">`
+`<input type="datetime-local">`
+`<input type="email">`
+`and other input tapes`
+`<meter>`
+`<progress>`
+`<select>`
+`<textarea>`
+
+Proper use of labels with the elements above will benefit:
+
+1. Screen reader users (will read out loud the label, when the user is focused on the element)
+2. Users who have difficulty clicking on very small regions (such as checkboxes) - because when a user clicks the text within the `<label>` element, it toggles the input (this increases the hit area). 
+
+**Note**: The for attribute of <label> must be equal to the id attribute of the related element to bind them together. A label can also be bound to an element by placing the element inside the <label> element. 
