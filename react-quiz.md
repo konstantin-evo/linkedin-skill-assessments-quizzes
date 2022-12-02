@@ -387,6 +387,253 @@ const profile = React.createElement(
 );
 ```
 
+#### Q11. Why might you use useReducer over useState in a React component?
+
+- [ ] when you want to replace Redux
+- [x] when you need to manage more complex state in an app
+- [ ] when you want to improve performance
+- [ ] when you want to break your production app
+
+#### Explanation
+
+`useReducer` is an alternative to `useState`. Accepts a reducer of type `(state, action) => newState`, and returns the current state paired with a
+dispatch method.
+
+Syntax:
+
+```javascript
+const [state, dispatch] = useReducer(reducer, initialArg, init);
+```
+
+`useReducer` is usually preferable to `useState` when you have complex state logic that involves multiple sub-values or when the next state depends on
+the previous one.
+
+`useReducer` also lets you optimize performance for components that trigger deep updates because you can pass dispatch down instead of callbacks.
+
+Here’s the counter example using `useState`:
+
+```javascript
+function Counter({initialCount}) {
+    const [count, setCount] = useState(initialCount);
+    return (
+        <>
+            Count: {count}
+            <button onClick={() => setCount(initialCount)}>Reset</button>
+            <button onClick={() => setCount(prevCount => prevCount - 1)}>-</button>
+            <button onClick={() => setCount(prevCount => prevCount + 1)}>+</button>
+        </>
+    );
+}
+```
+
+Here’s the counter example from the useState section, rewritten to use a reducer:
+
+```javascript
+const initialState = {count: 0};
+
+function reducer(state, action) {
+    switch (action.type) {
+        case 'increment':
+            return {count: state.count + 1};
+        case 'decrement':
+            return {count: state.count - 1};
+        default:
+            throw new Error();
+    }
+}
+
+function Counter() {
+    const [state, dispatch] = useReducer(reducer, initialState);
+    return (
+        <>
+            Count: {state.count}
+            <button onClick={() => dispatch({type: 'decrement'})}>-</button>
+            <button onClick={() => dispatch({type: 'increment'})}>+</button>
+        </>
+    );
+}
+```
+
+#### Q12. Which props from the props object is available to the component with the following syntax?
+
+```javascript
+<Message {...props} />
+```
+
+- [ ] any that have not changed
+- [x] all of them
+- [ ] child props
+- [ ] any that have changed
+
+#### Explanation
+
+The spread `(...)` syntax allows an iterable, such as an array or string, to be expanded in places where zero or more arguments (for function calls)
+or elements (for array literals) are expected.
+
+In an object literal, the spread syntax enumerates the properties of an object and adds the key-value pairs to the object being created.
+
+#### Q13. Consider the following code from React Router. What do you call `:id` in the path prop?
+
+```javascript
+<Route path="/:id"/>
+```
+
+- [ ] This is a route modal
+- [x] This is a route parameter
+- [ ] This is a route splitter
+- [ ] This is a route link
+
+#### Explanation
+
+React Router is a standard library for routing in React. It enables the navigation among views of various components in a React Application, allows
+changing the browser URL, and keeps the UI in sync with the URL.
+
+Example:
+
+```javascript
+import ReactDOM from "react-dom/client";
+import {BrowserRouter, Routes, Route} from "react-router-dom";
+import Layout from "./pages/Layout";
+import Home from "./pages/Home";
+import Blogs from "./pages/Blogs";
+import Contact from "./pages/Contact";
+import NoPage from "./pages/NoPage";
+
+export default function App() {
+    return (
+        <BrowserRouter>
+            <Routes>
+                <Route path="/" element={<Layout/>}>
+                    <Route index element={<Home/>}/>
+                    <Route path="blogs" element={<Blogs/>}/>
+                    <Route path="contact" element={<Contact/>}/>
+                    <Route path="*" element={<NoPage/>}/>
+                </Route>
+            </Routes>
+        </BrowserRouter>
+    );
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App/>);
+````
+
+Route component will now help us to establish the link between component’s UI and the URL. To include routes to the application, add the code give
+below to your app.js.
+
+```javascript
+<Route exact path='/' element={< Home/>}></Route>
+<Route exact path='/about' element={< About/>}></Route>
+<Route exact path='/contact' element={< Contact/>}></Route>
+```
+
+Let us now try to understand the props associated with the Route component.
+
+1. exact: It is used to match the exact value with the URL. For e.g., `exact path=’/about’` will only render the component if it exactly matches the
+   path but if we remove exact from the syntax, then UI will still be rendered even if the structure is like /about/10.
+2. **path: Path specifies a pathname we assign to our component**.
+3. element: It refers to the component which will render on matching the path.
+
+#### Q14. If you created a component called Dish and rendered it to the DOM, what type of element would be rendered?
+
+```javascript
+function Dish() {
+    return <h1>Mac and Cheese</h1>;
+}
+
+ReactDOM.render(<Dish/>, document.getElementById('root'));
+```
+
+- [ ] `div`
+- [ ] section
+- [ ] component
+- [x] `h1`
+
+#### Explanation
+
+Class components uses render function. The `ReactDOM.render()` function takes two arguments
+
+1. HTML code;
+2. HTML element.
+
+Purpose of `render()`:
+
+1. React renders HTML to the web page by using a function called `render()`.
+2. The purpose of the function is to display the specified HTML code inside the specified HTML element.
+3. In the `render()` method, we can read props and state and return our JSX code to the root component of our app.
+4. In the `render()` method, we can't change the state, and we can't cause side effects (such as making an HTTP request to the webserver).
+
+Example:
+
+```javascript
+import React, {Component} from 'react';
+
+export default class App extends Component {
+    state = {
+        PawriDays: [
+            {id: '123s', Day: 'Monday'},
+            {id: '234r', Day: 'Saturday'},
+            {id: '12d5', Day: 'Sunday'}
+        ]
+    }
+
+    render() {
+        const PartyDays = this.state.PawriDays.length
+        const style = {
+            'textAlign': 'center',
+            'color': 'green'
+        }
+
+        // Return JSX code
+        return (
+            <div style={style}>
+                <h1>I am User</h1>
+                <p>We party: {PartyDays} days a week</p>
+            </div>
+        );
+    }
+}
+```
+
+#### Q15. What does this React element look like given the following function?
+
+#### Alternative: Given the following code, what does this React element look like?
+
+```javascript
+React.createElement('h1', null, "What's happening?");
+```
+
+- [ ] `<h1 props={null}>What's happening?</h1>`
+- [x] `<h1>What's happening?</h1>`
+- [ ] `<h1 id="component">What's happening?</h1>`
+- [ ] `<h1 id="element">What's happening?</h1>`
+
+#### Explanation
+
+The `createElement()` method creates and returns a new React element of the given type. The type argument can be either a tag name string (such
+as `'div'` or `'span'`), a React component type (a class or a function), or a React fragment type.
+
+Syntax:
+
+```javascript
+React.createElement(
+    type,
+    [props],
+    [...children]
+)
+```
+
+Code written with JSX will be converted to use React.createElement(). You will not typically invoke React.createElement() directly if you are using
+JSX. See React Without JSX to learn more.
+
+Example:
+
+```javascript
+const myElement = React.createElement('h1', {}, 'I do not use JSX!');
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(myElement);
+```
+
 ## Coursera Quiz - Building Interactive User Interfaces Using React Library - Build Stateful Components using React
 
 #### Q1. How will the following JSX code be compiled to React code? <h1 title=”main”>Main article</h1>
@@ -914,4 +1161,3 @@ class Car extends React.Component {
 
 ReactDOM.render(<Car/>, document.getElementById('root'));
 ```
-
