@@ -524,20 +524,413 @@ Example:
 ```java
 public class TryCatchExample3 {
 
-    public static void main(String[] args) {  
-        try  
-        {  
-        int data=50/0; //may throw exception   
-                         // if exception occurs, the remaining statement will not exceute  
-        System.out.println("rest of the code");  
-        }  
-             // handling the exception   
-        catch(ArithmeticException e)  
-        {  
-            System.out.println(e);  
-        }  
-          
-    }  
+    public static void main(String[] args) {
+        try {
+            int data = 50 / 0; //may throw exception   
+            // if exception occurs, the remaining statement will not exceute  
+            System.out.println("rest of the code");
+        }
+        // handling the exception   
+        catch (ArithmeticException e) {
+            System.out.println(e);
+        }
+
+    }
 
 }  
 ```
+
+#### Q16. Why would you implement composition using an id instead of a reference?
+
+- [ ] It makes it easier to save the entity.
+- [x] all of these answers
+- [ ] It can make the entity retrieval more efficient
+- [ ] It minimizes coupling.
+
+#### Explanation
+
+**Note**: Composition in programming languages and databases can be implemented in different ways and it is not possible to give an unambiguous answer
+to the question without additional conditions.
+
+---
+
+The composition is a design technique in java to implement a `has-a` relationship.
+
+Java Inheritance is used for code reuse purposes and the same we can do by using composition. The composition is achieved by using an instance
+variable that refers to other objects.
+
+**Real-life Example**: Library system
+
+Let’s understand the composition in Java with the example of books and library. In this example, we create a class Book that contains data members
+like author, and title and create another class Library that has a reference to refer to the list of books. A library can have no. of books on the
+same or different subjects. So, If the Library gets destroyed then All books within that particular library will be destroyed. i.e., books can not
+exist without a library. The relationship between the library and books is composition.
+
+#### Q17. Which statement best describes the method of inheritance in OOP?
+
+- [x] Inheritance describes the ability to create new classes based on an existing class.
+- [ ] Inheritance means that a group of related properties, methods, and other members are treated as a single unit or object.
+- [ ] Inheritance forces a class to have a single responsibility from only one parent.
+- [ ] Inheritance means that you will never have multiple classes that can be used interchangeably, even though each class implements the same
+  properties or methods in different ways.
+
+#### Q18. Which type of inheritance, when done continuously, is similar to a tree structure?
+
+- [ ] multilevel
+- [ ] hierarchical and multiple
+- [x] hierarchical
+- [ ] multiple
+
+#### Explanation
+
+**Formal**:
+
+In object–oriented programming, inheritance is the mechanism of basing a class upon another class, retaining similar implementation.
+
+Also defined as deriving new subclasses from existing ones such as superclass and then forming them into a hierarchy of classes (tree structure).
+
+**Informal**:
+
+Objects (or Classes) are often very similar and share common logic, but they’re not entirely the same.
+
+So how do we reuse the common logic and extract the unique logic into a separate class? One way to achieve this is inheritance. It means that you
+create a child class by deriving from another parent class.
+
+This way, we form a hierarchy. The child class reuses all fields and methods of the parent class “common part” and can implement its own “unique
+part”.
+
+![oop-inheritance.png](src%2Foop%2Foop-inheritance.png)
+
+A private teacher is a type of teacher and any teacher is a type of Person.
+
+If our program needs to manage public and private teachers, but also other types of people like students, we can implement this class hierarchy.
+
+This way, each class adds only what is necessary for it while reusing common logic with the parent classes.
+
+#### Q19. Which statement is true?
+
+- [ ] A default parameter's constructor is not equivalent to the default constructor
+- [ ] A default constructor is inherited from a parent class
+- [x] A default constructor can be called explicitly
+- [ ] A default constructor cannot be defined by the coder
+
+#### Explanation
+
+**Note**: according to the script, the correct answer is the first, but I disagree.
+
+---
+
+**Default Constructor** – A constructor that accepts no parameter is called Default Constructor.
+
+It is not necessary to have a constructor block in your class definition. If you don’t explicitly write a constructor, the compiler automatically
+inserts one for you.
+
+```java
+public class Demo {
+    Demo() {
+        System.out.println("I am a constructor");
+    }
+
+    public static void main(String args[]) {
+        Demo obj = new Demo();
+    }
+}
+```
+
+**Parameterized Constructor** – A constructor is called Parameterized Constructor when it accepts a specific number of parameters. To initialize data
+members of a class with distinct values.
+
+```java
+public class Demo {
+    String studentName;
+    int studentAge;
+
+    //constructor
+    Demo(String name, int age) {
+        studentName = name;
+        studentAge = age;
+    }
+
+    void display() {
+        System.out.println(studentName + " " + studentAge);
+    }
+
+    public static void main(String args[]) {
+        Edureka myObj = new Edureka("Manan", 19);
+        myObj.display();
+    }
+}
+```
+
+#### Q20. Which of the following is NOT an advantage of using getters and setters?
+
+- [x] Getters and setters can speed up compilation.
+- [ ] Getters and setters provide encapsulation of behavior.
+- [ ] Getters and setters provide a debugging point for when a property changes at runtime.
+- [ ] Getters and setters permit different access levels.
+
+#### Explanation
+
+The meaning of Encapsulation, is to make sure that "sensitive" data is hidden from users.
+
+To achieve this, you must:
+
+1. Declare class variables as private
+2. Provide public `get` and `set` methods to access and update the value of a private variable
+
+Advantages:
+
+1. Better control of class attributes and methods
+2. Class attributes can be made read-only (if you only use the get method), or write-only (if you only use the set method)
+3. Flexible: the programmer can change one part of the code without affecting other parts
+4. Provide a debugging point for when a property changes at runtime
+5. Increased security of data
+
+#### Q21. In context of OOP, what is association?
+
+- [x] Association is a relationship where all objects have their own life cycle and there is no owner.
+- [ ] Association is the process where model elements cooperate to provide higher-level behavior.
+- [ ] Association is whole/part relationship where one object is composed of one or more other objects, each of which is considered a part of the
+  whole.
+- [ ] Association is where all objects have their own life cycle, but there is ownership, and child objects can not belong to another parent object.
+
+#### Explanation
+
+Association in Java defines the connection between two classes that are set up through their objects.
+
+Association manages one-to-one, one-to-many, and many-to-many relationships.
+
+Association shows how objects communicate with each other and how they use the functionality and services provided by that communicated object.
+
+In Java, two types of Association are possible:
+
+* IS-A Association
+* HAS-A Association
+    * Aggregation
+    * Composition
+
+![association-in-java.png](src%2Foop%2Fassociation-in-java.png)
+
+**IS-A Association**
+
+The IS-A Association is also referred to as Inheritance.
+
+**HAS-A Association**
+
+The HAS-A Association is further classified into two parts, i.e., Aggregation and Composition.
+
+**Aggregation**
+
+In Java, the Aggregation association defines the HAS-A relationship. Aggregation follows the one-to-one or one-way relationship. If two entities are
+in the aggregation composition, and one entity fails due to some error, it will not affect the other entity.
+
+Let's take the example of a toy and its battery. The battery belongs to a toy, and if the toy breaks and deletes from our database, the battery will
+still remain in our database, and it may still be working. So in Aggregation, objects always have their own lifecycles when the ownership exists
+there.
+
+**Composition**
+
+A restricted form of the Aggregation where the entities are strongly dependent on each other. Unlike Aggregation, Composition represents the part-of
+relationship. When there is an aggregation between two entities, the aggregate object can exist without the other entity, but in the case of
+Composition, the composed object can't exist.
+
+Let's take an example to understand the concept of Composition.
+
+We create a class Mobile that contains variables, i.e., name, ram and rom. We also create a class MobileStore that has a reference to refer to the
+list of mobiles. A mobile store can have more than one mobile. So, if a mobile store is destroyed, then all mobiles within that particular mobile
+store will also be destroyed because mobiles cannot exist without a mobile store. The relationship between the mobile store and mobiles is
+Composition.
+
+#### Q22. How are user stories different from use cases?
+
+- [x] User Stories are shorter and less detailed.
+- [ ] User stories are more accurate.
+- [ ] User stories are more detailed and structured.
+- [ ] User storied are more anecdotal and personal.
+
+#### Explanation
+
+**A user story** is an informal, general explanation of a software feature written from the perspective of the end user. Its purpose is to articulate
+how a software feature will provide value to the customer.
+
+**A Use case** is a written description of how users will perform tasks on your website. It outlines, from a user's point of view, a system's behavior
+as it responds to a request. Each use case is represented as a sequence of simple steps, beginning with a user's goal and ending when that goal is
+fulfilled.
+
+#### Q23. Which type of inheritance must be used so that the resultant is hybrid?
+
+- [x] multiple
+- [ ] any type of inheritance
+- [ ] multilevel
+- [ ] hierarchical
+
+#### Explanation
+
+Inheritance types:
+
+* **Single Inheritance** is where a derived class inherits properties and behaviour from a single base class. Example: Class A → Class B.
+* **Hierarchical Inheritance** is where more than one derived class is created from a single base class. Example: Class A → Class B → Class C.
+* **Multiple Inheritance** is for deriving a class from multiple base classes. Here, the child objects programmers create will have combined aspects
+  of characteristics and features from multiple parent classes. These objects do follow their hierarchies of base classes.
+* **Multilevel Inheritance** is where a child class is derived from another derived class. This feature carries combined aspects of multiple classes
+  and follows their hierarchies.
+* **Hybrid Inheritance** is a heterogeneous feature of using multiple inheritances. Here a child class is derived from one or more combinations of
+  single, hierarchical, and multilevel inheritances. This inheritance is adopted for programs to mix different types of inheritance; for example, when
+  mixing a single inheritance with multiple inheritances or maybe a situation when multiple inheritances are mixed within a single program.
+
+![inheritance-in-java.png](src%2Foop%2Finheritance-in-java.png)
+
+---
+
+Hybrid Inheritance in Java is a combination of inheritance. In this type of Inheritance, more than one kind of inheritance is observed.
+
+For example, if we have class A and class B that extend class C and then there is another class D that extends class A, then this type of Inheritance
+is known as Hybrid Inheritance.
+
+A hybrid inheritance combines more than two inheritance types, such as multiple and single. In essence, it combines straightforward,
+numerous, and hierarchical inheritances.
+
+Interfaces are the sole means through which it is possible because Java does not enable multiple inheritance.
+
+#### Q24. A language that does not support polymorphism but supports classes is considered what?
+
+- [x] an object-based language
+- [ ] a class-based language
+- [ ] a procedure-oriented language
+- [ ] if classes are supported, polymorphism will be supported
+
+#### Explanation
+
+The languages which support classes but doesn't support polymorphism, are known as object-based languages.
+
+#### Q25. Two classes combine private data members and provide public member functions to access and manipulate those data members. Where is abstraction used?
+
+- [ ] Abstraction is using a private access specifier for the data members.
+- [x] Abstraction is using public member functions to access and manipulate the data members.
+- [ ] Abstraction is using the class concept with both data members and member functions.
+- [ ] There is insufficient information to decide where abstraction is being used.
+
+#### Explanation
+
+In object-oriented design, programs are often extremely large and separate objects communicate with each other a lot. So maintaining a large codebase
+like this for years – with changes along the way – is difficult. Abstraction is a concept aiming to ease this problem.
+
+Applying abstraction means that each object should only expose a high–level mechanism for using it. This mechanism should hide internal implementation
+details. It should only reveal operations relevant for the other objects.
+
+Think – a coffee machine. It does a lot of stuff and makes quirky noises under the hood. But all you have to do is put in coffee
+and press a button.
+
+Preferably, this mechanism should be easy to use and should rarely change over time. Think of it as a small set of public methods which any other
+class can call without “knowing” how they work.
+
+Another real-life example of abstraction?
+
+![oop-abstraction.png](src%2Foop%2Foop-abstraction.png)
+
+Cell phones are complex. But using them is simple.
+
+#### Q26. What are the five Creational Design patterns by the Gang of Four ?
+
+- [ ] Observer, State, Strategy, Template Method, and Visitor.
+- [ ] Composite, Visitor, State, Prototype, and Singleton.
+- [ ] Composite, Builder, Factory Method, Prototype, and Singleton.
+- [x] Abstract Factory, Builder, Factory Method, Prototype, and Singleton.
+
+#### Explanation
+
+Creational Design Patterns:
+
+1. **Abstract Factory** allows the creation of objects without specifying their concrete type.
+2. **Builder** uses to create complex objects.
+3. **Factory Method** creates objects without specifying the exact class to create.
+4. **Prototype** creates a new object from an existing object.
+5. **Singleton** ensures only one instance of an object is created.
+
+#### Q27. In multilevel inheritance, one class inherits how many classes?
+
+- [x] one class only
+- [ ] two classes
+- [ ] as many classes as required
+- [ ] at least two classes
+
+#### Explanation
+
+Inheritance types:
+
+* **Single Inheritance** is where a derived class inherits properties and behaviour from a single base class. Example: Class A → Class B.
+* **Hierarchical Inheritance** is where more than one derived class is created from a single base class. Example: Class A → Class B → Class C.
+* **Multiple Inheritance** is for deriving a class from multiple base classes. Here, the child objects programmers create will have combined aspects
+  of characteristics and features from multiple parent classes. These objects do follow their hierarchies of base classes.
+* **Multilevel Inheritance** is where a child class is derived from another derived class. This feature carries combined aspects of multiple classes
+  and follows their hierarchies.
+* **Hybrid Inheritance** is a heterogeneous feature of using multiple inheritances. Here a child class is derived from one or more combinations of
+  single, hierarchical, and multilevel inheritances. This inheritance is adopted for programs to mix different types of inheritance; for example, when
+  mixing a single inheritance with multiple inheritances or maybe a situation when multiple inheritances are mixed within a single program.
+
+![inheritance-in-java.png](src%2Foop%2Finheritance-in-java.png)
+
+The multi-level inheritance includes the involvement of at least two or more than two classes. One class inherits the features from a parent class and
+the newly created sub-class becomes the base class for another new class.
+
+#### Q28. if an object is passed by reference, the changes made in the function are reflected \_.
+
+- [x] to the main object of the caller function, too
+- [ ] on the caller function object and also the called function object
+- [ ] on the copy of the object that is made during the pass
+- [ ] only in the local scope of the called function
+
+#### Explanation
+
+All object references in Java are passed by value. This means that a copy of the value will be passed to a method. But the trick is that passing a
+copy of the value also changes the real value of the object.
+
+To understand why, start with this example:
+
+```java
+public class ObjectReferenceExample {
+
+    public static void main(String... doYourBest) {
+        Simpson simpson = new Simpson();
+        transformIntoHomer(simpson);
+        System.out.println(simpson.name);
+    }
+
+    static void transformIntoHomer(Simpson simpson) {
+        simpson.name = "Homer";
+    }
+
+}
+
+class Simpson {
+    String name;
+}
+```
+
+The reason is that Java object variables are simply references that point to real objects in the memory heap.
+
+Therefore, even though Java passes parameters to methods by value, if the variable points to an object reference, the real object will also be
+changed.
+
+#### Q29. What is a method?
+
+- [ ] a set of instructions designed to perform a frequently used operation within a program and return no values
+- [x] the exact same thing as a function and subroutine
+- [ ] a set of variables that can change over time
+- [ ] a procedure associated with data and behaviour
+
+#### Explanation
+
+A method in object-oriented programming (OOP) is a procedure associated with a message and an object.
+
+* Function — a set of instructions that perform a task.
+* Method — a set of instructions that are associated with an object.
+
+#### Q30. A mobile phone is made up of components such as a motherboard, camera, and sensors. The motherboard represents all the functions of a phone, the display shows the display only, and the phone is represented as a whole. Which of the following has the highest level of abstraction?
+
+- [ ] camera
+- [ ] display
+- [ ] motherboard
+- [x] mobile phone
+
+**Link**: [Association in Java](https://www.javatpoint.com/association-in-java)
