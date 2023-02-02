@@ -549,7 +549,7 @@ public class TryCatchExample3 {
 
 #### Explanation
 
-**Note**: Composition in programming languages and databases can be implemented in different ways and it is not possible to give an unambiguous answer
+**Note**: Composition in programming languages and databases can be implemented in different ways, and it is not possible to give an unambiguous answer
 to the question without additional conditions.
 
 ---
@@ -871,7 +871,7 @@ Inheritance types:
 ![inheritance-in-java.png](src%2Foop%2Finheritance-in-java.png)
 
 The multi-level inheritance includes the involvement of at least two or more than two classes. One class inherits the features from a parent class and
-the newly created sub-class becomes the base class for another new class.
+the newly created subclass becomes the base class for another new class.
 
 #### Q28. if an object is passed by reference, the changes made in the function are reflected \_.
 
@@ -934,3 +934,332 @@ A method in object-oriented programming (OOP) is a procedure associated with a m
 - [x] mobile phone
 
 **Link**: [Association in Java](https://www.javatpoint.com/association-in-java)
+
+#### Q31. Which class has the highest degree of abstraction in a multilevel inheritance relationship of five levels?
+
+- [ ] the class at the third level
+- [x] the class at the first level
+- [ ] All have the same degree of abstraction.
+- [ ] the class at the second level
+
+#### Q32. Which is NOT one of the basic types of inheritance?
+
+- [ ] multilevel inheritance
+- [x] double inheritance
+- [ ] single inheritance
+- [ ] hierarchical inheritance
+
+#### Explanation
+
+Inheritance types:
+
+* **Single Inheritance** is where a derived class inherits properties and behaviour from a single base class. Example: Class A → Class B.
+* **Hierarchical Inheritance** is where more than one derived class is created from a single base class. Example: Class A → Class B → Class C.
+* **Multiple Inheritance** is for deriving a class from multiple base classes. Here, the child objects programmers create will have combined aspects
+  of characteristics and features from multiple parent classes. These objects do follow their hierarchies of base classes.
+* **Multilevel Inheritance** is where a child class is derived from another derived class. This feature carries combined aspects of multiple classes
+  and follows their hierarchies.
+* **Hybrid Inheritance** is a heterogeneous feature of using multiple inheritances. Here a child class is derived from one or more combinations of
+  single, hierarchical, and multilevel inheritances. This inheritance is adopted for programs to mix different types of inheritance; for example, when
+  mixing a single inheritance with multiple inheritances or maybe a situation when multiple inheritances are mixed within a single program.
+
+![inheritance-in-java.png](src%2Foop%2Finheritance-in-java.png)
+
+---
+
+Data abstraction is the process of hiding certain details and showing only essential information to the user.
+
+Abstraction can be achieved with either abstract classes or interfaces.
+
+We use abstraction to hide certain details and only show the important details of an object so the first class has the highest degree of abstraction.
+
+#### Q33. Why is code duplication so insidious?
+
+- [ ] The duplication uses unnecessary space.
+- [x] One has to maintain all the duplicates.
+- [ ] Duplication can cause intellectual property concerns.
+- [ ] Duplication is easy to hide.
+
+#### Explanation
+
+Duplicate code as the name suggests is a repetition of a line or a block of code in the same file. People might consider code duplication acceptable
+but in reality, it poses greater problems to your software than what you may have thought.
+
+3 reasons why code duplication is harmful:
+
+1. Duplicate code makes your program lengthy and bulky
+2. Duplication decreases your code quality
+3. Shotgun Surgery
+
+**Duplicate code makes your program lengthy and bulky**
+
+Many programmers feel that if the software is working properly there is no reason to fix code duplications. You forget that you are just
+un-necessarily making your software bulky. Your argument can be that a few blocks of code would just use a few milliseconds to run. Which we agree to
+but only if you mean to use your software a few times. Code written for commercial purposes or web-applications is executed thousands and millions of
+times every minute.
+
+Each millisecond of delay will contribute to greater delay and greater space requirements at the user’s local machine as well as your servers. Having
+well-written code with the least duplications will make sure that your program runs faster and occupy less space. Also, age has gone when people
+didn't
+care to wait. Now everything needs to be fast and smooth.
+
+**Duplication decreases your code quality**
+
+Have duplication is fine, as long as you plan to throw your software away soon. Code quality is a necessity to make your software survive for long.
+
+Having duplicate code will make your code smelly and increases technical debt associated with it. The cost of repair of this debt is the amount of
+capital and time required to pay to a developer to simplify or de-duplicate it. The interest is the decreased productivity of developers.
+
+Sometimes it’s impossible to refactor a duplicate code block but the aim should be to decrease as much technical debt. It helps to make your code of a
+higher quality.
+
+**Shotgun Surgery**
+
+Suppose you write buggy code. You do a code review to find out the issue and then fix it. Now replace this scenario of buggy code with duplicate buggy
+code. You now have to fix every location that code is, losing your time, efficiency and sometimes temper. This situation is called inverse shotgun
+surgery and is pretty nasty for any developer.
+
+#### Q34. When and how often is a static constructor called?
+
+- [ ] It is called initially when an object is created and called with every new object instance.
+- [ ] It is called when an object is destroyed and only one time.
+- [x] It is called initially when an object is created and only one time.
+- [ ] It is created at time when the object is discarded.
+
+#### Q35. What is the purpose of static constructor?
+
+- [x] to initialize all the members with static value
+- [ ] to delete the static members when not required
+- [ ] to initialize the static members of class
+- [ ] to clear all the static members' initialized values
+
+#### Explanation
+
+In Java, a constructor is not allowed to be abstract, final or static. So, there is no static constructor in Java.
+
+A static constructor used to initialize static data means the specified task will execute only once throughout the program. Usually, a static
+constructor is automatically called when the first instance is generated, or any static member is referenced. The static constructor is explicitly
+declared by using a `static` keyword. However, the static constructor is not allowed in Java.
+
+Some key features of the static constructor are as follows:
+
+* It will not take parameters or access modifiers.
+* A specific class can have only one static constructor.
+* It does not allow inheritance or overloading.
+* It is invoked automatically, can not be called directly or explicitly.
+* If the value of static fields is not initialized, it will initialize to default values.
+
+#### Q36. What does the code shown below demonstrate, and why?
+
+```cpp
+   static void Multiply(int num1, int num2) {};
+   static void Multiply(double num1, double num2, double num3) {};
+   static void Multiply(float num1, float num2) {};
+```
+
+- [ ] polymorphism, because each method can perform different task
+- [ ] method overriding, because it displays the same method name, different or same parameters, and same return type
+- [x] method overloading, because it allows the creation of several methods with the same name, which differ by the type of input via parameter
+- [ ] method overriding, because it displays the same method name, different parameters, and same return type
+
+#### Explanation
+
+Method overloading in java is a feature that allows a class to have more than one method with the same name, but with different parameters.
+
+Java supports method overloading through two mechanisms:
+
+1. By changing the number of parameters
+2. By changing the data type of parameters
+
+Benefits of using Method Overloading
+
+* Method overloading increases the readability of the program.
+* This provides flexibility to programmers so that they can call the same method for different types of data.
+* This makes the code look clean.
+* This reduces the execution time because the binding is done in compilation time itself.
+* Method overloading minimises the complexity of the code.
+
+```java
+class Demo {
+    void multiply(int a, int b) {
+        System.out.printIn("Result is" + (a * b));
+    }
+
+    void multiply(int a, int b, int c) {
+        System.out.printIn("Result is" + (a * b * c));
+    }
+
+    public static void main(String[] args) {
+        Demo obj = new Demo();
+        obj.multiply(8, 5);
+        obj.multiply(4, 6, 2);
+    }
+}
+```
+
+#### Q37. What are CRC Cards?
+
+- [ ] Code Responsibility Collection cards are a brainstorming tool used in the design of procedural software
+- [x] Class Responsibility collaboration cards are a brainstorming tool used in the design of oop software
+- [ ] Code Responsibility Correction cards are tools used for debugging
+- [ ] Code Responsibility Correction cards are tools for modeling
+
+#### Explanation
+
+CRC cards are brainstorming tools used for conceptual modeling and detailed design. Using CRC cards is an activity that combines aspects of
+role-playing games and object-oriented design.
+
+CRC stands for:
+
+* **Class** refers to a collection of similar objects or (more commonly in product design) people
+* **Responsibilities** are something a class knows or an action they perform
+* **Collaborator** is another class that the original class will need to work with to achieve their desired goals.
+
+![crc-cards.jpeg](src%2Foop%2Fcrc-cards.jpeg)
+
+#### Q38. How are contents of a composition different from those of aggregation?
+
+- [ ] if one element of an aggregation is dereferenced, all its elements are eligible for garbage collection
+- [x] if a composition dies, the contents die
+- [ ] the contents of a composition are all siblings
+- [ ] an aggregation contains only abstract classes
+
+#### Q39. Which statement about compositions and aggregations is true?
+
+- [ ] if one element of an aggregation is dereferenced, all its elements are eligible for garbage collection
+- [x] if a composition dies, the contents die
+- [ ] the contents of a composition are all siblings
+- [ ] an aggregation contains only abstract classes
+
+#### Explanation
+
+Association in Java defines the connection between two classes that are set up through their objects.
+
+In Java, two types of Association are possible:
+
+* IS-A Association
+* HAS-A Association
+    * Aggregation
+    * Composition
+
+![association-in-java.png](src%2Foop%2Fassociation-in-java.png)
+
+**Aggregation**
+
+In Java, the Aggregation association defines the HAS-A relationship. Aggregation follows the one-to-one or one-way relationship. If two entities are
+in the aggregation composition, and one entity fails due to some error, it will not affect the other entity.
+
+Let's take the example of a toy and its battery. The battery belongs to a toy, and if the toy breaks and deletes from our database, the battery will
+still remain in our database, and it may still be working.
+
+So in Aggregation, objects always have their own lifecycles when the ownership exists there.
+
+**Composition**
+
+A restricted form of the Aggregation where the entities are strongly dependent on each other. Unlike Aggregation, Composition represents the part-of
+relationship. When there is an aggregation between two entities, the aggregate object can exist without the other entity, but in the case of
+Composition, the composed object can't exist.
+
+Let's take an example to understand the concept of Composition.
+
+We create a class Mobile that contains variables, i.e., name, ram and rom. We also create a class MobileStore that has a reference to refer to the
+list of mobiles. A mobile store can have more than one mobile. So, if a mobile store is destroyed, then all mobiles within that particular mobile
+store will also be destroyed because mobiles cannot exist without a mobile store. The relationship between the mobile store and mobiles is
+Composition.
+
+#### Q40. What is the result of using more abstraction?
+
+- [ ] it can increase code vulnerability
+- [ ] it can make code unsafe
+- [x] it can limit code readability
+- [ ] it can be safer for coding
+
+#### Explanation
+
+In object-oriented programming, abstraction is defined as hiding the unnecessary details (implementation) from the user and to focus on essential
+details (functionality).
+
+What is the disadvantage of using more abstraction?
+
+The most obvious is complexity. Whenever we add another layer to our code, we make it a bit more complex to navigate.
+
+**Note**: It is always a balance, because Abstraction can also reduce the complexity of the code, if applied correctly.
+
+#### Q41. Which statement best describes a friend class?
+
+- [ ] Friend classes support base class when necessary.
+- [x] A friend class can access the private and protected members of the class in which it is declared as a friend.
+- [ ] Friend classes do not have any implementation.
+- [ ] A friend class can access only protected members of the class of which it is a friend.
+
+**Link**: [Friend class in C++](https://www.simplilearn.com/tutorials/cpp-tutorial/friend-class-in-cpp/) (not related to Java)
+
+#### Q42. Why is inheritance used when creating a new class?
+
+- [ ] to protect attributes from unwanted changes
+- [ ] to delegate coding responsibility more efficiently
+- [ ] to conserve memory
+- [x] to separate class behavior from the more general
+
+#### Explanation
+
+Inheritance allows programmers to create classes that are built upon existing classes, to specify a new implementation while maintaining the same
+behaviors, to reuse code and to independently extend original software.
+
+#### Q43. In addition to attributes and behaviours, what quality must a class possess?
+
+- [x] a name
+- [ ] a state
+- [ ] a color
+- [ ] an object
+
+#### Explanation
+
+It's impossible to create class without name in Java so name is the mandatory attributes.
+
+**Note**: We can create a class without a name using the Anonymous class. Anonymous class is an inner class which does not have a name and whose
+instance is created at the time of the creation of class itself and these classes are somewhat different from normal classes in its creation.
+
+Since they have no name, we can't use them in order to create instances of anonymous classes. As a result, we have to declare and instantiate
+anonymous classes in a single expression at the point of use.
+
+```java
+Runnable action=new Runnable(){
+@Override
+public void run(){
+        ...
+        }
+        };
+```
+
+#### Q44. Which type of function among the following shows' polymorphism?
+
+- [ ] inline function
+- [ ] undefined function
+- [x] virtual function
+- [ ] class member function
+
+**Link**: [Virtual Function in C++ ](https://www.geeksforgeeks.org/virtual-function-cpp/) (not related to Java)
+
+#### Q45. Which words in the following list are candidates for objects: trumpet, clean, enrage, leaf, tree, collapse, active, and lively?
+
+- [ ] leaf and tree
+- [ ] clean, enrage, and collapse
+- [ ] clean, active, and lively
+- [x] leaf, tree, and trumpet
+
+#### Explanation
+
+An object in OOPS is nothing but a self-contained component which consists of methods and properties to make a particular type of data useful.
+
+For example color name, table, bag, barking. When you send a message to an object, you are asking the object to invoke or execute one of its methods
+as defined in the class.
+
+A **Class** in object-oriented programming is a blueprint or prototype that defines the variables and the methods (functions) common to all Java
+Objects
+of a certain kind.
+
+An **Object** in object-oriented programming is a specimen of a class. Software objects are often used to model real-world objects you find in
+everyday life.
+
+![oop-classes.png](src%2Foop%2Foop-classes.png)
