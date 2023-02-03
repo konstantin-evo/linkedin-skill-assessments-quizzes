@@ -522,7 +522,7 @@ class `Exception` or the generated exception type.
 Example:
 
 ```java
-public class TryCatchExample3 {
+public class TryCatchExample {
 
     public static void main(String[] args) {
         try {
@@ -549,7 +549,8 @@ public class TryCatchExample3 {
 
 #### Explanation
 
-**Note**: Composition in programming languages and databases can be implemented in different ways, and it is not possible to give an unambiguous answer
+**Note**: Composition in programming languages and databases can be implemented in different ways, and it is not possible to give an unambiguous
+answer
 to the question without additional conditions.
 
 ---
@@ -1263,3 +1264,319 @@ An **Object** in object-oriented programming is a specimen of a class. Software 
 everyday life.
 
 ![oop-classes.png](src%2Foop%2Foop-classes.png)
+
+#### Q46. What best describes what object-oriented programming does?
+
+- [x] It focuses on objects that interact cleanly with one another.
+- [ ] It programs exclusively to interfaces.
+- [ ] It programs exclusively to classes.
+- [ ] It creates one class for all business logic.
+
+#### Explanation
+
+OOP Object-oriented programming is a programming paradigm based on the concept of "objects", which can contain data and code:
+
+* Data in the form of fields often known as attributes or properties;
+* Code in the form of methods.
+
+In OOP, computer programs are designed by making them out of objects that interact with one another.
+
+#### Q47. Can abstract classes be used in multilevel inheritance?
+
+- [ ] No, abstract classes can be used only in single-level inheritance since they must be immediately implemented.
+- [x] yes, always
+- [ ] yes, but with only one abstract class
+- [ ] No, abstract classes do not have constructors.
+
+#### Explanation
+
+**Multilevel Inheritance** is where a child class is derived from another derived class. This feature carries combined aspects of multiple classes
+and follows their hierarchies.
+
+![inheritance-in-java.png](src%2Foop%2Finheritance-in-java.png)
+
+An abstract class is a class that is declared abstract — it may or may not include abstract methods. Abstract classes can't be instantiated, but they
+can be subclassed. When an abstract class is subclassed, the subclass usually provides implementations for all the abstract methods in its parent
+class.
+
+The abstract classes can always be used in multilevel inheritance.
+
+#### Q48. What type of inheritance may lead to the diamond problem?
+
+- [ ] single level
+- [ ] multilevel
+- [ ] hierarchical
+- [x] multiple
+
+#### Explanation
+
+Java doesn't support multiple inheritances in classes because it can lead to diamond problem and rather than providing some complex way to solve it,
+there are better ways through which we can achieve the same result as multiple inheritances.
+
+The diamond problem occurs when two superclasses of a class have a common base class.
+
+In more detail, the ambiguity that arises when two classes B and C inherit from A, and a further class D inherits from both B and C, so that if there
+is a method in A that B and/or C has overridden, and D does not override it, it is unclear which version of the method D should inherit.
+
+![diamond-problem.jpeg](src%2Foop%2Fdiamond-problem.jpeg)
+
+#### Q49. What is the relationship between abstraction and encapsulation?
+
+- [x] Abstraction is about making relevant information visible, while encapsulation enables a programmer to implement the desired level of
+  abstraction.
+- [ ] Abstraction and encapsulation are essentially the same.
+- [ ] Abstraction and encapsulation are unrelated.
+- [ ] Encapsulation is about making relevant information visible, while abstraction enables a programmer to implement the desired level of
+  encapsulation.
+
+#### Explanation
+
+Abstraction is a feature of OOPs that hides the unnecessary detail but shows the essential information.
+
+Encapsulation hides the code and data into a single entity or unit so that the data can be protected from the outside world.
+
+#### Q50. Which of these keywords are access specifiers?
+
+- [ ] abstract and public
+- [x] public and private
+- [ ] this and final
+- [ ] final and abstract
+
+#### Explanation
+
+Access modifiers (specifiers) are keywords that can be used to control the visibility of fields, methods, and constructors in a class. The four access
+modifiers in Java are public, protected, default, and private.
+
+* **Private**: We can access the private modifier only within the same class and not from outside the class.
+* **Default**: We can access the default modifier only within the same package and not from outside the package. And also, if we do not specify any
+  access modifier it will automatically consider it as default.
+* **Protected**: We can access the protected modifier within the same package and also from outside the package with the help of the child class. If
+  we do not make the child class, we cannot access it from outside the package. So inheritance is a must for accessing it from outside the package.
+* **Public**: We can access the public modifier from anywhere. We can access public modifiers from within the class as well as from outside the class
+  and also within the package and outside the package.
+
+![access-specifiers-in-java.jpeg](src%2Foop%2Faccess-specifiers-in-java.jpeg)
+
+#### Q51. What is a reference to an object?
+
+- [ ] It is the address of variable only -- not the method of an object.
+- [ ] It is a shallow pointer that contains address of an object.
+- [ ] It is the physical address of an object.
+- [x] It is the address where the variables and methods of an object are stored.
+
+#### Explanation
+
+A Reference consists of an ordered list of addresses and class information about the object being referenced.
+
+Each address is represented by a subclass of `RefAddr` and contains information on how to construct the object.
+
+**Link**: [Referenceable Objects and References](https://docs.oracle.com/javase/jndi/tutorial/objects/storing/reference.html)
+
+#### Q52. Why is unit testing harder in OOP than functional programming?
+
+- [x] Objects may maintain internal state, which is not easily accessible by the tests.
+- [ ] The quality of unit testing frameworks for functional languages is better.
+- [ ] OOP promotes code reuse, which means that your tests have to consider more use cases.
+- [ ] Object-oriented languages tend to rely on frameworks such as Spring or Hibernate, which make them difficult to test.
+
+#### Explanation
+
+Testing easier in functional programming because all the inputs and outputs are above board.
+
+#### Q53. What is the function of a user diagram?
+
+- [ ] It connects actors to use cases.
+- [x] It links actors to roles played in all use cases.
+- [ ] It lists all actors for each use case.
+- [ ] It minimizes the number of actors required.
+
+#### Explanation
+
+User diagram depicts the high-level functionality of a system and also tells how the user handles a system.
+
+A use case diagram is a way to summarize details of a system and the users within that system. It is generally shown as a graphic depiction of
+interactions among different elements in a system.
+
+![use-case-diagram.png](src%2Foop%2Fuse-case-diagram.png)
+
+#### Q54. How do object behavior and attributes differ?
+
+- [ ] Behavior describe dynamic properties; attributes are static.
+- [x] Attributes describe a state; behaviors describe a change.
+- [ ] Attributes apply only to a specified object; behavior apply to other linked objects.
+- [ ] Behaviors are vector quantities; attributes are scalars.
+
+#### Explanation
+
+Attributes are the characteristics of the class that help to distinguish it from other classes.
+
+Behaviors are the tasks that an object performs.
+
+A person's attributes, for example, include their age, name, and height, while their behaviors include the fact that a person can speak, run, walk,
+and eat.
+
+#### Q55. The open/closed principle states that classes should be open for \_ but closed for \_.
+
+- [ ] refactoring; duplication
+- [ ] modification; duplication
+- [x] extension; modification
+- [ ] reuse; encapsulation
+
+#### Explanation
+
+SOLID principles are object-oriented design concepts that ensure your software is modular and easy to maintain, understand, debug, refactor.
+
+SOLID prevents your code from becoming rigid and fragile, which helps you build long-lasting software.
+
+SOLID is an acronym for five other class-design principles:
+
+1. Single-responsibility
+2. Open-closed
+3. Liskov Substitution (Принцип подстановки Барбары Лисков)
+4. Interface Segregation
+5. Dependency Inversion
+
+Open-closed Principle states: Objects or entities should be open for extension but closed for modification. This means that a class should be
+extendable without modifying the class itself.
+
+#### Q56. Why would you override a method of a base class?
+
+- [ ] to define a method that must be implemented in a derived class
+- [x] to define a custom implementation of an inherited member
+- [ ] to define a method that must be implemented in a superclass only
+- [ ] to define a class that can be inherited from
+
+#### Explanation
+
+Method overriding is used to provide the specific implementation of a method which is already provided by its superclass.
+
+Consider a scenario where Bank is a class that provides functionality to get the rate of interest.
+
+However, the rate of interest varies according to banks. For example, SBI, ICICI and AXIS banks could provide 8%, 7%, and 9% rate of interest.
+
+![bank-inheritance.png](src%2Foop%2Fbank-inheritance.png)
+
+```java
+class Bank {
+    int getRateOfInterest() {
+        return 0;
+    }
+}
+
+//Creating child classes.  
+class SBI extends Bank {
+    int getRateOfInterest() {
+        return 8;
+    }
+}
+
+class ICICI extends Bank {
+    int getRateOfInterest() {
+        return 7;
+    }
+}
+
+class AXIS extends Bank {
+    int getRateOfInterest() {
+        return 9;
+    }
+}
+
+//Test class to create objects and call the methods  
+class Test2 {
+    public static void main(String args[]) {
+        SBI s = new SBI();
+        ICICI i = new ICICI();
+        AXIS a = new AXIS();
+        System.out.println("SBI Rate of Interest: " + s.getRateOfInterest());
+        System.out.println("ICICI Rate of Interest: " + i.getRateOfInterest());
+        System.out.println("AXIS Rate of Interest: " + a.getRateOfInterest());
+    }
+}  
+```
+
+#### Q57. What is a copy constructor?
+
+- [x] It is a unique constructor for creating a new object as a copy of an object that already exists. There will always be only one copy constructor
+  that can be either defined by the user or the system.
+- [ ] It is a constructor that duplicates itself when requested on demand.
+- [ ] It is a common constructor for preventing the creation of a new object as a copy of an object that already exists. There will always be multiple
+  standard constructors that can be either defined by the user or the system.
+- [ ] It is a constructor that duplicates itself on its own, based on memory available.
+
+**Link**: [Copy Constructor in C++](https://www.geeksforgeeks.org/copy-constructor-in-cpp/) (not related to Java)
+
+#### Q58. What defines the catch block most accurately?
+
+- [x] The catch block that will be executed is the one that best matches the type of exception thrown.
+- [ ] Multiple catch blocks can never be associated with a single try block.
+- [ ] Multiple catch blocks are mandatory for each try block.
+- [ ] Multiple catch blocks will all be executed in the case of an exception.
+
+#### Explanation
+
+Java `try` block is used to enclose the code that might throw an exception. It must be used within the method.
+
+If an exception occurs at the particular statement in the try block, the rest of the block code will not execute.
+
+Java try block must be followed by either `catch` or `finally` block.
+
+Java `catch` block is used to handle the Exception by declaring the type of exception within the parameter. The declared exception must be the parent
+class `Exception` or the generated exception type.
+
+Example:
+
+```java
+public class TryCatchExample {
+
+    public static void main(String[] args) {
+        try {
+            int data = 50 / 0; //may throw exception   
+            // if exception occurs, the remaining statement will not exceute  
+            System.out.println("rest of the code");
+        }
+        // handling the exception   
+        catch (ArithmeticException e) {
+            System.out.println(e);
+        }
+
+    }
+
+}  
+```
+
+#### Q59. There are five classes. Class E is derived from class D, D from C, C from B, and B from A. Which class constructor(s) will be called first if the object of E or D is created?
+
+- [x] A
+- [ ] B
+- [ ] C
+- [ ] C and B
+
+#### Explanation
+
+In java, the default constructor of a parent class called automatically by the constructor of its child class. That means when we create an object of
+the child class, the parent class constructor executed, followed by the child class constructor executed.
+
+#### Q60. You have modules that are dependent on each other. If you change one module, you have to make changes in the dependent modules. What term is used to describe this problem, and what is a potential solution?
+
+- [ ] Cohesion. A solution is to show that each module has certain responsibilities and to use an anti-cohesive design pattern.
+- [ ] Encapsulation. A solution is to implement one of the SOLID principles to ensure the modules do not encapsulate with each other.
+- [x] Coupling. A solution is to refactor the code to be loosely coupled by using inversion of control and dependency injection.
+- [ ] Dependency. A solution is to implement polymorphism and abstraction to change and extract dependent elements of a module so that it functions on
+  its own.
+
+#### Explanation
+
+Coupling refers to the degree of direct knowledge that one element has of another.
+
+In other words, how often do changes in class A force related changes in class B.
+
+There are two types of coupling:
+
+* **Tight coupling**: In general, Tight coupling means the two classes often change together. In other words, if A knows more than it should about the
+  way in which B was implemented, then A and B are tightly coupled.
+* **Loose coupling**: In simple words, loose coupling means they are mostly independent. If the only knowledge that class A has about class B, is what
+  class B has exposed through its interface, then class A and class B are said to be loosely coupled. In order to overcome from the problems of tight
+  coupling between objects.
+
+![coupling-java.png](src%2Foop%2Fcoupling-java.png)
