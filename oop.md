@@ -1257,8 +1257,7 @@ For example color name, table, bag, barking. When you send a message to an objec
 as defined in the class.
 
 A **Class** in object-oriented programming is a blueprint or prototype that defines the variables and the methods (functions) common to all Java
-Objects
-of a certain kind.
+Objects of a certain kind.
 
 An **Object** in object-oriented programming is a specimen of a class. Software objects are often used to model real-world objects you find in
 everyday life.
@@ -1580,3 +1579,380 @@ There are two types of coupling:
   coupling between objects.
 
 ![coupling-java.png](src%2Foop%2Fcoupling-java.png)
+
+#### Q61. **\_** describes an aggregation
+
+- [ ] A class of resources
+- [ ] A group of methods
+- [x] A collection of objects
+- [ ] A list of children
+
+#### Explanation
+
+If a class have an entity reference, it is known as Aggregation. Aggregation represents HAS-A relationship.
+
+Consider a situation, Employee object contains much information such as id, name, emailId etc. It contains one more object named address, which
+contains its own information such as city, state, country, zipcode etc. as given below.
+
+```java
+class Employee {
+    int id;
+    String name;
+    Address address; //Address is a class  
+...
+}  
+```
+
+In such case, Employee has an entity reference address, so relationship is Employee HAS-A address.
+
+Aggregation follows the one-to-one or one-way relationship. If two entities are in the aggregation composition, and one entity fails due to some
+error, it will not affect the other entity.
+
+Let's take the example of a toy and its battery. The battery belongs to a toy, and if the toy breaks and deletes from our database, the battery will
+still remain in our database, and it may still be working.
+
+So in Aggregation, objects always have their own lifecycles when the ownership exists there.
+
+#### Q62. Which type of function can be used for polymorphism?
+
+- [x] virtual function
+- [ ] inline function
+- [ ] undefined function
+- [ ] private function
+
+**Link**: [Virtual Function in C++ ](https://www.geeksforgeeks.org/virtual-function-cpp/) (not related to Java)
+
+#### Q63. Which choice is a benefit of using dependency injection?
+
+- [x] loose coupling
+- [ ] code reusability
+- [ ] lazy initialization
+- [ ] data abstraction
+
+#### Explanation
+
+Dependency Injection is one of the design patterns which allows us to achieve Inversion Of Control.
+
+In a traditional programming style, we’ll have our classes written as:
+
+```java
+public class Person {
+    private Address address;
+
+    public Person() {
+        this.address = new Address();
+    }
+...
+}
+```
+
+When using Dependency Injection, we’ll not create objects on our own and rather inject them.
+
+Our Person class would then look something like:
+
+```java
+public class Person {
+    private Address address;
+
+    public Person(Address address) {
+        this.address = address;
+    }
+...
+}
+```
+
+Some benefits of using Dependency Injection in Java are:
+
+1. Separation of Concerns.
+2. Boilerplate Code reduction in application classes because all work to initialize dependencies is handled by the injector component.
+3. Configurable components makes application easily extendable.
+4. Unit testing is easy with mock objects.
+
+#### Q64. Are you required to return an object if it was passed by reference to a function, and why or why not?
+
+- [ ] Yes, the caller function needs to reflect the changes.
+- [ ] No, you should use a global variable instead.
+- [x] No, changes will be automatically reflected in the calling function.
+- [ ] Yes, the object must be the same in the caller function.
+
+#### Explanation
+
+Having the address being passed to the function, the changes are automatically made to the main function. In all the cases if the address is being
+used, the same memory location will be updated with new values.
+
+**Note**: All object references in Java are passed by value. This means that a copy of the value will be passed to a method. But the trick is that
+passing
+a copy of the value also changes the real value of the object.
+
+#### Q65. How coupled should your classes be and why?
+
+- [ ] You should increase coupling to improve dependencies between classes.
+- [x] You should limit coupling to reduce dependencies between classes.
+- [ ] You should increase coupling so that class members relate to the class purpose.
+- [ ] You should limit coupling so that class members relate to the class objective.
+
+#### Explanation
+
+Coupling refers to the degree of direct knowledge that one element has of another.
+
+In other words, how often do changes in class A force related changes in class B.
+
+There are two types of coupling:
+
+* **Tight coupling**: In general, Tight coupling means the two classes often change together. In other words, if A knows more than it should about the
+  way in which B was implemented, then A and B are tightly coupled.
+* **Loose coupling**: In simple words, loose coupling means they are mostly independent. If the only knowledge that class A has about class B, is what
+  class B has exposed through its interface, then class A and class B are said to be loosely coupled. In order to overcome from the problems of tight
+  coupling between objects.
+
+![coupling-java.png](src%2Foop%2Fcoupling-java.png)
+
+#### Q66. What is the best example of a superclass and subclass relationship?
+
+- [x] car:toyota
+- [ ] ducks:pond
+- [ ] toes:feet
+- [ ] rock:stone
+
+#### Explanation
+
+Objects (or Classes) are often very similar and share common logic, but they’re not entirely the same.
+
+So how do we reuse the common logic and extract the unique logic into a separate class? One way to achieve this is inheritance. It means that you
+create a child class by deriving from another parent class.
+
+This way, we form a hierarchy. The child class reuses all fields and methods of the parent class “common part” and can implement its own “unique
+part”.
+
+![oop-inheritance.png](src%2Foop%2Foop-inheritance.png)
+
+A private teacher is a type of teacher and any teacher is a type of Person.
+
+If our program needs to manage public and private teachers, but also other types of people like students, we can implement this class hierarchy.
+
+This way, each class adds only what is necessary for it while reusing common logic with the parent classes.
+
+#### Q67. Which statements best describe the Gang of Four design patterns called Memento and Observer?
+
+- [ ] Memento notifies multiple classes of changes. Observer captures and restores an object's internal state.
+- [ ] Memento defers the exact steps of an algorithm to a subclass. Observer defines a new operation to a class without change.
+- [ ] Memento alters an object's behavior when its state changes. Observer encapsulates an algorithm inside a class.
+- [x] Memento captures and restores an object's internal state. Observer notifies multiple classes of changes.
+
+#### Explanation
+
+**Memento** pattern is used to restore the state of an object to a previous state.
+
+Memento is a behavioural design pattern that allows making snapshots of an object’s state and restoring it in the future.
+
+The Memento Design Pattern offers a solution to implement undoable actions. We can do this by saving the state of an object at a given instant and
+restoring it if the actions performed since need to be undone.
+
+![pattern-memento.jpeg](src%2Foop%2Fpattern-memento.jpeg)
+
+**Note**: However, if the state of the Originator is heavy, using the Memento Design Pattern can lead to an expensive creation process and increased
+use of memory.
+
+Real world example:
+
+Imagine that you’re creating a text editor app. In addition to simple text editing, your editor can format text, insert inline images, etc.
+At some point, you decided to let users undo any operations carried out on the text. This feature has become so common over the years that nowadays
+people expect every app to have it.
+
+For the implementation, you chose to take the direct approach. Before performing any operation, the app records the state of all objects and saves it
+in some storage. Later, when a user decides to revert an action, the app fetches the latest snapshot from the history and uses it to restore the state
+of all objects.
+
+**Observer** is a behavioural design pattern. It specifies communication between objects: observables and observers.
+
+An observable is an object which notifies observers about the changes in its state.
+
+For example, a news agency can notify channels when it receives news. Receiving news is what changes the state of the news agency, and it causes the
+channels to be notified.
+
+#### Q68. What does the value (0.5,0.5,0.5) indicate in the class diagram specification position: Coordinate = (0.5,0.5,0.5)?
+
+- [ ] a default value of the Coordinate attribute
+- [ ] the size of the position array
+- [ ] an increment of the position attribute value
+- [x] a default value of the position attribute
+
+#### Explanation
+
+The syntax of Java language doesn't allow you to declare a method with a predefined value for a parameter. Fortunately, you can achieve the same
+effect with simple code constructions.
+
+#### Q69. What is the most accurate example of the Liskov substitution principle?
+
+- [ ] A
+
+```java
+public class Car {
+}
+
+public class FlyingCars extends Car {
+    public void fly() {
+    }
+}
+
+public class Tesla FlyingCar {
+}
+
+public class Honda Car {
+}
+```
+
+- [ ] B
+
+```java
+public class Car {
+    public void fly() {
+    }
+}
+
+public class Tesla extends Car {
+}
+
+public class Honda extends Car {
+}
+```
+
+- [ ] C
+
+```java
+public class Car {
+    public void fly() {
+    }
+}
+
+public class Tesla Car {
+}
+
+public class Honda Car {
+}
+```
+
+- [x] D
+
+```java
+public class Car {
+}
+
+public class FlyingCars extends Car {
+    public void fly() {
+    }
+}
+
+public class Tesla extends FlyingCar {
+}
+
+public class Honda extends Car {
+}
+```
+
+#### Explanation
+
+The Liskov Substitution Principle (LSP) extends the Open-Closed principle and enables you to replace objects of a parent class with objects of a
+subclass without breaking the application.
+
+To achieve that, your subclasses need to follow these rules:
+
+1. Don’t implement any stricter validation rules on input parameters than implemented by the parent class.
+2. Apply at the least the same rules to all output parameters as applied by the parent class.
+
+#### Q70. What is the difference between a parameter and an argument?
+
+- [ ] An argument can have many values while a parameter can have only one value.
+- [ ] An argument is the variable used for input values in a method. A parameter is the specific input value passed to the method.
+- [x] A parameter is a variable in the declaration of a function. An argument is the value of this variable that gets passed to the function.
+- [ ] Parameters and arguments are the same
+
+#### Explanation
+
+Function parameters are the names listed in the function's definition.
+
+Function arguments are the real values passed to the function.
+
+#### Q71. What is the scope of a class nested inside another class?
+
+- [ ] Protected scope
+- [ ] Private scope
+- [ ] Global scope
+- [x] Depends on access specifier and inheritance used
+
+#### Explanation
+
+Access modifiers (specifiers) are keywords that can be used to control the visibility of fields, methods, and constructors in a class. The four access
+modifiers in Java are public, protected, default, and private.
+
+* **Private**: We can access the private modifier only within the same class and not from outside the class.
+* **Default**: We can access the default modifier only within the same package and not from outside the package. And also, if we do not specify any
+  access modifier it will automatically consider it as default.
+* **Protected**: We can access the protected modifier within the same package and also from outside the package with the help of the child class. If
+  we do not make the child class, we cannot access it from outside the package. So inheritance is a must for accessing it from outside the package.
+* **Public**: We can access the public modifier from anywhere. We can access public modifiers from within the class as well as from outside the class
+  and also within the package and outside the package.
+
+![access-specifiers-in-java.jpeg](src%2Foop%2Faccess-specifiers-in-java.jpeg)
+
+#### Q72. Methods and attributes that define an object are a kind of blueprint called what?
+
+- [ ] a collection
+- [ ] a variable
+- [x] a class
+- [ ] a procedure
+
+#### Explanation
+
+An object in OOPS is nothing but a self-contained component which consists of methods and properties to make a particular type of data useful.
+
+For example color name, table, bag, barking. When you send a message to an object, you are asking the object to invoke or execute one of its methods
+as defined in the class.
+
+A **Class** in object-oriented programming is a blueprint or prototype that defines the variables and the methods (functions) common to all Java
+Objects of a certain kind.
+
+An **Object** in object-oriented programming is a specimen of a class. Software objects are often used to model real-world objects you find in
+everyday life.
+
+#### Q73. Assume single inheritance is used with classes A and B while A is the base class. Then assume classes C, D, and E, where C is a base class and D is derived from C, then E is derived from D. Class C is made to inherit from class B. Which type of inheritance is reflected?
+
+- [x] Multilevel
+- [ ] Hybrid
+- [ ] Single level
+- [ ] Multiple
+
+#### Explanation
+
+**Multilevel Inheritance** is where a child class is derived from another derived class. This feature carries combined aspects of multiple classes
+and follows their hierarchies.
+
+![inheritance-in-java.png](src%2Foop%2Finheritance-in-java.png)
+
+#### Q74. What is the main idea behind separation of concerns?
+
+- [x] All of these answers
+- [ ] Applications are decomposed into parts
+- [ ] Parts are defined with minimal overlap
+- [ ] Each part is responsible for a separate concern
+
+#### Explanation
+
+Separation of concerns is a design principle for separating a computer program into distinct sections, such that each section addresses a separate
+concern.
+
+For example the business logic of the application is a concern and the user interface is another concern.
+
+#### Q75. What is the purpose of the "finally" block?
+
+- [x] To always run the `finally` block of code when the try block exits
+- [ ] To run code when an exception has not occurred
+- [ ] To run the block if an exception occurred
+- [ ] To run code whenever garbage collection requires it
+
+#### Explanation
+
+The `finally` block in java is used to put important codes such as clean up code e.g. closing the file or closing the connection.
+
+The `finally` block executes whether exception rise or not and whether exception handled or not. A finally contains all the crucial statements
+regardless of the exception occurs or not.
