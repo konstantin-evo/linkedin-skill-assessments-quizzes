@@ -1956,3 +1956,336 @@ The `finally` block in java is used to put important codes such as clean up code
 
 The `finally` block executes whether exception rise or not and whether exception handled or not. A finally contains all the crucial statements
 regardless of the exception occurs or not.
+
+#### Q76. Which choice is not an OOP language?
+
+- [ ] C#
+- [ ] Java
+- [x] C
+- [ ] Python
+
+#### Explanation
+
+The C programming language is a procedural and general-purpose language that provides low-level access to system memory.
+
+#### Q77. What is the function of a finalizer or destructor?
+
+- [x] To relinquish resources that are no longer needed
+- [ ] To delete a variable name
+- [ ] To reset an attribute value
+- [ ] To hold space, even after an object is no longer being used
+
+**Link**: [Finalizers (C# Programming Guide)](https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/finalizers) (not
+related to Java)
+
+#### Q78. An instance of which type of class cannot be created?
+
+- [ ] Protected class
+- [ ] Base class
+- [ ] Anonymous class
+- [x] Abstract class
+
+#### Explanation
+
+You cannot create an instance of an abstract class because it does not have a complete implementation.
+
+The purpose of an abstract class is to function as a base for subclasses. It acts like a template, or an empty or partially empty structure, you
+should extend it and build on it before you can use it.
+
+#### Q79. In the context of OOP, what is composition?
+
+- [ ] Composition is the act of one object passing to another object an operation to be performed on behalf of the initial object.
+- [x] Composition is a part/whole relationship where an object is composed of one or more other objects, each of which is considered a part of the
+  whole.
+- [ ] Composition is a binding where the class/name association is not made until the object designated by the name is created at execution time
+- [ ] Composition is a process of collecting classes that provide a set of services for a particular domain
+
+#### Explanation
+
+Association in Java defines the connection between two classes that are set up through their objects.
+
+In Java, two types of Association are possible:
+
+* IS-A Association
+* HAS-A Association
+    * Aggregation
+    * Composition
+
+![association-in-java.png](src%2Foop%2Fassociation-in-java.png)
+
+**Composition**
+
+A restricted form of the Aggregation where the entities are strongly dependent on each other. Unlike Aggregation, Composition represents the part-of
+relationship. When there is an aggregation between two entities, the aggregate object can exist without the other entity, but in the case of
+Composition, the composed object can't exist.
+
+Let's take an example to understand the concept of Composition.
+
+We create a class Mobile that contains variables, i.e., name, ram and rom. We also create a class MobileStore that has a reference to refer to the
+list of mobiles. A mobile store can have more than one mobile. So, if a mobile store is destroyed, then all mobiles within that particular mobile
+store will also be destroyed because mobiles cannot exist without a mobile store. The relationship between the mobile store and mobiles is
+Composition.
+
+#### Q80. Static polymorphism uses method \_ ?
+
+- [x] overloading
+- [ ] inheritance
+- [ ] abstraction
+- [ ] overriding
+
+#### Explanation
+
+Java supports two types of polymorphism:
+
+1. Compile-time polymorphism (static polymorphism)
+2. Runtime polymorphism (dynamic polymorphism)
+
+**Static Polymorphism** is achieved by creating multiple methods with the same name in the same class, but with each one having different numbers of
+parameters or parameters of different data types.
+
+**Method overloading** in java is a feature that allows a class to have more than one method with the same name, but with different parameters.
+
+In the example below, notice that the three methods have the same name, but each accepts a different number of parameters or different data types:
+
+```java
+class Multiplier {
+
+    static void Multiply(int a, int b) {
+        System.out.println("Integer Multiplication, Result = " + a * b);
+    }
+
+    static void Multiply(double a, double b) {
+        System.out.println("double Multiplication, Result = " + a * b);
+    }
+
+    static void Multiply(double a, double b, double c) {
+        System.out.println("Three parameters, double Multiplication, Result = " + a * b * c);
+    }
+
+}
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Multiplier.Multiply(3, 5);
+        Multiplier.Multiply(3.5, 5.1);
+        Multiplier.Multiply(3.6, 5.2, 6.3);
+
+    }
+
+}
+```
+
+#### Q81. What does a concrete class not have?
+
+- [ ] parents
+- [x] pure virtual functions
+- [ ] attributes
+- [ ] purposes
+
+**Link**: [Virtual Function in C++ ](https://www.geeksforgeeks.org/virtual-function-cpp/) (not related to Java)
+
+#### Q82. How does dynamic typing complicate troubleshooting?
+
+- [x] It can be difficult to identify variables that are incorrectly typed
+- [ ] The dynamic variables can assume only limited values
+- [ ] Storage is fixed for dynamic variables
+- [ ] Static variables are more flexible than dynamic variables
+
+#### Explanation
+
+Since we can't catch everything, code in dynamic languages tends to be a bit more error-prone and brittle. Data types in these dynamic languages are
+typically determined at runtime. This makes it hard to catch many errors until they reach a production environment.
+
+#### Q83. What is the difference between early binding and late binding?
+
+- [ ] Early binding is when a variable is assigned a value when a scope is created. Late binding is when a variable is assigned a value after a scope
+  is exited
+- [ ] Early binding is when a variable is assigned a value when the program starts. Late binding is when a variable is assigned after the program is
+  running
+- [ ] There is no difference. In both cases, variables are assigned values when a program has completed startup and is running
+- [x] Early binding is when a variable is assigned its value at compile time. Late binding is when a variable is assigned a value at run time
+
+#### Explanation
+
+The key difference between early and late binding involves type conversion.
+
+While early binding provides compile-time checking of all types so that no implicit casts occur, late binding checks types only when the object is
+created or an action is performed on the type.
+
+#### Q84. What is the difference between an interface and an abstract class?
+
+- [ ] Interfaces can contain code or data. Abstract classes do not contain code or data. A class can inherit from more than one abstract class but can
+  only implement one interface
+- [ ] Interfaces can contain code or data. Abstract classes do not contain code or data. A class can inherit from only one abstract class but can
+  implement an unlimited number of interface
+- [x] Abstract classes can contain code or data. Interface do not contain code or data. A class can inherit from only one abstract class but can
+  implement an unlimited number of interfaces
+- [ ] Abstract classes can contain code or data. Interface do not contain code or data. A class can inherit from more than one abstract class but can
+  only implement one interface
+
+#### Explanation
+
+**Note**: Java 8 brought a few brand-new features to the table, including lambda expressions, functional interfaces, method references, streams,
+Optional, and static and default methods in interfaces.
+
+Hence, the statement "Interface do not contain code or data" is incorrect.
+
+**Link**: [Static and Default Methods in Interfaces in Java](https://www.baeldung.com/java-static-default-methods)
+
+---
+
+From an object-oriented programming perspective, the main difference between an interface and an abstract class is that an interface cannot have
+state, whereas the abstract class can have state with instance variables.
+
+#### Q85. What parameters are required to be passed to a class constructor?
+
+- [ ] reference to subclass // References to subclass are never required as you can simply Initialize subclass & use their object.
+- [ ] reference to base class // References to the base class are not required in Java, Javascript & Python
+- [ ] reference to this pointer // While Python & Javascript may require passing this or self in the constructor, It is not passed in Java
+  constructor.
+- [x] none // Above 3 are incorrect so "none" is the answer
+
+**Note**: Here they haven't mentioned any specific language so let's consider all languages.
+
+#### Q86. What are the four principles of object-oriented programming?
+
+- [ ] manipulation, encapsulation, inheritance, and dependency inversion
+- [ ] dependency inversion, open/closed principle, encapsulation, and inheritance
+- [ ] interface segregation, abstraction, dependency inversion, and inheritance
+- [x] abstraction, encapsulation, inheritance, and polymorphism
+
+#### Explanation
+
+The four principles of object-oriented programming (abstraction, inheritance, encapsulation, and polymorphism) are features that - if used properly -
+can help to write more testable, flexible, and maintainable code.
+
+![principles-of-oop.png](src%2Foop%2Fprinciples-of-oop.png)
+
+#### Q87. From the SOLID principles of object-oriented programming, which statement best describes the Liskov substitution principle?
+
+- [ ] A class should have only a single responsibility—that is, only changes to one part of the software's specification should be able to affect the
+  specification of the class.
+- [ ] Software entities should be open for extension, but closed for modification.
+- [ ] Many client-specific interfaces are better than one general-purpose interface.
+- [x] objects in a program should be replaceable with instances of their subtypes without altering the correctness of that program.
+
+#### Explanation
+
+The Liskov Substitution Principle (LSP) extends the Open-Closed principle and enables you to replace objects of a parent class with objects of a
+subclass without breaking the application.
+
+To achieve that, your subclasses need to follow these rules:
+
+1. Don’t implement any stricter validation rules on input parameters than implemented by the parent class.
+2. Apply at the least the same rules to all output parameters as applied by the parent class.
+
+#### Q88. In addition to responsibilities, what should be listed on Class-responsibility-collaboration (CRC) cards?
+
+- [ ] which programming language will be used.
+- [ ] the programmer responsible for implementation.
+- [ ] interacting classes.
+- [x] attributes.
+
+#### Explanation
+
+CRC cards are brainstorming tools used for conceptual modeling and detailed design. Using CRC cards is an activity that combines aspects of
+role-playing games and object-oriented design.
+
+CRC stands for:
+
+* **Class** refers to a collection of similar objects or (more commonly in product design) people
+* **Responsibilities** are something a class knows or an action they perform
+* **Collaborator** is another class that the original class will need to work with to achieve their desired goals.
+
+![crc-cards.jpeg](src%2Foop%2Fcrc-cards.jpeg)
+
+Each card lists the class's name, attributes and methods (its responsibilities), and class associations (collaborations).
+
+#### Q89. What is the best name for the function that corrects this assessment?
+
+- [ ] makeResult()
+- [ ] questionScore()
+- [x] calculateScore()
+- [ ] getAnswers()
+
+#### Explanation
+
+The name of function should clearly, without ambiguity indicate what the function does.
+
+Function names should apply the lower camel case form: `addItem()`, `saveToStore()` or `getItemById()`.
+
+Every function is an action, so the name should contain at least one verb. For example:
+
+* `write(to: "filename.txt")` means write to file
+* `reloadTableData()` means to reload table data
+* `isBirthDay()` means checking if today is birthday
+* `getAddress()` or `setAddress("My Address")` mean getting or setting an object's address.
+
+**Link**: [Practical Function Naming Conventions](https://dmitripavlutin.com/coding-like-shakespeare-practical-function-naming-conventions)
+
+#### Q90. Which relationship best illustrates an abstract-concrete class relationship?
+
+- [ ] cat : kitten
+- [ ] color : red
+- [x] planet : moon
+- [ ] truck : window
+
+#### Explanation
+
+Abstract class is a restricted class that cannot be used to create objects because it does not have a complete implementation.
+
+The purpose of an abstract class is to function as a base for subclasses. It acts like a template, or an empty or partially empty structure, you
+should extend it and build on it before you can use it.
+
+#### Q91. What cannot be used for polymorphism?
+
+- [ ] overloading constructors
+- [ ] overloading member functions
+- [x] static member functions
+- [ ] overloading predefined operator
+
+#### Explanation
+
+Static member functions are not property of any object.
+
+Hence, it can't be considered for overloading and overriding. For polymorphism, function must be property of object, not only of class.
+
+#### Q92. How many levels does multilevel inheritance allow in a program?
+
+- [ ] only 10 levels of inheritance
+- [ ] as many levels of inheritance as required within 10 minutes
+- [ ] as many levels of inheritance as required
+- [x] only the amount of levels memory permits, divided by processor speed
+
+#### Explanation
+
+The multilevel inheritance allows any number of levels of inheritance. This is the maximum flexibility feature to make the members available to all
+the new classes and to add their own functionalities.
+
+#### Q93. What is a virtual Method?
+
+- [x] a method that you expect may be redefined in derived classes
+- [ ] a method that you do not expect to be redefined in derived classes
+- [ ] a private method that you do not expect to be redefined in derived public classes
+- [ ] a method that exists temporarily - once used, it ceases to be used by any caller
+
+#### Explanation
+
+A virtual function or virtual method in an OOP language is a function or method used to override the behavior of the function in an inherited class
+with the same signature to achieve the polymorphism.
+
+#### Q94. Which of these is not a basic principle of Object-Oriented Programming?
+
+- [ ] Encapsulation
+- [x] Compilation
+- [ ] Inheritance
+- [ ] Polymorphism
+
+#### Explanation
+
+The four principles of object-oriented programming (abstraction, inheritance, encapsulation, and polymorphism) are features that - if used properly -
+can help to write more testable, flexible, and maintainable code.
+
+![principles-of-oop.png](src%2Foop%2Fprinciples-of-oop.png)
