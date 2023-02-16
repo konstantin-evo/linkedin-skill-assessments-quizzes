@@ -2,6 +2,23 @@
 
 [Link to course](https://www.coursera.org/learn/design-patterns)
 
+<a name="link-top"></a>
+
+---
+
+### Table of Contents
+
+<ol>
+  <li>
+    <a href="#module-1">Module 1</a>
+  </li>
+  <li>
+    <a href="#module-2">Module 2</a>
+  </li>
+</ol>
+
+---
+
 #### Module 1
 
 Creational Patterns:
@@ -647,3 +664,684 @@ class A {
     }
 }  
 ```
+
+<p align="right">(<a href="#table-of-contents">back to top</a>)</p>
+
+#### Module 2
+
+Behavioral Patterns:
+
+1. Template Method Pattern
+2. Chain of Responsibility Pattern
+3. State Pattern
+4. Command Pattern
+5. Mediator Pattern
+6. Observer Pattern
+
+--- 
+
+#### Q1. Choose the most appropriately implemented Template pattern
+
+Some UML reminders that will help you:
+
+* a private method or variable is denoted by a `-` as in `-boilWater()`
+* a method, variable, or class that is abstract is denoted by italics (as in PastaTemplate)
+
+1. [ ] a
+2. [ ] b
+3. [ ] c
+4. [x] d
+
+![m2-q1.png](src%2Fdesign-pattern%2Fm2-q1.png)
+
+#### Explanation:
+
+1. The `PastaTemplate` class should be abstract therefore answer `B` is incorrect
+2. Methods that will be overwritten in child classes and do not have a default implementation should be abstract therefore answer `C` is incorrect
+3. The abstract methods of the `PastaTemplate` class must be public therefore answer `A` is incorrect
+
+---
+
+Template Method is a behavioural design pattern that defines the skeleton of an algorithm in the superclass but lets subclasses override specific
+steps of the algorithm without changing its structure.
+
+**How to Implement**:
+
+1. Analyze the target algorithm to see whether you can break it into steps. Consider which steps are common to all subclasses and which ones will
+   always be unique.
+2. Create the abstract base class and declare the template method and a set of abstract methods representing the algorithm’s steps. Outline the
+   algorithm’s structure in the template method by executing corresponding steps. Consider making the template method final to prevent subclasses from
+   overriding it.
+3. For each variation of the algorithm, create a new concrete subclass. It must implement all the abstract steps, but may also override some
+   optional ones.
+
+![template-method-structure.png](src%2Fdesign-pattern%2Ftemplate-method-structure.png)
+
+**Example of implementation**:
+
+To demonstrate how the template method pattern works, let's create a simple example which represents building a computer station.
+
+Given the pattern's definition, the algorithm's structure will be defined in a base class that defines the template `build()` method:
+
+```java
+public abstract class ComputerBuilder {
+
+    protected Map<String, String> computerParts = new HashMap<>();
+    protected List<String> motherboardSetupStatus = new ArrayList<>();
+
+    public final Computer buildComputer() {
+        addMotherboard();
+        setupMotherboard();
+        addProcessor();
+        return getComputer();
+    }
+
+    public abstract void addMotherboard();
+
+    public abstract void setupMotherboard();
+
+    public abstract void addProcessor();
+
+    public List<String> getMotherboardSetupStatus() {
+        return motherboardSetupStatus;
+    }
+
+    public Map<String, String> getComputerParts() {
+        return computerParts;
+    }
+
+    private Computer getComputer() {
+        return new Computer(computerParts);
+    }
+}
+```
+
+The `ComputerBuilder` class is responsible for outlining the steps required to build a computer by declaring methods for adding and setting up
+different
+components, such as a motherboard and a processor.
+
+Here, the `build()` method is the template method, which defines steps of the algorithm for assembling the computer parts and returns
+fully-initialised
+Computer instances.
+
+**Note**: it's declared as final to prevent it from being overridden.
+
+With the base class already set, let's try to use it by creating two subclasses. One which builds a “standard” computer, and the other that builds a
+“high-end” computer:
+
+```java
+public class StandardComputerBuilder extends ComputerBuilder {
+
+    @Override
+    public void addMotherboard() {
+        computerParts.put("Motherboard", "Standard Motherboard");
+    }
+
+    @Override
+    public void setupMotherboard() {
+        motherboardSetupStatus.add(
+                "Screwing the standard motherboard to the case.");
+        motherboardSetupStatus.add(
+                "Pluging in the power supply connectors.");
+        motherboardSetupStatus.forEach(
+                step -> System.out.println(step));
+    }
+
+    @Override
+    public void addProcessor() {
+        computerParts.put("Processor", "Standard Processor");
+    }
+
+}
+```
+
+```java
+public class HighEndComputerBuilder extends ComputerBuilder {
+
+    @Override
+    public void addMotherboard() {
+        computerParts.put("Motherboard", "High-end Motherboard");
+    }
+
+    @Override
+    public void setupMotherboard() {
+        motherboardSetupStatus.add(
+                "Screwing the high-end motherboard to the case.");
+        motherboardSetupStatus.add(
+                "Plugging in the power supply connectors.");
+        motherboardSetupStatus.forEach(
+                step -> System.out.println(step));
+    }
+
+    @Override
+    public void addProcessor() {
+        computerParts.put("Processor", "High-end Processor");
+    }
+
+}
+```
+
+Let's use it in our application:
+
+```java
+public class Application {
+
+    public static void main(String[] args) {
+        ComputerBuilder standardComputerBuilder = new StandardComputerBuilder();
+        Computer standardComputer = standardComputerBuilder.buildComputer();
+        standardComputer.getComputerParts().forEach((k, v) -> System.out.println("Part : " + k + " Value : " + v));
+
+        ComputerBuilder highEndComputerBuilder = new HighEndComputerBuilder();
+        Computer highEndComputer = highEndComputerBuilder.buildComputer();
+        highEndComputer.getComputerParts().forEach((k, v) -> System.out.println("Part : " + k + " Value : " + v));
+    }
+}
+```
+
+#### Q2. What is the correct situation for the use of a Chain of Responsibility pattern?
+
+1. [ ] You need a set of objects to each contribute information on responding to a request.
+2. [x] You have multiple potential handlers, but only one will deal with the request.
+3. [ ] You need to pass a message to multiple receivers.
+4. [ ] You need to delegate a set of tasks to a hierarchy of objects.
+
+#### Explanation:
+
+Chain of Responsibility is a behavioural design pattern that lets you pass requests along a chain of handlers. Upon receiving a request, each handler
+decides either to process the request or to pass it to the next handler in the chain.
+
+**Applicability**:
+
+This pattern is recommended when multiple objects can handle a request and the handler doesn't have to be a specific object. Also, the handler is
+determined at runtime.
+
+**Note**: a request not handled at all by any handler is a valid use case.
+
+**Chain of Responsibility Pattern Example in JDK**:
+
+Let’s see the example of chain of responsibility pattern in JDK: we know that we can have multiple catch blocks in a try-catch block code. Here every
+catch block is kind of a processor to process that particular exception.
+
+So when any exception occurs in the try block, its send to the first catch block to process. If the catch block is not able to process it, it forwards
+the request to next object in chain i.e. next catch block. If even the last catch block is not able to process it, the exception is thrown outside
+the chain to the calling program.
+
+**Chain of Responsibility Pattern in real life**:
+
+One of the great example of Chain of Responsibility pattern is ATM Dispense machine.
+
+The user enters the amount to be dispensed and the machine dispense amount in terms of defined currency bills such as 50$, 20$, 10$ etc. If the user
+enters an amount that is not multiples of 10, it throws error. We will use Chain of Responsibility pattern to implement this solution.
+
+![cor-pattern-example.png](src%2Fdesign-pattern%2Fcor-pattern-example.png)
+
+Note that we can implement this solution easily in a single program itself but then the complexity will increase and the solution will be tightly
+coupled. So we will create a chain of dispense systems to dispense bills of 50$, 20$ and 10$.
+
+#### Q3. What is the purpose of encapsulating state in an object in the State Pattern? Choose the three that are correct.
+
+1. [x] it allows the current state object to decide how to achieve behaviours specific to the state of the context.
+2. [x] it allows the current state to be copied from one instance to another
+3. [ ] it removes large conditionals that are difficult to maintain.
+4. [x] it turns the context into a client of the state.
+
+#### Explanation:
+
+State is a behavioural design pattern that lets an object alter its behaviour when its internal state changes. It appears as if the object changed its
+class.
+
+**Advantages of State Design Pattern**:
+
+* With State pattern, the benefits of implementing polymorphic behavior are evident, and it is also easier to add states to support additional
+  behavior.
+* In the State design pattern, an object’s behavior is the result of the function of its state, and the behavior gets changed at runtime depending on
+  the state. This removes the dependency on the `if/else` or `switch/case` conditional logic.
+* The State design pattern also improves Cohesion since state-specific behaviors are aggregated into the ConcreteState classes, which are placed in
+  one location in the code.
+* It can make your code easier to read. Your code may be simpler to comprehend if the behavior is divided into several states, with each state having
+  a distinct name that is both obvious and descriptive.
+* You may find it helpful to follow the Single Responsibility Principle. According to the SRP, a class should only have one cause to modify. You
+  may guarantee that each state has a clear and distinct duty by encapsulating the behavior in multiple states, which can make your code easier to
+  maintain and alter.
+
+**UML Diagram**
+
+The **Context** defines an interface for clients to interact. It maintains references to concrete state objects which may be used to define the
+current state of objects.
+
+The **State** defines interface for declaring what each concrete state should do.
+
+The **ConcreteState** provides the implementation for methods defined in State.
+
+![state-pattern-uml.png](src%2Fdesign-pattern%2Fstate-pattern-uml.png)
+
+In the UML diagram, we see that Context class has an associated State which is going to change during program execution.
+
+Our context is going to delegate the behavior to the state implementation. In other words, all incoming requests will be handled by the concrete
+implementation of the state.
+
+We see that logic is separated and adding new states is simple – it comes down to adding another State implementation if needed.
+
+**Example of implementation**:
+
+let's implement a mobile state scenario. With respect to alerts, a mobile can be in different states.
+
+For example, vibration and silence. Based on this alert state, the behavior of the mobile changes when an alert is to be done.
+
+```java
+interface MobileAlertState {
+    public void alert(AlertStateContext ctx);
+}
+
+class AlertStateContext {
+
+    private MobileAlertState currentState;
+
+    public AlertStateContext() {
+        currentState = new Vibration();
+    }
+
+    public void setState(MobileAlertState state) {
+        currentState = state;
+    }
+
+    public void alert() {
+        currentState.alert(this);
+    }
+}
+
+class Vibration implements MobileAlertState {
+    @Override
+    public void alert(AlertStateContext ctx) {
+        System.out.println("vibration... ");
+    }
+}
+
+class Silent implements MobileAlertState {
+    @Override
+    public void alert(AlertStateContext ctx) {
+        System.out.println("silent... ");
+    }
+}
+
+class StatePattern {
+    public static void main(String[] args) {
+        AlertStateContext stateContext = new AlertStateContext();
+        stateContext.alert();
+        stateContext.alert();
+        stateContext.setState(new Silent());
+        stateContext.alert();
+        stateContext.alert();
+        stateContext.alert();
+    }
+}
+```
+
+#### Q4. What design principles is the Command Pattern using?
+
+1. [x] Encapsulation, generalization, loose coupling
+2. [ ] Encapsulation, information hiding, loose coupling
+3. [ ] Encapsulation, generalization, information hiding
+4. [ ] Generalization, information hiding, loose coupling
+
+#### Explanation:
+
+|     Principle      |                                                                                                         Description                                                                                                          | Command Pattern                                                                                                                                                                    |
+|:------------------:|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|   Generalisation   | Generalisation defines as the technique of extracting the essential characteristics (these include attributes, properties, and methods) from two or more subclasses and then combining them inside a generalized base class. | ✅ The Command interface contains an execute() method that simply calls the action on the receiver.                                                                                 |
+|   Encapsulation    |                                                                   Encapsulation refers to the bundling of data with the methods that operate on that data.                                                                   | ✅ The Command pattern encapsulate a request as an object, thereby letting you parametrise clients with different requests, queue or log requests, and support undoable operations. |
+|   Loose coupling   |                                        Loose coupling is an approach to interconnecting the components so that those components depend on each other to the least extent practicable.                                        | ✅ The main focus of the command pattern is to inculcate a higher degree of loose coupling between involved parties.                                                                |
+| Information hiding |                                               Data hiding is an object-oriented programming technique specifically used to hide internal object details (i.e., data members).                                                | ❌                                                                                                                                                                                  |
+
+---
+
+Command is a behavioural design pattern that turns a request into a stand-alone object that contains all information about the request.
+
+Simply put, the pattern intends to encapsulate in an Object all the data required for performing a given action (command), including:
+
+1. What method to call;
+2. The method's arguments;
+3. The Object (known as the receiver) to which the method belongs.
+
+This model allows us to decouple objects that produce the commands from their consumers, so that's why the pattern is commonly known as the
+producer-consumer pattern.
+
+This transformation lets you:
+
+1. Pass requests as a method argument;
+2. Delay or queue the request's execution;
+3. Support undoable operations.
+
+**UML Diagram**:
+
+![command-pattern-uml-diagram.png](src%2Fdesign-pattern%2Fcommand-pattern-uml-diagram.png)
+
+**Pros and Cons**:
+
+✅ Single Responsibility Principle:
+you can decouple classes that invoke operations from classes that perform these operations.
+
+✅ Open/Closed Principle:
+you can introduce new commands into the app without breaking existing client code.
+
+✅ You can implement undo/redo functionality.
+
+✅ You can implement deferred execution of operations.
+
+✅ You can assemble a set of simple commands into a complex one.
+
+❌ The code may become more complicated since you’re introducing a whole new layer between senders and receivers.
+
+#### Q5. Which are the minimum requirements of the Observer pattern? Choose the three that are correct.
+
+1. [x] method to notify observers
+2. [x] methods to add or remove observers
+3. [x] update method in observers
+4. [ ] a state variable to determine if observers have been notified.
+
+#### Explanation:
+
+Observer is a behavioural design pattern that lets you define a subscription mechanism to notify multiple objects about any events that happen to the
+object they’re observing.
+
+**UML Diagram**:
+
+![observer-pattern-structure.png](src%2Fdesign-pattern%2Fobserver-pattern-structure.png)
+
+The **Publisher** issues events of interest to other objects.
+
+These events occur when the publisher changes its state or executes some behaviors. Publishers contain a subscription infrastructure that lets new
+subscribers join and current subscribers leave the list.
+
+When a new event happens, the publisher goes over the subscription list and calls the notification method declared in the subscriber interface on each
+subscriber object.
+
+The **Subscriber** interface declares the notification interface. In most cases, it consists of a single `update()` method. The method may have
+several parameters that let the publisher pass some event details along with the update.
+
+The **Concrete Subscriber** performs some actions in response to notifications issued by the publisher. All of these classes must implement the same
+interface so the publisher isn’t coupled to concrete classes.
+
+Usually, subscribers need some contextual information to handle the update correctly. For this reason, publishers often pass some context data as
+arguments of the notification method. The publisher can pass itself as an argument, letting subscriber fetch any required data directly.
+
+The **Client** creates publisher and subscriber objects separately and then registers subscribers for publisher updates.
+
+**Example of implementation**:
+
+An observable is an object which notifies observers about the changes in its state. For example, a news agency can notify channels when it receives
+news.
+
+Receiving news is what changes the state of the news agency, and it causes the channels to be notified.
+
+First, we'll define the NewsAgency class:
+
+```java
+public class NewsAgency {
+
+    private String news;
+    private List<Channel> channels = new ArrayList<>();
+
+    public void addObserver(Channel channel) {
+        this.channels.add(channel);
+    }
+
+    public void removeObserver(Channel channel) {
+        this.channels.remove(channel);
+    }
+
+    public void setNews(String news) {
+        this.news = news;
+        for (Channel channel : this.channels) {
+            channel.update(this.news);
+        }
+    }
+}
+```
+
+`NewsAgency` is an observable, and when news gets updated, the state of `NewsAgency` changes. When the change happens, `NewsAgency` notifies the
+observers
+about it by calling their `update()` method.
+
+**Note**: To be able to do that, the observable object needs to keep references to the observers. In our case, it's the “channels” variable.
+
+Now let's see what the observer, the Channel class, can look like. It should have the update() method, which is invoked when the state of NewsAgency
+changes:
+
+```java
+public interface Channel {
+    public void update(Object o);
+}
+```
+
+```java
+public class NewsChannel implements Channel {
+
+    private String news;
+
+    @Override
+    public void update(Object news) {
+        this.setNews((String) news);
+    }
+
+    // standard getter and setter
+
+}
+```
+
+Client code:
+
+```
+        NewsAgency observable=new NewsAgency();
+        NewsChannel observer=new NewsChannel();
+
+        observable.addObserver(observer);
+        observable.setNews("news");
+        assertEquals(observer.getNews(),"news");
+```
+
+#### Q6. When are you most likely to need a Mediator pattern?
+
+1. [ ] When you want to de-couple a class that is requesting a service from one that is providing it.
+2. [x] When you are coordinating the activities of a set of related classes.
+3. [ ] When your class is sending a request that might be handled by one of several handlers.
+4. [ ] When you have two classes with different interfaces that you must connect.
+
+#### Q7. You have a machine performing a complex manufacturing task, with different sensors and different components of the machine represented by different classes. Which design pattern will you use to arrange the parts?
+
+1. [ ] Template
+2. [ ] Command
+3. [x] Mediator
+4. [ ] Chain of Responsibility
+
+#### Explanation:
+
+Mediator is a behavioural design pattern that lets you reduce chaotic dependencies between objects.
+
+The pattern restricts direct communications between the objects and forces them to collaborate only via a mediator object.
+
+**When to Use the Mediator Pattern**:
+
+The Mediator Pattern is a good choice if we have to deal with a set of objects that are tightly coupled and hard to maintain. This way we can reduce
+the dependencies between objects and decrease the overall complexity.
+
+Additionally, by using the mediator object, we extract the communication logic to the single component, therefore we follow the Single Responsibility
+Principle. Furthermore, we can introduce new mediators with no need to change the remaining parts of the system. Hence, we follow the Open-Closed
+Principle.
+
+Sometimes, however, we may have too many tightly coupled objects due to the faulty design of the system. If this is a case, we should not apply the
+Mediator Pattern. Instead, we should take one step back and rethink the way we've modelled our classes.
+
+As with all other patterns, we need to consider our specific use case before blindly implementing the Mediator Pattern.
+
+#### Q8. Marlon is coding part of the software that follows a similar sequence of steps. Depending on the type of object, these steps will be implemented in slightly different ways, but their order is always the same. Which design pattern could Marlon use?
+
+1. [x] Template pattern
+2. [ ] Mediator pattern
+3. [ ] Command pattern
+4. [ ] State pattern
+
+#### Explanation:
+
+Template Method is a behavioural design pattern that defines the skeleton of an algorithm in the superclass but lets subclasses override specific
+steps of the algorithm without changing its structure.
+
+**When to Use the Template Method Pattern**:
+
+* Use the Template Method pattern when you want to let clients extend only particular steps of an algorithm,
+  but not the whole algorithm or its structure.
+
+The Template Method lets you turn a monolithic algorithm into a series of individual steps which can be easily extended by subclasses while keeping
+intact the structure defined in a superclass.
+
+* Use the pattern when you have several classes that contain almost identical algorithms with some minor differences.
+  As a result, you might need to modify all classes when the algorithm changes.
+
+When you turn such an algorithm into a template method, you can also pull up the steps with similar implementations into a superclass, eliminating
+code duplication. Code that varies between subclasses can remain in subclasses.
+
+#### Q9. What are the important roles in the Command Pattern?
+
+1. [ ] Command, Queue, Receiver
+2. [ ] Sender, Receiver, Invoker
+3. [ ] Delegate, Command, Requester
+4. [x] Command, Receiver, Invoker
+
+#### Explanation:
+
+Command is a behavioural design pattern that turns a request into a stand-alone object that contains all information about the request.
+
+Simply put, the pattern intends to encapsulate in an Object all the data required for performing a given action (command), including:
+
+1. What method to call;
+2. The method's arguments;
+3. The Object (known as the receiver) to which the method belongs.
+
+**UML Diagram**:
+
+![command-pattern-uml-diagram.png](src%2Fdesign-pattern%2Fcommand-pattern-uml-diagram.png)
+
+The **Sender** class (aka invoker) is responsible for initiating requests.
+
+This class must have a field for storing a reference to a command object. The sender triggers that command instead of sending the request directly to
+the receiver.
+
+**Note**: the sender isn’t responsible for creating the command object. Usually, it gets a pre-created command from the client via the constructor.
+
+The **Command** interface usually declares just a single method `execute()` for executing the command.
+
+The **Concrete Command** implements various kinds of requests.
+
+A concrete command isn’t supposed to perform the work on its own, but rather to pass the call to one of the business logic objects. However, for the
+sake of simplifying the code, these classes can be merged.
+
+Parameters required to execute a method on a receiving object can be declared as fields in the concrete command.
+
+**Note**: you can make command objects immutable by only allowing the initialization of these fields via the constructor.
+
+The **Receiver** class contains some business logic.
+
+Almost any object may act as a receiver. Most commands only handle the details of how a request is passed to the receiver, while the receiver itself
+does the actual work.
+
+The **Client** creates and configures concrete command objects.
+
+The client must pass all the request parameters, including a receiver instance, into the command’s constructor. After that, the resulting command may
+be associated with one or multiple senders.
+
+#### Q10. Select the best UML class diagram representation of the Chain of Responsibility pattern.
+
+![m2-q8.png](src%2Fdesign-pattern%2Fm2-q8.png)
+
+1. [ ] a
+2. [x] b
+3. [ ] c
+4. [ ] d
+
+#### Explanation:
+
+Chain of Responsibility is a behavioral design pattern that lets you pass requests along a chain of handlers.
+
+Upon receiving a request, each handler decides either to process the request or to pass it to the next handler in the chain.
+
+**UML Diagram**:
+
+![cor-pattern-uml-diagram.png](src%2Fdesign-pattern%2Fcor-pattern-uml-diagram.png)
+
+The **Client** may compose chains just once or compose them dynamically, depending on the application’s logic.
+
+**Note**: a request can be sent to any handler in the chain—it doesn't have to be the first one.
+
+The **Handler** declares the interface, common for all concrete handlers. It usually contains just a single method for handling requests, but
+sometimes it may also have another method for setting the next handler on the chain.
+
+The **Base Handler** is an optional class where you can put the boilerplate code that’s common to all handler classes.
+
+Usually, this class defines a field for storing a reference to the next handler. The clients can build a chain by passing a handler to the constructor
+or setter of the previous handler.
+
+The class may also implement the default handling behavior: it can pass execution to the next handler after checking for its existence.
+
+The **Concrete Handler** contains the actual code for processing requests. Upon receiving a request, each handler must decide whether to process it
+and, additionally, whether to pass it along the chain.
+
+Handlers are usually self-contained and immutable, accepting all necessary data just once via the constructor.
+
+#### Q11. You have a security system class, and it has 3 modes: normal, lockdown, and open. Which pattern would you use to model the behaviour in these different modes?
+
+1. [ ] Observer
+2. [x] State
+3. [ ] Mediator
+4. [ ] Template
+
+#### Explanation:
+
+State is a behavioural design pattern that lets an object alter its behaviour when its internal state changes. It appears as if the object changed its
+class.
+
+**When to Use the State Pattern**:
+
+* Use the State pattern when you have an object that behaves differently depending on its current state,
+  the number of states is enormous, and the state-specific code changes frequently.
+
+The pattern suggests that you extract all state-specific code into a set of distinct classes. As a result, you can add new states or change existing
+ones independently of each other, reducing the maintenance cost.
+
+* Use the pattern when you have a class polluted with massive conditionals that alter how the class behaves according to the current values of the
+  class’s fields.
+
+The State pattern lets you extract branches of these conditionals into methods of corresponding state classes. While doing so, you can also clean
+temporary fields and helper methods involved in state-specific code out of your main class.
+
+* Use State when you have a lot of duplicate code across similar states and transitions of a condition-based state machine.
+
+The State pattern lets you compose hierarchies of state classes and reduce duplication by extracting common code into abstract base classes.
+
+#### Q12. One of your classes represents a mailbox, while another is the owner of the mailbox. The person would like to know when new mail arrives. Which design pattern will you probably use?
+
+1. [ ] State
+2. [ ] Command
+3. [ ] Mediator
+4. [x] Observer
+
+#### Explanation:
+
+Observer is a behavioral design pattern that lets you define a subscription mechanism to notify multiple objects about any events that happen to the
+object they’re observing.
+
+**When to Use the Observer Pattern**:
+
+* Use the Observer pattern when changes to the state of one object may require changing other objects,
+  and the actual set of objects is unknown beforehand or changes dynamically.
+
+You can often experience this problem when working with classes of the graphical user interface. For example, you created custom button classes, and
+you want to let the clients hook some custom code to your buttons so that it fires whenever a user presses a button.
+
+The Observer pattern lets any object that implements the subscriber interface subscribe for event notifications in publisher objects. You can add the
+subscription mechanism to your buttons, letting the clients hook up their custom code via custom subscriber classes.
+
+* Use the pattern when some objects in your app must observe others, but only for a limited time or in specific cases.
+
+The subscription list is dynamic, so subscribers can join or leave the list whenever they need to.
+
+<p align="right">(<a href="#table-of-contents">back to top</a>)</p>
