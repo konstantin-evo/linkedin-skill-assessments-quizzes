@@ -15,26 +15,37 @@
   <li>
     <a href="#module-2">Module 2</a>
   </li>
+  <li>
+    <a href="#module-3">Module 3</a>
+  </li>
+  <li>
+    <a href="#module-4">Module 4</a>
+  </li>
 </ol>
 
 ---
 
-#### Module 1
-
-Creational Patterns:
-
-1. Singleton
-2. Factory Method
-
-Structural Patterns:
-
-1. Facade
-2. Adapter
-3. Composite
-4. Proxy
-5. Decorator
+| Module 1             | Module 2                           | Module 3                                     | Module 4                 |
+|----------------------|------------------------------------|----------------------------------------------|--------------------------|
+| Creational Patterns: | Behavioral Patterns:               | MVC Pattern                                  | Revision of the material |
+| 1. Singleton         | 1. Template Method Pattern         | Design Principles Underlying Design Patterns |                          |
+| 2. Factory Method    | 2. Chain of Responsibility Pattern | 1. Liskov Substitution Principle             |                          |
+| Structural Patterns: | 3. State Pattern                   | 2. Open/Closed Principle                     |                          |
+| 1. Facade            | 4. Command Pattern                 | 3. Dependency Inversion Principle            |                          |
+| 2. Adapter           | 5. Mediator Pattern                | 4. Interface Segregation Principle           |                          |
+| 3. Composite         | 6. Observer Pattern                | 5. Composition over Inheritance              |                          |
+| 4. Proxy             |                                    | 6. Law of Demeter                            |                          |
+| 5. Decorator         |                                    | Anti-Patterns & Code Smells                  |                          |
+|                      |                                    | 1. Primitive obsession                       |                          |
+|                      |                                    | 2. Excessive comments                        |                          |
+|                      |                                    | 3. God Class                                 |                          |
+|                      |                                    | 4. Message chains                            |                          |
+|                      |                                    | 5. Feature envy                              |                          |
+|                      |                                    | 6. Speculative Generality                    |                          |
 
 --- 
+
+#### Module 1
 
 #### Q1. When is the best time to use a design pattern? Choose two answers.
 
@@ -1345,3 +1356,576 @@ subscription mechanism to your buttons, letting the clients hook up their custom
 The subscription list is dynamic, so subscribers can join or leave the list whenever they need to.
 
 <p align="right">(<a href="#table-of-contents">back to top</a>)</p>
+
+---
+
+#### Module 3
+
+#### Q1. What does MVC Stand for? Use spaces between each word, no upper case letters, and no punctuation.
+
+**Answer**: model view controller
+
+#### Explanation:
+
+MVC Pattern stands for Model-View-Controller Pattern.
+
+![mvc-pattern.png](src%2Fdesign-pattern%2Fmvc-pattern.png)
+
+| Component  |                                                                                   Aim                                                                                   |
+|:----------:|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
+|   Model    |               Model represents an object or JAVA POJO carrying data and business logic. It can also have logic to update controllers if its data changes.               |
+|    View    |                                                  View represents the visualisation of the data that the model contains                                                  |
+| Controller | Controller acts on both model and view:  1) Controls the data flow into the model object 2) Updates the view whenever data changes 3) It keeps view and model separate. |
+
+#### Q2. Select the two elements of the open/closed principle:
+
+1. [ ] Closed for extension.
+2. [ ] Open for maintenance
+3. [x] Closed for modification
+4. [x] Open for extension
+5. [ ] Closed for maintenance.
+6. [ ] Open for modification
+
+#### Explanation:
+
+The Open–Closed Principle states "software entities (classes, modules, functions, etc.) should be open for extension, but closed for modification";
+that is, such an entity can allow its behaviour to be extended without modifying its source code.
+
+Let's consider we're building a calculator app that might have several operations, such as addition and subtraction.
+
+```java
+public class Calculator {
+
+    public void calculate(CalculatorOperation operation) {
+
+        if (operation == null) {
+            throw new InvalidParameterException("Can not perform operation");
+        }
+
+        if (operation instanceof Addition) {
+            Addition addition = (Addition) operation;
+            addition.setResult(addition.getLeft() + addition.getRight());
+        } else if (operation instanceof Subtraction) {
+            Subtraction subtraction = (Subtraction) operation;
+            subtraction.setResult(subtraction.getLeft() - subtraction.getRight());
+        }
+    }
+}
+```
+
+Although this may seem fine, it's not a good example of the OCP. When a new requirement of adding multiplication or divide functionality comes in,
+we've no way besides changing the calculate method of the Calculator class.
+
+As we've seen our calculator app is not yet OCP compliant. The code in the calculate method will change with every incoming new operation support
+request. So, we need to extract this code and put it in an abstraction layer.
+
+One solution is to delegate each operation into their respective class:
+
+```java
+public interface CalculatorOperation {
+    void perform();
+}
+```
+
+As a result, the Addition class could implement the logic of adding two numbers:
+
+```java
+
+@Getter
+@Setter
+public class Addition implements CalculatorOperation {
+
+    private double left;
+    private double right;
+    private double result;
+
+    public Addition(double left, double right) {
+        this.left = left;
+        this.right = right;
+    }
+
+    @Override
+    public void perform() {
+        result = left + right;
+    }
+
+}
+
+@Getter
+@Setter
+public class Division implements CalculatorOperation {
+
+    private double left;
+    private double right;
+    private double result;
+
+    public Division(double left, double right) {
+        this.left = left;
+        this.right = right;
+    }
+
+    @Override
+    public void perform() {
+        if (right != 0) {
+            result = left / right;
+        }
+    }
+
+}
+```
+
+And finally, our Calculator class doesn't need to implement new logic as we introduce new operators:
+
+```java
+public class Calculator {
+
+    public void calculate(CalculatorOperation operation) {
+        if (operation == null) {
+            throw new InvalidParameterException("Cannot perform operation");
+        }
+        operation.perform();
+    }
+
+}
+```
+
+Testing:
+
+```java
+public class TestCalculator {
+
+    @Test
+    public void whenAddTwoNumber_returnSum() {
+        Addition addition = new Addition(RIGHT, LEFT);
+        calculator.calculate(addition);
+        assertEquals(SUM, addition.getResult(), 0.0);
+    }
+}
+```
+
+#### Q3. What is the best description of the Dependency Inversion principle?
+
+1. [ ] Client objects are dependent on a service interface that directs their requests.
+2. [x] Client objects depend on generalizations instead of concrete objects.
+3. [ ] Client objects depend on an Adaptor Pattern to interface with the rest of the system.
+4. [ ] Service objects subscribe to their prospective client objects as Observers, watching for a request.
+
+#### Explanation:
+
+The Dependency Inversion Principle (DIP) states that we should depend on abstractions instead of concrete implementations.
+
+In other words, the abstractions should not depend on details;
+Instead, the details should depend on abstractions.
+
+Consider the example below. We have a Car class that depends on the concrete Engine class; therefore, it is not obeying DIP.
+
+```java
+public class Car {
+
+    private Engine engine;
+
+    public Car(Engine e) {
+        engine = e;
+    }
+
+    public void start() {
+        engine.start();
+    }
+}
+
+public class Engine {
+    public void start() {...}
+}
+```
+
+The code will work, for now, but what if we wanted to add another engine type, let’s say a diesel engine? This will require refactoring the Car class.
+However, we can solve this by introducing a layer of abstraction. Instead of Car depending directly on Engine, let’s add an interface:
+
+```java
+public interface Engine {
+    public void start();
+}
+```
+
+Now we can connect any type of Engine that implements the Engine interface to the Car class:
+
+```java
+public class Car {
+
+    private Engine engine;
+
+    public Car(Engine e) {
+        engine = e;
+    }
+
+    public void start() {
+        engine.start();
+    }
+}
+
+public class PetrolEngine implements Engine {
+    public void start() {...}
+}
+
+public class DieselEngine implements Engine {
+    public void start() {...}
+}
+```
+
+#### Q4. Which of these statements is true about the Composing Objects principle?
+
+* it provides behaviour with aggregation instead of inheritance
+* it leads to tighter coupling
+
+1. [x] The first statement is true
+2. [ ] The second statement is true
+3. [ ] Neither statement is true
+4. [ ] Both statements are true
+
+#### Explanation:
+
+Composing Objects principle (also known as Composition over Inheritance) states that classes should achieve code reuse through aggregation rather than
+inheritance.
+
+The advantages of using Composition over Inheritance:
+
+1. Inheritance is tightly coupled whereas composition is loosely coupled.
+2. There is no access control in inheritance whereas access can be restricted in composition.
+3. Composition provides flexibility in invocation of methods that is useful with multiple subclass scenario.
+4. One more benefit of composition over inheritance is testing scope. Unit testing is easy in composition because we know what all methods we are
+   using from another class. We can mock it up for testing whereas in inheritance we depend heavily on superclass and don’t know what all methods of
+   superclass will be used.
+
+**Link**: [Composition vs Inheritance](https://www.digitalocean.com/community/tutorials/composition-vs-inheritance)
+
+Design patterns, such as the Composite design pattern and Decorator design pattern use this design principle. Both of these patterns compose concrete
+classes in order to build more complex objects at one time.
+
+#### Q5. Which of these UML diagrams demonstrates the Interface Segregation principle?
+
+![m3-q5.png](src%2Fdesign-pattern%2Fm3-q5.png)
+
+1. [ ] a)
+2. [ ] b)
+3. [ ] c)
+4. [x] d)
+
+#### Explanation:
+
+The Interface Segregation Principle (ISP) states that clients should not be forced to depend on interface members they do not use.
+
+In other words, do not force any client to implement an interface that is irrelevant to them.
+
+Suppose there’s an interface for vehicle and a Bike class:
+
+```java
+public interface Vehicle {
+    public void drive();
+
+    public void stop();
+
+    public void refuel();
+
+    public void openDoors();
+}
+
+public class Bike implements Vehicle {
+
+    public void drive() {...}
+
+    public void stop() {...}
+
+    public void refuel() {...}
+
+    // Can not be implemented
+    public void openDoors() {...}
+}
+```
+
+As you can see, it does not make sense for a Bike class to implement the openDoors() method as a bike does not have any doors!
+
+To fix this, ISP proposes that the interfaces be broken down into multiple, small cohesive interfaces so that no class is forced to implement any
+interface, and therefore methods that it does not need.
+
+#### Q6. Which of these code examples violates the Principle of The Least Knowledge, or Law of Demeter?
+
+```java
+public class O {
+    M I = new M();
+
+    public void anOperation2() {
+        this.I.N.anOperation();
+    }
+}
+```
+
+```java
+public class Class1 {
+    public void N() {
+        System.out.println("Method N invoked");
+    }
+}
+
+public class Class2 {
+    public void M(Class1 P) {
+        P.N();
+        System.out.println("Method M invoked");
+    }
+```
+
+```java
+public class O {
+    public void M() {
+        this.N();
+        System.out.println("Method M invoked");
+    }
+
+    public void N() {
+        System.out.println("Method N invoked");
+    }
+}
+```
+
+```java
+public class P {
+    public void N() {
+        System.out.println("Method N invoked");
+    }
+}
+
+public class O {
+    public void M() {
+        P I = new P();
+        I.N();
+        System.out.println("Method M invoked");
+    }
+} 
+```
+
+1. [x] 1
+2. [ ] 2
+3. [ ] 3
+4. [ ] 4
+
+#### Explanation:
+
+According to the law of Demeter, classes should know about and interact with a few other classes as possible. It is used to loosen the coupling by
+limiting class interaction with other classes to provide stability as tighter coupling makes the program difficult to maintain.
+
+Considered as local Objects:
+
+1. Objects passed in parameter;
+2. Instantiated within a method;
+3. An instance variable of a Class;
+
+In the law of Demeter a method should not invoke methods of any object that is not local.
+
+Rules of Law of Demeter
+
+1. Method M of an object O can invoke the method of O itself
+2. Method M can call methods of any parameter P
+3. Method M can call objects created within M
+4. Method M in object O can invoke methods of any type of object that is a direct component of O
+
+The following example breaks the Law of Demeter principle:
+
+```java
+public class O {
+    M I = new M();
+
+    public void anOperation2() {
+        this.I.N.anOperation();
+    }
+}
+```
+
+#### Q7. How can Comments be considered a code smell?
+
+1. [ ] When a comment is used to explain the rationale behind a design decision
+2. [x] Excessive commenting can be a coverup for bad code
+3. [ ] They can’t! Comments help clarify code.
+4. [ ] Too many comments make the files too large to compile.
+
+#### Explanation:
+
+Often, a clarification comment is a code smell.
+
+It tells you that your code is too complex. You should strive to remove clarification comments and simplify the code instead because, “_good code is
+self-documenting_.”
+
+#### Q8. What is the primitive obsession code smell about?
+
+1. [ ] Code that contains many low-level objects, without using OO principles like aggregation or inheritance.
+2. [x] Overuse of primitive data types like int, long, float
+3. [ ] Using many primitive types instead of settling on a few that together capture that appropriate level of detail for your system.
+4. [ ] Using key-value pairs instead of abstract data types.
+
+#### Explanation:
+
+Primitive Obsession is when the code relies too much on primitives. It means that a primitive value controls the logic in a class and this value is
+not type safe.
+
+Therefore, primitive obsession is when you have a bad practice of using primitive types to represent an object.
+
+Signs and Symptoms:
+
+1. Use of primitives instead of small objects for simple tasks (such as currency, ranges, special strings for phone numbers, post
+   code, etc.)
+2. Use of constants for coding information (such as a constant USER_ADMIN_ROLE = 1 for referring to users with administrator rights.)
+3. Use of string constants as field names for use in data arrays.
+
+#### Q9. You have a class that you keep adding to. Whenever you add new functionality, it just seems like the most natural place to put it, but it is starting to become a problem! Which code smell is this?
+
+1. [ ] Long Method
+2. [x] Large Class
+3. [ ] Divergent Change
+4. [ ] Speculative generality
+
+#### Explanation:
+
+Large Class code smell refers to the classes that tend to centralize the intelligence of the system.
+
+Large Class indicates weaknesses in design that can possibly slow down the development or increase the chance of failures in the future. In addition,
+it makes the system more difficult to understand, read and develop.
+
+#### Q10. Why is it important to avoid message chains whenever possible?
+
+1. [ ] If an unexpected object is returned, this could easily lead to runtime errors.
+2. [ ] They lower cohesion in your class.
+3. [x] The resulting code is usually rigid and complex.
+4. [ ] It's a workaround to get to private methods, which are important for encapsulation.
+
+#### Explanation:
+
+The message chain smell arises when a particular class is highly coupled to other classes in chain-like delegations.
+
+To illustrate this smell, suppose we have Class A who needs data from Class E. To retrieve this data, object A firstly needs to retrieve object E from
+object D from object C from object B.
+
+**Reasons for the Problem**:
+
+A message chain occurs when a client requests another object, that object requests yet another one, and so on. These chains mean that the client is
+dependent on navigation along the class structure. Any changes in these relationships require modifying the client.
+
+**Disadvantages**:
+
+1. Code coupling
+2. Complexity
+3. Testability
+
+#### Q11. Look at the code snippet. Which code smell do you detect?
+
+```java
+public class Class1 {
+
+...
+
+    public void M(Class2 C) {
+        C.doSomething(x);
+        C.foo(y);
+        C.foo2(z, i);
+    }
+}
+```
+
+1. [ ] Long Parameter List
+2. [ ] Inappropriate Intimacy
+3. [ ] Divergent Change
+4. [x] Feature Envy
+
+#### Explanation:
+
+Feature envy is defined as occurring when a method calls methods on another class more times than on the source class.
+
+It often indicates that the intended functionality is located in the wrong class.
+
+Example with feature envy:
+
+```java
+public class Phone {
+    private final String unformattedNumber;
+
+    public Phone(String unformattedNumber) {
+        this.unformattedNumber = unformattedNumber;
+    }
+
+    public String getAreaCode() {
+        return unformattedNumber.substring(0, 3);
+    }
+
+    public String getPrefix() {
+        return unformattedNumber.substring(3, 6);
+    }
+
+    public String getNumber() {
+        return unformattedNumber.substring(6, 10);
+    }
+}
+
+public class Customer {
+    private Phone mobilePhone;
+
+    public String getMobilePhoneNumber() {
+        return "(" +
+                mobilePhone.getAreaCode() + ") " +
+                mobilePhone.getPrefix() + "-" +
+                mobilePhone.getNumber();
+    }
+}
+```
+
+Example without feature envy:
+
+```java
+public class Phone {
+    private final String unformattedNumber;
+
+    public Phone(String unformattedNumber) {
+        this.unformattedNumber = unformattedNumber;
+    }
+
+    private String getAreaCode() {
+        return unformattedNumber.substring(0, 3);
+    }
+
+    private String getPrefix() {
+        return unformattedNumber.substring(3, 6);
+    }
+
+    private String getNumber() {
+        return unformattedNumber.substring(6, 10);
+    }
+
+    public String toFormattedString() {
+        return "(%s) %s-%s".formatted(getAreaCode(), getPrefix(), getNumber());
+    }
+}
+
+public class Customer {
+    private Phone mobilePhone;
+
+    public String getMobilePhoneNumber() {
+        return mobilePhone.toFormattedString();
+    }
+}
+```
+
+#### Q12. Joseph was developing a class for his smartphone poker game, and decided that one day he would like to be able to change the picture on the backs of the cards, so he created a Deck superclass. Since his app does not have that feature yet, Deck has only one subclass, RegularDeck. What code smell is this?
+
+1. [ ] Primitive Obsession
+2. [ ] Divergent Change
+3. [x] Speculative Generality
+4. [ ] Refused Bequest
+5. [ ] Report an issue
+
+#### Explanation:
+
+Speculative Generality is where code is written with so much caution for possible future changes, that the code becomes unnecessarily complex and
+harder to read. It is considered good practice to consider possible future development when writing code, but Speculative Generality is when this is
+overdone.
+
+<p align="right">(<a href="#table-of-contents">back to top</a>)</p>
+
+---
+
+#### Module 4
