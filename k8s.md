@@ -20,6 +20,17 @@
         </li>
       </ul>
   </li>
+  <li>
+    <a href="#kubernetes-components-and-installation-options">Module 2</a>
+      <ul>
+        <li>
+          <a href="#kubernetes-components-and-installation-options">2.1 Kubernetes Components and Installation Options</a>
+        </li>
+        <li>
+          <a href="#installing-minikube">2.2 Installing Minikube</a>
+        </li>
+      </ul>
+  </li>
 </ol>
 
 ---
@@ -301,3 +312,255 @@ The worker node in Kubernetes has three main components which include:
 * **Pod**: The smallest deployable unit in Kubernetes that represents a single instance of a running process in a
   cluster.
 * **Kube-proxy**: A network proxy that runs on each node and provides networking services for pods.
+
+<p align="right">(<a href="#table-of-contents">back to top</a>)</p>
+
+---
+
+#### Module 2.1
+
+#### Kubernetes Components and Installation Options
+
+#### Q1. Kubernetes can be installed on all operating systems except ______ .
+
+1. [ ] Ubuntu
+2. [x] Android
+3. [ ] Windows
+4. [ ] Redhat
+
+#### Explanation:
+
+Kubernetes can be installed on Ubuntu, Redhat, and Windows operating systems. However, it cannot be installed on Android
+as it is a mobile operating system and not suitable for running complex containerized applications.
+
+#### Q2. True or False: kops is a tool for installing Kubernetes on Amazon Web Services (AWS)
+
+1. [x] True
+2. [ ] False
+
+#### Explanation:
+
+True.
+
+Kops is a popular open-source tool that is used for installing, operating, and managing production-grade Kubernetes
+clusters on Amazon Web Services (AWS). It helps simplify the process of setting up and managing a Kubernetes cluster on
+AWS, providing users with features such as automatic scaling, self-healing, and high availability.
+
+Example of the command for creating a Kubernetes cluster:
+
+```
+kops create cluster \
+--node-count 3 \
+--node-size t2.micro \
+--zones us-west-2a,us-west-2b \
+--name my-kubernetes-cluster.example.com \
+--yes
+```
+
+This command creates a cluster with three worker nodes of size t2.micro in two availability zones (us-west-2a and
+us-west-2b) in the us-west-2 region.
+
+#### Q3. The command kubectl describe node <insert-node-name-here>, returns what?
+
+1. [ ] Help documentation
+2. [ ] Deployment status
+3. [ ] Pod status
+4. [x] Node addresses, status and details
+
+#### Explanation:
+
+The command `kubectl describe node <insert-node-name-here>` returns the node addresses, status, and details of the node.
+
+This includes information such as the node name, node IP address, node labels and annotations, the amount of CPU and
+memory available on the node, and the status of the node's kubelet and container runtime. It also includes any taints or
+toleration's that have been applied to the node, as well as any attached storage devices.
+
+Overall, the command provides a detailed overview of the specified node in the Kubernetes cluster.
+
+An example output of the kubectl describe node `<insert-node-name-here>` command:
+
+```
+Name:               ip-10-0-1-123.ec2.internal
+Roles:              <none>
+Labels:             beta.kubernetes.io/arch=amd64
+beta.kubernetes.io/instance-type=t2.micro
+beta.kubernetes.io/os=linux
+kubernetes.io/arch=amd64
+kubernetes.io/hostname=ip-10-0-1-123.ec2.internal
+kubernetes.io/os=linux
+Annotations:        node.alpha.kubernetes.io/ttl=0
+volumes.kubernetes.io/controller-managed-attach-detach=true
+...
+Status:
+Capacity:
+cpu:                2
+ephemeral-storage:  20484756Ki
+hugepages-1Gi:      0
+hugepages-2Mi:      0
+memory:             2017408Ki
+pods:               110
+Allocatable:
+cpu:                1944m
+ephemeral-storage:  18808761968
+hugepages-1Gi:      0
+hugepages-2Mi:      0
+memory:             1775288Ki
+pods:               110
+...
+Addresses:
+InternalIP:   10.0.1.123
+Hostname:     ip-10-0-1-123.ec2.internal
+...
+Conditions:
+Type             Status  LastHeartbeatTime                 LastTransitionTime                Reason                       Message
+  ----             ------  -----------------                 ------------------                ------                       -------
+OutOfDisk        False   Fri, 03 Sep 2021 16:31:43 +0000   Fri, 03 Sep 2021 16:30:33 +0000   KubeletHasSufficientDisk     kubelet has sufficient disk space available
+MemoryPressure   False   Fri, 03 Sep 2021 16:31:43 +0000   Fri, 03 Sep 2021 16:30:33 +0000   KubeletHasSufficientMemory   kubelet has sufficient memory available
+DiskPressure     False   Fri, 03 Sep 2021 16:31:43 +0000   Fri, 03 Sep 2021 16:30:33 +0000   KubeletHasNoDiskPressure     kubelet has no disk pressure
+...
+```
+
+#### Q4. True or False: All communication between the cluster to the master node are accessed through the apiserver.
+
+1. [x] True
+2. [ ] False
+
+#### Explanation:
+
+True.
+
+All communication between the cluster and the master node is accessed through the apiserver.
+
+![k8s-cluster.png](src%2Fkubernetes%2Fk8s-cluster.png)
+
+The Kubernetes API server is the central control point for all communication in a Kubernetes cluster, serving as the
+front-end for the Kubernetes API and acting as the gateway for all administrative actions and queries against the
+cluster.
+
+#### Q5. True or false? It's important to check Kubernetes documentation for the latest installment requirements.
+
+1. [x] True
+2. [ ] False
+
+#### Explanation:
+
+True.
+
+Keeping up-to-date with the latest installation requirements will help ensure that your Kubernetes cluster is stable and
+running optimally.
+
+The requirements may change with different versions of Kubernetes and the documentation will provide information about
+system requirements, dependencies, and other prerequisites necessary to install and run Kubernetes successfully.
+
+#### Q6. How many primary communication paths are there from the Master (apiserver) to the cluster?
+
+1. [x] 2
+2. [ ] 3
+3. [ ] 4
+
+#### Explanation:
+
+There are two primary communication paths from the Master (apiserver) to the cluster:
+
+**Communication with the etcd datastore**:
+
+The apiserver communicates with etcd to store and retrieve cluster state information, such as information about nodes,
+pods, services, and other Kubernetes objects. This communication path is essential for managing the cluster's
+configuration and state.
+
+**Communication with the kubelet agents on worker nodes**:
+
+The apiserver communicates with the kubelet agents on worker nodes to monitor the state of the nodes and the pods
+running on them, and to schedule and manage pod deployments. This communication path enables the apiserver to manage the
+runtime state of the cluster.
+
+#### Q7. Connections from apiserver to kubelet are used for all the following except:
+
+1. [x] adding conditions for running pods
+2. [ ] attaching to running pods
+3. [ ] fetching logs for pods
+4. [ ] providing kubelet's port-forwarding functionality
+
+#### Explanation:
+
+Connections from the API server to kubelet are used for the following purposes:
+
+1. **Attaching to running pods**: The API server can attach to a running pod's network namespace to facilitate
+   operations like port forwarding, executing commands, or attaching a terminal to a pod.
+2. **Fetching logs for pods**: The API server can request log information from the kubelet for a specific pod. This
+   allows users to retrieve the logs of their pods through the Kubernetes API.
+3. **Providing kubelet's port-forwarding functionality**: The API server can proxy port-forwarding requests from clients
+   to the kubelet. This enables users to access services running inside pods via a local port on their machines.
+
+However, "adding conditions for running pods" is not a function performed by the connections from the API server to
+kubelet.
+
+#### Q8. True or false? Kubernetes can NOT be built from scratch.
+
+1. [ ] True
+2. [x] False
+
+#### Explanation:
+
+False.
+
+Kubernetes can be built from scratch.
+
+Kubernetes is an open-source project, and its source code is available on GitHub. Developers and users can contribute to
+the Kubernetes codebase and build their own custom Kubernetes distributions from the source code. The Kubernetes
+community provides extensive documentation on how to build and contribute to the project, including instructions on how
+to build a custom Kubernetes cluster.
+
+#### Q9. The ________ is a Kubernetes master component that manages various aspects of nodes.
+
+1. [x] node controller
+2. [ ] Heartbeat
+3. [ ] node topology
+
+#### Explanation:
+
+The Node Controller is a Kubernetes master component that manages various aspects of nodes.
+
+The Node Controller is responsible for monitoring the status of nodes in the cluster, including detecting when a node
+becomes unreachable or is shut down, and for taking corrective actions such as rescheduling pods running on the failed
+node to other nodes in the cluster.
+
+The Node Controller also ensures that the desired number of replicas of each pod is running on the cluster at all times.
+
+<p align="center"><strong>The difference between Node Controller and the Control Manager?</strong></p>
+
+The Node Controller and the Control Manager are both components of the Kubernetes control plane, but they serve
+different purposes and have distinct responsibilities.
+
+1. Node Controller:
+   The Node Controller, also known as the Node Manager, is a component in the Kubernetes control plane responsible for
+   managing individual nodes in the cluster. Its main tasks include:
+
+- Monitoring the state and health of nodes, detecting failures, and identifying when nodes become unreachable.
+- Taking necessary actions to maintain the desired state of nodes, such as marking them as unhealthy, evicting pods, or
+  rescheduling pods onto other available nodes.
+- Collaborating with other components like the kubelet on each node to ensure proper node management.
+
+The Node Controller ensures the availability and proper functioning of individual nodes within the cluster.
+
+2. Controller Manager:
+   The Controller Manager is a crucial component of the Kubernetes control plane that oversees several controllers
+   responsible for different aspects of cluster management. It includes controllers such as:
+
+- **Replication Controller/ReplicaSet Controller**: Ensures the desired number of pod replicas is running and handles
+  scaling and self-healing.
+- **Deployment Controller**: Handles rolling updates and manages the lifecycle of deployments.
+- **StatefulSet Controller**: Manages stateful applications by maintaining stable network identities and ordered
+  scaling.
+- **DaemonSet Controller**: Ensures that a copy of a pod runs on each node in the cluster.
+- **Job Controller/CronJob Controller**: Manages batch processing and scheduled jobs.
+- **Namespace Controller**: Handles the creation, deletion, and lifecycle of namespaces within the cluster.
+
+The Controller Manager continuously monitors the cluster state and ensures that the desired state, defined through the
+Kubernetes API, is maintained by the respective controllers.
+
+In summary, the Node Controller focuses on managing individual nodes, while the Controller Manager oversees multiple
+controllers responsible for various aspects of cluster management, such as replication, deployment, and job scheduling.
+
+<p align="right">(<a href="#table-of-contents">back to top</a>)</p>
+
