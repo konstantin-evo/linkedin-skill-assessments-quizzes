@@ -564,3 +564,165 @@ controllers responsible for various aspects of cluster management, such as repli
 
 <p align="right">(<a href="#table-of-contents">back to top</a>)</p>
 
+---
+
+#### Module 2.2
+
+#### Installing Minikube
+
+#### Q1. Which is the command line subcommand for accessing Kubernetes?
+
+1. [ ] Hypervisor
+2. [x] kubectl
+3. [ ] AWS
+4. [ ] Minikube
+
+#### Explanation:
+
+kubectl is the command-line interface (CLI) tool for interacting with Kubernetes clusters.
+
+It allows you to perform various operations such as deploying and managing applications, inspecting cluster resources,
+scaling deployments, and more.
+
+#### Q2. How is minikube started
+
+1. [x] minikube start
+2. [ ] minikube.exe
+3. [ ] kubectl --start
+4. [ ] minikube run
+
+#### Explanation:
+
+To start Minikube, you would typically open your command line or terminal and enter the following command:
+
+```
+minikube start
+```
+
+This command initializes and starts a Minikube cluster on your local machine. It sets up a single-node Kubernetes
+cluster that you can use for local development and testing. Minikube automatically provisions a virtual machine (using a
+hypervisor such as VirtualBox, Hyper-V, or KVM) and configures the necessary Kubernetes components to create the
+cluster.
+
+#### Q3. The Kubernetes cluster cannot be accessed using?
+
+1. [x] The Kubernetes Office client
+2. [ ] The web user interface
+3. [ ] Programmatic and script-based API calls or CLI API calls.
+4. [ ] The command line interface (CLI)
+
+#### Explanation:
+
+The Kubernetes Office client is not a standard tool or component used to access or interact with Kubernetes clusters.
+There is no such widely recognized client called "Kubernetes Office." Therefore, option 1, "The Kubernetes Office
+client," is the correct answer.
+
+#### Q4. Command kubectl proxy allows for what?
+
+1. [ ] Starts pods
+2. [ ] Get the updated version
+3. [x] A proxy server to run
+4. [ ] View the API calls
+
+#### Explanation:
+
+The` kubectl proxy` command allows you to create a proxy server between your local machine and a Kubernetes API server.
+By running kubectl proxy, you can access the Kubernetes API server locally and view API calls made to the cluster.
+
+When the proxy server is running, you can use tools like curl or web browsers to send API requests to the Kubernetes
+cluster. The proxy handles the authentication and forwards the requests to the appropriate API endpoints on your behalf.
+It also provides a way to view the API responses and monitor the traffic between your local machine and the cluster.
+
+By accessing the proxy server, you can inspect the API calls being made, observe the responses, and gain insights into
+the cluster's behavior and state. This can be useful for debugging, troubleshooting, and understanding how your
+applications interact with the Kubernetes API.
+
+#### Q5. True or False: http://localhost:8001/healthz returns the cluster health status
+
+1. [x] True
+2. [ ] False
+
+#### Explanation:
+
+Accessing the endpoint http://localhost:8001/healthz typically returns the health status of the Kubernetes cluster's API
+server. This endpoint is commonly used to check the availability and health of the API server.
+
+#### Q6. Which of the following is a method for installing a virtualized version of Kubernetes?
+
+1. [ ] kops
+2. [ ] kubespray
+3. [ ] kubelet
+4. [x] minikube
+
+#### Explanation:
+
+Minikube is a method for installing a virtualized version of Kubernetes. It allows you to set up and run a single-node
+Kubernetes cluster locally on your machine.
+
+**Note**: Minikube is primarily used for development and testing purposes.
+
+#### Q7. True or False: kubectl cannot be installed on macOS.
+
+1. [ ] True
+2. [x] False
+
+#### Explanation:
+
+`kubectl` can be installed and used on macOS.
+
+`kubectl` is a command-line tool used to interact with Kubernetes clusters, regardless of the operating system. It is
+available for multiple platforms, including macOS, Linux, and Windows.
+
+If you have Homebrew package manager installed, you can simply run the following command to install kubectl:
+
+```
+brew install kubectl
+```
+
+#### Q8. The configuration file for kubectl is ______.
+
+1. [ ] Program Files(x86)/config
+2. [x] /.kube/config
+3. [ ] /home/kubernetes/kubeconfig
+4. [ ] Program Files/kube
+
+#### Explanation:
+
+The configuration file for kubectl is typically located at `~/.kube/config` in the user's home directory.
+
+This file stores the configuration details for kubectl to connect to a Kubernetes cluster, including the cluster's API
+server address, authentication credentials, and other settings.
+
+#### Q9. The command minikube dashboard runs which application?
+
+1. [x] Kubernetes web-based interface
+2. [ ] Shuts down Kubernetes
+3. [ ] Pod details
+4. [ ] Application builds
+
+#### Explanation:
+
+The command `minikube dashboard` runs the Kubernetes web-based interface, also known as the Kubernetes Dashboard. It
+opens a browser window or tab and automatically redirects you to the locally running Kubernetes Dashboard.
+
+The Kubernetes Dashboard provides a graphical user interface (GUI) for managing and monitoring your Minikube cluster. It
+allows you to visualize and interact with various Kubernetes resources, such as pods, deployments, services, and more,
+using an intuitive web interface.
+
+#### Q10. Applications can be deployed to Kubernetes using all of these EXCEPT _______ .
+
+1. [ ] kubectl command line
+2. [ ] Kubernetes dashboard
+3. [x] Docker
+4. [ ] Yaml scripts
+
+#### Explanation:
+
+Docker is not used to directly deploy applications to Kubernetes. Docker is a containerization platform that allows you
+to package applications and their dependencies into containers.
+
+Kubernetes, on the other hand, is an orchestration platform that manages and scales containerized applications.
+
+While Docker can be used to build container images that can be deployed to Kubernetes, it is not the primary tool used
+for deploying applications to a Kubernetes cluster. Instead, you would typically use tools like `kubectl` command line,
+Kubernetes dashboard, or Yaml scripts to deploy applications to Kubernetes.
