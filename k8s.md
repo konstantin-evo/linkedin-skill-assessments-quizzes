@@ -31,6 +31,17 @@
         </li>
       </ul>
   </li>
+  <li>
+    <a href="#kubernetes-hosted-configurations">Module 3</a>
+      <ul>
+        <li>
+          <a href="#kubernetes-hosted-configurations">3.1 Kubernetes Hosted Configurations</a>
+        </li>
+        <li>
+          <a href="#hosted-deployments-caling-updates-and-rollbacks">3.2 Hosted Deployments, Scaling, Updates and Rollbacks</a>
+        </li>
+      </ul>
+  </li>
 </ol>
 
 ---
@@ -726,3 +737,159 @@ Kubernetes, on the other hand, is an orchestration platform that manages and sca
 While Docker can be used to build container images that can be deployed to Kubernetes, it is not the primary tool used
 for deploying applications to a Kubernetes cluster. Instead, you would typically use tools like `kubectl` command line,
 Kubernetes dashboard, or Yaml scripts to deploy applications to Kubernetes.
+
+<p align="right">(<a href="#table-of-contents">back to top</a>)</p>
+
+---
+
+#### Module 3.1
+
+#### Kubernetes Hosted Configurations
+
+#### Q1. True or False: kops is the only method for installing Kubernetes on Amazon Web Services (AWS).
+
+1. [x] True
+2. [ ] False
+
+#### Explanation:
+
+True.
+
+Kops, short for Kubernetes Operations, is a set of tools for installing, operating, and deleting Kubernetes clusters in
+the cloud. A rolling upgrade of an older version of Kubernetes to a new version can also be performed. It also manages
+the cluster add-ons. After the cluster is created, the usual kubectl CLI can be used to manage resources in the cluster.
+
+#### Q2. What is the utility for installing Kubernetes on Azure
+
+1. [x] AKS
+2. [ ] dir
+3. [ ] kops
+4. [ ] kubeadm
+
+#### Explanation:
+
+The utility for installing Kubernetes on Azure is AKS (Azure Kubernetes Service). AKS is a managed Kubernetes service
+provided by Microsoft Azure. It simplifies the process of deploying and managing Kubernetes clusters on Azure by
+abstracting away the underlying infrastructure and providing automated scaling, monitoring, and maintenance of the
+Kubernetes control plane.
+
+#### Q3. The Google Cloud Platform provides which tool and console for Kubernetes?
+
+1. [ ] az aks
+2. [ ] AWS
+3. [x] Kubernetes Engine
+4. [ ] kubernetes.io
+
+#### Explanation:
+
+The Google Cloud Platform provides the tool and console called "Kubernetes Engine" for Kubernetes. Kubernetes Engine (
+GKE) is a managed Kubernetes service offered by Google Cloud. It allows you to deploy, manage, and scale containerized
+applications using Kubernetes on Google Cloud Platform.
+
+#### Q4. Kubernetes can be configured in all the following configurations except ______ .
+
+1. [ ] Single-Node Installation
+2. [ ] Single-Node etcd, Multi-Master and Multi-Worker Installation
+3. [ ] Multi-Node etcd, Multi-Master Node and Multi-Worker Node Installation
+4. [x] Blockchain
+
+#### Explanation:
+
+Kubernetes can be configured in all the following configurations except "Blockchain."
+
+The configurations mentioned are valid deployment options in Kubernetes:
+
+1. **Single-Node Installation**: This configuration involves running a single Kubernetes node with a single master and
+   worker components. It is typically used for development or testing scenarios where a full cluster is not required.
+2. **Single-Node etcd, Multi-Master, and Multi-Worker Installation**: In this configuration, a single etcd node is used
+   for data storage, and there are multiple master and worker nodes. It provides high availability for the control plane
+   by having multiple master nodes.
+3. **Multi-Node etcd, Multi-Master Node, and Multi-Worker Node Installation**: This configuration involves having
+   multiple etcd nodes for data storage, multiple master nodes for high availability and load balancing, and multiple
+   worker nodes for running application containers. It is a common configuration for production environments.
+
+#### Q5. What is the best Kubernetes option for business continuity?
+
+1. [x] High Availability (HA)
+2. [ ] Cloud
+3. [ ] Single node
+4. [ ] Not supported
+
+#### Explanation:
+
+The best Kubernetes option for business continuity is "High Availability (HA)."
+
+High availability refers to the ability of a system or service to remain operational and accessible even in the face of
+failures or disruptions. In the context of Kubernetes, implementing high availability ensures that the Kubernetes
+control plane and worker nodes are resilient to failures, providing continuous availability of applications.
+
+To achieve high availability in Kubernetes, the following practices and features can be utilized:
+
+1. **Multi-Master Setup**: Deploying multiple Kubernetes master nodes helps distribute the control plane components and
+   provides redundancy. In case one master node fails, the other nodes can take over, ensuring the uninterrupted
+   operation of the cluster.
+2. **Node Redundancy**: Running multiple worker nodes across different availability zones or regions helps distribute
+   the workload and provides fault tolerance. If one worker node becomes unavailable, the remaining nodes can handle the
+   workload, maintaining business continuity.
+3. **Replication and Scaling**: Utilizing Kubernetes' built-in features like replication controllers or deployment
+   replicas allows applications to be replicated across multiple nodes. This redundancy ensures that if one pod or
+   container fails, there are backups available to handle requests.
+4. **Load Balancing**: Configuring load balancers in front of worker nodes ensures that traffic is distributed evenly
+   and can be redirected to healthy nodes in case of failures.
+
+By implementing high availability practices in Kubernetes, businesses can minimize downtime, maintain application
+availability, and ensure business continuity even in the event of failures or disruptions.
+
+#### Q6. True of False: Kubernetes can be installed on commercial Cloud providers such as Amazon and Azure.
+
+1. [x] True
+2. [ ] False
+
+#### Explanation:
+
+True.
+
+Kubernetes can be installed on commercial cloud providers such as Amazon Web Services (AWS) and Microsoft Azure.
+
+#### Q7. How many popular installation strategies are there for Kubernetes?
+
+1. [ ] 2
+2. [x] 4
+3. [ ] 6
+
+#### Explanation:
+
+There are multiple popular installation strategies for Kubernetes. The most common ones include:
+
+1. **Self-Installation**: This involves manually setting up and configuring Kubernetes components on your own
+   infrastructure or cloud provider by following the official Kubernetes documentation and installation guides.
+2. **Kubernetes Distributions**: Various Kubernetes distributions, such as Rancher, OpenShift, and Charmed Kubernetes,
+   provide pre-packaged installations of Kubernetes with additional features, management tools, and integrations.
+3. **Managed Kubernetes Services**: Cloud providers like Amazon Web Services (AWS) with Amazon Elastic Kubernetes
+   Service (EKS), Microsoft Azure with Azure Kubernetes Service (AKS), and Google Cloud Platform with Google Kubernetes
+   Engine (GKE) offer managed Kubernetes services that handle the control plane, infrastructure management, and scaling
+   for you.
+4. **Kubernetes Installers**: Tools like `kops`, `kubeadm`, and `kubespray` provide automated installation and
+   configuration options for Kubernetes clusters.
+
+#### Q8. True or false? The Single Node Installation configuration is used only for production use cases.
+
+1. [ ] True
+2. [x] False
+
+#### Explanation:
+
+False. The Single Node Installation configuration is typically not used for production use cases.
+
+The Single Node Installation configuration is primarily used for development, testing, or learning purposes where a
+single-node Kubernetes cluster is sufficient. It allows individuals to run and experiment with Kubernetes on a single
+machine without the need for a full-scale cluster. However, it lacks the resilience and fault tolerance required for
+production environments.
+
+In production scenarios, it is recommended to use multi-node configurations with multiple worker nodes and, optionally,
+multiple master nodes to ensure high availability, scalability, and fault tolerance. These configurations distribute the
+workload across multiple nodes and provide redundancy to handle failures or disruptions effectively.
+
+<p align="right">(<a href="#table-of-contents">back to top</a>)</p>
+
+---
