@@ -42,6 +42,17 @@
         </li>
       </ul>
   </li>
+  <li>
+    <a href="#kublet-proxy-replicasets-daemonset-and-statefulsets">Module 4</a>
+      <ul>
+        <li>
+          <a href="#kublet-proxy-replicasets-daemonset-and-statefulsets">4.1 Kublet, Kube Proxy, Replicasets, Daemonset and StatefulSets</a>
+        </li>
+        <li>
+          <a href="PV-PVC-CSI-and-authentication-authorization">4.2 PV, PVC, CSI and Authentication and Authorization</a>
+        </li>
+      </ul>
+  </li>
 </ol>
 
 ---
@@ -1068,3 +1079,205 @@ replicas, Kubernetes will handle the necessary rolling update or scaling operati
 
 **Note**: in a real deployment, you may include additional configuration options, such as environment variables,
 resource limits, or volume mounts, depending on the requirements of your application.
+
+<p align="right">(<a href="#table-of-contents">back to top</a>)</p>
+
+---
+
+#### Module 4.1
+
+#### Kublet Proxy Replicasets Daemonset and StatefulSets
+
+#### Q1. A cluster in Kubernetes is ___________ .
+
+1. [ ] replicas
+2. [ ] a series of nodes
+3. [ ] a special network
+4. [x] a set of servers
+
+#### Explanation:
+
+In Kubernetes, a cluster is a set of servers (also known as nodes) that work together to run containerized applications
+and manage their resources.
+
+![k8s-cluster-components.png](src%2Fkubernetes%2Fk8s-cluster-components.png)
+
+These servers/nodes collectively form the underlying infrastructure for hosting and orchestrating containers. The
+cluster consists of one or more master nodes that manage the overall control plane and one or more worker nodes that
+execute and run the containers. Each node in the cluster contributes its resources and processing power to handle
+containerized workloads efficiently.
+
+**Note**: the correct answer is "a set of servers", but from my point of view "a series of nodes" is correct option too. 
+
+#### Q2. Which best describes a Kubernetes node?
+
+1. [ ] A laptop
+2. [ ] a Cloud of clusters
+3. [x] Physical hardware and a virtual server that manages pods and containers
+4. [ ] VMWare
+
+#### Explanation:
+
+A Kubernetes node refers to a physical or virtual machine within a cluster that runs containers.
+
+A Kubernetes node consists of physical hardware, such as a server or virtual machine, and it hosts one or multiple pods.
+
+#### Q3. True of False: A pod runs at least one container runtime.
+
+1. [x] True
+2. [ ] False
+
+#### Explanation:
+
+True.
+
+A pod is the smallest unit of deployment in Kubernetes and represents a logical host for containers. It encapsulates one
+or more containers and provides them with shared resources, such as network and storage. All containers within a pod
+share the same network namespace and can communicate with each other via `localhost`. Therefore, a pod always includes
+at least one container runtime responsible for running the containers within it.
+
+![k8s-pods.svg](src%2Fkubernetes%2Fk8s-pods.svg)
+
+#### Q4. Another term for the master node is what
+
+1. [ ] Container Node
+2. [ ] Master cluster
+3. [x] The api server
+4. [ ] Runner
+
+#### Explanation:
+
+The master node in Kubernetes is responsible for managing and coordinating the cluster's overall operations.
+
+The master node is also known as the control plane. One of the key components running on the master node is the API
+server, which acts as the primary control and management point for the entire cluster.
+
+![k8s-control-plane.png](src%2Fkubernetes%2Fk8s-control-plane.png)
+
+The API server exposes the Kubernetes API, allowing users and other components to interact with the cluster, perform
+operations, and manage resources. Therefore, "The api server" is the appropriate term referring to the master node in
+Kubernetes.
+
+#### Q5. The etcd is _______ .
+
+1. [ ] Network data
+2. [ ] Backup information
+3. [x] Storage for cluster management
+4. [ ] Recycle bin
+
+#### Explanation:
+
+In Kubernetes, etcd is a distributed key-value store that serves as the primary storage for cluster management.
+
+It is a reliable and consistent datastore that securely stores the configuration data of the cluster, including
+information about the cluster's nodes, pods, services, configurations, and other important details. etcd ensures that
+the cluster maintains a consistent state by providing a reliable source of truth for the cluster's data.
+
+It plays a critical role in coordinating and synchronizing the activities of various components within the Kubernetes
+cluster.
+
+#### Q6. The kube-scheduler distributes processing to __________ .
+
+1. [x] The containers in the worker nodes
+2. [ ] Disk
+3. [ ] External processing
+4. [ ] The Master node
+
+#### Explanation:
+
+The kube-scheduler is a component of the Kubernetes control plane responsible for making scheduling decisions on where
+to place pods within the cluster.
+
+![k8s-control-plane.png](src%2Fkubernetes%2Fk8s-control-plane.png)
+
+The kube-scheduler examines the resource requirements and constraints of the pods and determines the most suitable
+worker node on which to schedule them. The kube-scheduler considers factors such as available resources,
+affinity/anti-affinity rules, node conditions, and other policies when making these decisions.
+
+Once the kube-scheduler selects a worker node for a pod, the container runtime on that worker node is responsible for
+managing and executing the containers within the pod. Therefore, the kube-scheduler distributes processing to the
+containers running on the worker nodes, ensuring efficient resource utilization and workload distribution across the
+cluster.
+
+#### Q7. True or False: The kube-controller-manager detects failures in the nodes, pods, or containers.
+
+1. [x] True
+2. [ ] False
+
+#### Explanation:
+
+True. The kube-controller-manager in Kubernetes detects failures in the nodes, pods, or containers.
+
+The kube-controller-manager is responsible for running various controllers that monitor the state of the cluster and
+take actions to maintain the desired state.
+
+These controllers include:
+
+1. the Node Controller,
+2. the Pod Controller,
+3. the Replication Controller, among others.
+
+They continuously monitor the cluster's components, such as nodes, pods, and containers, and detect any failures or
+deviations from the desired state. Once a failure is detected, the kube-controller-manager takes
+corrective actions, such as rescheduling pods, restarting containers, or scaling resources, to ensure the cluster
+operates as intended.
+
+Therefore, the kube-controller-manager plays a crucial role in detecting failures and maintaining
+the desired state of the cluster.
+
+#### Q8. The kubelet monitors pods to ensure ________ .
+
+1. [ ] They are secure
+2. [ ] There are pods.
+3. [x] They are running
+4. [ ] There are copies
+
+#### Explanation:
+
+The kubelet is a component that runs on each worker node in a Kubernetes cluster and its primary responsibility is to
+manage the lifecycle of pods on its assigned node.
+
+![k8s-cluster.png](src%2Fkubernetes%2Fk8s-cluster.png)
+
+The kubelet continuously monitors the state of pods assigned to it and takes actions to ensure that the pods are running
+as expected. It communicates with the control plane, receives instructions on which pods to run, and makes sure they are
+in the desired state.
+
+The kubelet monitors pod health, restarts failed or unhealthy pods, and reports the status of the pods to the control
+plane. It also takes care of pulling the required container images, setting up the networking, and managing the
+resources for the pods.
+
+Therefore, the kubelet's main role is to ensure that pods are running and maintain their desired
+state within the Kubernetes cluster.
+
+#### Q9. True or False: The kube-proxy does not manage a node's network connections.
+
+1. [ ] True
+2. [x] False
+
+#### Explanation:
+
+False. The kube-proxy does manage a node's network connections.
+
+The kube-proxy is a component of the Kubernetes networking stack that runs on each worker node in a cluster. Its primary
+responsibility is to manage network communication between services or pods within the cluster. It helps facilitate the
+networking features provided by Kubernetes, such as load balancing, service discovery, and network routing.
+
+The kube-proxy implements network proxying and forwarding rules to enable connectivity between different pods and
+services. It sets up and manages network connections, such as IP tables rules or IPVS configurations, to ensure that the
+desired network traffic is properly routed and load balanced.
+
+#### Q10. Kubernetes administrators do all except _________ .
+
+1. [ ] Validate hardware requirements, and the enterprise requirements
+2. [x] Configure the database
+3. [ ] Install nodes and design the pods and container strategy, including the implementation of selectors and labels.
+4. [ ] Design the server, node, and high availability patterns
+
+#### Explanation:
+
+Kubernetes' administrators are primarily responsible for managing and orchestrating containerized applications within a
+Kubernetes cluster. While they handle various tasks, including validating hardware requirements and enterprise
+requirements, designing pods and container strategies, and implementing selectors and labels, configuring the database
+is typically not part of their role. Database configuration is typically handled by database administrators or
+specialized teams responsible for database management.
