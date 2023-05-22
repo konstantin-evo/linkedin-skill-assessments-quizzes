@@ -38,7 +38,7 @@
           <a href="#kubernetes-hosted-configurations">3.1 Kubernetes Hosted Configurations</a>
         </li>
         <li>
-          <a href="#hosted-deployments-caling-updates-and-rollbacks">3.2 Hosted Deployments, Scaling, Updates and Rollbacks</a>
+          <a href="#hosted-deployments-scaling-updates-and-rollbacks">3.2 Hosted Deployments, Scaling, Updates and Rollbacks</a>
         </li>
       </ul>
   </li>
@@ -893,3 +893,178 @@ workload across multiple nodes and provide redundancy to handle failures or disr
 <p align="right">(<a href="#table-of-contents">back to top</a>)</p>
 
 ---
+
+#### Module 3.2
+
+#### Hosted Deployments Scaling Updates and Rollbacks
+
+#### Q1. The command to scale kubernetes deployment is?
+
+1. [x] kubectl scale deployment
+2. [ ] scale me
+3. [ ] replica
+4. [ ] kubectl get
+
+#### Explanation:
+
+The correct command to scale a Kubernetes deployment is:
+
+```
+kubectl scale deployment <deployment-name> --replicas=<number-of-replicas>
+```
+
+Replace `<deployment-name>` with the name of your deployment and `<number-of-replicas>` with the desired number of
+replicas you want to scale to.
+
+For example, if you have a deployment named "myapp" and you want to scale it to 3 replicas, the command would be:
+
+```
+kubectl scale deployment myapp --replicas=3
+```
+
+This command will adjust the number of replicas for the specified deployment, scaling it up or down.
+
+#### Q2. True or False: the describe command returns details on Kubernetes items
+
+1. [x] True
+2. [ ] False
+
+#### Explanation:
+
+True.
+
+The `describe` command is used to retrieve detailed information about various Kubernetes resources or items. It provides
+a more comprehensive view of the specified resource, including its current state, configuration details, events, and
+other relevant information.
+
+#### Q3. The command kubectl rollout history returns what?
+
+1. [ ] Nothing
+2. [ ] Update data
+3. [ ] Deployment listing
+4. [x] Deployment revisions
+
+#### Explanation:
+
+The `kubectl rollout history` command in Kubernetes returns the revision history of a deployment. When a deployment is
+updated, Kubernetes creates new revisions or versions of the deployment. Each revision represents a specific
+configuration and state of the deployment.
+
+By running `kubectl rollout history` followed by the deployment name, you can view the list of revisions for that
+deployment. The command will display information such as the revision number, the timestamp of the revision, and whether
+it was successfully rolled out.
+
+#### Q4. The command kubectl set image deployment <deployment> <image name>=<image name>:<tag> –record, does what?
+
+1. [ ] Returns status
+2. [ ] nothing
+3. [ ] Returns data
+4. [x] Updates the deployment's current image
+
+#### Q5. True or False: As `replicaset`s are updated, the previous revision of the replicaset is deleted.
+
+1. [ ] True
+2. [x] False
+
+#### Explanation:
+
+False.
+
+In Kubernetes, as `replicaset`s are updated, the previous revision of the `replicaset` is not automatically deleted by
+default.
+
+`Replicaset`s are responsible for managing the desired number of replicas (pods) for a particular deployment.
+When a deployment is updated, Kubernetes creates a new replicaset with the updated configuration while keeping the
+previous replicaset active.
+
+The reason for keeping the previous `replicaset` active is to ensure smooth and controlled rolling updates. Kubernetes
+uses a rolling update strategy to gradually replace the old pods with new ones, ensuring that the application remains
+available and stable throughout the update process. The previous `replicaset` continues to manage the old pods until the
+new replicaset has successfully deployed and stabilized.
+
+#### Q6. Which command rolls back a deployment?
+
+1. [x] kubectl rollout undo deployment <deployment> --to-revision=<revision num>
+2. [ ] None. It is not possible to rollback a deployment
+3. [ ] rollout history
+4. [ ] kubectl go back
+
+#### Explanation:
+
+By providing the `<deployment>` name and the `<revision num>` to which you want to roll back, Kubernetes will handle
+scaling down the current replicas, scaling up the previous replicas, and updating the deployment to the desired
+revision.
+
+For example, if you have a deployment named "my-deployment" and you want to roll back to revision 3, the command would
+be:
+
+```
+kubectl rollout undo deployment my-deployment --to-revision=3
+```
+
+#### Q7. True or False: If a revision is rolled back from revision 2, to revision 1, revision 1, gets renumbered to revision 3, which is the latest.
+
+1. [x] True
+2. [ ] False
+
+#### Explanation:
+
+False.
+
+Revision 1 does become revision 3 when revision 2 is rolled back.
+
+#### Q8. A _____ provides declarative updates for Pods and `Replicaset`s.
+
+1. [ ] rollover
+2. [x] deployment
+3. [ ] controller
+
+#### Explanation:
+
+A deployment in Kubernetes provides declarative updates for Pods and `Replicaset`s. It is a higher-level resource that
+allows you to define and manage the desired state of your application. Deployments abstract away the complexity of
+managing individual Pods and `Replicaset`s and provide a convenient way to handle application deployments and updates.
+
+Using a deployment, you can specify the desired number of replicas, the container image to use, environment variables,
+volume mounts, and other configuration details. Kubernetes then takes care of managing the Pods and `Replicaset`s to
+match the desired state defined by the deployment.
+
+Here's an example of a Deployment manifest in Kubernetes:
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp-deployment
+  labels:
+    app: myapp
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: myapp
+  template:
+    metadata:
+      labels:
+        app: myapp
+    spec:
+      containers:
+        - name: myapp-container
+          image: myapp:latest
+          ports:
+            - containerPort: 8080
+
+```
+
+In this example, we define a Deployment named `myapp-deployment` with three replicas. The Deployment's selector ensures
+that Pods managed by this Deployment have the label `app: myapp`.
+
+Inside the Deployment's template, we define the desired Pod specification. The Pod template has a container named
+`myapp-container` with an image specified as `myapp:latest`. It exposes port 8080 for incoming traffic.
+
+By applying this Deployment manifest to a Kubernetes cluster, Kubernetes will create and manage three replicas of the
+Pod template defined. If any changes are made to the Deployment, such as updating the image or scaling the number of
+replicas, Kubernetes will handle the necessary rolling update or scaling operations to reach the desired state.
+
+**Note**: in a real deployment, you may include additional configuration options, such as environment variables,
+resource limits, or volume mounts, depending on the requirements of your application.
