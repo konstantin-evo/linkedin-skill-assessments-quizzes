@@ -49,7 +49,7 @@
           <a href="#kublet-proxy-replicasets-daemonset-and-statefulsets">4.1 Kublet, Kube Proxy, Replicasets, Daemonset and StatefulSets</a>
         </li>
         <li>
-          <a href="PV-PVC-CSI-and-authentication-authorization">4.2 PV, PVC, CSI and Authentication and Authorization</a>
+          <a href="#module-4-2">4.2 PV, PVC, CSI and Authentication and Authorization</a>
         </li>
       </ul>
   </li>
@@ -1107,7 +1107,7 @@ cluster consists of one or more master nodes that manage the overall control pla
 execute and run the containers. Each node in the cluster contributes its resources and processing power to handle
 containerized workloads efficiently.
 
-**Note**: the correct answer is "a set of servers", but from my point of view "a series of nodes" is correct option too. 
+**Note**: the correct answer is "a set of servers", but from my point of view "a series of nodes" is correct option too.
 
 #### Q2. Which best describes a Kubernetes node?
 
@@ -1281,3 +1281,282 @@ Kubernetes cluster. While they handle various tasks, including validating hardwa
 requirements, designing pods and container strategies, and implementing selectors and labels, configuring the database
 is typically not part of their role. Database configuration is typically handled by database administrators or
 specialized teams responsible for database management.
+
+<p align="right">(<a href="#table-of-contents">back to top</a>)</p>
+
+---
+
+#### Module 4.2
+
+<a id="module-4-2"></a>
+#### PV, PVC, CSI and Authentication and Authorization
+
+#### Q1. Persistent Volumes maintain _________ .
+
+1. [x] Pod and other cluster Data
+2. [ ] Nothing at all
+3. [ ] Documentation
+4. [ ] Containers
+
+#### Explanation:
+
+Persistent Volumes are a crucial component in Kubernetes that provide durable storage resources for applications running
+within pods.
+
+Persistent Volumes serve as an abstraction layer between the underlying storage infrastructure and the containers within
+a cluster. PVs are designed to persist data even when pods are terminated, rescheduled, or deleted, ensuring data
+availability and durability.
+
+Here's an example of how Persistent Volumes (PVs) can be used in a Kubernetes cluster:
+
+```yaml
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: example-pv
+spec:
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: standard
+  hostPath:
+    path: /data/example
+```
+
+In this example, we create a PV named "example-pv" with a capacity of 10 gigabytes (10Gi). It has the access mode set
+to "ReadWriteOnce," which means it can be mounted by a single node at a time. The persistentVolumeReclaimPolicy is set
+to "Retain," indicating that the PV should not be automatically deleted when released. The storageClassName is set to "
+standard" to associate it with a particular storage class. The PV is configured with a hostPath, which represents a
+directory on the host machine where the data will be stored.
+
+#### Q2. True or False: A PersistentVolumeClaim is a request for storage issued by a user.
+
+1. [x] True
+2. [ ] False
+
+#### Explanation:
+
+True.
+
+A PersistentVolumeClaim (PVC) is a request for storage issued by a user. A PVC is created by a user or an administrator
+to request a specific amount and type of storage from a cluster's available PersistentVolumes (PVs). Once a PVC is
+created, the Kubernetes cluster attempts to find and bind it to an appropriate PV that matches the specified criteria,
+such as access mode, storage capacity, and storage class.
+
+![k8s-pv-pvc.png](src%2Fkubernetes%2Fk8s-pv-pvc.png)
+
+Here's an example of how a PersistentVolumeClaim (PVC) is used as a request for storage in Kubernetes:
+
+```yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: my-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+```
+
+#### Q3. Which of the following is NOT true about the container storage interface (CSI)?
+
+1. [ ] Installing new volume plugins
+2. [x] Adding Pods
+3. [ ] A standard developed to solve problems with adding new storage systems
+4. [ ] Standards for exposing the container orchestration system to storage systems for their system payloads
+
+#### Explanation:
+
+Adding Pods is NOT true about the container storage interface (CSI).
+
+The Container Storage Interface (CSI) is a standard developed to solve problems with adding new storage systems to
+container orchestration platforms like Kubernetes. It defines a set of standards and specifications for exposing the
+container orchestration system (e.g., Kubernetes) to storage systems, allowing them to be integrated as external volume
+plugins.
+
+CSI enables storage systems to expose their capabilities and features to containerized workloads running on the
+orchestration platform.
+
+Some key aspects of CSI include:
+
+1. **Installing new volume plugins**: CSI allows for the installation and integration of new volume plugins into the
+   container orchestration platform. These volume plugins provide access to specific storage systems and allow users to
+   utilize various storage features and functionalities.
+2. **Standards for exposing the container orchestration system to storage systems**: CSI defines a standard interface
+   and communication protocol between the container orchestration system and storage systems. This enables storage
+   systems to communicate with the orchestration platform, handle volume provisioning, mounting, and other storage
+   operations.
+3. **Standards for system payloads**: CSI specifies standards for the system payloads exchanged between the container
+   orchestration platform and storage systems. This includes requests for volume creation, deletion, attachment,
+   detachment, and other storage-related operations.
+
+While CSI provides a standardized interface for storage systems and allows for the installation of new volume plugins,
+it is not directly related to adding Pods. Pods are the fundamental units of deployment in Kubernetes and are
+independent of the CSI specification.
+
+#### Q4. Which is not a user type in Kubernetes?
+
+1. [ ] Normal User
+2. [ ] Service accounts
+3. [x] Basic Users
+
+#### Explanation:
+
+Basic Users is not a user type in Kubernetes.
+
+In Kubernetes, there are two primary user types:
+
+**Normal User**:
+
+A normal user is an individual user with authentication credentials who interacts with the Kubernetes cluster. Normal
+users can perform various operations, such as creating and managing resources, deploying applications, and accessing
+cluster information. They are typically authenticated using mechanisms like certificates, tokens, or external
+authentication providers.
+
+**Service Accounts**:
+
+Service accounts are a specific type of user account intended for use by applications and services running within the
+cluster. Service accounts are associated with Pods and provide an identity for the application or service to interact
+with the Kubernetes API server and other resources. They are primarily used for authentication and authorization
+purposes within the cluster.
+
+#### Q5. Which is not a Kubernetes authorization module?
+
+1. [x] LDAP Module
+2. [ ] Attribute-Based Access Control (ABAC) Authorizer
+3. [ ] Node Authorizer
+
+#### Explanation:
+
+LDAP Module is not a Kubernetes authorization module.
+
+Kubernetes provides several authorization modules to control access to its resources. However, the LDAP module is not
+one of them. LDAP (Lightweight Directory Access Protocol) is a protocol used for accessing and maintaining directory
+services. While LDAP can be used for authentication purposes in Kubernetes, it is not specifically considered an
+authorization module.
+
+The two Kubernetes authorization modules mentioned in the options are:
+
+**Attribute-Based Access Control (ABAC) Authorizer**:
+
+ABAC is a basic authorization mechanism in Kubernetes where access decisions are made based on attributes associated
+with the user, group, or request context. ABAC policies define rules that match on attributes and allow or deny access
+based on those rules.
+
+**Node Authorizer**:
+
+The Node Authorizer is a component in Kubernetes responsible for authorizing `kubelet` (node) actions. It determines
+what actions a node is allowed to perform, such as creating pods or updating node status. The Node Authorizer checks
+against predefined policies to determine whether a `kubelet` is authorized to perform certain operations.
+
+#### Q6. True or False: The Role-Based Access Control (RBAC) Authorizer acts like role based security
+
+1. [x] True
+2. [ ] False
+
+#### Explanation:
+
+True.
+
+The Role-Based Access Control (RBAC) Authorizer in Kubernetes provides role-based security. RBAC allows you to define
+roles and bind them to users or groups, granting specific permissions to perform actions on Kubernetes resources. It
+provides a flexible and granular way to control access to various operations and resources within the cluster based on
+roles and their associated permissions.
+
+![k8s-rbac-diagram.png](src%2Fkubernetes%2Fk8s-rbac-diagram.png)
+
+Here's an example of using Role-Based Access Control (RBAC) in Kubernetes.
+
+**1. Define a ServiceAccount**:
+
+A ServiceAccount represents an identity for applications or services running within the cluster.
+
+```yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+name: my-service-account
+```
+
+In this example, we create a ServiceAccount named "my-service-account" that represents an application or service running
+within the cluster.
+
+**2. Define a Role**:
+
+A Role defines a set of permissions that can be granted to users or groups.
+
+```yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+name: my-role
+rules:
+  - apiGroups: [ "" ]
+    resources: [ "pods" ]
+    verbs: [ "get", "list", "watch" ]
+```
+
+In this example, we define a Role named "my-role" that grants permissions to perform "get," "list," and "watch" actions
+on "pods" resources.
+
+**3. Create a RoleBinding**:
+
+A RoleBinding associates a Role with a user, group, or ServiceAccount, granting them the permissions defined in the
+Role.
+
+```yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: my-role-binding
+subjects:
+  - kind: ServiceAccount
+    name: my-service-account
+    namespace: default
+roleRef:
+  kind: Role
+  name: my-role
+  apiGroup: rbac.authorization.k8s.io
+```
+
+In this example, we create a RoleBinding named "my-role-binding" that binds the Role "my-role" to the ServiceAccount "
+my-service-account" in the default namespace. This means that the ServiceAccount "my-service-account" will have the
+permissions defined in the Role "my-role" for the specified resources.
+
+By associating a ServiceAccount with a Role using a RoleBinding, you can grant specific permissions to applications or
+services running within the cluster, allowing them to access and interact with resources based on the defined Role's
+permissions.
+
+#### Q7. Admission control is used to specify all the following except  _______ .
+
+1. [ ] Granular access control policies
+2. [x] Open Source access
+3. [ ] To use admission controls
+
+#### Explanation:
+
+Open Source access is not a purpose of using admission control in Kubernetes.
+
+Admission control in Kubernetes is a feature that allows administrators to define and enforce certain policies and rules
+before objects are created, modified, or deleted in the cluster. It acts as a gatekeeper, validating and mutating
+requests to ensure they comply with predefined rules.
+
+The primary purposes of using admission control are:
+
+**Granular access control policies**:
+
+Admission control enables administrators to enforce fine-grained access control policies. It can be used to restrict
+certain actions or configurations, such as preventing privileged containers, enforcing resource quotas, or validating
+pod specifications.
+
+**To use admission controls**:
+
+The main purpose of admission control is to apply a set of predefined checks and validations on incoming requests to
+ensure compliance with desired policies. Admission control can include validating object configurations, checking
+resource constraints, or applying default values.
+
+<p align="right">(<a href="#table-of-contents">back to top</a>)</p>
