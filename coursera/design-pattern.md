@@ -134,7 +134,7 @@ We're going to create a `Shape` interface and concrete classes implementing this
 to `ShapeFactory`
 to get the type of object it needs.
 
-![factory-pattern-example.jpeg](src%2Fdesign-pattern%2Ffactory-pattern-example.jpeg)
+![factory-pattern-example.jpeg](..%2Fsrc%2Fdesign-pattern%2Ffactory-pattern-example.jpeg)
 
 **Step 1**: create an interface.
 
@@ -251,7 +251,7 @@ Advantage of Facade Pattern:
 
 #### Q6. Which of the following diagrams shows the Adapter pattern?
 
-![m1-q6.png](src%2Fdesign-pattern%2Fm1-q6.png)
+![m1-q6.png](..%2Fsrc%2Fdesign-pattern%2Fm1-q6.png)
 
 1. [ ] a)
 2. [ ] b)
@@ -283,7 +283,7 @@ with data in JSON format.
 
 **UML Diagram**:
 
-![adapter-pattern-uml-diagram.jpeg](src%2Fdesign-pattern%2Fadapter-pattern-uml-diagram.jpeg)
+![adapter-pattern-uml-diagram.jpeg](..%2Fsrc%2Fdesign-pattern%2Fadapter-pattern-uml-diagram.jpeg)
 
 The UML diagram for the adapter pattern is pretty simple. The client wants to call an operation on the Adaptee. To do that the client implements the
 Adapter interface and calls the Operation method. The ConcreteAdapter implements the method and calls the AdaptedOperation of the adaptee. After the
@@ -311,7 +311,7 @@ We can break the Composite pattern down into 4 parts.
 | composite |                                    Implements the base component methods and defines the child-related operations (has leaf elements)                                    |
 |  client   |                                              It has access to the composition elements by using the base component object.                                               |
 
-![composite-pattern-uml-diagram.png](src%2Fdesign-pattern%2Fcomposite-pattern-uml-diagram.png)
+![composite-pattern-uml-diagram.png](..%2Fsrc%2Fdesign-pattern%2Fcomposite-pattern-uml-diagram.png)
 
 **The Composite Pattern in real life**:
 
@@ -477,7 +477,7 @@ This is a good choice in the following cases:
 In the implementation of this pattern, we prefer composition over an inheritance – so that we can reduce the overhead of subclassing again and again
 for each decorating element. The recursion involved with this design can be used to decorate our object as many times as we require.
 
-![decorator-pattern-uml-diagram.webp](src%2Fdesign-pattern%2Fdecorator-pattern-uml-diagram.webp)
+![decorator-pattern-uml-diagram.webp](..%2Fsrc%2Fdesign-pattern%2Fdecorator-pattern-uml-diagram.webp)
 
 **The Decorator Pattern in real life**:
 
@@ -492,7 +492,7 @@ it.
 Suppose we have a Christmas tree object, and we want to decorate it. The decoration does not change the object itself; it’s just that in addition to
 the Christmas tree, we're adding some decoration items like garland, tinsel, tree-topper, bubble lights, etc.:
 
-![decorator-pattern-uml-diagram-example.jpeg](src%2Fdesign-pattern%2Fdecorator-pattern-uml-diagram-example.jpeg)
+![decorator-pattern-uml-diagram-example.jpeg](..%2Fsrc%2Fdesign-pattern%2Fdecorator-pattern-uml-diagram-example.jpeg)
 
 **Step 1**: First, we'll create a ChristmasTree interface and its implementation.
 
@@ -676,7 +676,7 @@ Some UML reminders that will help you:
 3. [ ] c
 4. [x] d
 
-![m2-q1.png](src%2Fdesign-pattern%2Fm2-q1.png)
+![m2-q1.png](..%2Fsrc%2Fdesign-pattern%2Fm2-q1.png)
 
 #### Explanation:
 
@@ -699,7 +699,7 @@ steps of the algorithm without changing its structure.
 3. For each variation of the algorithm, create a new concrete subclass. It must implement all the abstract steps, but may also override some
    optional ones.
 
-![template-method-structure.png](src%2Fdesign-pattern%2Ftemplate-method-structure.png)
+![template-method-structure.png](..%2Fsrc%2Fdesign-pattern%2Ftemplate-method-structure.png)
 
 **Example of implementation**:
 
@@ -853,7 +853,7 @@ One of the great example of Chain of Responsibility pattern is ATM Dispense mach
 The user enters the amount to be dispensed and the machine dispense amount in terms of defined currency bills such as 50$, 20$, 10$ etc. If the user
 enters an amount that is not multiples of 10, it throws error. We will use Chain of Responsibility pattern to implement this solution.
 
-![cor-pattern-example.png](src%2Fdesign-pattern%2Fcor-pattern-example.png)
+![cor-pattern-example.png](..%2Fsrc%2Fdesign-pattern%2Fcor-pattern-example.png)
 
 Note that we can implement this solution easily in a single program itself but then the complexity will increase and the solution will be tightly
 coupled. So we will create a chain of dispense systems to dispense bills of 50$, 20$ and 10$.
@@ -1458,7 +1458,7 @@ Simply put, the pattern intends to encapsulate in an Object all the data require
 
 **UML Diagram**:
 
-![command-pattern-uml-diagram.png](src%2Fdesign-pattern%2Fcommand-pattern-uml-diagram.png)
+![command-pattern-uml-diagram.png](..%2Fsrc%2Fdesign-pattern%2Fcommand-pattern-uml-diagram.png)
 
 The **Sender** class (aka invoker) is responsible for initiating requests.
 
@@ -1490,7 +1490,7 @@ be associated with one or multiple senders.
 
 #### Q10. Select the best UML class diagram representation of the Chain of Responsibility pattern.
 
-![m2-q8.png](src%2Fdesign-pattern%2Fm2-q8.png)
+![m2-q8.png](..%2Fsrc%2Fdesign-pattern%2Fm2-q8.png)
 
 1. [ ] a
 2. [x] b
@@ -1505,7 +1505,7 @@ Upon receiving a request, each handler decides either to process the request or 
 
 **UML Diagram**:
 
-![cor-pattern-uml-diagram.png](src%2Fdesign-pattern%2Fcor-pattern-uml-diagram.png)
+![cor-pattern-uml-diagram.png](..%2Fsrc%2Fdesign-pattern%2Fcor-pattern-uml-diagram.png)
 
 The **Client** may compose chains just once or compose them dynamically, depending on the application’s logic.
 
@@ -1796,7 +1796,7 @@ called, which updates the mailbox's `hasNewMail` state and prints a message to t
 
 MVC Pattern stands for Model-View-Controller Pattern.
 
-![mvc-pattern.png](src%2Fdesign-pattern%2Fmvc-pattern.png)
+![mvc-pattern.png](..%2Fsrc%2Fdesign-pattern%2Fmvc-pattern.png)
 
 | Component  |                                                                                   Aim                                                                                   |
 |:----------:|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
@@ -2040,7 +2040,7 @@ classes in order to build more complex objects at one time.
 
 #### Q5. Which of these UML diagrams demonstrates the Interface Segregation principle?
 
-![m3-q5.png](src%2Fdesign-pattern%2Fm3-q5.png)
+![m3-q5.png](..%2Fsrc%2Fdesign-pattern%2Fm3-q5.png)
 
 1. [ ] a)
 2. [ ] b)
@@ -2475,7 +2475,7 @@ of the user1 object to print its properties to the console.
 
 #### Q2. Mohsin has a superclass that performs various operations on these user objects - Student, Professor, Assistant, for example. He wants the subclass to determine which object is created. This is sketched below in a UML diagram for the StudentUser class. What is this design pattern called?
 
-![m4-q2.png](src%2Fdesign-pattern%2Fm4-q2.png)
+![m4-q2.png](..%2Fsrc%2Fdesign-pattern%2Fm4-q2.png)
 
 1. [ ] Template Pattern
 2. [x] Factory Method Pattern
@@ -2562,7 +2562,7 @@ worrying about the details of object creation.
 
 #### Q3. Select the correct UML class diagram representation of the Composite Pattern:
 
-![m4-q3.png](src%2Fdesign-pattern%2Fm4-q3.png)
+![m4-q3.png](..%2Fsrc%2Fdesign-pattern%2Fm4-q3.png)
 
 1. [ ] a)
 2. [ ] b)
@@ -2591,7 +2591,7 @@ We can break the pattern down into 4 parts:
 | composite |                                    Implements the base component methods and defines the child-related operations (has leaf elements)                                    |
 |  client   |                                              It has access to the composition elements by using the base component object.                                               |
 
-![composite-pattern-uml-diagram.png](src%2Fdesign-pattern%2Fcomposite-pattern-uml-diagram.png)
+![composite-pattern-uml-diagram.png](..%2Fsrc%2Fdesign-pattern%2Fcomposite-pattern-uml-diagram.png)
 
 The composite classes contain a list of their child objects, which can be either leaf or composite classes. When a method is called on a composite
 object, it is recursively called on all of its child objects.
@@ -2654,7 +2654,7 @@ public class Client {
 
 #### Q4. Yola is programming for a grocery store system. She has a complex SalesData class that updates inventories and tracks sales figures, and a lightweight AccessSales class that will give select sales data to a user, depending on their credentials. AccessSales delegates to SalesData when more complex data is needed. This situation is shown below. Which Pattern is this?
 
-![m4-q4.png](src%2Fdesign-pattern%2Fm4-q4.png)
+![m4-q4.png](..%2Fsrc%2Fdesign-pattern%2Fm4-q4.png)
 
 1. [x] Proxy Pattern
 2. [ ] Facade Pattern
@@ -2672,7 +2672,7 @@ are two types of classes:
 1. Real subject class, which represents the actual object that the client wants to access.
 2. Proxy class, which provides a surrogate or placeholder for the real subject class and controls access to it.
 
-![proxy-pattern-uml-diagram.png](src%2Fdesign-pattern%2Fproxy-pattern-uml-diagram.png)
+![proxy-pattern-uml-diagram.png](..%2Fsrc%2Fdesign-pattern%2Fproxy-pattern-uml-diagram.png)
 
 The proxy class implements the subject interface and contains a reference to the real subject object. When a method is called on the proxy object, it
 can either directly invoke the method on the real subject object or perform some additional logic before or after invoking the method on the real
@@ -2684,7 +2684,7 @@ it is actually needed, which can improve performance and memory usage.
 
 #### Q5. Which of these UML class diagrams shows the Facade pattern?
 
-![m4-q5.png](src%2Fdesign-pattern%2Fm4-q5.png)
+![m4-q5.png](..%2Fsrc%2Fdesign-pattern%2Fm4-q5.png)
 
 1. [ ] a)
 2. [ ] b)
@@ -2697,7 +2697,7 @@ Facade is a structural design pattern that provides a simplified interface to a 
 
 **UML diagram**:
 
-![facade-pattern-uml-diagram.png](src%2Fdesign-pattern%2Ffacade-pattern-uml-diagram.png)
+![facade-pattern-uml-diagram.png](..%2Fsrc%2Fdesign-pattern%2Ffacade-pattern-uml-diagram.png)
 
 * Facade: the facade class abstracts Packages 1, 2, and 3 from the rest of the application.
 * Clients: the objects are using the Facade Pattern to access resources from the Packages.
@@ -3029,7 +3029,7 @@ pattern rather than the Facade pattern.
 
 #### Q9. Which of these diagrams shows the State pattern?
 
-![m4-q9.png](src%2Fdesign-pattern%2Fm4-q9.png)
+![m4-q9.png](..%2Fsrc%2Fdesign-pattern%2Fm4-q9.png)
 
 1. [ ] a)
 2. [x] b)
@@ -3042,7 +3042,7 @@ State is a behavioural design pattern that lets an object alter its behaviour wh
 
 **UML Diagram**:
 
-![state-pattern-uml.png](src%2Fdesign-pattern%2Fstate-pattern-uml.png)
+![state-pattern-uml.png](..%2Fsrc%2Fdesign-pattern%2Fstate-pattern-uml.png)
 
 The UML diagram shows the relationship between the Context, which is the object whose behavior changes based on its internal state, and the State,
 which is an interface that defines the behavior associated with a particular state.
@@ -3487,7 +3487,7 @@ public class Main {
 
 #### Q14. Choose the correct UML class diagram representation of the Observer pattern:
 
-![m4-q14.png](src%2Fdesign-pattern%2Fm4-q14.png)
+![m4-q14.png](..%2Fsrc%2Fdesign-pattern%2Fm4-q14.png)
 
 1. [ ] a)
 2. [ ] b)
@@ -3504,7 +3504,7 @@ functionality.
 
 **UML Diagram**:
 
-![observer-pattern-uml-diagram.png](src%2Fdesign-pattern%2Fobserver-pattern-uml-diagram.png)
+![observer-pattern-uml-diagram.png](..%2Fsrc%2Fdesign-pattern%2Fobserver-pattern-uml-diagram.png)
 
 The UML diagram for the Observer Pattern consists of two main components:
 

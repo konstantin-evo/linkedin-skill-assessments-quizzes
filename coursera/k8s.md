@@ -224,7 +224,7 @@ it an ideal choice for storing the state of a Kubernetes cluster.
 The Kubernetes control plane components, including the API server, controller manager, and scheduler, interact with etcd
 to read and write cluster state information.
 
-![k8s-control-plane.png](src%2Fkubernetes%2Fk8s-control-plane.png)
+![k8s-control-plane.png](..%2Fsrc%2Fkubernetes%2Fk8s-control-plane.png)
 
 #### Q4. A Pod consists of one or more ________ .
 
@@ -255,7 +255,7 @@ The worker node in Kubernetes has three main components which include:
   cluster.
 * **Kube-proxy**: A network proxy that runs on each node and provides networking services for pods.
 
-![k8s-working-node.png](src%2Fkubernetes%2Fk8s-working-node.png)
+![k8s-working-node.png](..%2Fsrc%2Fkubernetes%2Fk8s-working-node.png)
 
 #### Q6. All container runtimes are supported on Kubernetes except _______ .
 
@@ -306,7 +306,7 @@ The **Master node** controls and coordinates all the activities in the cluster, 
 on the Worker nodes, monitoring the health of the nodes and the workloads, and scaling the resources up or down as
 needed.
 
-![k8s-control-plane.png](src%2Fkubernetes%2Fk8s-control-plane.png)
+![k8s-control-plane.png](..%2Fsrc%2Fkubernetes%2Fk8s-control-plane.png)
 
 The master node runs several Kubernetes components that handle the core functionality of the cluster, including:
 
@@ -325,7 +325,7 @@ The master node runs several Kubernetes components that handle the core function
 The **Worker nodes**, on the other hand, are the actual compute nodes that run the application workloads and provide the
 necessary resources such as CPU, memory, and storage.
 
-![k8s-working-node.png](src%2Fkubernetes%2Fk8s-working-node.png)
+![k8s-working-node.png](..%2Fsrc%2Fkubernetes%2Fk8s-working-node.png)
 
 The worker node in Kubernetes has three main components which include:
 
@@ -453,7 +453,7 @@ True.
 
 All communication between the cluster and the master node is accessed through the apiserver.
 
-![k8s-cluster.png](src%2Fkubernetes%2Fk8s-cluster.png)
+![k8s-cluster.png](..%2Fsrc%2Fkubernetes%2Fk8s-cluster.png)
 
 The Kubernetes API server is the central control point for all communication in a Kubernetes cluster, serving as the
 front-end for the Kubernetes API and acting as the gateway for all administrative actions and queries against the
@@ -1100,7 +1100,7 @@ resource limits, or volume mounts, depending on the requirements of your applica
 In Kubernetes, a cluster is a set of servers (also known as nodes) that work together to run containerized applications
 and manage their resources.
 
-![k8s-cluster-components.png](src%2Fkubernetes%2Fk8s-cluster-components.png)
+![k8s-cluster-components.png](..%2Fsrc%2Fkubernetes%2Fk8s-cluster-components.png)
 
 These servers/nodes collectively form the underlying infrastructure for hosting and orchestrating containers. The
 cluster consists of one or more master nodes that manage the overall control plane and one or more worker nodes that
@@ -1136,7 +1136,7 @@ or more containers and provides them with shared resources, such as network and 
 share the same network namespace and can communicate with each other via `localhost`. Therefore, a pod always includes
 at least one container runtime responsible for running the containers within it.
 
-![k8s-pods.svg](src%2Fkubernetes%2Fk8s-pods.svg)
+![k8s-pods.svg](..%2Fsrc%2Fkubernetes%2Fk8s-pods.svg)
 
 #### Q4. Another term for the master node is what
 
@@ -1152,7 +1152,7 @@ The master node in Kubernetes is responsible for managing and coordinating the c
 The master node is also known as the control plane. One of the key components running on the master node is the API
 server, which acts as the primary control and management point for the entire cluster.
 
-![k8s-control-plane.png](src%2Fkubernetes%2Fk8s-control-plane.png)
+![k8s-control-plane.png](..%2Fsrc%2Fkubernetes%2Fk8s-control-plane.png)
 
 The API server exposes the Kubernetes API, allowing users and other components to interact with the cluster, perform
 operations, and manage resources. Therefore, "The api server" is the appropriate term referring to the master node in
@@ -1188,7 +1188,7 @@ cluster.
 The kube-scheduler is a component of the Kubernetes control plane responsible for making scheduling decisions on where
 to place pods within the cluster.
 
-![k8s-control-plane.png](src%2Fkubernetes%2Fk8s-control-plane.png)
+![k8s-control-plane.png](..%2Fsrc%2Fkubernetes%2Fk8s-control-plane.png)
 
 The kube-scheduler examines the resource requirements and constraints of the pods and determines the most suitable
 worker node on which to schedule them. The kube-scheduler considers factors such as available resources,
@@ -1237,7 +1237,7 @@ the desired state of the cluster.
 The kubelet is a component that runs on each worker node in a Kubernetes cluster and its primary responsibility is to
 manage the lifecycle of pods on its assigned node.
 
-![k8s-cluster.png](src%2Fkubernetes%2Fk8s-cluster.png)
+![k8s-cluster.png](..%2Fsrc%2Fkubernetes%2Fk8s-cluster.png)
 
 The kubelet continuously monitors the state of pods assigned to it and takes actions to ensure that the pods are running
 as expected. It communicates with the control plane, receives instructions on which pods to run, and makes sure they are
@@ -1345,7 +1345,7 @@ to request a specific amount and type of storage from a cluster's available Pers
 created, the Kubernetes cluster attempts to find and bind it to an appropriate PV that matches the specified criteria,
 such as access mode, storage capacity, and storage class.
 
-![k8s-pv-pvc.png](src%2Fkubernetes%2Fk8s-pv-pvc.png)
+![k8s-pv-pvc.png](..%2Fsrc%2Fkubernetes%2Fk8s-pv-pvc.png)
 
 Here's an example of how a PersistentVolumeClaim (PVC) is used as a request for storage in Kubernetes:
 
@@ -1467,7 +1467,7 @@ roles and bind them to users or groups, granting specific permissions to perform
 provides a flexible and granular way to control access to various operations and resources within the cluster based on
 roles and their associated permissions.
 
-![k8s-rbac-diagram.png](src%2Fkubernetes%2Fk8s-rbac-diagram.png)
+![k8s-rbac-diagram.png](..%2Fsrc%2Fkubernetes%2Fk8s-rbac-diagram.png)
 
 Here's an example of using Role-Based Access Control (RBAC) in Kubernetes.
 
