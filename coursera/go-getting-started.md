@@ -21,6 +21,11 @@
           <a href="#basic-data-types">Basic Data types</a>
         </li>
       </ul>
+      <ul>
+        <li>
+          <a href="#composite-data-types">Composite Data types</a>
+        </li>
+      </ul>
   </li>
 </ol>
 
@@ -450,3 +455,208 @@ or `int`, whereas if you have a narrower range, `int16` may suffice.
 <p align="right">(<a href="#table-of-contents">back to top</a>)</p>
 
 ---
+
+#### Composite Data types
+
+#### Q1. What is printed when the following program is executed?
+
+```go
+func main() {
+  x  :=  []int {4,  8,  5}
+  y  :=  -1
+  for  _,  elt  := range  x {
+    if  elt > y {
+      y  =  elt
+    }
+  }
+  fmt.Print(y)
+}
+```
+
+1. [ ] 4
+2. [x] 8
+3. [ ] 5
+4. [ ] -1
+
+#### Explanation
+
+The program initializes `x` as a slice with the values `[4, 8, 5]` and `y` as -1.
+
+The for loop iterates over the elements of `x` using the range syntax. In each iteration, the value of `elt` is set to
+the current element being iterated.
+
+Inside the loop, it checks if the current element (`elt`) is greater than the current value of `y`. If it is, `y` is
+updated with the value of `elt`.
+
+In this case, the loop will compare each element of `x` with `y` and update `y` if a larger value is found.
+
+Here's the step-by-step execution:
+
+1. `elt = 4`, `y = -1`. Since `4` is greater than `-1`, `y` is updated to `4`.
+2. `elt = 8`, `y = 4`. Since `8` is greater than `4`, `y` is updated to `8`.
+3. `elt = 5`, `y = 8`. Since `5` is not greater than `8`, `y` remains `8`.
+
+After the loop completes, `y` will contain the maximum value from `x`, which is `8`. Therefore, the output of the
+program will be `8`.
+
+#### Q2. What is printed when the following program is executed?
+
+```go
+func main() {
+  x  :=  [...]int {4,  8,  5}
+  y  :=  x[0:2]
+  z  :=  x[1:3]
+  y[0]  =  1
+  z[1]  =  3
+  fmt.Print(x)
+}
+```
+
+1. [ ] [1 3 8]
+2. [x] [1 8 3]
+3. [ ] [4 1 3]
+4. [ ] [4 8 5]
+
+#### Explanation
+
+The program modifies the values of `y[0]` and `z[1]`. `y[0] = 1` assigns the value `1` to the first element
+of `y`, which also corresponds to the first element of `x`. Similarly, `z[1] = 3` assigns the value `3` to the second
+element of `z`, which corresponds to the third element of `x`.
+
+Since `y` and `z` are slices that share the underlying array `x`, modifying the elements of the slices also modifies the
+elements of `x`.
+
+Therefore, the output of the program will be `[1 8 3]`, as the modifications made to the slices affect the corresponding
+elements in the original array `x`.
+
+#### Q3. What is printed when the following program is executed?
+
+```go
+func main() {
+  x  :=  [...]int {1,  2,  3,  4,  5}
+  y  :=  x[0:2]
+  z  :=  x[1:4]
+  fmt.Print(len(y),  cap(y),  len(z), cap(z))
+}
+```
+
+1. [x] 2 5 3 4
+2. [ ] 2 4 3 4
+3. [ ] 2 3 3 4
+4. [ ] 2 5 3 5
+
+#### Explanation
+
+The `len()` function returns the length of a slice, which is the number of elements in the slice, and the `cap()`
+function returns the capacity of a slice, which is the maximum number of elements the slice can hold.
+
+In this case, `len(y)` returns `2` because `y` has two elements (`[1, 2]`), `cap(y)` returns `5` because the underlying
+array `x` has a capacity of `5`, `len(z)` returns `3` because `z` has three elements (`[2, 3, 4]`), and `cap(z)`
+returns `4` because the underlying array `x` has a capacity of `4` from index 1 to index 4.
+
+Therefore, the output of the program will be `2 5 3 4`, which represents the length and capacity of the `y` and `z`
+slices, respectively.
+
+#### Q4. What is printed when the following program is executed?
+
+```go
+func main() {
+  x  :=  map[string]int {
+    "ian": 1,  "harris": 2}
+  for  i,  j :=  range  x {
+    if  i == "harris" {
+      fmt.Print(i,  j)
+    }
+  }
+}
+```
+
+1. [ ] harris1
+2. [ ] 1ian
+3. [ ] 1harris
+4. [x] harris2
+
+#### Explanation
+
+The program initializes a map `x` with key-value pairs: `"ian": 1` and `"harris": 2`.
+
+The for loop iterates over the elements of the map `x` using the range syntax. In each iteration, the key is assigned to
+the variable `i` and the corresponding value is assigned to the variable `j`.
+
+Inside the loop, it checks if the current key `i` is equal to `"harris"`. If it is, it prints the key `i` and the
+value `j`.
+
+In this case, the loop will iterate over the elements of `x` and find that the key `"harris"` matches the condition.
+Therefore, the `Print` statement will be executed, and it will print `"harris"` followed by the corresponding value `2`.
+
+Therefore, the output of the program will be `harris2`.
+
+#### Q5. What is printed when the following program is executed?
+
+```go
+type P struct  {
+    x string
+    y int
+} 
+
+func  main() {
+  b  :=  P{"x",  -1}
+  a  :=  [...]P{P{"a",  10},  
+        P{"b",  2},
+        P{"c",  3}}
+  for  _,  z :=  range  a {
+    if  z.y > b.y {
+      b  =  z
+    }
+  }
+  fmt.Println(b.x)
+}
+```
+
+1. [ ] a
+2. [ ] b
+3. [ ] c
+4. [ ] x
+
+#### Explanation
+
+The loop will compare the `y` field of each struct in `a` with the `y` field of `b` and update `b` if a larger value is
+found.
+
+Here's the step-by-step execution:
+
+1. First iteration: `z = P{"a", 10}`, `b = P{"x", -1}`. Since `10` is greater than `-1`, `b` is updated to `P{"a", 10}`.
+2. Second iteration: `z = P{"b", 2}`, `b = P{"a", 10}`. Since `2` is not greater than `10`, `b` remains unchanged.
+3. Third iteration: `z = P{"c", 3}`, `b = P{"a", 10}`. Since `3` is not greater than `10`, `b` remains unchanged.
+
+After the loop completes, `b` will contain the struct value that had the largest `y` field, which is `P{"a", 10}`.
+Therefore, the output of the program will be `a`.
+
+#### Q6. What is printed when the following program is executed?
+
+```go
+func main() {
+  s  :=  make([]int,  0,  3)
+  s  =  append(s,  100)
+  fmt.Println(len(s),  cap(s))
+}
+```
+
+1. [x] 1 3
+2. [ ] 0 3
+3. [ ] 1 1
+4. [ ] 1 4
+
+#### Explanation
+
+The program starts by creating a slice `s` using the `make()` function with an initial length of `0` and a capacity
+of `3`.
+
+Next, it uses the `append()` function to add an element `100` to the slice `s`. The `append()` function appends the
+element to the slice and returns the resulting slice. In this case, the `append()` operation modifies `s` to
+become `[100]`.
+
+Finally, the program prints the length and capacity of the slice `s` using the `len()` and `cap()` functions.
+
+Since the length of `s` is `1` (it contains one element), and the capacity is `3` (the maximum number of elements the
+slice can hold without reallocation), the output of the program will be `1 3`.
