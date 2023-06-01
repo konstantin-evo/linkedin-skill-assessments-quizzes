@@ -34,6 +34,11 @@
           <a href="#function-and-organization">Function and organization</a>
         </li>
       </ul>
+      <ul>
+        <li>
+          <a href="#function-types">Function types</a>
+        </li>
+      </ul>
   </li>
 </ol>
 
@@ -874,3 +879,218 @@ slice (passing a reference to the underlying array) and passing an array (passin
 <p align="right">(<a href="#table-of-contents">back to top</a>)</p>
 
 ---
+
+#### Function types
+
+#### Q1. Is the highlighted assignment to f in the following code a legal variable assignment?
+
+```go
+package main
+
+var f func(string) int
+
+func test(x string) int {
+	return len(x)
+}
+
+func main() {
+	f = test
+}
+```
+
+1. [x] Yes
+2. [ ] No
+
+#### Explanation
+
+Yes, the highlighted assignment to `f` in the given code is a legal variable assignment.
+
+The variable `f` is declared as a function type `func(string) int`, which means it can store a reference to a function
+that takes a string as input and returns an integer. The function `test` matches this signature, as it takes a string
+parameter `x` and returns an integer using the `len` function.
+
+#### Q2. Which of the following statements correctly declares a function whose argument is another function which takes an integer as an argument and returns a string?
+
+1. [ ] func fA(fB (int) string)
+2. [x] func fA(fB func (int) string)
+3. [ ] func fA(fB func (int)) string
+4. [ ] func fA(fB func (string) int)
+
+#### Explanation
+
+The correct statement that declares a function whose argument is another function which takes an integer as an argument
+and returns a string is:
+
+```go
+func fA(fB func (int) string)
+```
+
+This statement declares a function named `fA` with an argument `fB`, which is of type `func(int) string`. It specifies
+that `fB` should be a function that takes an integer as an argument and returns a string. This is the correct syntax for
+declaring a function that accepts another function as an argument with the specified signature.
+
+#### Q3. What is an anonymous function?
+
+1. [ ] A function with no return value
+2. [ ] A function with multiple names
+3. [x] A function with no name
+4. [ ] A function with no arguments
+
+#### Explanation
+
+In Go, an anonymous function is a function that is defined without a name. It is created inline within an expression or
+assigned to a variable directly. Anonymous functions are often used as closures or for immediate execution without the
+need for a separate function declaration.
+
+Here's an example of an anonymous function in Go:
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+	// Assigning an anonymous function to a variable
+	add := func(a, b int) int {
+		return a + b
+	}
+
+	result := add(3, 4)
+	fmt.Println(result) // Output: 7
+
+	// Using an anonymous function directly
+	func(x int) {
+		fmt.Println("Anonymous function with argument:", x)
+	}(5) // Output: Anonymous function with argument: 5
+}
+```
+
+In this example, the first anonymous function is assigned to the `add` variable and can be invoked later with arguments.
+The second anonymous function is executed immediately with the argument `5`.
+
+#### Q4. Which of the following statements correctly declares a function whose return value is another function which takes a string as an argument and returns an integer?
+
+1. [ ] func fA(fB (int) string) func (string) int
+2. [ ] func fA(fB func (int) string) {}
+3. [ ] func fA(int) string {}
+4. [x] func fA() fB func (string) int{}
+
+#### Explanation
+
+The correct statement that declares a function whose return value is another function which takes a string as an
+argument and returns an integer is:
+
+```go
+func fA() fB func (string) int{}
+```
+
+This statement declares a function named `fA` with an empty parameter list `()`, and its return type
+is `fB func(string) int`. This means `fA` returns a function `fB` that takes a string as an argument and returns an
+integer.
+
+#### Q5. What does the above code print on the screen?
+
+```go
+package main
+
+import "fmt"
+
+func fA() func() int {
+	i := 0
+	return func() int {
+		i++
+		return i
+	}
+}
+
+func main() {
+	fB := fA()
+	fmt.Print(fB())
+	fmt.Print(fB())
+}
+```
+
+1. [x] 12
+2. [ ] 11
+3. [ ] 01
+4. [ ] 1
+
+#### Explanation
+
+The above code will print "`01`".
+
+The `fA` function returns an anonymous function that takes no arguments and returns an integer. Inside `fA`, there is a
+variable `i` initialized to 0. The returned anonymous function increments `i` by 1 and returns its value.
+
+In the `main` function, `fB` is assigned the result of calling `fA()`, which means `fB` now refers to the anonymous
+function returned by `fA`.
+
+The first `fmt.Print(fB())` statement calls the anonymous function, which increments `i` to 1 and returns it. It prints
+the value of `i`, which is `1`.
+
+The second `fmt.Print(fB())` statement again calls the anonymous function, and now `i` is incremented to 2 and returned.
+It prints the updated value of `i`, which is `2`.
+
+#### Q6. What symbols are used in a function declaration to indicate that it is a variadic function?
+
+1. [ ] “->”
+2. [x] ”...”
+3. [ ] "---"
+4. [ ] "[]"
+
+#### Explanation
+
+The ellipsis `...` is used in the function declaration to indicate that the function accepts a variable number of
+arguments of the same type. It allows the function to accept zero or more arguments of the specified type.
+
+For example:
+
+```go
+func sum(nums ...int) int {
+total := 0
+for _, num := range nums {
+total += num
+}
+return total
+}
+```
+
+In this example, the function `sum` is declared with `nums ...int`, where `nums` is a variadic parameter of type `int`.
+It can accept any number of integers as arguments, including none.
+
+#### Q7. What does this routine produce?
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+	i := 1
+	fmt.Print(i)
+	i++
+	defer fmt.Print(i + 1)
+	fmt.Print(i)
+
+}
+```
+
+1. [ ] 132
+2. [ ] 134
+3. [ ] 234
+4. [x] 123
+
+#### Explanation
+
+The routine produces the output "123".
+
+Here's the breakdown of the code:
+
+1. `i := 1`: Declare and initialize the variable `i` with a value of 1.
+2. `fmt.Print(i)`: Print the value of `i`, which is 1. Output: "1".
+3. `i++`: Increment the value of `i` by 1. Now `i` is 2.
+4. `defer fmt.Print(i + 1)`: Defer the execution of `fmt.Print(i + 1)` until the surrounding function (`main`) returns.
+   The current value of `i` is 2, so the deferred print statement will use `i + 1`, which is 3.
+5. `fmt.Print(i)`: Print the value of `i`, which is still 2. Output: "2".
+6. The function `main` returns, and the deferred statement `fmt.Print(i + 1)` is executed. The value of `i` is still 2,
+   so `i + 1` is 3. Output: "3".
