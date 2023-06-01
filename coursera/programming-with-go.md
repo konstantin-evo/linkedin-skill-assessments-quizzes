@@ -10,7 +10,7 @@
 
 <ol>
   <li>
-    <a href="#module-1">Module 1</a>
+    <a href="#module-1">Getting Started with Go</a>
       <ul>
         <li>
           <a href="#getting-started-with-go">Getting Started with Go</a>
@@ -24,6 +24,14 @@
       <ul>
         <li>
           <a href="#composite-data-types">Composite Data types</a>
+        </li>
+      </ul>
+  </li>
+  <li>
+    <a href="#module-2">Functions, Methods, and Interfaces in Go</a>
+      <ul>
+        <li>
+          <a href="#function-and-organization">Function and organization</a>
         </li>
       </ul>
   </li>
@@ -660,3 +668,209 @@ Finally, the program prints the length and capacity of the slice `s` using the `
 
 Since the length of `s` is `1` (it contains one element), and the capacity is `3` (the maximum number of elements the
 slice can hold without reallocation), the output of the program will be `1 3`.
+
+<p align="right">(<a href="#table-of-contents">back to top</a>)</p>
+
+---
+
+#### Module 2
+
+#### Functions, Methods, and Interfaces in Go
+
+---
+
+#### Function and organization
+
+#### Q1. Using functions in code  has which of the following impacts?
+
+1. [ ] Improve code understandability
+2. [ ] Facilitate code reuse
+3. [ ] Support abstraction
+4. [x] All of the above
+
+#### Explanation
+
+Using functions in code has multiple impacts, including improving code understandability, facilitating code reuse, and
+supporting abstraction.
+
+1. **Improve code understandability**: Functions allow you to break down complex tasks into smaller, more manageable
+   units. By encapsulating a specific set of instructions within a function, you can make the code more readable and
+   easier to comprehend. Functions also provide a natural way to document and communicate the purpose and behavior of a
+   particular piece of code.
+2. **Facilitate code reuse**: Functions can be written once and reused multiple times throughout the codebase. Instead
+   of duplicating the same set of instructions at multiple places, you can define a function and call it wherever
+   needed. This promotes code reuse, reduces redundancy, and helps maintain a modular and efficient codebase.
+3. **Support abstraction**: Functions abstract away the implementation details and provide a higher-level interface for
+   performing specific tasks. By defining functions with well-chosen names and clear parameters, you can hide the
+   underlying complexity and make the code more understandable and manageable. Abstraction enables you to focus on the "
+   what" rather than the "how" of a particular functionality.
+
+#### Q2. Which of these statements is true?
+
+1. [ ] A function can have only one return value.
+2. [ ] A function cannot have more than two parameters.
+3. [x] A function can have parameters of different types.
+4. [ ] The type of the arguments do not need to be specified.
+
+#### Explanation
+
+In Go, a function can have parameters of different types. This allows you to pass in values of different data types to
+the function when calling it.
+
+Here's an example in Go:
+
+```go
+package main
+
+import "fmt"
+
+func greet(name string, age int) {
+	fmt.Printf("Hello, %s! You are %d years old.\n", name, age)
+}
+
+func main() {
+	greet("Alice", 25)
+}
+```
+
+In this example, the `greet` function takes two parameters: `name`, which is of type `string`, and `age`, which is of
+type `int`.
+
+#### Q3. Let’s say that you are writing a function which takes a structure as an argument. What is a good reason to rewrite the function to take a pointer to the structure as an argument, instead of the structure itself?
+
+1. [x] The function needs to modify the structure.
+2. [ ] The function needs to read data inside the structure.
+3. [ ] The function needs to copy the structure.
+4. [ ] The structure uses very little space in memory.
+
+#### Explanation
+
+If a function needs to modify the structure, it is generally more efficient and practical to pass a pointer to the
+structure as an argument, rather than the structure itself. When a pointer is passed, the function can directly access
+and modify the original structure in memory, without the need to make a copy.
+
+When a structure is passed by value (i.e., the structure itself is passed), a copy of the structure is made and passed
+to the function. If the function modifies the structure, it will only affect the copy and not the original structure.
+
+Here's an example in Go to illustrate passing a pointer to a structure:
+
+```go
+package main
+
+import "fmt"
+
+type Person struct {
+	Name string
+	Age  int
+}
+
+func modifyPerson(p *Person) {
+	p.Age = 30
+}
+
+func main() {
+	person := Person{Name: "Alice", Age: 25}
+
+	fmt.Println("Before modification:", person)
+
+	modifyPerson(&person)
+
+	fmt.Println("After modification:", person)
+}
+```
+
+In this example, the `modifyPerson` function takes a pointer to a `Person` structure as an argument. Inside the
+function, the `Age` field of the structure is modified. When calling the function in the `main` function, we pass the
+address of the `person` variable using the `&` operator (`&person`), which gives us a pointer to the structure.
+
+As a result, the original `person` structure is modified, and we can see the changes reflected in the output.
+
+#### Q4. Which of the features of functions listed below improve code understandability?
+
+#### I. Low number of arguments
+
+#### II Performs several distinct tasks
+
+#### III. Low control-flow complexity
+
+1. [x] I and II
+2. [ ] I and III
+3. [ ] II and III
+4. [ ] I, II, and III
+
+#### Explanation
+
+The features of functions that improve code understandability are:
+
+**I. Low number of arguments**: Functions with a low number of arguments are generally easier to understand and reason
+about. Having a large number of arguments can make it more challenging to comprehend the function's purpose and
+behavior. It is recommended to keep the number of arguments to a minimum, ideally no more than a handful, to enhance
+code understandability.
+
+**III. Low control-flow complexity**: Functions with a low control-flow complexity are easier to understand.
+Control-flow complexity refers to the number of branches, loops, and conditional statements within a function. Functions
+with a simpler control-flow structure tend to be more readable and less prone to errors. Breaking down complex functions
+into smaller, more focused functions can help reduce control-flow complexity and improve code understandability.
+
+#### Q5. What is a difference between passing a slice as an argument and passing an array as an argument?
+
+1. [ ] Passing a slice passes a copy of all the data in the slice.
+2. [ ] Passing an array is faster than passing a slice.
+3. [ ] There is no difference.
+4. [x] Passing an array passes a copy of the entire array.
+
+#### Explanation
+
+When you pass an array as an argument to a function, you are passing a copy of the entire array. This means that
+modifications made to the elements of the array within the function will not affect the original array outside the
+function.
+
+**Note**: if the array is very large, passing a copy of the entire array can be less efficient in terms of
+memory and performance compared to passing a slice.
+
+When you pass a slice as an argument to a function, you are passing a reference to the underlying array that the slice
+points to. This means that any modifications made to the elements of the slice within the function will be visible
+outside the function as well.
+
+Here's an example to illustrate the behavior of passing a slice and an array as arguments:
+
+```go
+package main
+
+import "fmt"
+
+func modifySlice(slice []int) {
+	slice[0] = 10
+}
+
+func modifyArray(arr [3]int) {
+	arr[0] = 20
+}
+
+func main() {
+	slice := []int{1, 2, 3}
+	array := [3]int{1, 2, 3}
+
+	fmt.Println("Before modification:")
+	fmt.Println("Slice:", slice)
+	fmt.Println("Array:", array)
+
+	modifySlice(slice)
+	modifyArray(array)
+
+	fmt.Println("After modification:")
+	fmt.Println("Slice:", slice)
+	fmt.Println("Array:", array)
+}
+```
+
+In this example, the `modifySlice` function takes a slice as an argument and modifies the first element to 10.
+The `modifyArray` function takes an array as an argument and modifies the first element to 20.
+
+After calling both functions, you can observe that the modification to the slice is reflected outside the function,
+while the modification to the array has no effect on the original array. This showcases the difference between passing a
+slice (passing a reference to the underlying array) and passing an array (passing a copy of the entire array).
+
+<p align="right">(<a href="#table-of-contents">back to top</a>)</p>
+
+---
