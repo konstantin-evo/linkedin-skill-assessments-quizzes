@@ -39,6 +39,11 @@
           <a href="#function-types">Function types</a>
         </li>
       </ul>
+      <ul>
+        <li>
+          <a href="#object-orientation-in-go">Object orientation in Go</a>
+        </li>
+      </ul>
   </li>
 </ol>
 
@@ -1094,3 +1099,320 @@ Here's the breakdown of the code:
 5. `fmt.Print(i)`: Print the value of `i`, which is still 2. Output: "2".
 6. The function `main` returns, and the deferred statement `fmt.Print(i + 1)` is executed. The value of `i` is still 2,
    so `i + 1` is 3. Output: "3".
+
+<p align="right">(<a href="#table-of-contents">back to top</a>)</p>
+
+---
+
+#### Object orientation in Go
+
+#### Q1. What is the difference between an object and a class?
+
+1. [ ] An object is a field of data inside a class.
+2. [x] A class is a template and an object is an instance of that template.
+3. [ ] An object is a particular kind of class.
+4. [ ] An object typically contains more data fields than a class.
+
+#### Explanation
+
+In object-oriented programming, a class is a blueprint or template that defines the structure and behavior of objects.
+It specifies the properties (data fields) and methods (functions) that objects of that class will have.
+
+#### Q2. What is the difference between a struct in Go and a class in an object-oriented language?
+
+1. [x] A struct contains only data while a class can also contain methods.
+2. [ ] A class describes data fields but a struct does not.
+3. [ ] A struct can only be created inside a class.
+4. [ ] A struct cannot contain another struct.
+
+#### Explanation
+
+In Go, a struct is a composite data type that allows you to group together different data fields of different types. It
+is similar to a class in an object-oriented language, but there are some key differences.
+
+Here's an example in Go to illustrate the difference between a struct and a class in an object-oriented language:
+
+```go
+package main
+
+import "fmt"
+
+// Struct definition
+type Person struct {
+	Name string
+	Age  int
+}
+
+// Method associated with the Person struct
+func (p Person) SayHello() {
+	fmt.Printf("Hello, my name is %s and I'm %d years old.\n", p.Name, p.Age)
+}
+
+func main() {
+	// Creating an object (instance) of the Person struct
+	person := Person{Name: "Alice", Age: 25}
+
+	// Accessing the struct fields and calling the method
+	fmt.Println(person.Name) // Output: Alice
+	fmt.Println(person.Age)  // Output: 25
+	person.SayHello()        // Output: Hello, my name is Alice and I'm 25 years old.
+}
+```
+
+In this example, we have a struct called `Person`, which represents a person with a `Name` field of type string and
+an `Age` field of type int. This is similar to defining a class in an object-oriented language.
+
+The `Person` struct also has a method called `SayHello()`, which is associated with the `Person` struct. It can be
+accessed and called on objects (instances) of the `Person` struct.
+
+In the `main()` function, we create an object `person` of type `Person` and initialize its field values. We can access
+and print the field values (`Name` and `Age`) directly. Additionally, we call the `SayHello()` method on the `person`
+object, which prints a message using the struct's field values.
+
+This example demonstrates how a struct in Go can contain data fields and methods, akin to a class in an object-oriented
+language.
+
+#### Q3. Which of the following refers to data hiding?
+
+1. [ ] Instantiation
+2. [ ] Polymorphism
+3. [ ] Inheritance
+4. [x] Encapsulation
+
+#### Explanation
+
+Encapsulation refers to the concept of hiding the internal implementation details of an object and exposing only the
+necessary information or functionality to the outside world. It is a fundamental principle in object-oriented
+programming that promotes data hiding and abstraction.
+
+Here's an example in Go to illustrate encapsulation and data hiding:
+
+```go
+package main
+
+import (
+	"fmt"
+)
+
+// Struct definition
+type Person struct {
+	name string
+	age  int
+}
+
+// Method to set the name of the person
+func (p *Person) SetName(name string) {
+	p.name = name
+}
+
+// Method to get the name of the person
+func (p Person) GetName() string {
+	return p.name
+}
+
+// Method to set the age of the person
+func (p *Person) SetAge(age int) {
+	p.age = age
+}
+
+// Method to get the age of the person
+func (p Person) GetAge() int {
+	return p.age
+}
+
+func main() {
+	// Creating an object (instance) of the Person struct
+	person := Person{}
+
+	// Setting the name and age using the encapsulated methods
+	person.SetName("Alice")
+	person.SetAge(25)
+
+	// Accessing the name and age using the encapsulated methods
+	fmt.Println(person.GetName()) // Output: Alice
+	fmt.Println(person.GetAge())  // Output: 25
+
+	// Attempting to access the fields directly (data hiding)
+	// This would result in a compilation error
+	// fmt.Println(person.name)
+	// fmt.Println(person.age)
+}
+```
+
+In this example, we define a struct called `Person`, which represents a person with `name` and `age` as private fields.
+
+The methods `SetName()` and `GetName()` are defined with receiver type as a pointer to `Person`, allowing us to modify
+and retrieve the `name` field respectively. Similarly, the methods `SetAge()` and `GetAge()` are defined for modifying
+and retrieving the `age` field.
+
+In the `main()` function, we create an object `person` of type `Person`. We then use the encapsulated
+methods `SetName()` and `SetAge()` to set the name and age of the person respectively. The encapsulated methods ensure
+that direct access to the private fields is restricted.
+
+Next, we use the encapsulated methods `GetName()` and `GetAge()` to retrieve the name and age of the person
+respectively. These methods provide controlled access to the private fields while maintaining data hiding.
+
+If we attempt to access the `name` and `age` fields directly using `person.name` or `person.age`, it would result in a
+compilation error. This demonstrates how encapsulation helps in data hiding by preventing direct access to private
+fields outside the struct.
+
+Encapsulation allows for better control over the access and modification of data, providing encapsulated methods as a
+means to interact with the private fields of a struct, ensuring data integrity and security.
+
+#### Q4. How do you associate a method with an arbitrary data type on Go?
+
+1. [x] Define the method so that its receiver type is the data type of interest.
+2. [ ] Define the method inside the data type definition.
+3. [ ] Include the name of the data type in the name of the method.
+4. [ ] Define the data type and the method in the same file.
+
+#### Explanation
+
+In Go, a method is associated with a specific data type by defining the method with a receiver parameter of that data
+type. By specifying the receiver type, the method becomes associated with that type.
+
+For example, let's say we have a custom data type called `MyType`:
+
+```go
+type MyType struct {
+// fields and data of MyType
+}
+```
+
+To associate a method with this `MyType`, we define the method with a receiver parameter of `MyType`:
+
+```go
+func (m MyType) MyMethod() {
+// method implementation
+}
+```
+
+In this example, the `MyMethod()` method is associated with the `MyType` data type. The receiver parameter `(m MyType)`
+indicates that this method can be called on instances of `MyType`.
+
+We can then create an object of `MyType` and call the associated method:
+
+```go
+myObject := MyType{}
+myObject.MyMethod() // Call the MyMethod() on myObject
+```
+
+The method `MyMethod()` is now associated with the `MyType` data type, and we can call it on objects (instances)
+of `MyType`.
+
+To summarize, in Go, you associate a method with an arbitrary data type by defining the method with a receiver parameter
+that matches the data type of interest. This allows the method to be called on objects of that data type.
+
+#### Q5. In Go, how do you hide variables or functions in a package, so that functions outside the package cannot access them?
+
+1. [ ] Use the package keyword
+2. [ ] Use the private keyword.
+3. [x] Give the variable/function a name which starts with a lower-case letter
+4. [ ] Define the variable/function inside the package.
+
+#### Explanation
+
+In Go, the visibility and accessibility of variables and functions are determined by their naming conventions. To hide
+variables or functions in a package, you give them a name that starts with a lower-case letter.
+
+In Go, naming conventions follow the concept of visibility based on the initial letter case:
+
+1. Variables or functions starting with an upper-case letter are exported and accessible from outside the package.
+2. Variables or functions starting with a lower-case letter are unexported and not accessible from outside the package.
+
+Here's an example to illustrate this:
+
+```go
+package mypackage
+
+var PublicVariable int = 10
+var unexportedVariable int = 20
+
+func PublicFunction() {
+	// Function implementation
+}
+
+func unexportedFunction() {
+	// Function implementation
+}
+```
+
+In this example, `PublicVariable` and `PublicFunction` start with upper-case letters, making them exported and
+accessible from outside the `mypackage` package.
+
+On the other hand, `unexportedVariable` and `unexportedFunction` start with lower-case letters, indicating that they are
+unexported and cannot be accessed from outside the `mypackage` package.
+
+#### Q6. Say that you have defined a type `t` and you have declared an object of that type called t1. Assume that the type t is the receiver type for a method called Foo(). Which expression shows a proper invocation of the method Foo()?
+
+1. [ ] Foo(t1)
+2. [ ] Foo(t)
+3. [ ] t1.Foo()
+4. [ ] t.Foo(t1)
+
+#### Explanation
+
+In Go, when a method is associated with a type, it is invoked using the syntax `receiver.Method()`. Therefore, to
+properly invoke the method `Foo()` with `t1` as the receiver object, the correct expression would be `t1.Foo()`.
+
+Here's an example to illustrate this:
+
+```go
+package main
+
+import "fmt"
+
+type MyType struct {
+	// fields and data of MyType
+}
+
+func (m MyType) Foo() {
+	fmt.Println("Foo() method called")
+}
+
+func main() {
+	t1 := MyType{}
+	t1.Foo() // Proper invocation of the Foo() method using t1 as the receiver object
+}
+```
+
+In this example, we define a type `MyType` with a method `Foo()`. Inside the `main()` function, we create an object `t1`
+of type `MyType`. To invoke the `Foo()` method on `t1`, we use the expression `t1.Foo()`, where `t1` is the receiver
+object and `Foo()` is the method being invoked.
+
+#### Q7. Assume that the type t is the receiver type for a method called Foo(). Under what conditions would it be better to make the receiver type of Foo() a pointer to t, rather than itself?
+
+#### I. When the receiver type t uses a large amount of memory.
+
+#### II. When the method Foo() must modify the data in the object of the receiver type.
+
+1. [ ] Only I
+2. [ ] Only II
+3. [x] Both I and II
+4. [ ] Neither I nor II
+
+#### Explanation
+
+It is better to make the receiver type of the method `Foo()` a pointer to `t` instead of `t` itself when both conditions
+I and II are met.
+
+**Condition I**: When the receiver type `t` uses a large amount of memory.
+
+When the receiver type `t` uses a large amount of memory, passing it as a value (non-pointer) to the method would
+involve making a copy of the entire data structure. This can be inefficient in terms of memory usage, especially if the
+data structure is large. By using a pointer receiver, only the memory address of the data structure is passed, rather
+than making a copy of the entire structure. This can lead to more efficient memory utilization.
+
+**Condition II**: When the method `Foo()` must modify the data in the object of the receiver type.
+
+If the method `Foo()` needs to modify the data within the object of the receiver type `t`, using a pointer receiver
+allows the method to directly modify the original object. When a non-pointer receiver is used, the method receives a
+copy of the object, and any modifications made within the method would only affect the copy, not the original object. By
+using a pointer receiver, the method can directly access and modify the original object's data.
+
+By using a pointer receiver, we can address both memory efficiency concerns and the ability to modify the receiver
+object's data.
+
+<p align="right">(<a href="#table-of-contents">back to top</a>)</p>
+
+---
