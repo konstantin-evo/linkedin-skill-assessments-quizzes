@@ -1,6 +1,6 @@
-## Getting Started with Go
+## Programming with Go
 
-[Link to course](https://www.coursera.org/learn/golang-getting-started)
+[Link to course](https://www.coursera.org/specializations/google-golang)
 
 <a name="link-top"></a>
 
@@ -15,13 +15,9 @@
         <li>
           <a href="#getting-started-with-go">Getting Started with Go</a>
         </li>
-      </ul>
-      <ul>
         <li>
           <a href="#basic-data-types">Basic Data types</a>
         </li>
-      </ul>
-      <ul>
         <li>
           <a href="#composite-data-types">Composite Data types</a>
         </li>
@@ -33,15 +29,14 @@
         <li>
           <a href="#function-and-organization">Function and organization</a>
         </li>
-      </ul>
-      <ul>
         <li>
           <a href="#function-types">Function types</a>
         </li>
-      </ul>
-      <ul>
         <li>
           <a href="#object-orientation-in-go">Object orientation in Go</a>
+        </li>
+        <li>
+          <a href="#interfaces-for-abstraction">Interfaces for abstraction</a>
         </li>
       </ul>
   </li>
@@ -1167,7 +1162,7 @@ accessed and called on objects (instances) of the `Person` struct.
 
 In the `main()` function, we create an object `person` of type `Person` and initialize its field values. We can access
 and print the field values (`Name` and `Age`) directly. Additionally, we call the `SayHello()` method on the `person`
-object, which prints a message using the struct's field values.
+object, which prints a message using the structs field values.
 
 This example demonstrates how a struct in Go can contain data fields and methods, akin to a class in an object-oriented
 language.
@@ -1412,6 +1407,359 @@ using a pointer receiver, the method can directly access and modify the original
 
 By using a pointer receiver, we can address both memory efficiency concerns and the ability to modify the receiver
 object's data.
+
+<p align="right">(<a href="#table-of-contents">back to top</a>)</p>
+
+---
+
+#### Interfaces for abstraction
+
+#### Q1. What is polymorphism?
+
+1. [ ] When two things share properties in common.
+2. [ ] When the definition of a class changes over time.
+3. [ ] When multiple objects have distinct methods.
+4. [x] When one thing can have multiple forms.
+
+#### Explanation
+
+Polymorphism is one of the core concepts of object-oriented programming (OOP) and describes situations in which
+something occurs in several different forms.
+
+Here's an example of polymorphism in Go:
+
+```go
+package main
+
+import "fmt"
+
+// Shape is an interface that defines a method called Area()
+type Shape interface {
+	Area() float64
+}
+
+// Circle is a struct representing a circle
+type Circle struct {
+	Radius float64
+}
+
+// Rectangle is a struct representing a rectangle
+type Rectangle struct {
+	Width  float64
+	Height float64
+}
+
+// Area calculates the area of a circle
+func (c Circle) Area() float64 {
+	return 3.14 * c.Radius * c.Radius
+}
+
+// Area calculates the area of a rectangle
+func (r Rectangle) Area() float64 {
+	return r.Width * r.Height
+}
+
+func main() {
+	// Creating a slice of shapes
+	shapes := []Shape{
+		Circle{Radius: 2.5},
+		Rectangle{Width: 4.0, Height: 3.0},
+	}
+
+	// Iterating over the shapes and calculating their areas
+	for _, shape := range shapes {
+		area := shape.Area()
+		fmt.Printf("Area of the shape: %.2f\n", area)
+	}
+}
+```
+
+In this example, we define an interface called `Shape` that has a single method `Area()`. Then, we define two struct
+types `Circle` and `Rectangle`, both of which implement the `Area()` method. The `Circle` struct calculates the area of
+a circle based on its radius, while the `Rectangle` struct calculates the area of a rectangle based on its width and
+height.
+
+In the `main()` function, we create a slice of shapes that includes a `Circle` and a `Rectangle`. We iterate over the
+shapes and call the `Area()` method on each shape, which dynamically invokes the appropriate implementation based on the
+actual type of the shape. This is an example of polymorphism in Go, where different objects can exhibit different
+behaviors while being treated uniformly through a shared interface.
+
+#### Q2. Which of the following statements is true?
+
+1. [ ] Inheritance and overriding are required for polymorphism.
+2. [x] Inheritance and overriding enable polymorphism.
+3. [ ] Overriding is necessary for inheritance.
+4. [ ] Inheritance is necessary for overriding.
+
+#### Explanation
+
+Inheritance and overriding enable polymorphism.
+
+In Go, polymorphism is achieved through the use of interfaces rather than inheritance and overriding. Go promotes
+composition over inheritance as a design principle. Instead of creating complex inheritance hierarchies, Go encourages
+the use of interfaces to define behavior. A type implicitly satisfies an interface if it implements all the methods
+defined by that interface.
+
+An example of the use of interfaces can be seen in the answer to question 1 of this module.
+
+#### Q3. If a type satisfies an interface, which of the following statements is true?
+
+1. [x] The type defines all methods specified in the interface.
+2. [ ] The type defines all data specified in the interface.
+3. [ ] The type defines a method specified in the interface.
+4. [ ] The interface includes a definition of the type.
+
+#### Explanation
+
+When a type satisfies an interface in Go, it means that the type implements all the methods specified by that interface.
+The methods in the type must have the same method signatures (name, parameters, and return types) as the methods defined
+in the interface. By satisfying an interface, the type ensures that it provides the necessary behavior as specified by
+the interface contract.
+
+**Note**: the interface specifies the required methods, but it does not define any data. Interfaces in
+Go are concerned with behavior, not data representation. The type implementing the interface is responsible for defining
+the necessary methods to fulfill the interface contract.
+
+#### Q4. Which of the following statements is true?
+
+1. [ ] A concrete type is always a dynamic type.
+2. [ ] An interface always has a dynamic value.
+3. [x] An interface always has a dynamic type.
+4. [ ] An interface type is the same as a dynamic type.
+
+#### Explanation
+
+In Go, an interface value consists of two components: a dynamic type and a dynamic value. The dynamic type represents
+the actual type of the value that is stored in the interface, and the dynamic value represents the value itself.
+
+An interface value can hold any value that satisfies the interface's method requirements. This means that at runtime,
+the dynamic type of interface value can change depending on the value assigned to it.
+
+For example:
+
+```go
+package main
+
+import "fmt"
+
+type Shape interface {
+	Area() float64
+}
+
+type Circle struct {
+	Radius float64
+}
+
+func (c Circle) Area() float64 {
+	return 3.14 * c.Radius * c.Radius
+}
+
+type Rectangle struct {
+	Width  float64
+	Height float64
+}
+
+func (r Rectangle) Area() float64 {
+	return r.Width * r.Height
+}
+
+func main() {
+	var s Shape
+
+	circle := Circle{Radius: 5.0}
+	s = circle
+	fmt.Printf("Dynamic type of s: %T\n", s)
+
+	rectangle := Rectangle{Width: 4.0, Height: 3.0}
+	s = rectangle
+	fmt.Printf("Dynamic type of s: %T\n", s)
+}
+```
+
+In this example, we have an interface `Shape` with a single method `Area()`. We have two concrete types: `Circle`
+and `Rectangle`, both of which implement the `Shape` interface by providing their respective `Area()` methods.
+
+In the `main()` function, we assign a `Circle` value to the `s` interface variable. The dynamic type of `s`
+becomes `Circle`. Later, we assign a `Rectangle` value to `s`, and the dynamic type of `s` becomes `Rectangle`. The
+dynamic type changes as we assign different values to the interface variable.
+
+Therefore, an interface always has a dynamic type, and it can hold values of different types that satisfy its method
+requirements. This dynamic behavior allows for flexibility and polymorphism in Go programs.
+
+#### Q5. Which of the following statements is/are true?
+
+* **I**. Interfaces can support abstraction by concealing differences between types.
+* **II**. Type assertions can reveal differences between type satisfying an interface.
+* **III**. Type assertions return two values.
+
+1. [ ] I and II but NOT III.
+2. [ ] II and III but NOT I.
+3. [ ] I and III but NOT II.
+4. [x] I, II, and II
+
+#### Explanation
+
+**I. Interfaces can support abstraction by concealing differences between types - TRUE**
+
+Interfaces in Go allow for abstraction by providing a way to define a set of methods without specifying the underlying
+concrete types. By programming to interfaces rather than concrete types, we can write code that is more flexible and
+independent of the specific implementation details. This abstraction allows us to treat different types that satisfy the
+same interface in a uniform manner, concealing their differences and focusing on their shared behavior.
+
+**II. Type assertions can reveal differences between types satisfying an interface - TRUE**
+
+Type assertions in Go provide a way to access the underlying concrete type from an interface value. It allows us to "
+assert" or check the dynamic type of interface value. By using a type assertion, we can reveal the actual type of the
+underlying value and perform specific operations or access methods unique to that type. This reveals the differences
+between types satisfying the same interface, as each type may have its own set of distinct methods and behaviors.
+
+**III. Type assertions return two values - TRUE**
+
+Type assertions in Go return two values: the value of the asserted type and a boolean value indicating whether the
+assertion was successful.
+
+---
+
+Here's an example in Go to illustrate how type assertions can reveal differences between types satisfying an interface
+and two values that return by type assertion.
+
+```go
+package main
+
+import "fmt"
+
+type Animal interface {
+	Sound() string
+}
+
+type Cat struct{}
+
+func (c Cat) Sound() string {
+	return "Meow"
+}
+
+type Dog struct{}
+
+func (d Dog) Sound() string {
+	return "Woof"
+}
+
+func main() {
+	animals := []Animal{
+		Cat{},
+		Dog{},
+	}
+
+	for _, animal := range animals {
+		// Type assertion to check the underlying type
+		if cat, ok := animal.(Cat); ok {
+			fmt.Println("Cat:", cat.Sound())
+		}
+
+		if dog, ok := animal.(Dog); ok {
+			fmt.Println("Dog:", dog.Sound())
+		}
+	}
+}
+```
+
+#### Q6. What is a use for an empty interface?
+
+1. [ ] It allows two interfaces to be merged into one.
+2. [ ] It allows a function to accept a variable number of arguments.
+3. [x] It can be used to allow a function to accept any type as a parameter.
+4. [ ] An empty interface cannot exist in Go.
+
+#### Explanation
+
+An empty interface in Go, denoted as `interface{}`, is a special type that does not specify any methods. It
+can be used to represent a generic type that can hold values of any type.
+
+The use of an empty interface allows a function to accept parameters of different types or any type without specifying
+the exact type explicitly. This provides flexibility in designing functions that can handle a wide range of inputs.
+
+Here are a few use cases for an empty interface:
+
+1. **Accepting any type as a parameter**: By using an empty interface as a function parameter, you can create functions
+   that accept arguments of any type. For example:
+
+```go
+package main
+
+import "fmt"
+
+func PrintValue(val interface{}) {
+	fmt.Println(val)
+}
+
+func main() {
+	PrintValue(42)      // Accepts int
+	PrintValue("Hello") // Accepts string
+	PrintValue(3.14)    // Accepts float64
+	PrintValue(true)    // Accepts bool
+}
+```
+
+In this example, the `PrintValue` function takes an empty interface `val` as a parameter. It can accept values of any
+type, such as integers, strings, floats, or booleans. The empty interface allows the function to work with different
+types without explicitly specifying them.
+
+2. **Working with unknown types**: If you need to work with values of unknown or multiple types, you can use an empty
+   interface to store and process such values. This can be useful in scenarios like parsing dynamic data or handling
+   generic data structures.
+
+3. **Type assertions and reflection**: Since an empty interface does not provide any type-specific methods, you need to
+   use type assertions or reflection to access the underlying values and perform type-specific operations. Type
+   assertions allow you to extract the value of a specific type from an empty interface.
+
+```go
+package main
+
+import "fmt"
+
+func ProcessValue(val interface{}) {
+	switch v := val.(type) {
+	case int:
+		fmt.Println("Received an int:", v)
+	case string:
+		fmt.Println("Received a string:", v)
+	default:
+		fmt.Println("Received an unknown type")
+	}
+}
+
+func main() {
+	ProcessValue(42)      // Outputs: Received an int: 42
+	ProcessValue("Hello") // Outputs: Received a string: Hello
+	ProcessValue(3.14)    // Outputs: Received an unknown type
+}
+```
+
+In this example, the `ProcessValue` function takes an empty interface `val` as a parameter and uses a type switch to
+determine the underlying type of `val`. Based on the type, it performs type-specific operations. Type assertions can
+also be used for similar purposes.
+
+---
+
+In summary, an empty interface allows functions to accept parameters of any type, providing flexibility and the ability
+to work with values of unknown or multiple types. It allows for generic programming and can be useful in scenarios where
+the exact type is not known or needs to be handled in a type-agnostic manner.
+
+#### Q7. After executing the expression below, what is the value of err if there is no error?
+
+```go
+f, err := os.Open(“/harris/test.txt”)
+```
+
+1. [x] nil
+2. [ ] 0
+3. [ ] –1
+4. [ ] –2
+
+#### Explanation
+
+After executing the expression `f, err := os.Open("/harris/test.txt")` and if there is no error, the value of `err`
+would be `nil`.
 
 <p align="right">(<a href="#table-of-contents">back to top</a>)</p>
 
