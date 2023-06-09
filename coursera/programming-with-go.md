@@ -40,6 +40,14 @@
         </li>
       </ul>
   </li>
+  <li>
+    <a href="#module-3">Concurrency in Go</a>
+      <ul>
+        <li>
+          <a href="#why-use-concurrency">Why use concurrency?</a>
+        </li>
+      </ul>
+  </li>
 </ol>
 
 ---
@@ -1764,3 +1772,155 @@ would be `nil`.
 <p align="right">(<a href="#table-of-contents">back to top</a>)</p>
 
 ---
+
+#### Module 3
+
+#### Concurrency in Go
+
+---
+
+#### Why use concurrency
+
+#### Q1. If two tasks are executing in parallel, which of the following statements is true?
+
+1. [ ] They are using exactly the same hardware at the same time.
+2. [ ] They are using different hardware, but running at the same time.
+3. [ ] Their executions are alternating in time.
+4. [ ] One task executes immediately after the other finishes.
+
+#### Explanation
+
+Parallel execution means that multiple tasks are being executed simultaneously. This can be achieved through the use of
+multiple hardware resources or by time-sharing a single hardware resource among the tasks. In either case, the tasks are
+executed concurrently, meaning their executions overlap in time. They are not necessarily using exactly the same
+hardware at the same time, and their executions do not strictly follow a sequential order where one task executes
+immediately after the other finishes. Instead, the tasks are scheduled and executed in an interleaved manner, where
+their executions overlap and alternate over time.
+
+![concurrency-vs-parallelism.jpg](..%2Fsrc%2Fgolang%2Fconcurrency-vs-parallelism.jpg)
+
+#### Q2. What does the von Neumann bottleneck state about computer architectures?
+
+1. [ ] Power consumption is a limiting factor for performance.
+2. [ ] Temperature is a performance bottleneck.
+3. [ ] Clock frequency cannot be improved without considering temperature.
+4. [x] Memory access time is a performance bottleneck.
+
+#### Explanation
+
+The von Neumann bottleneck refers to a limitation in traditional computer architectures that arises from the separation
+of the CPU and memory. In the von Neumann architecture, instructions and data are stored in the same memory space, and
+the CPU fetches instructions from memory one at a time. This sequential access to memory becomes a performance
+bottleneck because the CPU has to wait for the data to be fetched before it can proceed with the execution.
+
+This bottleneck is primarily caused by the speed disparity between the CPU and memory. The CPU can perform operations at
+a much faster rate than the time it takes to fetch data from memory. As a result, the CPU often sits idle, waiting for
+the data it needs, which limits the overall performance of the system.
+
+![the-von-neumann-architecture.png](..%2Fsrc%2Fgolang%2Fthe-von-neumann-architecture.png)
+
+While power consumption, temperature, and clock frequency can also impact performance, they are not specifically
+addressed by the von Neumann bottleneck. The von Neumann bottleneck specifically highlights the impact of memory access
+time on system performance.
+
+#### Q3. What does Moore’s law directly observe?
+
+1. [ ] Power consumption doubles every 18 months.
+2. [x] Transistor density doubles every 2 years.
+3. [ ] Processor power doubles every 2 years.
+4. [ ] Transistor switching delay is cut in half every year.
+
+#### Explanation
+
+Moore's Law, formulated by Gordon Moore, states that the number of transistors on integrated circuits doubles
+approximately every two years. This observation, which has held true for several decades, refers to the increasing
+density of transistors on a chip, enabling more powerful and advanced electronic devices.
+
+#### Q4. How is dynamic power consumption related to voltage swing?
+
+1. [x] Dynamic power is proportional to the square of the voltage swing.
+2. [ ] Dynamic power is proportional to the cube of the voltage swing.
+3. [ ] Dynamic power is proportional to the square root of the voltage swing.
+4. [ ] Dynamic power is proportional to the capacitance.
+
+#### Explanation
+
+The dynamic power consumption can be expressed as `P = 0.5 * C * V^2 * f`, where P is
+the power consumption, C is the capacitance, V is the voltage swing, and f is the frequency of operation.
+
+As per this equation, the power consumption is directly proportional to the square of the voltage swing (V^2). This
+means that a higher voltage swing will result in increased dynamic power consumption, while reducing the voltage swing
+can help decrease power consumption.
+
+#### Q5. Why can’t Dennard Scaling continue forever?
+
+* I. The speed of light limits the potential performance improvements.
+* II. Voltage must remain above threshold voltage.
+* III. Some noise margin must be maintained.
+
+1. [ ] I only.
+2. [ ] I and II, NOT III.
+3. [ ] II and III, NOT I.
+4. [x] I, II, and III.
+
+#### Explanation
+
+Dennard Scaling refers to the historical trend of reducing the size of transistors while maintaining or even decreasing
+the power consumption and voltage levels. However, Dennard Scaling cannot continue indefinitely due to various
+limitations:
+
+**I.** The speed of light limits the potential performance improvements: As transistors become smaller and operate at
+higher frequencies, the propagation delay of electrical signals becomes a limiting factor. The speed of light imposes a
+physical limit on how fast signals can travel within a chip, restricting further performance improvements.
+
+**II.** Voltage must remain above threshold voltage: As transistors shrink, it becomes more challenging to maintain
+sufficient voltage levels above the threshold voltage for reliable operation. Leakage currents also increase with
+smaller transistor sizes, making it harder to sustain proper voltage levels.
+
+**III.** Some noise margin must be maintained: With decreasing transistor sizes, noise susceptibility increases.
+Maintaining an acceptable noise margin becomes more difficult as transistors become smaller, potentially leading to
+errors or reduced reliability in circuit operation.
+
+#### Q6. What factor limits clock rates in future designs?
+
+* I. The speed of light.
+* II. Excessive power consumption.
+* III. Excessive temperature.
+
+1. [ ] I only.
+2. [x] I and II, NOT III.
+3. [ ] II and III, NOT I.
+4. [ ] I, II, and III.
+
+#### Explanation
+
+The factors that limit clock rates in future designs are the speed of light (I) and excessive power consumption (II).
+
+**I.** The speed of light: As clock rates increase, the propagation delay of electrical signals becomes a limiting
+factor. The speed of light imposes a physical limit on how fast signals can travel within a chip, which can restrict the
+maximum achievable clock rate.
+
+**II.** Excessive power consumption: Higher clock rates often lead to increased power consumption. As the clock
+frequency increases, more power is required to drive the circuitry and overcome resistive and capacitive effects. This
+can result in excessive power consumption, which may not be sustainable or practical in future designs.
+
+**III.** Excessive temperature is not specifically mentioned as a factor limiting clock rates in future designs. While
+high temperatures can affect the performance and reliability of electronic components, it is not directly related to
+clock rate limitations.
+
+#### Q6. One benefit of concurrent execution on a single processor is that it can hide latency. What does this mean?
+
+1. [ ] When tasks execute in parallel, only the delay of the slowest task matters.
+2. [x] One task can execute while another task is waiting on something.
+3. [ ] The concurrent execution time of two tasks is less than the sum of their sequential execution times.
+4. [ ] Total latency is reduced because two tasks can execute at the same time.
+
+#### Explanation
+
+When concurrent execution is employed on a single processor, it can hide latency by allowing one task to execute while
+another task is waiting for a particular operation to complete. This means that instead of waiting for a task to finish
+before starting the next one, the processor can switch between tasks, utilizing the idle time of one task to work on
+another task. By overlapping the execution of multiple tasks, the overall latency or waiting time can be reduced,
+leading to improved efficiency and performance.
+
+![latency-hiding.png](..%2Fsrc%2Fgolang%2Flatency-hiding.png)
