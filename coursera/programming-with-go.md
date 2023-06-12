@@ -46,6 +46,9 @@
         <li>
           <a href="#why-use-concurrency">Why use concurrency?</a>
         </li>
+        <li>
+          <a href="#concurrency-basics">Concurrency basics</a>
+        </li>
       </ul>
   </li>
 </ol>
@@ -350,7 +353,7 @@ is "`ianianian`".
 4. The fourth argument is the maximum number of replacements to be made. In this case, it is set to 2, so only the first
    two occurrences of "ni" will be replaced.
 5. The modified string "`iainianian`" is then assigned to the variable `s`.
-6. Finally, the `fmt.Println()` function is used to print the value of `s`, which is "iainianian" after replacing "ni"
+6. Finally, the `fmt.Println()` function is used to print the value of `s`, which is "`iainianian`" after replacing "ni"
    with "in" twice.
 
 #### Q4. What is printed by this code?
@@ -1924,3 +1927,187 @@ another task. By overlapping the execution of multiple tasks, the overall latenc
 leading to improved efficiency and performance.
 
 ![latency-hiding.png](..%2Fsrc%2Fgolang%2Flatency-hiding.png)
+
+<p align="right">(<a href="#table-of-contents">back to top</a>)</p>
+
+---
+
+#### Concurrency basics
+
+#### Q1. What unique resources does a process have?
+
+* I. Program counter value.
+* II. Virtual address space.
+* III. Shared libraries
+
+1. [ ] I only.
+2. [x] I and II, NOT III
+3. [ ] II and III, NOT I
+4. [ ] II only
+
+#### Explanation
+
+**I. Program counter value**:
+
+The program counter (PC) is a register in the processor that keeps track of the address of the next instruction to be
+executed. It is a unique resource for each process because it determines the current execution state of the process and
+is updated as instructions are executed. The PC value is specific to each process and helps the processor to fetch the
+next instruction from the correct location in memory.
+
+**II. Virtual address space**:
+
+Each process has its own virtual address space, which is a range of memory addresses that the process can access. The
+virtual address space provides an isolated and protected memory region for each process, allowing them to run
+independently without interfering with each other's memory. It enables processes to have their own private memory space,
+including stack, heap, and code segments.
+
+![virtual-address-space.png](..%2Fsrc%2Fgolang%2Fvirtual-address-space.png)
+
+**III. Shared libraries**:
+
+Shared libraries are collections of pre-compiled code that can be used by multiple processes simultaneously. They
+contain common functions and routines that can be shared among different processes to optimize memory usage and improve
+efficiency. Shared libraries are loaded into the memory space of the processes that need them, allowing multiple
+processes to access and execute the same code from a shared location.
+
+#### Q2. What does an operating system do to enable concurrency on a single processor machine?
+
+1. [ ] Provides a graphic interface to allow the user to control system functions.
+2. [ ] Partitions processor hardware to allow parallel execution of multiple processes.
+3. [ ] Combines different processes into a single process.
+4. [x] Interleaves the execution of different processes.
+
+#### Explanation
+
+On a single processor machine, the operating system employs a technique called time-sharing or multitasking to enable
+concurrency. Time-sharing allows multiple processes to execute on the processor by dividing the available CPU time among
+them.
+
+#### Q3. What is the “context” that is referred to in the term “context switch”?
+
+1. [ ] Shared libraries used by a process.
+2. [x] Memory and register values unique to a process.
+3. [ ] The parameters specific to the operating system.
+4. [ ] The set of executing processes.
+
+#### Explanation
+
+In computing, a context switch is the process of saving and restoring the execution context or state of a process or
+thread by the operating system. The context of a process includes various components, such as memory and register
+values, that are unique to that process. Here's a breakdown of the context components involved:
+
+**Memory:**
+
+The memory context refers to the state of the process's memory space. It includes the contents of the program's code,
+data, and stack segments. When a context switch occurs, the operating system saves the current memory context of the
+process being switched out (information about the process, including its memory allocation, open files, and other
+relevant data).
+
+**Registers:**
+
+Registers are small, high-speed storage locations within the processor that hold crucial data and instructions during
+program execution. The context switch involves saving the contents of the CPU registers, such as the program counter (
+PC), stack pointer (SP), and general-purpose registers (e.g., AX, BX, etc.), into the process's PCB. This ensures that
+the process's state is preserved, allowing it to resume execution correctly when it is scheduled to run again.
+
+**Other State Information:**
+
+Besides memory and register values, the context switch may involve saving other state information specific to the
+process, such as the process's priority, I/O status, open file descriptors, and other relevant information needed for
+resuming execution accurately.
+
+By saving the memory and register values specific to a process, the operating system can switch between multiple
+processes, allowing them to execute concurrently on a single processor. When a context switch occurs, the operating
+system stores the current process's context and loads the context of the next process to be executed. This enables the
+seamless switching and resumption of execution for each process, providing the illusion of parallelism or concurrency in
+a system with limited resources.
+
+#### Q4. What is the difference between a thread and a process?
+
+1. [x] A thread has less unique context than a process.
+2. [ ] Threads do not have unique program counter values.
+3. [ ] Processes can execute programs but threads cannot.
+4. [ ] A thread is another name for a process.
+
+#### Explanation
+
+A thread and a process are both units of execution in a computer system, but they have distinct characteristics. Here's
+a comparison between threads and processes:
+
+**Context:**
+
+A process has its own independent execution context, which includes its memory space, file descriptors, registers, and
+program counter. In contrast, a thread shares the same memory space and file descriptors with other threads in the same
+process, but each thread has its own unique stack and register values. Therefore, a thread has less unique context
+compared to a process.
+
+**Program Counter:**
+
+Each thread within a process has its own program counter, which keeps track of the next instruction to be executed.
+Threads can have different program counter values and execute different code paths concurrently. In contrast, a process
+also has its program counter, but it represents the current execution state of the process as a whole.
+
+**Execution:**
+
+Processes can execute programs independently and have their own resources allocated, such as memory, file handles, and
+other system resources. Threads, on the other hand, are units of execution within a process. Multiple threads within the
+same process share the same resources, including memory and open files. Threads can run concurrently and perform
+different tasks simultaneously within the process.
+
+**Relationship:**
+
+A process can have multiple threads. Threads within the same process share the same address space, allowing for
+efficient communication and coordination between threads. Processes, on the other hand, are independent entities and
+typically communicate through inter-process communication mechanisms.
+
+---
+
+In summary, the key difference between a thread and a process is that a thread has less unique context compared to a
+process. Threads share the same memory space and file descriptors within a process, whereas processes have their own
+independent execution contexts and can execute programs independently.
+
+#### Q5. What is the main function of the Go runtime scheduler?
+
+1. [ ] Schedules operating systems processes.
+2. [x] Schedules goroutines inside an operating system thread.
+3. [ ] Schedules operating system threads inside a process.
+4. [ ] Assigns operating system threads to hardware processors.
+
+#### Explanation
+
+The main function of the Go runtime scheduler is to schedule goroutines, not operating system processes or threads.
+
+The Go runtime scheduler schedules goroutines, which are lightweight concurrent units of execution in the Go programming
+language. It maps these goroutines onto operating system threads. The scheduler determines which goroutines to run, when
+to start and stop them, and how to distribute them among available threads.
+
+#### Q6. Suppose that there are two goroutines executing, g1 and g2. Assume that g1 requires 1 second to complete when it is executed alone, and g2 requires 2 seconds to complete when it is executed alone. Assume that there is no synchronization between g1 and g2. Assume that g1 and g2 are executed concurrently and that g1 begins executing first. What do we know about the relative completion times of g1 and g2?
+
+1. [ ] g2 will complete before g1.
+2. [x] Nothing!
+3. [ ] g1 will complete before g2.
+4. [ ] g2 and g1 will complete at virtually the same time.
+
+#### Explanation
+
+The same that for the following question.
+
+#### Q7. Assume that two goroutines are executed concurrently. Which of the following statements is true?
+
+1. [ ] The relative order of the execution of their instructions is deterministic.
+2. [ ] The relative order of the execution of their instructions is unknown, but it is the same each time they are
+   executed together.
+3. [x] The relative order of the execution of their instructions can be different every time that they are executed
+   together.
+4. [ ] The relative order of the execution of their instructions can be determined from startup conditions.
+
+#### Explanation
+
+When multiple goroutines are executed concurrently, the relative order of the execution of their instructions can vary.
+This is because goroutines operate independently and can be scheduled and executed in different orders by the Go runtime
+scheduler.
+
+The Go programming language does not guarantee a specific deterministic order of execution for instructions across
+different goroutines. The scheduler may interleave the execution of instructions from different goroutines in different
+ways each time they are executed together. This non-determinism in the execution order allows for concurrent and
+parallel execution, but it means that the relative order of instructions cannot be predicted or assumed.
