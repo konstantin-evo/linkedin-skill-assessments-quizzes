@@ -49,6 +49,9 @@
         <li>
           <a href="#concurrency-basics">Concurrency basics</a>
         </li>
+        <li>
+          <a href="#threads-in-go">Threads in Go</a>
+        </li>
       </ul>
   </li>
 </ol>
@@ -2111,3 +2114,237 @@ The Go programming language does not guarantee a specific deterministic order of
 different goroutines. The scheduler may interleave the execution of instructions from different goroutines in different
 ways each time they are executed together. This non-determinism in the execution order allows for concurrent and
 parallel execution, but it means that the relative order of instructions cannot be predicted or assumed.
+
+<p align="right">(<a href="#table-of-contents">back to top</a>)</p>
+
+---
+
+#### Threads in Go
+
+#### Q1. Suppose you want to start a goroutine which executes a function called test1(). What code would create this goroutine?
+
+1. [ ] test1() go
+2. [ ] start test1()
+3. [ ] goroutine test1()
+4. [x] go test1()
+
+#### Explanation
+
+The correct code to create a goroutine that executes the function `test1()` is:
+
+```go
+go test1()
+```
+
+In Go, the `go` keyword is used to create a new goroutine. By prefixing a function call with `go`, it instructs the Go
+runtime to execute that function concurrently in a separate goroutine. In this case, `test1()` will be executed in a new
+goroutine.
+
+#### Q2. When does a goroutine complete?
+
+* I. When its code completes.
+* II. When all goroutines complete.
+* III. When the main goroutine completes.
+
+1. [ ] I and II, NOT III.
+2. [x] I and III, NOT II.
+3. [ ] I, II, and III.
+4. [ ] I only.
+
+#### Explanation
+
+A goroutine in Go completes when its code completes. It does not wait for other goroutines to complete, including the
+main goroutine. The main goroutine may exit before other goroutines finish executing, but the other goroutines will
+continue running until their code completes or the program terminates.
+
+#### Q3. Synchronization is useful for what purpose?
+
+* I. Restrict illegal interleavings.
+* II. Force events in different goroutines to occur in sequence.
+* III. Allow a goroutine to continue to execute after the main goroutine has completed.
+
+1. [ ] I, II, and III.
+2. [ ] I only.
+3. [ ] I and III, NOT II.
+4. [x] I and II, NOT III.
+
+#### Explanation
+
+Synchronization in Go is primarily used to restrict illegal interleavings (I) and force events in different goroutines
+to occur in a specific sequence (II).
+
+It allows you to coordinate the execution of concurrent goroutines and ensure proper ordering of operations. However,
+synchronization mechanisms in Go, such as channels and mutexes, do not inherently allow a goroutine to continue
+execution after the main goroutine has completed (III). The execution of a program typically terminates when the main
+goroutine exits, regardless of the status of other goroutines.
+
+#### Q4. If a goroutine g1 is using a WaitGroup wg to wait until another goroutine g2 completes a task, what method of the WaitGroup should be called when g2 has finished the task?
+
+1. [x] wg.Done()
+2. [ ] wg.End()
+3. [ ] wg.Finished()
+4. [ ] wg.Alarm()
+
+#### Explanation
+
+In Go, the method `wg.Done()` should be called when goroutine `g2` has finished the task it was performing and wants to
+signal to the WaitGroup that it has completed. This method decrements the `WaitGroup` counter by one, indicating that a
+goroutine has finished its execution.
+
+Here's an example of how a WaitGroup can be used to synchronize goroutines:
+
+```go
+package main
+
+import (
+"fmt"
+"sync"
+)
+
+func main() {
+var wg sync.WaitGroup
+
+	// Add 1 to the WaitGroup counter
+	wg.Add(1)
+
+	// Launch goroutine g2
+	go g2(&wg)
+
+	// Wait until the WaitGroup counter becomes 0
+	wg.Wait()
+
+	fmt.Println("All goroutines have completed.")
+}
+
+func g2(wg *sync.WaitGroup) {
+// Signal to the WaitGroup that g2 has completed
+defer wg.Done()
+
+	// Perform some task
+	fmt.Println("Goroutine g2 has completed its task.")
+}
+```
+
+#### Q5. If a goroutine g1 is using a WaitGroup wg to wait until another goroutine g2 completes a task, what method of the WaitGroup should be called before g2 starts its task?
+
+1. [ ] wg.Fork()
+2. [ ] wg.Start()
+3. [x] wg.Add()
+4. [ ] wg.Begin()
+
+#### Explanation
+
+Before goroutine `g2` starts its task, the method `wg.Add()` should be called on the WaitGroup `wg`. This method
+increments the `WaitGroup` counter by one, indicating that a goroutine will be added to the group. By adding 1 to the
+counter, `g1` acknowledges that it expects one more goroutine (`g2`) to complete before it can proceed.
+
+#### Q6. How might you write code to allow a goroutine to receive data from a channel c?
+
+1. [ ] x <- c
+2. [x] x = <- c
+3. [ ] x = c
+4. [ ] x <-- c
+
+#### Explanation
+
+To receive data from a channel in Go, you can use the `<-` operator. The correct syntax to receive data from channel `c`
+and assign it to variable `x` is `x = <- c`. This operation will block the execution of the goroutine until there is
+data available on the channel `c`, at which point the value will be received and assigned to `x`.
+
+Here's an example of writing code to allow a goroutine to receive data from a channel:
+
+```go
+package main
+
+import (
+	"fmt"
+	"time"
+)
+
+func main() {
+	c := make(chan int)
+
+	go func() {
+		// Receive data from channel c and assign it to x
+		x := <-c
+		fmt.Println("Received:", x)
+	}()
+
+	// Send data to channel c
+	c <- 42
+
+	// Wait for 5 seconds before exiting
+	time.Sleep(5 * time.Second)
+}
+```
+
+#### Q7. What is the difference between a buffered channel and an unbuffered channel?
+
+1. [x] A buffered channel can hold multiple objects until they are read. An unbuffered channel cannot.
+2. [ ] A buffered channel delays the transmission of data. An unbuffered channel does not.
+3. [ ] A buffered channel delays the reception of data. An unbuffered channel does not.
+4. [ ] A buffered channel can communicate between more than 2 goroutines. An unbuffered channel cannot.
+
+#### Explanation
+
+The main difference between a buffered channel and an unbuffered channel in Go is the ability to hold multiple objects.
+
+**A buffered channel** has a specific capacity that determines how many values it can hold. When sending values to a
+buffered channel, the sender can continue executing as long as the channel is not full. If the channel is full, the
+sender will block until there is space available to transmit the value. Similarly, when receiving values from a buffered
+channel, the receiver can continue executing as long as the channel is not empty. If the channel is empty, the receiver
+will block until there is a value available to be received.
+
+**An unbuffered channel** has no capacity and can only hold one value at a time. When sending a value to an unbuffered
+channel, the sender will block until a receiver is ready to receive the value. Similarly, when receiving a value from an
+unbuffered channel, the receiver will block until a sender is ready to send the value.
+
+Here's an example that demonstrates the difference between a buffered channel and an unbuffered channel:
+
+```go
+package main
+
+import (
+	"fmt"
+)
+
+func main() {
+	// Buffered channel with capacity 2
+	bufferedChannel := make(chan int, 2)
+
+	// Sending values to the buffered channel
+	bufferedChannel <- 1
+	bufferedChannel <- 2
+
+	// Receiving values from the buffered channel
+	fmt.Println("Received from buffered channel:", <-bufferedChannel)
+	fmt.Println("Received from buffered channel:", <-bufferedChannel)
+
+	// Unbuffered channel
+	unbufferedChannel := make(chan int)
+
+	// Sending a value to the unbuffered channel
+	go func() {
+		unbufferedChannel <- 3
+		fmt.Println("Sent to unbuffered channel")
+	}()
+
+	// Receiving the value from the unbuffered channel
+	fmt.Println("Received from unbuffered channel:", <-unbufferedChannel)
+
+	// Wait for a key press before exiting
+	fmt.Scanln()
+}
+```
+
+In this example, we have a buffered channel `bufferedChannel` with a capacity of 2. We send two values to the buffered
+channel using `bufferedChannel <- value`, and then we receive and print the values using `<-bufferedChannel`.
+
+Next, we have an unbuffered channel `unbufferedChannel`. We launch a goroutine that sends a value to the unbuffered
+channel using `unbufferedChannel <- value`. We then receive and print the value from the unbuffered channel
+using `<-unbufferedChannel`.
+
+If you run this code, you will observe that the values are received from the buffered channel without blocking since the
+channel has the capacity to hold the values. However, when receiving from the unbuffered channel, the main goroutine
+blocks until the value is sent from the goroutine that is launched.
+
