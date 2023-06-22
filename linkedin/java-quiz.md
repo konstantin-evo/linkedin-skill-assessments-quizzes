@@ -247,7 +247,7 @@ class Main {
 An exception is an abnormal event that arises during the execution of the program and disrupts the normal flow of the
 program.
 
-![](src/java/java-exceptions-classes.png)
+![](../src/java/java-exceptions-classes.png)
 
 The class `Exception` and its subclasses are a form of Throwable that indicates conditions that a reasonable application
 might want to catch.
@@ -527,7 +527,7 @@ zero.
 The public class `IndexOutOfBoundsException` extends RuntimeException. Thrown to indicate that an index of some sort (
 such as to an array, to a string, or to a vector) is out of range.
 
-![](src/java/java-exceptions-classes.png)
+![](../src/java/java-exceptions-classes.png)
 
 #### Q15. How do you write a foreach loop that will iterate over ArrayList\<Pencil\>pencilCase?
 
@@ -1009,11 +1009,11 @@ Java LinkedList class uses a doubly linked list to store the elements. It provid
 
 LinkedList example:
 
-![](src/java/java-collection-linkedlist.png)
+![](../src/java/java-collection-linkedlist.png)
 
 It inherits the AbstractList class and implements List and Deque interfaces.
 
-![](src/java/java-collection-hierarchy.png)
+![](../src/java/java-collection-hierarchy.png)
 
 The important points about Java LinkedList are:
 
@@ -1258,7 +1258,7 @@ The letter "C" will not be printed because the program will throw an Error (not 
 
 **Note**: `Error` is not inherited from `Exception`
 
-![](src/java/java-exceptions-classes.png)
+![](../src/java/java-exceptions-classes.png)
 
 #### Q34. What is the output of this code?
 
@@ -1603,7 +1603,7 @@ Some common reasons for `NullPointerException` in java programs are:
 4. Accessing index or modifying value of an index of an array that is null;
 5. Checking the length of an array that is null at runtime.
 
-![](src/java/java-exceptions-classes.png)
+![](../src/java/java-exceptions-classes.png)
 
 #### Q45. How would you fix this code so that it compiles?
 
@@ -1675,7 +1675,7 @@ and other resources that a specific Java program needs to run.
 
 Difference between JDK,JRE and JVM:
 
-![](src/java/jdk-jre-jvm.png)
+![](../src/java/jdk-jre-jvm.png)
 
 #### Q48. Given this class, how would you make the code compile?
 
@@ -2782,7 +2782,7 @@ according to the priority, that’s when the `PriorityQueue` comes into play.
 The `PriorityQueue` is based on the priority heap. The elements of the priority queue are ordered according to the
 natural ordering, or by a `Comparator` provided at queue construction time, depending on which constructor is used.
 
-![](src/java/java-collection-queque.png)
+![](../src/java/java-collection-queque.png)
 
 We do not specify a comparator, i.e. the integer elements are sorted according to their natural order.
 
@@ -2911,7 +2911,7 @@ Throwable class is the root class of Java Exception Hierarchy and is inherited b
 1. Exception
 2. Error
 
-![](src/java/java-exceptions-classes.png)
+![](../src/java/java-exceptions-classes.png)
 
 #### Q94. Which class does not implement the java.util.Collection interface?
 
@@ -2930,7 +2930,7 @@ There is no direct implementation of this interface. However, it is implemented 
 For example, the `ArrayList` class implements the `List` interface which is a subinterface of the `Collection`
 Interface.
 
-![](src/java/java-collection-interface.jpg)
+![](../src/java/java-collection-interface.jpg)
 
 **Note**: `HashMap` class implements `Map` interface.
 
@@ -3042,7 +3042,7 @@ is one of the important interfaces to stream classes.
 The `Closeable` interface extends `AutoCloseable` interface therefore any class that implements `Closeable` also
 implements `AutoCloseable`.
 
-![](src/java/java-hierarchy-of-closeable-interface.png)
+![](../src/java/java-hierarchy-of-closeable-interface.png)
 
 `AutoCloseable` was specially introduced to work with try-with-resources statements.
 

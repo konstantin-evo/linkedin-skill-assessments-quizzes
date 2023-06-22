@@ -189,7 +189,7 @@ main content.
 
 Asides are frequently presented as sidebars or call-out boxes.
 
-![HTML Base structure](src/html/html-base-structure.gif)
+![HTML Base structure](../src/html/html-base-structure.gif)
 
 #### Q9. With which tags are the `<source>` element associated?
 
@@ -590,7 +590,7 @@ For example, for Spain the hreflang is "es-es", while for Mexico it is "es-mx".
 
 #### Q21. Review the text in the red box in the image shown. What is the best way to code this in HTML?
 
-![Image of footer](src/html/q21.png?raw=true)
+![Image of footer](../src/html/q21.png?raw=true)
 
 - [ ] ordered list
 - [x] unordered list inside a nav element
@@ -746,7 +746,7 @@ Example:
 
 #### Q25. What code will produce this table?
 
-![Table with yellow background](src/html/q25.png?raw=true)
+![Table with yellow background](../src/html/q25.png?raw=true)
 
 - [ ] A
 
@@ -1184,7 +1184,7 @@ The `<abbr>` tag defines an abbreviation or an acronym, like "HTML", "CSS", "Mr.
 
 #### Q34. What is the correctly nested markup for this list?
 
-![Sample list](src/html/q34.png?raw=true)
+![Sample list](../src/html/q34.png?raw=true)
 
 - [ ] A
 
@@ -1301,7 +1301,7 @@ Example:
 
 #### Q36. What is the semantically correct way to mark up this layout?
 
-![quote](src/html/q36.png?raw=true)
+![quote](../src/html/q36.png?raw=true)
 
 - [ ] A
 
@@ -1494,7 +1494,7 @@ The `<html>` tag is the root element of an HTML document, which means that it co
 
 #### Q44. Which code snippet creates the layout shown, starting at `<table>` and ending at `</table>`?
 
-![Table](src/html/q44.png?raw=true 'table')
+![Table](../src/html/q44.png?raw=true 'table')
 
 - [ ] A
 
@@ -2357,7 +2357,7 @@ Example:
 
 #### Q68. Given the file and directory structure shown here, what is the correct element to place in file profit.html to link to info.html?
 
-![Image of footer](src/html/q68.png?raw=true)
+![Image of footer](../src/html/q68.png?raw=true)
 
 - [ ] `<a href="../work/info.html">See Information </a>`
 - [x] `<a href="../info.html">See Information </a>`
@@ -2685,7 +2685,7 @@ display: inline;
 
 #### Q76. Which choice is the best way to mark up this layout?
 
-![Image of footer](src/html/q76.png?raw=true)
+![Image of footer](../src/html/q76.png?raw=true)
 
 - [x] A
 
@@ -2792,13 +2792,13 @@ document.write("Hello World!")
 ```
 
 - [x] A
-  ![A](src/html/q84-1.jpg)
+  ![A](../src/html/q84-1.jpg)
 - [ ] B
-  ![B](src/html/q84-2.jpg)
+  ![B](../src/html/q84-2.jpg)
 - [ ] C
-  ![C](src/html/q84-3.jpg)
+  ![C](../src/html/q84-3.jpg)
 - [ ] D
-  ![D](src/html/q84-4.jpg)
+  ![D](../src/html/q84-4.jpg)
 
 #### Explanation
 

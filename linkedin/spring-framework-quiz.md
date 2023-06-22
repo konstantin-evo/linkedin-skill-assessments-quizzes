@@ -14,7 +14,7 @@ By using filter, we can perform two operations at two instances:
 - Before sending the request to the controller;
 - Before sending a response to the client.
 
-<img src="./src/spring-framework/filters-in-spring-mvc.jpg" alt="filters-in-spring-mvc" width="700"/>
+<img src="../src/spring-framework/filters-in-spring-mvc.jpg" alt="filters-in-spring-mvc" width="700"/>
 
 Example of implementation of the `Filter interface`:
 
@@ -62,7 +62,7 @@ The key unit of modularity in OOP is the class, whereas in AOP the unit of modul
 **Aspect** is a modularization of a concern that cuts across multiple classes.
 Transaction management is a good example of a crosscutting concern in enterprise Java applications.
 
-<img src="./src/spring-framework/spring-aop-core-concept.jpg" alt="Aspect-Oriented Programming Spring" width="500"/>
+<img src="../src/spring-framework/spring-aop-core-concept.jpg" alt="Aspect-Oriented Programming Spring" width="500"/>
 
 Let's begin by defining some central AOP concepts and terminology:
 
@@ -114,7 +114,7 @@ The `ViewResolver` is an interface to be implemented by objects that can resolve
 
 The `View` interface addresses the preparation of the request and hands the request over to one of the view technologies.
 
-<img src="./src/spring-framework/spring-dispatcher-servlet.jpg" alt="Aspect-Oriented Programming Spring" width="500"/>
+<img src="../src/spring-framework/spring-dispatcher-servlet.jpg" alt="Aspect-Oriented Programming Spring" width="500"/>
 
 ```java
 public interface ViewResolver {
@@ -149,7 +149,7 @@ A JDK proxy instance is created programmatically using Spring's ProxyFactory🎓
 
 ☝🏼 **Note**: there's no code generation going on, which means there's no CGLib, no byte-code generation at all.
 
-<img src="./src/spring-framework/jdk-proxy-interface-based.png" alt="Java Dynamic Proxy"/>
+<img src="../src/spring-framework/jdk-proxy-interface-based.png" alt="Java Dynamic Proxy"/>
 
 A `MethodInterceptor` intercepts all calls to the instance and routes the method into the appropriate places.
 
@@ -158,7 +158,7 @@ A `MethodInterceptor` intercepts all calls to the instance and routes the method
 For that a resolution mechanism is in place that tries to identify explicitly declared queries in various places (using @Query on the method, JPA named queries) eventually falling back to query derivation from the method name.
 3. If none of the above apply the method executed has to be one implemented by a store-specific repository base class (SimpleJpaRepository in case of JPA) and the call is routed into an instance of that.
 
-<img src="./src/spring-framework/java-method-interceptor.png" alt="Method Interceptor"/>
+<img src="../src/spring-framework/java-method-interceptor.png" alt="Method Interceptor"/>
 
 The method interceptor implementing that routing logic is `QueryExecutorMethodInterceptor`.
 
@@ -244,7 +244,7 @@ etc.
 
 This can be done at compile time (using the AspectJ compiler, for example), load time, or at runtime. Spring AOP, like other pure Java AOP frameworks, performs weaving at runtime.
 
-<img src="./src/spring-framework/spring-aop-core-concept.jpg" alt="Aspect-Oriented Programming Spring" width="500"/>
+<img src="../src/spring-framework/spring-aop-core-concept.jpg" alt="Aspect-Oriented Programming Spring" width="500"/>
 
 An **Aspect** is a modularization of a concern that cuts across multiple classes. Unified logging can be an example of such cross-cutting concern.
 
@@ -279,7 +279,7 @@ Spring AOP is proxy based. Spring used two types of proxy strategy:
 - JDK dynamic proxy;
 - CGLIB proxy.
 
-<img src="./src/spring-framework/spring-aop-proxy-process.png" alt="Java Dynamic proxy mechanism" width="600"/>
+<img src="../src/spring-framework/spring-aop-proxy-process.png" alt="Java Dynamic proxy mechanism" width="600"/>
 
 **JDK dynamic proxy** is available with the JDK. It can be only proxy by interface so the target class needs to implement the interface. If you are implementing one or more interfaces then spring will automatically use JDK dynamic proxies.
 
@@ -446,7 +446,7 @@ The Spring IoC (Inversion of Control) container manages Spring beans.
 
 The Spring IoC container is responsible for instantiating, initializing, and wiring beans. The container also manages the life cycle of beans.
 
-<img src="./src/spring-framework/spring-bean-life-cycle.png" alt="Spring - Bean Life Cycle" width="600"/>
+<img src="../src/spring-framework/spring-bean-life-cycle.png" alt="Spring - Bean Life Cycle" width="600"/>
 
 #### Q11. What is the function of the `@Transactional` annotation at the class level?
 
@@ -485,7 +485,7 @@ The annotation supports further configuration as well:
 
 At a high level, Spring creates proxies for all the classes annotated with `@Transactional`. The proxy allows the framework to Inject transactional logic before and after the running method, mainly for starting and committing the transaction.
 
-<img src="./src/spring-framework/spring-proxy-transaction.png" alt="Spring proxy transaction" width="500"/>
+<img src="../src/spring-framework/spring-proxy-transaction.png" alt="Spring proxy transaction" width="500"/>
 
 #### Q12. Which is a valid example of the output from this code (ignoring logging statements) ?
 
@@ -821,7 +821,7 @@ public class AppointmentsController {
 
 `WebApplicationContext` in Spring is web aware ApplicationContext i.e it has Servlet Context information.
 
-<img src="./src/spring-framework/spring-web-application-context.png" alt="Spring WebApplicationContext" width="400"/>
+<img src="../src/spring-framework/spring-web-application-context.png" alt="Spring WebApplicationContext" width="400"/>
 
 #### Q21. Which property can be used to change the port of a Spring application?
 
@@ -906,7 +906,7 @@ Dispatches to registered handlers for processing a web request, providing conven
 
 The core responsibility of a DispatcherServlet is to dispatch incoming HttpRequests to the correct handlers specified with the `@Controller` or `@RestController` annotations.
 
-<img src="./src/spring-framework/spring-dispatcher-servlet.jpg" alt="Aspect-Oriented Programming Spring" width="500"/>
+<img src="../src/spring-framework/spring-dispatcher-servlet.jpg" alt="Aspect-Oriented Programming Spring" width="500"/>
 
 #### Q25. What is the purpose of the Spring IoC (Inversion of Control) container?
 
@@ -921,7 +921,7 @@ An Inversion of Control container is a common characteristic of frameworks that 
 
 The Spring container is responsible for instantiating, configuring and assembling objects known as Beans, as well as managing their life cycles.
 
-<img src="./src/spring-framework/spring-container.png" alt="Spring IoC Container" width="400"/>
+<img src="../src/spring-framework/spring-container.png" alt="Spring IoC Container" width="400"/>
 
 Here's how we would create an object dependency in traditional programming:
 
@@ -1228,7 +1228,7 @@ The `DispatcherServlet` is the front controller in Spring web applications.
 
 The purpose of the DispatcherServlet is to take an incoming URI and find the right combination of handlers (generally methods on Controller classes) and views that combine to form the page or resource that's supposed to be found at that location.
 
-<img src="./src/spring-framework/spring-dispatcher-servlet.jpg" alt="DispatcherServlet " width="500"/>
+<img src="../src/spring-framework/spring-dispatcher-servlet.jpg" alt="DispatcherServlet " width="500"/>
 
 🎓 A servlet is a Java programming language class that is used to extend the capabilities of servers that host applications accessed by means of a request-response programming model.
 
@@ -1304,7 +1304,7 @@ Aspect-Oriented Programming complements Object-Oriented Programming by providing
 
 The key unit of modularity in OOP is the class, whereas in AOP is the aspect.
 
-<img src="./src/spring-framework/spring-aop-core-concept.jpg" alt="Aspect-Oriented Programming Spring" width="500"/>
+<img src="../src/spring-framework/spring-aop-core-concept.jpg" alt="Aspect-Oriented Programming Spring" width="500"/>
 
 **Aspects** enable the modularization of concerns such as transaction management that cut across multiple types and objects.
 
@@ -1483,7 +1483,7 @@ A **Bean** is an object that is instantiated, assembled, and otherwise managed b
 
 Beans, and the dependencies among them, are reflected in the configuration metadata used by a container.
 
-<img src="./src/spring-framework/spring-container.png" alt="Spring IoC Container" width="400"/>
+<img src="../src/spring-framework/spring-container.png" alt="Spring IoC Container" width="400"/>
 
 #### Q43. Which property is given precedence by Spring?
 
@@ -1511,7 +1511,7 @@ Bean is the object that forms the backbone of your application and that is manag
 
 Bean life cycle:
 
-<img src="./src/spring-framework/spring-bean-life-cycle.png" alt="Spring - Bean Life Cycle" width="600"/>
+<img src="../src/spring-framework/spring-bean-life-cycle.png" alt="Spring - Bean Life Cycle" width="600"/>
 
 When we run the program then… 
 1. First of all, the Spring Container gets started;
@@ -1521,7 +1521,7 @@ When we run the program then…
 
 Spring IoC Initialization Life-cycle looks more complicated:
 
-<img src="./src/spring-framework/spring-container-life-cycle.png" alt="Spring - Container Life Cycle"/>
+<img src="../src/spring-framework/spring-container-life-cycle.png" alt="Spring - Container Life Cycle"/>
 
 ##### 1. Read and parse the Bean definitions (either as XML, JavaConfig)
 
@@ -1810,7 +1810,7 @@ Aspect-Oriented Programming complements Object-Oriented Programming by providing
 
 The key unit of modularity in OOP is the class, whereas in AOP the unit of modularity is the aspect.
 
-<img src="./src/spring-framework/spring-aop-core-concept.jpg" alt="Aspect-Oriented Programming Spring" width="500"/>
+<img src="../src/spring-framework/spring-aop-core-concept.jpg" alt="Aspect-Oriented Programming Spring" width="500"/>
 
 Let's begin by defining some central AOP concepts and terminology:
 
@@ -1973,7 +1973,7 @@ Cglib is used extensively by the Spring framework. One example of using a cglib 
 
 Instead of calling a method directly, Spring security will first check (via proxy) if a specified security check passes and delegate to the actual method only if this verification was successful.
 
-<img src="./src/spring-framework/cglib-proxy.png" alt="Code Generation Library"/>
+<img src="../src/spring-framework/cglib-proxy.png" alt="Code Generation Library"/>
 
 #### Q55. What is the purpose of a web application context?
 
@@ -1992,7 +1992,7 @@ A `WebApplicationContext` interface extending `ApplicationContext` with a contra
 
 Anyway, applications usually should not be concerned about those implementation details: the root web application context is simply a centralized place to define shared beans.
 
-<img src="./src/spring-framework/spring-web-application-context.png" alt="Spring WebApplicationContext" width="400"/>
+<img src="../src/spring-framework/spring-web-application-context.png" alt="Spring WebApplicationContext" width="400"/>
 
 `ServletContext` is an interface that defines a set of methods that a servlet uses to communicate with its servlet container. For example, … 
 - get the MIME type of a file;
@@ -2007,7 +2007,7 @@ Anyway, applications usually should not be concerned about those implementation 
 
 The `ApplicationContext` interface implements the `BeanFactory` interface.
 
-<img src="./src/spring-framework/spring-bean-factory.jpg" alt="Spring BeanFactory"/>
+<img src="../src/spring-framework/spring-bean-factory.jpg" alt="Spring BeanFactory"/>
 
 🎓 The `DispatcherServlet` is the front controller in Spring web applications. It's used to create web applications and REST services in Spring MVC.
 
@@ -2026,7 +2026,7 @@ Aspect-Oriented Programming complements Object-Oriented Programming by providing
 
 The key unit of modularity in OOP is the class, whereas in AOP the unit of modularity is the aspect.
 
-<img src="./src/spring-framework/spring-aop-core-concept.jpg" alt="Aspect-Oriented Programming Spring" width="500"/>
+<img src="../src/spring-framework/spring-aop-core-concept.jpg" alt="Aspect-Oriented Programming Spring" width="500"/>
 
 Let's begin by defining some central AOP concepts and terminology:
 - **Aspect** is a modularization of a concern that cuts across multiple classes.
@@ -2087,7 +2087,7 @@ public interface Authentication extends Principal, Serializable
 
 Once the request has been authenticated, the Authentication will usually be stored in a thread-local `SecurityContext` managed by the `SecurityContextHolder` by the authentication mechanism which is being used. 
 
-<img src="./src/spring-framework/spring-security-context.png" alt="Spring Security Contex"/>
+<img src="../src/spring-framework/spring-security-context.png" alt="Spring Security Contex"/>
 
 We can retrieve the currently authenticated principal in a `@Controller` annotated bean.
 
@@ -2228,7 +2228,7 @@ Static variable is not a property of Object, but it is a property of a Class. Sp
 
 The `SecurityContext` and `SecurityContextHolder` are two fundamental classes of Spring Security.
 
-<img src="./src/spring-framework/spring-security-context.png" alt="Spring Security Contex"/>
+<img src="../src/spring-framework/spring-security-context.png" alt="Spring Security Contex"/>
 
 The `SecurityContext` is used to store the details of the currently authenticated user, also known as a principle. So, if you have to get the username or any other user details, you need to get this SecurityContext first.
 
@@ -2319,7 +2319,7 @@ The former is the default if no `HandlerMapping` bean is registered in the `Appl
 
 Pointcut is a predicate that matches join points. Advice is associated with a pointcut expression and runs at any join point matched by the pointcut (for example, the execution of a method with a certain name).
 
-<img src="./src/spring-framework/spring-aop-core-concept.jpg" alt="Aspect-Oriented Programming Spring" width="500"/>
+<img src="../src/spring-framework/spring-aop-core-concept.jpg" alt="Aspect-Oriented Programming Spring" width="500"/>
 
 The concept of join points as matched by pointcut expressions is central to AOP, and Spring uses the AspectJ pointcut expression language by default.
 
@@ -2352,7 +2352,7 @@ Here the first wildcard matches any return value, the second matches any method 
 
 Front Controller - In Spring Web MVC, the `DispatcherServlet` class works as the front controller. It is responsible to manage the flow of the Spring MVC application.
 
-<img src="./src/spring-framework/spring-dispatcher-servlet.jpg" alt="Aspect-Oriented Programming Spring" width="500"/>
+<img src="../src/spring-framework/spring-dispatcher-servlet.jpg" alt="Aspect-Oriented Programming Spring" width="500"/>
 
 `DispatcherServlet` is a central dispatcher for HTTP request handlers/controllers, e.g. for web UI controllers or HTTP-based remote service exporters.
 
