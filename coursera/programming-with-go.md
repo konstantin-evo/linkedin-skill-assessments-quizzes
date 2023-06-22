@@ -52,6 +52,9 @@
         <li>
           <a href="#threads-in-go">Threads in Go</a>
         </li>
+        <li>
+          <a href="#synchronized-communication">Synchronized communication</a>
+        </li>
       </ul>
   </li>
 </ol>
@@ -2348,3 +2351,350 @@ If you run this code, you will observe that the values are received from the buf
 channel has the capacity to hold the values. However, when receiving from the unbuffered channel, the main goroutine
 blocks until the value is sent from the goroutine that is launched.
 
+<p align="right">(<a href="#table-of-contents">back to top</a>)</p>
+
+---
+
+#### Synchronized communication
+
+#### Q1. What line of code could be used to define a loop which iteratively reads from a channel ch1?
+
+1. [ ] for i <- ch1
+2. [x] for i := range ch1
+3. [ ] for i, err <- range ch1
+4. [ ] for i := ch1
+
+#### Explanation
+
+Here's an example in Go that demonstrates how to use a loop which iteratively reads from a channel:
+
+```go
+package main
+
+import (
+	"fmt"
+	"time"
+)
+
+func worker(id int, jobs <-chan int, results chan<- int) {
+	for j := range jobs {
+		fmt.Println("Worker", id, "started job", j)
+		time.Sleep(time.Second) // Simulating time-consuming task
+		fmt.Println("Worker", id, "finished job", j)
+		results <- j * 2
+	}
+}
+
+func main() {
+	jobs := make(chan int, 5)
+	results := make(chan int, 5)
+
+	// Start three worker goroutines
+	for w := 1; w <= 3; w++ {
+		go worker(w, jobs, results)
+	}
+
+	// Send jobs to the workers
+	for j := 1; j <= 5; j++ {
+		jobs <- j
+	}
+	close(jobs)
+
+	// Collect results from the workers
+	for a := 1; a <= 5; a++ {
+		result := <-results
+		fmt.Println("Result:", result)
+	}
+}
+```
+
+In this example, we have a `worker` function that receives jobs from a `jobs` channel and sends the results back through
+a `results` channel. We start three worker goroutines to process the jobs concurrently.
+
+In the `main` function, we create the `jobs` and `results` channels with a capacity of 5. We then send 5 jobs to
+the `jobs` channel and close it to indicate that no more jobs will be sent.
+
+Next, we collect the results from the `results` channel and print them out. Each worker multiplies the job value by 2
+and sends the result back through the `results` channel.
+
+When you run this program, you should see the workers processing the jobs concurrently, and the results being printed as
+they are received from the `results` channel.
+
+**Note**: The `time.Sleep` function is used to simulate a time-consuming task in the `worker` function.
+
+#### Q2. What does the select keyword do?
+
+1. [ ] Executes a set of case statements.
+2. [x] Allows a choice of channels to wait on.
+3. [ ] Chooses the greatest of a set of numbers.
+4. [ ] Chooses an element from a list based on a user-defined criterion.
+
+#### Explanation
+
+The `select` keyword in Go is used to perform non-blocking operations on multiple channels. It allows you to wait for
+communication from multiple channels simultaneously. With the `select` statement, you can specify a list of cases, each
+associated with a channel operation. The `select` statement will execute the case that is ready to communicate, and if
+multiple cases are ready, one of them is chosen randomly.
+
+Here's an example to illustrate the usage of the `select` statement:
+
+```go
+package main
+
+import (
+	"fmt"
+	"time"
+)
+
+func main() {
+	ch1 := make(chan string)
+	ch2 := make(chan string)
+
+	go func() {
+		time.Sleep(2 * time.Second)
+		ch1 <- "Message from channel 1"
+	}()
+
+	go func() {
+		time.Sleep(1 * time.Second)
+		ch2 <- "Message from channel 2"
+	}()
+
+	select {
+	case msg1 := <-ch1:
+		fmt.Println(msg1)
+	case msg2 := <-ch2:
+		fmt.Println(msg2)
+	}
+}
+```
+
+In this example, we have two goroutines sending messages to `ch1` and `ch2` channels after some delay. The `select`
+statement is used to wait for communication on either channel and print the message that is received first. Since the
+second goroutine has a shorter sleep duration, it will send the message first, and that message will be printed.
+
+The `select` statement allows you to handle multiple channel communications efficiently without blocking the execution,
+making it a powerful construct for concurrent programming in Go.
+
+#### Q3. What is the meaning of the default clause inside a select?
+
+1. [x] The default clause is executed if all case clauses are blocked.
+2. [ ] The default clause is executed before any case clause is executed.
+3. [ ] The default clause is executed after any case clause is executed.
+4. [ ] The default clause is executed only if a case clause is executed.
+
+#### Explanation
+
+In a `select` statement in Go, the `default` clause is used to provide a default action when none of the other case
+clauses are ready for communication. If all the case clauses are blocked, and no communication can take place on any of
+them, the code inside the `default` clause will be executed.
+
+Here's an example to illustrate the usage of the `default` clause:
+
+```go
+package main
+
+import (
+	"fmt"
+	"time"
+)
+
+func main() {
+	ch := make(chan string)
+
+	select {
+	case msg := <-ch:
+		fmt.Println("Received message:", msg)
+	default:
+		fmt.Println("No message received. Performing default action.")
+	}
+}
+```
+
+#### Q4. Suppose that there are two goroutines, g1 and g2, which share a variable x. X is initialized to 0. The only instruction executed by g1 is x = 4. The only instruction executed by g2 is x = x + 1. What is a possible value for x after both goroutines are complete?
+
+* I. 0
+* II. 1
+* III. 4
+* IV. 5
+
+1. [ ] I and II only.
+2. [ ] II and III only.
+3. [ ] I, II, and III but not IV.
+4. [x] II, III, IV, but not I.
+
+#### Explanation
+
+After both goroutines, g1 and g2, complete their execution, the possible value for x can be 1, 4, or 5.
+
+Here's a step-by-step breakdown of the execution:
+
+1. Initially, x is initialized to 0.
+2. When g1 executes the instruction x = 4, it sets the value of x to 4.
+3. When g2 executes the instruction x = x + 1, it reads the current value of x (which is 4), adds 1 to it, and assigns
+   the result back to x. Therefore, x becomes 5.
+
+So, the possible values for x after both goroutines are complete are 1, 4, or 5.
+
+#### Q5. What is mutual exclusion?
+
+1. [ ] When a single goroutine can execute only one of two blocks of code.
+2. [ ] When a single goroutine cannot execute a block of code.
+3. [x] When multiple goroutines cannot execute blocks of code concurrently.
+4. [ ] When a single goroutine is the only goroutine which ever accesses a variable.
+
+#### Explanation
+
+Mutual exclusion refers to a mechanism that ensures that multiple goroutines cannot execute certain blocks of code
+concurrently. It provides synchronization to prevent race conditions when multiple goroutines access shared resources
+simultaneously.
+
+A common approach to achieving mutual exclusion is by using a mutex or a lock. In Go, this can be achieved using
+the `sync` package, specifically the `sync.Mutex` type.
+
+Here's an example that demonstrates mutual exclusion using a mutex in Go:
+
+```go
+package main
+
+import (
+	"fmt"
+	"sync"
+)
+
+var (
+	counter int
+	mutex   sync.Mutex
+)
+
+func increment() {
+	mutex.Lock() // Acquire the lock to ensure exclusive access to the shared resource
+	counter++
+	mutex.Unlock() // Release the lock
+}
+
+func main() {
+	var wg sync.WaitGroup
+	iterations := 1000
+
+	wg.Add(iterations)
+
+	for i := 0; i < iterations; i++ {
+		go func() {
+			increment()
+			wg.Done()
+		}()
+	}
+
+	wg.Wait()
+
+	fmt.Println("Counter value:", counter)
+}
+```
+
+In this example, we have a shared variable `counter` that will be incremented by multiple goroutines concurrently. To
+ensure that the increment operation is performed exclusively, a mutex (`sync.Mutex`) is used.
+
+The `increment` function acquires the lock using `mutex.Lock()` before incrementing the counter and then releases the
+lock using `mutex.Unlock()`.
+
+Within the `main` function, we spawn multiple goroutines to call the `increment` function concurrently.
+The `sync.WaitGroup` is used to wait for all goroutines to finish before printing the final value of the counter.
+
+#### Q6. What is true about deadlock?
+
+* I. It can always be detected by the Golang runtime
+* II. It's caused by a circular dependency chain between goroutines
+* III. It can be caused by waiting on channels
+
+
+1. [ ] I and II only.
+2. [x] II and III only.
+3. [ ] I and III only.
+4. [ ] I, II, and III.
+
+#### Explanation
+
+Deadlock can be caused by a circular dependency chain between goroutines (II) and by waiting on channels (III). However,
+it cannot always be detected by the Golang runtime (I).
+
+Here's an explanation of each statement:
+
+I. It can always be detected by the Golang runtime: Deadlock situations can be challenging to detect, and the Go runtime
+does not automatically detect all deadlock scenarios. It is the responsibility of the programmer to design the code in a
+way that avoids deadlock situations and to apply techniques such as proper synchronization and avoiding circular
+dependencies to prevent deadlocks.
+
+II. It's caused by a circular dependency chain between goroutines: Deadlock can occur when multiple goroutines are
+waiting for each other to release resources or complete certain actions, forming a circular dependency chain. Each
+goroutine is waiting for another goroutine, leading to a situation where none of them can proceed. This circular
+dependency can result in a deadlock.
+
+III. It can be caused by waiting on channels: In Go, channels are commonly used for communication and synchronization
+between goroutines. Deadlock can occur when goroutines are waiting for communication on channels, and if the necessary
+send/receive operations are not properly coordinated, it can lead to a situation where both goroutines are waiting
+indefinitely, causing a deadlock.
+
+#### Q7. What is the method of the sync.mutex type which must be called at the beginning of a critical region?
+
+1. [x] Lock()
+2. [ ] Unlock()
+3. [ ] Take()
+4. [ ] Block()
+
+#### Explanation
+
+The method of the `sync.Mutex` type that must be called at the beginning of a critical region is `Lock()`.
+
+The `Lock()` method is used to acquire the mutex lock, which provides exclusive access to a shared resource or critical
+section. By calling `Lock()`, a goroutine can obtain the lock and proceed to execute the critical section, ensuring that
+other goroutines will be blocked from accessing the same resource concurrently.
+
+Here's an example that demonstrates the usage of `Lock()` and `Unlock()` methods:
+
+```go
+package main
+
+import (
+	"fmt"
+	"sync"
+)
+
+var (
+	counter int
+	mutex   sync.Mutex
+)
+
+func increment() {
+	mutex.Lock() // Acquire the lock to enter the critical section
+	counter++
+	mutex.Unlock() // Release the lock when finished with the critical section
+}
+
+func main() {
+	var wg sync.WaitGroup
+	iterations := 1000
+
+	wg.Add(iterations)
+
+	for i := 0; i < iterations; i++ {
+		go func() {
+			increment()
+			wg.Done()
+		}()
+	}
+
+	wg.Wait()
+
+	fmt.Println("Counter value:", counter)
+}
+```
+
+In this example, the `Lock()` method is called at the beginning of the `increment` function to acquire the lock and
+ensure exclusive access to the `counter` variable. Once the critical section is executed (incrementing the counter),
+the `Unlock()` method is called to release the lock and allow other goroutines to acquire it.
+
+By using the `Lock()` and `Unlock()` methods appropriately, we can ensure that only one goroutine can execute the
+critical section at a time, preventing data races and ensuring mutual exclusion.
+
+<p align="right">(<a href="#table-of-contents">back to top</a>)</p>
