@@ -142,7 +142,7 @@ The output is three Base64-URL strings separated by dots that can be easily pass
 
 The following shows a JWT that has the previous header and payload encoded, and it is signed with a secret.
 
-<img src="./src/rest-api/jwt-example.png" alt="JSON Web Token" width="500"/>
+<img src="../src/rest-api/jwt-example.png" alt="JSON Web Token" width="500"/>
 
 #### Q4. Which REST constraint specifies that knowledge and understanding obtained from one component of the API should be generally applicable elsewhere in the API?
 
@@ -207,11 +207,11 @@ AJAX means the interaction between client and server that enables us to partiall
 
 When the Ajax interaction is complete, JavaScript updates the HTML source of the page so the changes are made immediately without requiring a page refresh.
 
-<img src="./src/rest-api/ajax.png" alt="Asynchronous Javascript and XML"/>
+<img src="../src/rest-api/ajax.png" alt="Asynchronous Javascript and XML"/>
 
 CORS (Cross-origin resource sharing) is a mechanism that allows restricted resources on a web page to be requested from another domain outside the domain from which the first resource was served.
 
-<img src="./src/rest-api/cors.png" alt="Cross-origin resource"/>
+<img src="../src/rest-api/cors.png" alt="Cross-origin resource"/>
 
 A web page may freely embed cross-origin images, stylesheets, scripts, iframes, and videos. Certain "cross-domain" requests, notably Ajax requests, are forbidden by default by the same-origin security policy.
 
@@ -230,7 +230,7 @@ A Webhook (also called a web callback or HTTP push API) is a way for an app to p
 
 A webhook delivers data to other applications as it happens, meaning you get data immediately.
 
-<img src="./src/rest-api/webhook.png" alt="Webhook"/>
+<img src="../src/rest-api/webhook.png" alt="Webhook"/>
 
 Webhooks are sometimes referred to as “Reverse APIs,” as they give you what amounts to an API spec, and you must design an API for the webhook to use. The webhook will make an HTTP request to your app (typically a POST), and you will then be charged with interpreting it.
 
@@ -393,7 +393,7 @@ OpenID Connect is an open authentication protocol that profiles and extends OAut
 
 OpenID Connect allows clients to confirm an end user's identity using authentication by an authorization server.
 
-<img src="./src/rest-api/openid-connect-flows.png" alt="OpenID Connect Abstract Flow"/>
+<img src="../src/rest-api/openid-connect-flows.png" alt="OpenID Connect Abstract Flow"/>
 
 ---
 
@@ -401,7 +401,7 @@ OpenID Connect allows clients to confirm an end user's identity using authentica
 
 In other words, the OAuth 2.0 provides consented access and restricts actions of what the client app can perform on resources on behalf of the user, without ever sharing the user's credentials.
 
-<img src="./src/rest-api/oauth-abstract-flow.png" alt="Oauth 2.0 Abstract Flow"/>
+<img src="../src/rest-api/oauth-abstract-flow.png" alt="Oauth 2.0 Abstract Flow"/>
 
 #### Q14. What is one benefit of GraphQl over REST approaches?
 
@@ -418,7 +418,7 @@ GraphQL provides a complete and understandable description of the data in your A
 
 Send a GraphQL query to your API and get exactly what you need, nothing more and nothing less. GraphQL queries always return predictable results. Apps using GraphQL are fast and stable because they control the data they get, not the server.
 
-<img src="./src/rest-api/graphql.png" alt="GraphQL"/>
+<img src="../src/rest-api/graphql.png" alt="GraphQL"/>
 
 #### Q15. Which REST constraint specifies that there should be no shared context?
 
@@ -526,7 +526,7 @@ For example, you should avoid putting the API Key inside the URL as a “query p
 
 While the Secret Key is always traveling with your request, OAuth provides an alternative solution.
 
-<img src="./src/rest-api/oauth-over-api-key.png" alt="OAuth and an API key approach"/>
+<img src="../src/rest-api/oauth-over-api-key.png" alt="OAuth and an API key approach"/>
 
 OAuth 2.0 is the industry-standard protocol for authorization. OAuth 2.0 focuses on client developer simplicity while providing specific authorization flows for web applications, desktop applications, mobile phones, and living room devices.
 
@@ -534,7 +534,7 @@ OAuth 2.0 is the industry-standard protocol for authorization. OAuth 2.0 focuses
 
 One scenario you see often is Social Login where you use GitHub, LinkedIn, Google or Facebook to log into a Web app. You might have recognized the Consent Screen that usually talks about which data the Web app would like to read from your Git or Facebook account. If you accept, then you “Grant Access” and the resource can be opened on behalf. This is usually known as “3-legged OAuth Flow” or “Authorization Code Grant Flow.”
 
-<img src="./src/rest-api/oauth-abstract-flow.png" alt="Oauth 2.0 Abstract Flow"/>
+<img src="../src/rest-api/oauth-abstract-flow.png" alt="Oauth 2.0 Abstract Flow"/>
 
 #### Q19. The ability to execute the same API request over and over again without changing the resource's state is an example of \_.
 
@@ -598,7 +598,7 @@ First, let's define some terms we'll be using:
 
 An API proxy acts as an intermediary between a consumer and backend services. It can be a small shim, or a larger piece of code that handles data transformations, security, routing, traffic shaping and more. It can expose an interface customized for the consumer, and then makes the appropriate calls to the backend service(s) on behalf of the consumer.
 
-<img src="./src/rest-api/api-proxy.png" alt="API Proxy"/>
+<img src="../src/rest-api/api-proxy.png" alt="API Proxy"/>
 
 Imagine you have a modern web application that needs to get information from a legacy backend that communicates in XML.
 
@@ -700,7 +700,7 @@ The output is three Base64-URL strings separated by dots that can be easily pass
 
 The following shows a JWT that has the previous header and payload encoded, and it is signed with a secret.
 
-<img src="./src/rest-api/jwt-example.png" alt="JSON Web Token"/>
+<img src="../src/rest-api/jwt-example.png" alt="JSON Web Token"/>
 
 #### Q22. What OAuth term is used to represent permissions?
 
@@ -713,7 +713,7 @@ The following shows a JWT that has the previous header and payload encoded, and 
 
 The OAuth 2.0 is a standard designed to allow a website or application to access resources hosted by other web apps on behalf of a user.
 
-<img src="./src/rest-api/oauth-abstract-flow.png" alt="Oauth 2.0 Abstract Flow"/>
+<img src="../src/rest-api/oauth-abstract-flow.png" alt="Oauth 2.0 Abstract Flow"/>
 
 Scope is a mechanism in OAuth 2.0 to limit an application's access to a user's account. An application can request one or more scopes, this information is then presented to the user in the consent screen, and the access token issued to the application will be limited to the scopes granted.
 
@@ -732,7 +732,7 @@ OAuth does not define any particular values for scopes, since it is highly depen
 
 OpenID Connect 1.0 is a simple identity layer on top of the OAuth 2.0 protocol. It allows Clients to verify the identity of the End-User based on the authentication performed by an Authorization Server, as well as to obtain basic profile information about the End-User in an interoperable and REST-like manner.
 
-<img src="./src/rest-api/openid-connect-flows.png" alt="OpenID Connect Abstract Flow"/>
+<img src="../src/rest-api/openid-connect-flows.png" alt="OpenID Connect Abstract Flow"/>
 
 OpenID Connect allows clients of all types, including Web-based, mobile, and JavaScript clients, to request and receive information about authenticated sessions and end-users. The specification suite is extensible, allowing participants to use optional features such as encryption of identity data, discovery of OpenID Providers, and session management, when it makes sense for them.
 
@@ -803,7 +803,7 @@ Auth0 issues an access token or an ID token in response to an authentication req
 
 Both are JSON web tokens and therefore have expiration dates indicated using the `exp` claim, as well as security measures, like signatures. Typically, a user needs a new access token when gaining access to a resource for the first time, or after the previous access token granted to them expires.
 
-<img src="./src/rest-api/oauth-refresh-token.png" alt="OpenID Connect Abstract Flow"/>
+<img src="../src/rest-api/oauth-refresh-token.png" alt="OpenID Connect Abstract Flow"/>
 
 ---
 
@@ -822,7 +822,7 @@ At a high level, the flow has the following steps:
 3. The user is redirected back to the application with an authorization code in the query string
 4. The application exchanges the authorization code for Access Token
 
-<img src="./src/rest-api/oauth-the-authorization-code-flow.png" alt="The Authorization Code Flow"/>
+<img src="../src/rest-api/oauth-the-authorization-code-flow.png" alt="The Authorization Code Flow"/>
 
 ##### Get the User’s Permission
 
@@ -1091,7 +1091,7 @@ Auth0 issues an access token or an ID token in response to an authentication req
 
 Both are JSON web tokens and therefore have expiration dates indicated using the `exp` claim, as well as security measures, like signatures. Typically, a user needs a new access token when gaining access to a resource for the first time, or after the previous access token granted to them expires.
 
-<img src="./src/rest-api/oauth-refresh-token.png" alt="OpenID Connect Abstract Flow"/>
+<img src="../src/rest-api/oauth-refresh-token.png" alt="OpenID Connect Abstract Flow"/>
 
 #### Q39. What is Time to First Hello World?
 
@@ -1148,7 +1148,7 @@ An `API gateway` is an API management tool that sits between a client and a coll
 
 An API gateway acts as a reverse proxy to accept all API calls, aggregate the various services required to fulfill them, and return the appropriate result.
 
-<img src="./src/rest-api/api-gateway.png" alt="API Gateway"/>
+<img src="../src/rest-api/api-gateway.png" alt="API Gateway"/>
 
 Most enterprise APIs are deployed via API gateways. It’s common for API gateways to handle common tasks that are used across a system of API services, such as user authentication, rate limiting, and statistics.
 
@@ -1216,7 +1216,7 @@ https://www.example.com/api/products
 
 An API key is a code used to identify and authenticate an application or user. API keys also act as a unique identifier and provide a secret token for authentication purposes.
 
-<img src="./src/rest-api/oauth-over-api-key.png" alt="OAuth and an API key approach"/>
+<img src="../src/rest-api/oauth-over-api-key.png" alt="OAuth and an API key approach"/>
 
 Introducing API keys is an easy thing. Just issue a “secret” or “phrase” between you and the consumer. Every time the API is called this Key must be present and the API proxy will be able to verify it. This works well for most use cases; however, some best practices need to be considered.
 
@@ -1254,7 +1254,7 @@ The OAuth 2.0 authorization framework enables a third-party application to obtai
 
 In other words, the OAuth 2.0 provides consented access and restricts actions of what the client app can perform on resources on behalf of the user, without ever sharing the user's credentials.
 
-<img src="./src/rest-api/oauth-abstract-flow.png" alt="Oauth 2.0 Abstract Flow"/>
+<img src="../src/rest-api/oauth-abstract-flow.png" alt="Oauth 2.0 Abstract Flow"/>
 
 ##### OAuth2.0 Roles
 
@@ -1343,7 +1343,7 @@ An `API gateway` is an API management tool that sits between a client and a coll
 
 An API gateway acts as a reverse proxy to accept all API calls, aggregate the various services required to fulfill them, and return the appropriate result.
 
-<img src="./src/rest-api/api-gateway.png" alt="API Gateway"/>
+<img src="../src/rest-api/api-gateway.png" alt="API Gateway"/>
 
 Most enterprise APIs are deployed via API gateways. It’s common for API gateways to handle common tasks that are used across a system of API services, such as user authentication, rate limiting, and statistics.
 

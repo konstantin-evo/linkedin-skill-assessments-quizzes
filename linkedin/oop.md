@@ -272,7 +272,7 @@ object, you should use the methods provided. But by default, you can’t change 
 Let’s say we’re building a tiny Sims game. There are people and there is a cat. They communicate with each other. We want to apply encapsulation, so
 we encapsulate all “cat” logic into a Cat class. It may look like this:
 
-![oop-encapsulation.png](src%2Foop%2Foop-encapsulation.png)
+![oop-encapsulation.png](..%2Fsrc%2Foop%2Foop-encapsulation.png)
 
 You can feed the cat. But you can’t directly change how hungry the cat is.
 
@@ -506,7 +506,7 @@ Other than the `Exception` class there is another subclass called `Error` which 
 
 **Example**: JVM is out of memory. Normally, programs can’t recover from errors.
 
-![java-exception.png](src%2Foop%2Fjava-exception.png)
+![java-exception.png](..%2Fsrc%2Foop%2Fjava-exception.png)
 
 ---
 
@@ -600,7 +600,7 @@ create a child class by deriving from another parent class.
 This way, we form a hierarchy. The child class reuses all fields and methods of the parent class “common part” and can implement its own “unique
 part”.
 
-![oop-inheritance.png](src%2Foop%2Foop-inheritance.png)
+![oop-inheritance.png](..%2Fsrc%2Foop%2Foop-inheritance.png)
 
 A private teacher is a type of teacher and any teacher is a type of Person.
 
@@ -710,7 +710,7 @@ In Java, two types of Association are possible:
     * Aggregation
     * Composition
 
-![association-in-java.png](src%2Foop%2Fassociation-in-java.png)
+![association-in-java.png](..%2Fsrc%2Foop%2Fassociation-in-java.png)
 
 **IS-A Association**
 
@@ -779,7 +779,7 @@ Inheritance types:
   single, hierarchical, and multilevel inheritances. This inheritance is adopted for programs to mix different types of inheritance; for example, when
   mixing a single inheritance with multiple inheritances or maybe a situation when multiple inheritances are mixed within a single program.
 
-![inheritance-in-java.png](src%2Foop%2Finheritance-in-java.png)
+![inheritance-in-java.png](..%2Fsrc%2Foop%2Finheritance-in-java.png)
 
 ---
 
@@ -827,7 +827,7 @@ class can call without “knowing” how they work.
 
 Another real-life example of abstraction?
 
-![oop-abstraction.png](src%2Foop%2Foop-abstraction.png)
+![oop-abstraction.png](..%2Fsrc%2Foop%2Foop-abstraction.png)
 
 Cell phones are complex. But using them is simple.
 
@@ -869,7 +869,7 @@ Inheritance types:
   single, hierarchical, and multilevel inheritances. This inheritance is adopted for programs to mix different types of inheritance; for example, when
   mixing a single inheritance with multiple inheritances or maybe a situation when multiple inheritances are mixed within a single program.
 
-![inheritance-in-java.png](src%2Foop%2Finheritance-in-java.png)
+![inheritance-in-java.png](..%2Fsrc%2Foop%2Finheritance-in-java.png)
 
 The multi-level inheritance includes the involvement of at least two or more than two classes. One class inherits the features from a parent class and
 the newly created subclass becomes the base class for another new class.
@@ -964,7 +964,7 @@ Inheritance types:
   single, hierarchical, and multilevel inheritances. This inheritance is adopted for programs to mix different types of inheritance; for example, when
   mixing a single inheritance with multiple inheritances or maybe a situation when multiple inheritances are mixed within a single program.
 
-![inheritance-in-java.png](src%2Foop%2Finheritance-in-java.png)
+![inheritance-in-java.png](..%2Fsrc%2Foop%2Finheritance-in-java.png)
 
 ---
 
@@ -1116,7 +1116,7 @@ CRC stands for:
 * **Responsibilities** are something a class knows or an action they perform
 * **Collaborator** is another class that the original class will need to work with to achieve their desired goals.
 
-![crc-cards.jpeg](src%2Foop%2Fcrc-cards.jpeg)
+![crc-cards.jpeg](..%2Fsrc%2Foop%2Fcrc-cards.jpeg)
 
 #### Q38. How are contents of a composition different from those of aggregation?
 
@@ -1143,7 +1143,7 @@ In Java, two types of Association are possible:
     * Aggregation
     * Composition
 
-![association-in-java.png](src%2Foop%2Fassociation-in-java.png)
+![association-in-java.png](..%2Fsrc%2Foop%2Fassociation-in-java.png)
 
 **Aggregation**
 
@@ -1262,7 +1262,7 @@ Objects of a certain kind.
 An **Object** in object-oriented programming is a specimen of a class. Software objects are often used to model real-world objects you find in
 everyday life.
 
-![oop-classes.png](src%2Foop%2Foop-classes.png)
+![oop-classes.png](..%2Fsrc%2Foop%2Foop-classes.png)
 
 #### Q46. What best describes what object-oriented programming does?
 
@@ -1292,7 +1292,7 @@ In OOP, computer programs are designed by making them out of objects that intera
 **Multilevel Inheritance** is where a child class is derived from another derived class. This feature carries combined aspects of multiple classes
 and follows their hierarchies.
 
-![inheritance-in-java.png](src%2Foop%2Finheritance-in-java.png)
+![inheritance-in-java.png](..%2Fsrc%2Foop%2Finheritance-in-java.png)
 
 An abstract class is a class that is declared abstract — it may or may not include abstract methods. Abstract classes can't be instantiated, but they
 can be subclassed. When an abstract class is subclassed, the subclass usually provides implementations for all the abstract methods in its parent
@@ -1317,7 +1317,7 @@ The diamond problem occurs when two superclasses of a class have a common base c
 In more detail, the ambiguity that arises when two classes B and C inherit from A, and a further class D inherits from both B and C, so that if there
 is a method in A that B and/or C has overridden, and D does not override it, it is unclear which version of the method D should inherit.
 
-![diamond-problem.jpeg](src%2Foop%2Fdiamond-problem.jpeg)
+![diamond-problem.jpeg](..%2Fsrc%2Foop%2Fdiamond-problem.jpeg)
 
 #### Q49. What is the relationship between abstraction and encapsulation?
 
@@ -1354,7 +1354,7 @@ modifiers in Java are public, protected, default, and private.
 * **Public**: We can access the public modifier from anywhere. We can access public modifiers from within the class as well as from outside the class
   and also within the package and outside the package.
 
-![access-specifiers-in-java.jpeg](src%2Foop%2Faccess-specifiers-in-java.jpeg)
+![access-specifiers-in-java.jpeg](..%2Fsrc%2Foop%2Faccess-specifiers-in-java.jpeg)
 
 #### Q51. What is a reference to an object?
 
@@ -1396,7 +1396,7 @@ User diagram depicts the high-level functionality of a system and also tells how
 A use case diagram is a way to summarize details of a system and the users within that system. It is generally shown as a graphic depiction of
 interactions among different elements in a system.
 
-![use-case-diagram.png](src%2Foop%2Fuse-case-diagram.png)
+![use-case-diagram.png](..%2Fsrc%2Foop%2Fuse-case-diagram.png)
 
 #### Q54. How do object behavior and attributes differ?
 
@@ -1453,7 +1453,7 @@ Consider a scenario where Bank is a class that provides functionality to get the
 
 However, the rate of interest varies according to banks. For example, SBI, ICICI and AXIS banks could provide 8%, 7%, and 9% rate of interest.
 
-![bank-inheritance.png](src%2Foop%2Fbank-inheritance.png)
+![bank-inheritance.png](..%2Fsrc%2Foop%2Fbank-inheritance.png)
 
 ```java
 class Bank {
@@ -1578,7 +1578,7 @@ There are two types of coupling:
   class B has exposed through its interface, then class A and class B are said to be loosely coupled. In order to overcome from the problems of tight
   coupling between objects.
 
-![coupling-java.png](src%2Foop%2Fcoupling-java.png)
+![coupling-java.png](..%2Fsrc%2Foop%2Fcoupling-java.png)
 
 #### Q61. **\_** describes an aggregation
 
@@ -1705,7 +1705,7 @@ There are two types of coupling:
   class B has exposed through its interface, then class A and class B are said to be loosely coupled. In order to overcome from the problems of tight
   coupling between objects.
 
-![coupling-java.png](src%2Foop%2Fcoupling-java.png)
+![coupling-java.png](..%2Fsrc%2Foop%2Fcoupling-java.png)
 
 #### Q66. What is the best example of a superclass and subclass relationship?
 
@@ -1724,7 +1724,7 @@ create a child class by deriving from another parent class.
 This way, we form a hierarchy. The child class reuses all fields and methods of the parent class “common part” and can implement its own “unique
 part”.
 
-![oop-inheritance.png](src%2Foop%2Foop-inheritance.png)
+![oop-inheritance.png](..%2Fsrc%2Foop%2Foop-inheritance.png)
 
 A private teacher is a type of teacher and any teacher is a type of Person.
 
@@ -1748,7 +1748,7 @@ Memento is a behavioural design pattern that allows making snapshots of an objec
 The Memento Design Pattern offers a solution to implement undoable actions. We can do this by saving the state of an object at a given instant and
 restoring it if the actions performed since need to be undone.
 
-![pattern-memento.jpeg](src%2Foop%2Fpattern-memento.jpeg)
+![pattern-memento.jpeg](..%2Fsrc%2Foop%2Fpattern-memento.jpeg)
 
 **Note**: However, if the state of the Originator is heavy, using the Memento Design Pattern can lead to an expensive creation process and increased
 use of memory.
@@ -1893,7 +1893,7 @@ modifiers in Java are public, protected, default, and private.
 * **Public**: We can access the public modifier from anywhere. We can access public modifiers from within the class as well as from outside the class
   and also within the package and outside the package.
 
-![access-specifiers-in-java.jpeg](src%2Foop%2Faccess-specifiers-in-java.jpeg)
+![access-specifiers-in-java.jpeg](..%2Fsrc%2Foop%2Faccess-specifiers-in-java.jpeg)
 
 #### Q72. Methods and attributes that define an object are a kind of blueprint called what?
 
@@ -1927,7 +1927,7 @@ everyday life.
 **Multilevel Inheritance** is where a child class is derived from another derived class. This feature carries combined aspects of multiple classes
 and follows their hierarchies.
 
-![inheritance-in-java.png](src%2Foop%2Finheritance-in-java.png)
+![inheritance-in-java.png](..%2Fsrc%2Foop%2Finheritance-in-java.png)
 
 #### Q74. What is the main idea behind separation of concerns?
 
@@ -2011,7 +2011,7 @@ In Java, two types of Association are possible:
     * Aggregation
     * Composition
 
-![association-in-java.png](src%2Foop%2Fassociation-in-java.png)
+![association-in-java.png](..%2Fsrc%2Foop%2Fassociation-in-java.png)
 
 **Composition**
 
@@ -2161,7 +2161,7 @@ state, whereas the abstract class can have state with instance variables.
 The four principles of object-oriented programming (abstraction, inheritance, encapsulation, and polymorphism) are features that - if used properly -
 can help to write more testable, flexible, and maintainable code.
 
-![principles-of-oop.png](src%2Foop%2Fprinciples-of-oop.png)
+![principles-of-oop.png](..%2Fsrc%2Foop%2Fprinciples-of-oop.png)
 
 #### Q87. From the SOLID principles of object-oriented programming, which statement best describes the Liskov substitution principle?
 
@@ -2199,7 +2199,7 @@ CRC stands for:
 * **Responsibilities** are something a class knows or an action they perform
 * **Collaborator** is another class that the original class will need to work with to achieve their desired goals.
 
-![crc-cards.jpeg](src%2Foop%2Fcrc-cards.jpeg)
+![crc-cards.jpeg](..%2Fsrc%2Foop%2Fcrc-cards.jpeg)
 
 Each card lists the class's name, attributes and methods (its responsibilities), and class associations (collaborations).
 
@@ -2288,4 +2288,4 @@ with the same signature to achieve the polymorphism.
 The four principles of object-oriented programming (abstraction, inheritance, encapsulation, and polymorphism) are features that - if used properly -
 can help to write more testable, flexible, and maintainable code.
 
-![principles-of-oop.png](src%2Foop%2Fprinciples-of-oop.png)
+![principles-of-oop.png](..%2Fsrc%2Foop%2Fprinciples-of-oop.png)
