@@ -15,6 +15,9 @@
   <li>
     <a href="#module-2">Module 2 - Operator Lifecycle Manager</a>
   </li>
+  <li>
+    <a href="#module-3">Module 3 - Scorecard</a>
+  </li>
 </ol>
 
 ---
@@ -330,3 +333,184 @@ operator bundle should remain consistent in the future. This is typically true d
 4. **Upgradability:** With a consistent format, the upgrade process for operators becomes smoother. If the bundle format
    remains the same, upgrading an operator doesn't require extensive modifications to the operator bundle itself,
    simplifying the update process.
+
+---
+
+#### Module 3
+
+#### Scorecard
+
+#### Practice Question 1
+
+**Custom Scorecard test suites are provided as container images.**
+
+1. [x] True
+2. [ ] False
+
+#### Explanation
+
+While the Operator SDK bundle validate subcommand can validate local bundle directories and remote bundle images for
+content and structure, you can use the scorecard command to run tests on your Operator based on a configuration file and
+test images. These tests are implemented within test images that are configured and constructed to be executed by the
+scorecard.
+
+Link: [Validating Operators using the scorecard tool](https://docs.openshift.com/container-platform/4.8/operators/operator_sdk/osdk-scorecard.html)
+
+---
+
+#### Practice Question 2
+
+**Your bundle starts with some automatically generated Scorecard tests that test what features of your operator?**
+
+1. [ ] Regression tests to test upgrading your operator
+2. [x] Basic best practices like descriptors and validators for your custom resource types
+3. [ ] Benchmarks to stress-test your operator
+4. [ ] Basic unit tests that test your custom resource types
+
+#### Explanation
+
+When your bundle starts with automatically generated Scorecard tests, these tests are designed to assess fundamental
+aspects of your operator's implementation and adherence to best practices. Specifically, they focus on:
+
+These tests examine whether your operator follows recommended practices, such as using appropriate descriptors and
+validators for your custom resource types. This ensures that your operator aligns with established conventions and
+guidelines.
+
+---
+
+#### Practice Question 3
+
+**Custom Scorecard test suites can contain multiple tests.**
+
+1. [x] True
+2. [ ] False
+
+#### Explanation
+
+Custom Scorecard test suites can indeed contain multiple tests to evaluate various aspects of your operator.
+
+---
+
+#### Review Questions 1
+
+**In the config file, each Scorecard test consists of what three components?**
+
+1. [ ] Operator image, Test image, Test command
+2. [x] Image, Entrypoint, Labels
+3. [ ] Test file, Commands, Bundle
+4. [ ] Dockerfile, Entrypoint, Name
+
+#### Explanation
+
+Scorecard test consists of the following components:
+
+1. **Image:** This component refers to the container image that contains the Scorecard test. It specifies the
+   environment in which the test will be executed.
+2. **Entrypoint:** The entrypoint is the command or script that will be executed when the container starts. It defines
+   how the Scorecard test should be run within the container.
+3. **Labels:** Labels are metadata that can be associated with the Scorecard test. They provide additional information
+   about the test, such as its purpose or any specific requirements.
+
+These three components collectively define the configuration of a Scorecard test within the configuration file. The
+image determines the environment, the entrypoint specifies how the test should be executed, and labels provide
+additional context or information.
+
+---
+
+#### Review Questions 2
+
+**Scorecard tests execute from your local machine targeting the cluster.**
+
+1. [ ] True
+2. [x] False
+
+#### Explanation
+
+Scorecard tests are executed within a container on the cluster, not from your local machine.
+
+---
+
+#### Review Questions 3
+
+**Why did we have to cross-compile our Scorecard test?**
+
+1. [ ] To include our Scorecard config
+2. [x] It’s executed in a container on the cluster, which is a 64-bit Linux environment
+3. [ ] To include our operator’s bundle
+4. [ ] To ensure all the dependencies were included
+
+#### Explanation
+
+Cross-compilation refers to the process of compiling code on one platform (architecture or operating system) to run on a
+different platform.
+
+In the context of the Scorecard test, the need for cross-compilation arises because the test is executed within a
+container on the Kubernetes cluster, and this cluster typically operates in a 64-bit Linux environment.
+
+---
+
+#### Review Questions 4
+
+**Why did we run our Scorecard test with our operator’s Service Account?**
+
+1. [ ] To give Scorecard the RBAC permissions to run the test container
+2. [x] To give it the RBAC permissions needed to manipulate the Memcached and dependent types
+3. [ ] To give it the RBAC permissions to manipulate our operator’s controller
+4. [ ] To tell it which operator to test
+
+#### Explanation
+
+The Scorecard test may need to interact with resources such as Memcached or other dependent types during the evaluation.
+Running the test with the operator’s Service Account ensures that it has the necessary RBAC permissions to perform these
+interactions.
+
+---
+
+#### Review Questions 5
+
+**The Scorecard config is part of your operator’s bundle.**
+
+1. [x] True
+2. [ ] False
+
+#### Explanation
+
+The scorecard tool uses a configuration that allows you to configure internal plugins, as well as several global
+configuration options. Tests are driven by a configuration file named config.yaml, which is generated by the make bundle
+command, located in your `bundle/` directory:
+
+```
+./bundle
+...
+└── tests
+    └── scorecard
+        └── config.yaml
+```
+
+Example scorecard configuration file:
+
+```yaml
+kind: Configuration
+apiversion: scorecard.operatorframework.io/v1alpha3
+metadata:
+  name: config
+stages:
+  - parallel: true
+    tests:
+      - image: quay.io/operator-framework/scorecard-test:v1.8.0
+        entrypoint:
+          - scorecard-test
+          - basic-check-spec
+        labels:
+          suite: basic
+          test: basic-check-spec-test
+      - image: quay.io/operator-framework/scorecard-test:v1.8.0
+        entrypoint:
+          - scorecard-test
+          - olm-bundle-validation
+        labels:
+          suite: olm
+          test: olm-bundle-validation-test
+```
+
+Link: [Scorecard configuration](https://docs.openshift.com/container-platform/4.8/operators/operator_sdk/osdk-scorecard.html#osdk-scorecard-config_osdk-scorecard)
