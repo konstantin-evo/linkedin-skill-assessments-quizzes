@@ -9,21 +9,302 @@
 ### Table of Contents
 
 <ol>
-  <li>
-    <a href="#module-1">Module 1 - Reconciliation Loops</a>
-  </li>
-  <li>
-    <a href="#module-2">Module 2 - Operator Lifecycle Manager</a>
-  </li>
-  <li>
-    <a href="#module-3">Module 3 - Scorecard</a>
-  </li>
-  <li>
-    <a href="#final-exam">Final Exam</a>
-  </li>
+    <li>
+        <a href="#basic-modules">
+            Basic Modules
+        </a>
+        <ul>
+            <li>
+                <a href="#introduction-to-operators">Module 1 - Introduction to Operators</a>
+            </li>
+            <li>
+                <a href="#helm-operators">Module 2 - Helm Operators</a>
+            </li>
+            <li>
+                <a href="#ansible-operators">Module 3 - Ansible Operators</a>
+            </li>
+        </ul>
+    </li>
+    <li>
+        <a href="#advanced-modules">
+            Advanced Modules
+        </a>
+        <ul>
+            <li>
+                <a href="#reconciliation-loops">Module 1 - Reconciliation Loops</a>
+            </li>
+            <li>
+                <a href="#operator-lifecycle-manager">Module 2 - Operator Lifecycle Manager</a>
+            </li>
+            <li>
+                <a href="#scorecard">Module 3 - Scorecard</a>
+            </li>
+            <li>
+                <a href="#final-exam">Final Exam</a>
+            </li>
+        </ul>
+    </li>
 </ol>
 
 ---
+
+### Basic Modules
+
+#### Module 1
+
+#### Introduction to Operators
+
+#### Practice Question 1
+
+**How does an operator add functionality to a Kubernetes cluster?**
+
+1. [ ] It increases the performance of the cluster
+2. [x] It extends the API of the cluster
+3. [ ] It provisions additional static resources on the cluster
+4. [ ] It creates more Deployments on the cluster
+
+#### Explanation:
+
+Operators in Kubernetes are a way to extend the functionality of the cluster by defining custom resources and
+controllers. They add new behaviors to the system, allowing you to automate tasks and manage applications more
+effectively.
+
+By extending the API, operators can define custom resources and controllers that enable the cluster to
+understand and manage new types of workloads or services. This helps in automating complex application deployments and
+lifecycle management.
+
+---
+
+#### Practice Question 2
+
+**Operators always consist of a Custom Resource Definition and a controller.**
+
+1. [x] True
+2. [ ] False
+
+#### Explanation:
+
+Operators in Kubernetes typically consist of a Custom Resource Definition (CRD) and a controller.
+
+The CRD defines a new custom resource (an extension of the Kubernetes API), and the controller is responsible for
+managing the lifecycle of instances of that custom resource. The controller watches for changes to resources, takes
+appropriate actions, and ensures that the desired state specified in the CRD is maintained.
+
+This combination allows operators to automate the management of applications and services in a Kubernetes cluster.
+
+---
+
+#### Practice Question 3
+
+**Which of the following commands creates the scaffolding for a Custom Resource Definition?**
+
+1. [ ] operator-sdk generate bundle
+2. [x] operator-sdk create api
+3. [ ] operator-sdk create crd
+4. [ ] operator-sdk init
+
+#### Explanation:
+
+The `operator-sdk create api` command is used to generate the scaffolding for a Custom Resource Definition (CRD) when
+developing a Kubernetes Operator using the Operator SDK.
+
+---
+
+#### Practice Question 4
+
+**Which component is responsible for the reconciliation of an operator?**
+
+1. [ ] RBAC rules
+2. [x] Controller
+3. [ ] Custom Resource
+4. [ ] Custom Resource Definition
+
+#### Explanation:
+
+The reconciliation process in a Kubernetes Operator is typically handled by the controller.
+
+The controller watches for changes to Custom Resources (CRs) and ensures that the current state of the cluster matches
+the desired state specified in the CR. When there is a difference between the current state and the desired state, the
+controller takes the necessary actions to reconcile the state, bringing the cluster into the desired configuration.
+
+The controller is responsible for managing the lifecycle of the resources defined by the Custom Resource Definition (
+CRD).
+
+---
+
+#### Practice Question 5
+
+**For a Golang operator, the Custom Resource Definition is generated based on a types.go file.**
+
+1. [x] True
+2. [ ] False
+
+#### Explanation:
+
+When developing a Golang-based Kubernetes Operator using the Operator SDK, `the types.go` file defines the custom
+resource structure and specifications. The Operator SDK uses this file to generate the corresponding Custom Resource
+Definition (CRD) YAML file, which is then applied to the Kubernetes cluster.
+
+#### Review Question 1
+
+**How does a user interact with an operator?**
+
+1. [ ] By accessing the operator directly
+2. [x] By using `kubectl` or whatever tool they use to interact with the normal Kubernetes API
+3. [ ] By using the operator-sdk CLI
+4. [ ] By using an operator-specific CLI
+
+#### Explanation:
+
+Operators in Kubernetes are typically implemented as custom resources and controllers. Users interact with operators by
+creating or modifying custom resources using `kubectl` or any other tool that interacts with the Kubernetes API.
+
+Operators watch for changes to these custom resources and take actions accordingly to manage and automate the lifecycle
+of applications or services.
+
+In the context of Kubernetes and operators, the interaction loop typically involves the following components:
+
+1. **API Server:** This component handles incoming requests from users or external systems. In the case of Kubernetes,
+   the API server is responsible for receiving and processing requests related to the desired state of the system.
+
+2. **Data Store:** The data store is where the desired and actual state of the system is stored. In Kubernetes, this is
+   often represented by the etcd database, which stores the configuration and runtime state of the cluster.
+
+3. **Controller:** The controller is a component that watches the data store for changes and reacts to those changes to
+   ensure that the actual state matches the desired state. In the context of operators, the controller is responsible
+   for managing the lifecycle of specific applications or services.
+
+<div style="text-align: center;">
+  <img src="../src/kubernetes-operators/operator-architecture.png" alt="operator architecture" style="width: 50%;">
+</div>
+
+So, the interaction loop can be described as follows:
+
+1. Users or external systems interact with the system by sending requests to the API server.
+2. The API server processes these requests and updates the desired state in the data store.
+3. The controller watches for changes in the data store.
+4. When the controller detects a change in the desired state, it takes actions to reconcile the actual state with the
+  desired state.
+5. The controller may perform actions such as deploying or scaling applications, updating configurations, or handling
+  other aspects of the system's lifecycle.
+
+This loop ensures that the system continuously works towards maintaining the desired state specified by the users or
+external systems. The use of operators in Kubernetes is one way to automate and manage complex applications by extending
+this loop with custom resources and controllers.
+
+---
+
+#### Review Question 2
+
+**What does the command "operator-sdk init" do?**
+
+1. [ ] Initializes a new controller image for an operator
+2. [x] Initializes the basic scaffolding for a brand-new operator
+3. [ ] Initializes a new controller for an operator
+4. [ ] Initializes a new Custom Resource Definition for an operator
+
+#### Explanation:
+
+The `operator-sdk init` command is used to initialize the basic scaffolding for a new operator project. This command
+sets up the directory structure and necessary files for building and managing a Kubernetes operator. It is typically one
+of the first commands you run when starting a new operator development project.
+
+---
+
+#### Review Question 3
+
+**There is one architecture pattern that all operators follow.**
+
+1. [ ] True
+2. [x] False
+
+#### Explanation:
+
+While operators in Kubernetes share some common patterns and best practices, there is no single architecture pattern
+that all operators must strictly follow. The architecture of an operator can vary based on the specific requirements and
+functionalities it needs to manage.
+
+---
+
+#### Review Question 4
+
+**How was the Memcached operator added to the cluster?**
+
+1. [ ] By altering the core Kubernetes images to include our additional components
+2. [x] By creating normal Kubernetes resources such as Deployments and Cluster Role Bindings
+3. [ ] By deploying components external to Kubernetes and connecting them to the cluster
+4. [ ] By modifying the behavior of core Kubernetes components
+
+#### Explanation:
+
+Memcached operators are added to Kubernetes clusters by deploying them as ordinary Kubernetes resources. This means that
+they are managed by the same control plane as all other Kubernetes resources and can be monitored, scaled, and updated
+using the same tools.
+
+Here are the steps involved in adding a Memcached operator to a Kubernetes cluster:
+
+1. **Create a custom resource definition (CRD)**: The CRD defines the schema for the Memcached resources that the
+   operator will manage. It specifies the fields that will be used to describe Memcached instances and the resources
+   that the operator will create and manage on the behalf of those instances.
+
+2. **Build the Memcached operator code**: The operator code is typically written in Go and uses the Operator SDK
+   framework to interact with the Kubernetes API. It includes logic for watching for changes to Memcached resources,
+   creating and managing the necessary Kubernetes resources to manage the Memcached instances, and handling events such
+   as pods starting and stopping.
+
+3. **Package the operator**: The operator code and its dependencies are packaged into a deployment and a service
+   manifest. The deployment manifest specifies how to run the operator as a pod in the Kubernetes cluster, and the
+   service manifest defines how to expose the operator's API.
+
+4. **Deploy the operator to the cluster**: The operator is deployed to the cluster using the kubectl command-line tool.
+   This will create the deployment and service manifests and make the operator available to manage Memcached resources
+   in the cluster.
+
+By deploying the Memcached operator as a normal Kubernetes resource, it is integrated into the cluster's existing
+infrastructure and can leverage the same control plane and management tools as other Kubernetes resources. This makes it
+easy to deploy, manage, and monitor Memcached operators in a consistent and scalable manner.
+
+---
+
+#### Review Question 5
+
+**What is the controller of our Memcached operator responsible for?**
+
+1. [x] The reconciliation of the desired state in the `etcd` store with the actual state running on the cluster
+2. [ ] Creating the new Memcached type on our Kubernetes cluster
+3. [ ] Storing data about requested Memcached objects
+4. [ ] Receiving and validating incoming API requests from users
+
+#### Explanation:
+
+The controller is the central component of the Memcached operator. It is responsible for ensuring that the desired state
+of the Memcached instances in the etcd store is reflected in the actual state of the pods running on the cluster. This
+process is known as reconciliation.
+
+The controller continuously monitors the etcd store for changes to Memcached resources. When it detects a change, it
+triggers a reconciliation process. The reconciliation process involves the following steps:
+
+1. **Fetch the latest version of the Memcached resource from the etcd store.**
+2. **Compare the desired state of the resource with the actual state of the pods running on the cluster.**
+3. **If there is a mismatch between the desired and actual states, the controller takes corrective actions to bring the
+   actual state in line with the desired state.**
+
+The corrective actions that the controller can take include:
+
+* Creating new pods
+* Scaling existing pods
+* Restoring failed pods
+* Updating pod configurations
+* Deleting pods
+
+The controller ensures that the Memcached instances in the cluster are always in the desired state, even in the face of
+changes to the environment or to the Memcached resources themselves. This is what makes the Memcached operator an
+essential tool for managing Memcached deployments in Kubernetes clusters.
+
+
+---
+
+### Advanced Modules
 
 #### Module 1
 
@@ -159,6 +440,8 @@ resource type.
 Yes, it is possible for the object being reconciled to no longer exist by the time the reconciliation request is being
 processed. This is an important consideration when designing controllers, and operators need to handle such scenarios
 gracefully, possibly by checking for the existence of the object before attempting any operations on it.
+
+<p align="right">(<a href="#table-of-contents">back to top</a>)</p>
 
 ---
 
@@ -336,6 +619,8 @@ operator bundle should remain consistent in the future. This is typically true d
 4. **Upgradability:** With a consistent format, the upgrade process for operators becomes smoother. If the bundle format
    remains the same, upgrading an operator doesn't require extensive modifications to the operator bundle itself,
    simplifying the update process.
+
+<p align="right">(<a href="#table-of-contents">back to top</a>)</p>
 
 ---
 
@@ -517,6 +802,8 @@ stages:
 ```
 
 Link: [Scorecard configuration](https://docs.openshift.com/container-platform/4.8/operators/operator_sdk/osdk-scorecard.html#osdk-scorecard-config_osdk-scorecard)
+
+<p align="right">(<a href="#table-of-contents">back to top</a>)</p>
 
 ---
 
@@ -779,3 +1066,5 @@ A bundle typically consists of:
 
 A Scorecard test requires a Service Account with permissions to access your custom resource types to evaluate and test
 your Kubernetes operator.
+
+<p align="right">(<a href="#table-of-contents">back to top</a>)</p>
