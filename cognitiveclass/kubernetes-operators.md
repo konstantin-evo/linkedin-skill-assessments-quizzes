@@ -184,9 +184,9 @@ So, the interaction loop can be described as follows:
 2. The API server processes these requests and updates the desired state in the data store.
 3. The controller watches for changes in the data store.
 4. When the controller detects a change in the desired state, it takes actions to reconcile the actual state with the
-  desired state.
+   desired state.
 5. The controller may perform actions such as deploying or scaling applications, updating configurations, or handling
-  other aspects of the system's lifecycle.
+   other aspects of the system's lifecycle.
 
 This loop ensures that the system continuously works towards maintaining the desired state specified by the users or
 external systems. The use of operators in Kubernetes is one way to automate and manage complex applications by extending
@@ -301,6 +301,265 @@ The controller ensures that the Memcached instances in the cluster are always in
 changes to the environment or to the Memcached resources themselves. This is what makes the Memcached operator an
 essential tool for managing Memcached deployments in Kubernetes clusters.
 
+<p align="right">(<a href="#table-of-contents">back to top</a>)</p>
+
+---
+
+#### Module 2
+
+#### Helm Operators
+
+### Practice Question 1
+
+**What takes the place of the controller in the architecture of a Helm operator?**
+
+- [ ] The core Kubernetes controllers, once we've deployed our Helm chart
+- [x] A controller based on the community 'helm-operator' image configured with our Helm chart
+- [ ] A Helm chart
+- [ ] A Golang controller configured with our Helm chart
+
+#### Explanation:
+
+The Helm operator is intended to quickly build out an operator from existing Helm charts. The operator creates a custom
+resource definition (CRD) based on an existing Helm chart.
+
+The resulting custom resource (CR) is watched by a controller that is based on a generic `helm-operator` controller
+image which is maintained by the Operator SDK open source community.
+
+With Help operators, you configure the controller image with information about your specific Helm chart. When an
+instance of the (CR) is created, the controller deploys an instance of the Helm chart to the cluster, configured with
+the information specified in the CR object’s spec.
+
+
+---
+
+### Practice Question 2
+
+**How do we create the Custom Resource for our Helm operator?**
+
+- [ ] By configuring etcd with our Helm chart
+- [ ] By creating a Custom Resource Definition based on the Helm chart
+- [x] By creating a Custom Resource based on the Helm chart
+- [ ] By deploying our Helm chart
+
+#### Explanation:
+
+When you're working with Helm operators in Kubernetes, you create a Custom Resource Definition (CRD) that defines the
+structure of the custom resources you'll use to manage Helm releases. Once the CRD is defined, you create instances of
+it, which are the actual Custom Resources (CRs) representing your Helm releases.
+
+---
+
+### Practice Question 3
+
+**Question**
+
+A Helm operator controller reconciles instances of the Custom Resource by creating instances of the Helm chart as the
+backend.
+
+- [x] True
+- [ ] False
+
+#### Explanation:
+
+A Helm operator controller reconciles instances of the Custom Resource by creating instances of the Helm chart as the
+backend. This means that the Helm operator will read the Custom Resource definition and then use the Helm chart to
+create the necessary Kubernetes resources, such as deployments, services, and pods.
+
+Here are the steps on how a Helm operator controller reconciles instances of the Custom Resource:
+
+1. **Reads the Custom Resource definition**: The Helm operator controller reads the Custom Resource definition from the
+   Kubernetes API server. This definition includes the desired state of the resource, such as the number of replicas for
+   a deployment or the port for a service.
+2. **Creates instances of the Helm chart**: The Helm operator controller uses the Helm chart to create instances of the
+   Kubernetes resources. The Helm chart contains the instructions for how to create the resources, including the
+   templates for the resources and the values for the resource fields.
+3. **Reconciles the current state of the resources to the desired state**: The Helm operator controller compares the
+   current state of the resources to the desired state as defined by the Custom Resource definition. If the current
+   state does not match the desired state, the Helm operator controller will take corrective action to bring the current
+   state into line with the desired state.
+
+---
+
+### Practice Question 4
+
+**Using a Helm operator requires the Helm chart to already be installed on your cluster.**
+
+- [ ] True
+- [x] False
+
+#### Explanation:
+
+A Helm operator does not require the Helm chart to already be installed on your cluster. The Helm operator can install
+and manage the Helm chart
+
+---
+
+### Practice Question 5
+
+**When is a Helm operator a good choice over other operator types?**
+
+- [ ] You have a preexisting Helm chart for your resource.
+- [ ] You want to get something running as quickly as possible.
+- [ ] You're unfamiliar with reconciliation loops and want to try writing an operator.
+- [x] All of the above.
+
+#### Explanation:
+
+All options are correct as each of these scenarios represents a situation where a Helm operator
+could be a suitable and efficient choice.
+
+Here's an explanation for each option:
+
+1. **You have a preexisting Helm chart for your resource:** If you already have a Helm chart for deploying your
+   application or service, using a Helm operator can be a good choice. Helm operators allow you to manage the lifecycle
+   of Helm releases using Kubernetes Custom Resources (CRs), providing a way to define and control your applications
+   using the Helm chart.
+
+2. **You want to get something running as quickly as possible:** Helm operators can streamline the process of deploying
+   and managing applications on Kubernetes. If you're familiar with Helm charts and want a quick way to manage them
+   using Kubernetes resources, a Helm operator can be a good choice.
+
+3. **You're unfamiliar with reconciliation loops and want to try writing an operator:** Helm operators abstract away
+   some of the complexity involved in writing a custom Kubernetes operator, especially if you're new to the concept of
+   reconciliation loops. Helm operators simplify the process by leveraging Helm charts and providing a higher-level
+   abstraction for managing applications.
+
+<p align="right">(<a href="#table-of-contents">back to top</a>)</p>
+
+---
+
+### Review Question 1
+
+**The Spec fields of our Custom Resource directly correlate to what part of the original Helm chart?**
+
+- [x] Values.yaml
+- [ ] The template files
+- [ ] Chart.yaml
+
+#### Explanation:
+
+The `Spec` fields of a Custom Resource define the desired state of the resource, while `Values.yaml` contains the
+configurable parameters that can be used to customize the behavior of the Helm chart. As a result, the Spec fields
+directly correlate to the values defined in Values.yaml.
+
+---
+
+### Review Question 2
+
+**Helm operators allow a fine degree of control over the reconciliation of your operator.**
+
+- [ ] True
+- [x] False
+
+#### Explanation:
+
+Helm operators provide a basic level of control over reconciliation, but they do not offer the same level of
+fine-grained control as other types of operators, such as custom resource operators. This is because Helm operators rely
+on the Helm chart to define the desired state of the application, and the Helm chart itself may not be able to capture
+all the nuances of the application's behavior.
+
+---
+
+### Review Question 3
+
+**What sets the suffix for any API groups the Helm operator will create or use?**
+
+- [ ] The range
+- [x] The domain
+- [ ] The subset
+- [ ] The group
+
+#### Explanation:
+
+The suffix for any API groups that the Helm operator will create or use is determined by the `--domain` flag that is
+passed to the `operator-sdk init` command. This flag specifies the domain that will be used to prefix the names of all
+the API groups that are generated by the operator.
+
+---
+
+### Review Question 4
+
+**In the Kubernetes API, what is an API group?**
+
+- [ ] A collection of endpoints that contain related functionality.
+- [ ] Any resource that consists of multiple dependent resources.
+- [ ] An endpoint that contains related functionality.
+- [x] A group of related resources.
+
+#### Explanation:
+
+An API group in Kubernetes is a collection of related resources that share the same group name. Each API group has a
+unique version, which allows for the evolution of the API over time without breaking compatibility.
+
+API groups are used to organize the Kubernetes API into a hierarchical structure that makes it easier to find and
+understand the resources that are available. They also provide a mechanism for extending the Kubernetes API with custom
+resources.
+
+Here is a simplified diagram of the Kubernetes API structure:
+
+```
+Kubernetes API
+├── core
+│   ├── v1
+│   │   ├── Pod
+│   │   ├── Deployment
+│   │   ├── Service
+│   │   │   ...
+│   │   ...
+│   └── v1beta1
+│       ├── Pod
+│       ├── Deployment
+│       ├── Service
+│       │   ...
+│       ...
+└── custom-resources
+    ├── my.domain
+    │   ├── v1beta1
+    │   │   ├── MyCustomResource
+    │   │   └── AnotherCustomResource
+    │   └── v2beta1
+    │       ├── MyCustomResource
+    │       └── AnotherCustomResource
+    └── another.domain
+        ├── v1alpha1
+        │   ├── MyCustomResource
+        │   └── AnotherCustomResource
+        └── v2alpha1
+            ├── MyCustomResource
+            └── AnotherCustomResource
+```
+
+As you can see, the core API group contains the most fundamental resources for managing Kubernetes workloads. The
+custom-resources API group is used to define custom resources, which can be used to extend the Kubernetes API with new
+types of resources.
+
+Each API group is identified by a URL path. For example, the URL path for the core API group is `/apis/core/v1`, and the
+URL path for the custom-resources API group is `/apis/apiextensions.k8s.io/v1beta1`.
+
+The URL path is used to identify the API group and version when you are creating, reading, updating, or deleting
+resources. For example, the following command creates a new Pod resource in the core API group version v1:
+
+```bash
+kubectl create -f pod.yaml
+```
+
+---
+
+### Review Question 5
+
+**The Helm operator controller we used was an off-the-shelf image that required no additional configuration.**
+
+- [ ] True
+- [x] False
+
+#### Explanation:
+
+Helm operator controllers are typically custom built and require configuration to work with your specific application or
+environment. They are not off-the-shelf images that can be used out of the box. This is because each Helm operator
+controller needs to be tailored to the specific needs of the application or environment it is managing.
+
+<p align="right">(<a href="#table-of-contents">back to top</a>)</p>
 
 ---
 
