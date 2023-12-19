@@ -563,6 +563,245 @@ controller needs to be tailored to the specific needs of the application or envi
 
 ---
 
+#### Module 3
+
+#### Ansible Operators
+
+### Practice Question 1
+
+**What Ansible resources are used to configure the ansible-operator controller?**
+
+- [ ] Scripts and Blocks
+- [x] Roles and Playbooks
+- [ ] Custom Resource Definitions and Namespaces
+- [ ] Classes and Plans
+
+#### Explanation:
+
+The ansible-operator controller can be configured using a variety of Ansible resources, including:
+
+* **Playbooks**: Playbooks are the primary building block of Ansible automation. They are YAML files that define a
+  series of tasks that should be executed on target hosts. Playbooks can be used to perform a wide range of tasks, such
+  as installing software, configuring systems, and managing services.
+* **Roles**: Roles are reusable collections of Ansible tasks and configuration files that can be used to automate common
+  IT tasks.
+
+<div style="text-align: center;">
+  <img src="../src/kubernetes-operators/ansible-operator.png" alt="hub and spoke" style="width: 40%;">
+</div>
+
+---
+
+### Practice Question 2
+
+**The Custom Resource Definition is the source of truth for the working fields of an Ansible operator resource type.**
+
+- [ ] True
+- [x] False
+
+#### Explanation:
+
+The statement is not accurate in the context of Ansible operators. In the context of Kubernetes and Ansible operators,
+the Custom Resource Definition (CRD) is not the source of truth for the working fields of an Ansible operator resource
+type.
+
+In the context of Ansible operators, the Ansible Role and associated Ansible Playbooks define the desired state of the
+system. The CRD, on the other hand, is a Kubernetes concept that allows you to define custom resources and their
+properties.
+
+In summary, the CRD defines the structure of the custom resources that an Ansible operator manages, but the Ansible Role
+and Playbooks are where you define the desired configuration and behavior of the resources.
+
+---
+
+### Practice Question 3
+
+**How does the ansible-operator controller provision Kubernetes resources?**
+
+- [ ] By accessing the Kubernetes etcd directly
+- [x] By using the Kubernetes Ansible collection
+- [ ] By using kubectl
+
+#### Explanation:
+
+The Ansible Operator is a concept in the context of Kubernetes that leverages Ansible, a configuration management and
+automation tool, to manage and provision resources within a Kubernetes cluster. Ansible Operators use custom controllers
+to extend the functionality of Kubernetes by defining custom resources and handling their lifecycle events.
+
+When the Ansible Operator controller provisions Kubernetes resources, it typically uses Ansible playbooks. Ansible
+playbooks are sets of instructions written in YAML that describe a series of tasks to be executed on target machines, in
+this case, the Kubernetes cluster.
+
+---
+
+### Practice Question 4
+
+**The controller used in an Ansible operator is based on an image maintained by the Operator-sdk open source community.
+**
+
+- [x] True
+- [ ] False
+
+#### Explanation:
+
+The controller used in an Ansible operator is based on an image maintained by the Operator-sdk open source community.
+This image provides the necessary tools and libraries for the controller to interact with the Kubernetes API server and
+execute Ansible playbooks. The image is maintained by the Operator-sdk community to ensure that it is compatible with
+the latest versions of Kubernetes and the Operator-sdk framework.
+
+For Operator-SDK versions > v1.30.0 the `quay.io/operator-framework/ansible-operator` base image has been updated to use
+Ansible 2.15. The Ansible 2.11 preview base image has been removed and will no longer be built/supported past
+Operator-SDK v1.30.
+
+Link: [Ansible Operator Base Images](https://sdk.operatorframework.io/docs/building-operators/ansible/reference/ansible-base-images/)
+
+---
+
+### Practice Question 5
+
+**What argument do you pass to "operator-sdk create api" to generate an Ansible Role?**
+
+- [ ] --generate-ansible-files
+- [x] --generate-role
+- [ ] --role=true
+- [ ] --role=ansible
+
+#### Explanation:
+
+The `--generate-role` flag is used with the `operator-sdk create api` command to instruct the operator-sdk to generate
+an Ansible Role for the Custom Resource Definition (CRD) that is being created. This option will create an Ansible Role
+that can be used to manage the CRD resources.
+
+Example of command:
+
+```
+$ operator-sdk create api --group cache --version v1alpha1 --kind Memcached --generate-role
+```
+
+This command creates a new API by creating a new CRD in the `cache` API group where `--generate-role` causes Operator
+SDK to also generate an Ansible role that serves as the backing for your custom resource type.
+
+<p align="right">(<a href="#table-of-contents">back to top</a>)</p>
+
+---
+
+### Review Question 1
+
+**What does an Ansible Role consist of?**
+
+- [ ] A collection of Kubernetes Custom Resources
+- [x] A collection of tasks and related scaffolding such as scripts, environment variables, etc.
+- [ ] A collection of Ansible Playbooks
+- [ ] A collection of scripts to run in order
+
+#### Explanation:
+
+An Ansible Role is a modular and reusable collection of tasks and related scaffolding that can be applied to any target
+host. It encapsulates a specific task or group of tasks that can be used to automate various tasks on a system.
+
+**An Ansible Role consists of:**
+
+1. **Tasks:** The core of an Ansible Role is a set of tasks that define the specific actions to be performed on the
+   target system. These tasks can range from simple configuration management tasks to more complex application
+   deployments.
+
+2. **Scaffolding:** An Ansible Role provides additional scaffolding to support and enhance the tasks. This includes
+   files, templates, and configuration files that are used by the tasks to perform their operations.
+
+3. **Variables:** Ansible Roles also utilize variables to make their tasks more dynamic and configurable. These
+   variables can be defined within the Role itself or can be passed from the Ansible playbook or the command line.
+
+---
+
+### Review Question 2
+
+**Why should you fill out the Custom Resource Definition in an Ansible operator?**
+
+- [ ] So that Kubernetes users will be able to use the Custom Resource
+- [ ] So that Kubernetes users will be able to see what fields the Custom Resource should have
+- [ ] So that Kubernetes admins will be able to allow access to the CRD
+- [x] So that the resulting Custom Resource will work
+
+#### Explanation:
+
+The Custom Resource Definition (CRD) is the blueprint for the custom resource that the Ansible operator will create and
+manage. It defines the structure of the resource, including its fields, types, and relationships to other resources. If
+the CRD is not filled out correctly, the operator will not be able to create or manage the resource correctly.
+
+---
+
+### Review Question 3
+
+**The ansible-operator controller automatically populates the Kubernetes status of Custom Resource objects with the
+Ansible status of the Ansible object.**
+
+- [x] True
+- [ ] False
+
+#### Explanation:
+
+The ansible-operator controller does automatically populate the Kubernetes status of Custom Resource objects with the
+Ansible status of the Ansible object. This is done by using the `k8s_status` Ansible module, which is part of
+the `operator_sdk.util` collection.
+
+The `k8s_status` module retrieves the Ansible status from the Ansible object and then updates the Kubernetes status
+accordingly. This allows the operator to maintain a consistent view of the state of the custom resource.
+
+---
+
+### Review Question 4
+
+**What is the name of the file that configures the Ansible Role?**
+
+- [ ] ansible.yml
+- [ ] main.yml
+- [ ] crd.yml
+- [x] role.yml
+
+#### Explanation:
+
+In an Ansible Role, the `main.yml` file is a common convention for configuring the tasks, handlers, and other elements
+of the role. This file is where you define the main execution flow for the role.
+
+A simple example of an Ansible Role directory structure and the contents of the `main.yml` file:
+
+```
+my_role/
+└── memcached
+    ├── README.md
+    ├── defaults
+    │   └── main.yml
+    ├── files
+    ├── handlers
+    │   └── main.yml
+    ├── meta
+    │   └── main.yml
+    ├── tasks
+    │   └── main.yml
+    ├── templates
+    └── vars
+        └── main.yml
+```
+
+---
+
+### Review Question 5
+
+**Which of the following commands can be used to generate an Ansible Role?**
+
+- [ ] operator-sdk generate bundle
+- [ ] operator-sdk create api
+- [ ] operator-sdk create role
+- [x] operator-sdk init
+
+#### Explanation:
+
+The `operator-sdk init` command can be used to generate an Ansible Role.
+
+<p align="right">(<a href="#table-of-contents">back to top</a>)</p>
+
+---
+
 ### Advanced Modules
 
 #### Module 1
