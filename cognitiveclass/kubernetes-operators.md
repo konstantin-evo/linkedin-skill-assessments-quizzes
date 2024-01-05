@@ -79,18 +79,25 @@ lifecycle management.
 
 **Operators always consist of a Custom Resource Definition and a controller.**
 
-1. [x] True
-2. [ ] False
+1. [ ] True
+2. [x] False
 
 #### Explanation:
 
-Operators in Kubernetes typically consist of a Custom Resource Definition (CRD) and a controller.
+**False.**
 
-The CRD defines a new custom resource (an extension of the Kubernetes API), and the controller is responsible for
-managing the lifecycle of instances of that custom resource. The controller watches for changes to resources, takes
-appropriate actions, and ensures that the desired state specified in the CRD is maintained.
+Operators can consist of more than just a Custom Resource Definition (CRD) and a controller. While these are the two
+core components of an operator, there are other optional components that can be included as well. For example, an
+operator may also include:
 
-This combination allows operators to automate the management of applications and services in a Kubernetes cluster.
+* **A reconciliation loop:** This is the process that the controller uses to keep the state of the managed objects in
+  sync with the desired state declared in the CRD.
+* **A health check:** This is a mechanism for the operator to check the health of the managed objects.
+* **A metrics endpoint:** This is a way for users to collect metrics about the operation of the operator.
+* **A logging mechanism:** This provides a way for users to diagnose problems with the operator.
+
+The specific components of an operator will vary depending on the complexity of the managed application and the desired
+functionality of the operator. However, the CRD and controller are always the core components.
 
 ---
 
@@ -329,7 +336,6 @@ image which is maintained by the Operator SDK open source community.
 With Help operators, you configure the controller image with information about your specific Helm chart. When an
 instance of the (CR) is created, the controller deploys an instance of the Helm chart to the cluster, configured with
 the information specified in the CR object’s spec.
-
 
 ---
 
@@ -636,8 +642,7 @@ this case, the Kubernetes cluster.
 
 ### Practice Question 4
 
-**The controller used in an Ansible operator is based on an image maintained by the Operator-sdk open source community.
-**
+**The controller used in an Ansible operator is based on an image maintained by the Operator-sdk open source community.**
 
 - [x] True
 - [ ] False
