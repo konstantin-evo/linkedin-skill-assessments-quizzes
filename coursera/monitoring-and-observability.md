@@ -13,6 +13,9 @@
         <li>
           <a href="#monitoring-basics">Monitoring Basics</a>
         </li>
+        <li>
+          <a href="#objectives-of-monitoring">Objectives of Monitoring</a>
+        </li>
       </ul>
   </li>
   <li>
@@ -92,3 +95,62 @@ These metrics are crucial for monitoring the health and performance of a service
 These four metrics collectively give a comprehensive view of a system's health and performance.
 
 <p align="right">(<a href="#table-of-contents">back to top</a>)</p>
+
+---
+
+#### Objectives of Monitoring
+
+### Q1. Who usually performs evaluation?
+
+1. [x] External independent parties who have no connection with the application usually perform evaluation.
+2. [ ] Elected officials who regulate computing technology and cloud systems usually perform evaluation.
+3. [ ] Customers who are responsible for reviewing products and providing feedback usually perform evaluation.
+4. [ ] Monitors who collect data during programming, testing, and the post-development lifecycle usually perform
+   evaluation.
+
+#### Explanation
+
+Evaluation is typically carried out by external independent parties to ensure objectivity and impartiality, as they do
+not have a vested interest in the application being evaluated.
+
+### Q2. Which component of monitoring provides alerts for metrics outside expected ranges?
+
+1. [ ] Metrics
+2. [ ] Objectives
+3. [ ] Observability
+4. [x] Alerting
+
+#### Explanation
+
+Alerting is the component that notifies administrators when certain metrics exceed predefined
+thresholds, indicating potential issues that need attention.
+
+### Q3. Which type of metrics is, in many ways, just a higher-level extrapolation of application and server metrics?
+
+1. [ ] Application metrics
+2. [ ] Host-based
+3. [x] Server pool
+4. [ ] External dependencies
+
+#### Explanation
+
+Server pool metrics provide a broader view of the performance and health of a group of servers,
+aggregating individual server metrics to give an overall picture of the infrastructure's status.
+
+### Q4. How does data collected through the monitoring process help the development process of applications?
+
+1. [ ] The data proves to developers that monitoring needs to be performed regularly to ensure optimal performance of
+   applications and services.
+2. [x] Using this data, administrators and developers can identify and solve problems in the development process of
+   applications.
+3. [ ] The data collected during the development process minimizes the time your service is down or running slowly.
+4. [ ] The data helps decision-makers to develop profitable applications and increase the popularity of their apps.
+
+#### Explanation
+
+The primary benefit of monitoring data is to help developers and administrators detect and troubleshoot
+issues, ensuring the development process is smooth and the application performs well.
+
+<p align="right">(<a href="#table-of-contents">back to top</a>)</p>
+
+---
