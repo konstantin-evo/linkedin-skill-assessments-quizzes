@@ -22,7 +22,12 @@
       </ul>
   </li>
   <li>
-    <a href="#module-2">Module 2</a>
+    <a href="#module-2">Monitoring Systems and Techniques</a>
+      <ul>
+        <li>
+          <a href="#implementing-monitoring">Implementing Monitoring</a>
+        </li>
+      </ul>
   </li>
   <li>
     <a href="#module-3">Module 3</a>
@@ -326,6 +331,153 @@ Data collected through monitoring provides valuable insights into the performanc
 applications and infrastructure. By analyzing this data, administrators and developers can identify potential issues,
 optimize performance, prioritize development efforts, and enhance the overall quality of applications during the
 development process.
+
+<p align="right">(<a href="#table-of-contents">back to top</a>)</p>
+
+---
+
+#### Module 2
+
+#### Monitoring Systems and Techniques
+
+---
+
+#### Implementing Monitoring
+
+#### Q1. Which of the following behaviors is used by synthetic monitoring to improve a website or an application performance?
+
+1. [ ] Inferential
+2. [ ] Predictive
+3. [ ] Associative
+4. [x] Prescriptive
+
+#### Explanation
+
+Synthetic monitoring simulates user traffic and behavior to proactively identify performance issues in websites and
+applications. Prescriptive analytics goes beyond identifying problems; it suggests specific actions to address them.
+
+<div style="text-align: center;">
+  <img src="../src/monitoring-and-observability/synthetic-monitoring.png" alt="Synthetic monitoring" width="300"/>
+</div>
+
+Synthetic monitoring focuses on simulating real user scenarios to uncover performance bottlenecks and pinpoint areas for
+improvement. Prescriptive analytics aligns with the proactive nature of synthetic monitoring by
+recommending solutions to the performance issues identified.
+
+#### Q2. Which of the following statements is true regarding scripting in synthetic monitoring?
+
+1. [ ] Scripting is a way to identify outages or availability issues.
+2. [x] Scripting enables you to walk through important application flows.
+3. [ ] It is the ability to test out various “What If” scenarios.
+4. [ ] Scripting measures an industry or competitors’ performance.
+
+#### Explanation
+
+In the context of synthetic monitoring, scripting refers to the creation of automated sequences that mimic user
+interactions with a website or application. These scripts are used to simulate real user behavior, allowing for
+continuous monitoring and testing of specific functionalities and workflows.
+
+#### Q3. Which of the following statements is the most appropriate summary of application monitoring?
+
+1. [ ] Application monitoring increases your sales and drives the growth of your business.
+2. [ ] Application monitoring only provides visualization and alerts to detect anomalies and target security issues.
+3. [ ] Application monitoring allows you to decrease your application’s productivity and reduce the quality of the user
+   experience.
+4. [x] Application monitoring allows developers to fine-tune and maintain apps for increased performance and user
+   satisfaction by providing a better understanding of app usage.
+
+### Explanation:
+
+Application monitoring involves tracking and analyzing the performance and behavior of software applications. This
+process is essential for maintaining and improving the application's reliability, performance, and user experience.
+
+Here's why the correct answer is the most appropriate summary:
+
+- **Fine-Tuning and Maintenance:** Application monitoring provides detailed insights into how an application is
+  performing. Developers can use this information to identify bottlenecks, optimize code, and make necessary adjustments
+  to enhance performance.
+- **Increased Performance:** By monitoring key metrics such as response times, error rates, and resource usage,
+  developers can ensure that the application runs smoothly and efficiently. This proactive approach helps in
+  preemptively addressing issues before they affect users.
+- **User Satisfaction:** Understanding how users interact with the application helps developers to improve the user
+  experience. By resolving issues quickly and optimizing performance, application monitoring contributes to higher user
+  satisfaction and retention.
+- **Better Understanding of App Usage:** Monitoring tools provide valuable data on how the application is used, which
+  features are most popular, and where users may encounter problems. This insight helps in making informed decisions for
+  future development and enhancements.
+
+#### Q4. Which of the following statements best describes using Prometheus for monitoring and alerting?
+
+1. [x] Prometheus can collect millions of metrics every second.
+2. [ ] Prometheus works best with simple workloads, limited metrics, and simplified databases.
+3. [ ] Prometheus does not include official libraries for Go, Python, Ruby, and third-party libraries, mandating that
+   developers create their own.
+4. [ ] Prometheus only works with Linux.
+
+#### Explanation
+
+The correct answer is:
+
+1. [x] Prometheus can collect millions of metrics every second.
+
+### Explanation:
+
+Prometheus is a powerful and widely-used open-source system for monitoring and alerting, particularly well-suited for
+time-series data.
+
+Prometheus is designed to handle high volumes of data efficiently, capable of collecting millions of metrics every
+second. This scalability makes it suitable for monitoring large and complex environments.
+
+#### Q5. Which of the following best describes the primary function of application monitoring (APM) tools?
+
+1. [ ] APM tools follow collective tracing to detect the origins of errors.
+2. [x] APM tools visually depict the event’s dependency and flow mapping connection.
+3. [ ] APM tools provide insights and overviews without focusing on specific problems.
+4. [ ] APM tools observe app components instead of visually depicting the events.
+
+#### Explanation
+
+APM tools go beyond simple application observation. Their core function lies in providing a comprehensive view of how
+different parts of your application interact and flow together. This includes:
+
+* **Dependency Mapping**: Visually showing how various components rely on each other.
+* **Event Flow Mapping**: Tracing the journey of a user action through the application, highlighting interactions
+  between components at each step.
+
+By visualizing these connections, APM tools empower developers to pinpoint bottlenecks, identify performance issues, and
+understand how changes in one part of the application might impact others.
+
+#### Q6. Which one of the following statements describes Grafana?**
+
+1. [ ] Grafana is an error alerting tool that manages your databases and systems based on defined metrics and
+   thresholds.
+2. [ ] Grafana is a proprietary charting and dashboard tool.
+3. [x] Grafana is a professional cross-platform, open-source data visualization and metrics analysis tool.
+4. [ ] Grafana is a data visualization tool that only works on Linux and Unix machines.
+
+#### Explanation
+
+The correct answer is:
+
+3. [x] Grafana is a professional cross-platform, open-source data visualization and metrics analysis tool.
+
+### Explanation:
+
+Grafana is widely recognized as a powerful and flexible tool for visualizing and analyzing data from various sources.
+Here’s why the correct answer best describes Grafana:
+
+<div style="text-align: center;">
+  <img src="../src/monitoring-and-observability/grafana-prometheus.png" alt="Prometheus and Grafana" width="500"/>
+</div>
+
+- **Professional and Cross-Platform:** Grafana is used by professionals across different industries to create detailed
+  and interactive dashboards. It is cross-platform, meaning it can run on various operating systems including Linux,
+  Windows, and macOS.
+- **Open-Source:** Grafana is open-source, allowing users to modify, extend, and share the software freely. This
+  contributes to a large community of users and contributors who enhance its capabilities.
+- **Data Visualization and Metrics Analysis:** Grafana excels at creating visual representations of data, enabling users
+  to analyze metrics and gain insights into their systems and applications. It supports a wide range of data sources,
+  including time-series databases like Prometheus, InfluxDB, and more.
 
 <p align="right">(<a href="#table-of-contents">back to top</a>)</p>
 
