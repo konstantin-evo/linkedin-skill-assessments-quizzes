@@ -30,6 +30,9 @@
         <li>
           <a href="#monitoring-techniques">Monitoring Techniques</a>
         </li>
+        <li>
+          <a href="#monitoring-systems-and-techniques">Summary</a>
+        </li>
       </ul>
   </li>
   <li>
@@ -341,10 +344,6 @@ development process.
 
 #### Module 2
 
-#### Monitoring Systems and Techniques
-
----
-
 #### Implementing Monitoring
 
 #### Q1. Which of the following behaviors is used by synthetic monitoring to improve a website or an application performance?
@@ -512,7 +511,6 @@ datasets, facilitating faster and more effective decision-making.
 
 #### Explanation
 
-
 <div style="text-align: center;">
   <img src="../src/monitoring-and-observability/alert-types.png" alt="Alert types" width="500"/>
 </div>
@@ -525,3 +523,187 @@ monitoring.
 
 ---
 
+#### Monitoring Systems and Techniques
+
+#### Q1. Which one of the following statements is the most appropriate summary of application monitoring?
+
+- [ ] Application monitoring increases your sales and drives the growth of your business.
+- [ ] Application monitoring allows you to decrease your application’s productivity and reduce the user experience.
+- [ ] Application monitoring only provides visualization and alerts to detect anomalies and target security issues.
+- [x] Application monitoring provides a better understanding of app usage, allowing developers to fine-tune and
+  maintain apps for increased performance and user satisfaction.
+
+#### Explanation
+
+Application monitoring involves tracking and analyzing the performance and behavior of software applications. This
+process is essential for maintaining and improving the application's reliability, performance, and user experience.
+
+Here's why the correct answer is the most appropriate summary:
+
+- **Fine-Tuning and Maintenance:** Application monitoring provides detailed insights into how an application is
+  performing. Developers can use this information to identify bottlenecks, optimize code, and make necessary adjustments
+  to enhance performance.
+- **Increased Performance:** By monitoring key metrics such as response times, error rates, and resource usage,
+  developers can ensure that the application runs smoothly and efficiently. This proactive approach helps in
+  preemptively addressing issues before they affect users.
+- **User Satisfaction:** Understanding how users interact with the application helps developers to improve the user
+  experience. By resolving issues quickly and optimizing performance, application monitoring contributes to higher user
+  satisfaction and retention.
+- **Better Understanding of App Usage:** Monitoring tools provide valuable data on how the application is used, which
+  features are most popular, and where users may encounter problems. This insight helps in making informed decisions for
+  future development and enhancements.
+
+#### Q2. Which one of the following statements most accurately describes the application monitoring tool Prometheus?
+
+- [ ] Prometheus provides data visualization, is customizable, and allows you to manage and explore logs and data
+  more effectively.
+- [ ] Prometheus is a text-based spreadsheet application that only collects data and requires a developer to
+  interpret the data to make software updates and changes.
+- [x] Prometheus is a powerful analytics tool that collects and evaluates metrics for numeric time-series data.
+- [ ] Prometheus is a social network for professionals to connect, share, and learn.
+
+#### Explanation
+
+<div style="text-align: center;">
+  <img src="../src/monitoring-and-observability/prometheus-architecture.png" alt="Prometheus Architecture" width="500"/>
+</div>
+
+Prometheus is specifically designed to collect and analyze time-series data, making it a powerful tool for monitoring
+applications.
+
+#### Q3. What is one of the benefits of using Prometheus for monitoring and alerting?
+
+- [ ] Prometheus does not include official libraries for Go, Python, Ruby, or third-party libraries and mandates
+  that developers create their own.
+- [ ] Prometheus only works with Linux.
+- [ ] Prometheus handles alerts and sends alert notifications using email, on-call notification systems, and chat
+  platforms.
+- [x] Prometheus can collect millions of metrics every second.
+
+#### Explanation
+
+Prometheus is known for its ability to handle a high volume of metrics efficiently, making it suitable for
+large-scale monitoring.
+
+#### Q4. Which of the following is true for error monitoring, one of the essential aspects of application monitoring?
+
+- [ ] It includes tracking user actions, session durations, conversion rates, and other relevant metrics to measure
+  customer satisfaction.
+- [ ] It checks the uptime and downtime of your application by periodically sending requests to verify its
+  responsiveness.
+- [x] It identifies bugs or other issues in the code, helps you capture stack traces, and provides detailed
+  information about the root cause of errors, enabling efficient debugging.
+- [ ] It involves tracking metrics like response time, throughput, error rates, and resource utilization to ensure
+  optimal performance.
+
+#### Explanation
+
+Error monitoring focuses on detecting and diagnosing bugs and issues within the application code to facilitate
+effective debugging and resolution.
+
+#### Q5. Which one of the following statements explains an important benefit of using Grafana?
+
+- [ ] Grafana is a simple, text-only visualization tool.
+- [ ] Grafana is exclusively for developers who have reached the highest rank in Six Sigma.
+- [ ] Grafana not only works on data stored in databases but also performs data collection to help you focus on just
+  the data that is important to you.
+- [x] Grafana transforms your data into graphs and visualizations that help you make sense of massive amounts of
+  monitored data.
+
+#### Explanation
+
+Grafana is a powerful visualization tool that turns complex data into understandable graphs and charts, aiding in
+data analysis and decision-making.
+
+<div style="text-align: center;">
+  <img src="../src/monitoring-and-observability/grafana-prometheus.png" alt="Prometheus and Grafana" width="500"/>
+</div>
+
+#### Q6. Which one of the following statements defines Grafana?
+
+- [ ] Grafana is a data visualization tool that only works on Linux and Unix machines.
+- [ ] Grafana is a proprietary charting and dashboard tool.
+- [x] Grafana is a professional cross-platform, open-source data visualization and metrics analysis tool.
+- [ ] Grafana is an error alerting tool that manages your databases and systems based on defined metrics and
+  thresholds.
+
+#### Explanation
+
+Grafana is an open-source tool that is widely used across various platforms for data visualization and metrics
+analysis.
+
+#### Q7. When choosing a visualization tool, what is a key factor to consider? Select one answer.
+
+- [ ] Popularity
+- [x] Storytelling
+- [ ] Widgets
+- [ ] Color palette
+
+#### Explanation
+
+When selecting a visualization tool, storytelling is a key factor to consider. Effective data visualization goes beyond
+just presenting raw data; it should tell a compelling story that helps the audience understand the insights and trends
+hidden within the data.
+
+#### Q8. Which one of the following answers summarizes one of the benefits of using visualization in monitoring?
+
+- [x] Visualization is the graphical representation of data collected from a business infrastructure and is used to
+  help a business maintain its applications.
+- [ ] Visualization is a program used for creating animations and graphics for non-profit government organizations (
+  NGOs).
+- [ ] Visualization is used in monitoring to help developers create newer programs that users want to purchase.
+- [ ] Visualization eliminates the need for metrics, numbers, and data by presenting information in stories and
+  pictures.
+
+#### Explanation
+
+Visualization in monitoring refers to the use of graphical representations to display the data collected from a
+business's infrastructure. This helps in understanding the performance, health, and status of applications and systems.
+
+The benefits of using visualization in monitoring:
+
+* **Graphical Representation of Data**: Visualization converts complex data into visual formats like charts, graphs, and
+  dashboards, making it easier to comprehend and analyze.
+* **Helps Maintain Applications**: By visualizing metrics and performance data, businesses can quickly identify issues,
+  monitor trends, and make informed decisions to maintain and improve their applications.: By visualizing metrics and
+  performance data, businesses can quickly identify issues, monitor trends, and make informed decisions to maintain and
+  improve their applications.
+
+#### Q9. What is the most common reason for alerting in application monitoring?
+
+- [ ] The best reason for using alerting in monitoring is to fix problems before they are noticed by users, hence
+  improving the user experience.
+- [x] The most common reason to use alerting is to notify those responsible for that system, service, or
+  application.
+- [ ] The most common reason is to explain different types of alerts to developers and their teams.
+- [ ] A common reason for alerting is the continuation of monitoring.
+
+#### Explanation
+
+The primary purpose of alerting is to quickly inform the people responsible for maintaining the system when there is an
+issue. This enables a prompt response to potential problems, helping to minimize downtime and mitigate the impact on
+users.
+
+#### Q10. Which one of the four types of alerts uncovers trends in usage and behavior to help you understand the effects of any changes made to your applications or infrastructure?
+
+- [ ] Activity log alerts
+- [ ] Log alerts
+- [ ] Metric alerts
+- [x] Smart detection
+
+#### Explanation
+
+<div style="text-align: center;">
+  <img src="../src/monitoring-and-observability/alert-types.png" alt="Alert types" width="500"/>
+</div>
+
+Metric alerts are the type of alerts that uncover trends in usage and behavior to help you understand the effects of any
+changes made to your applications or infrastructure.
+
+By monitoring metrics and setting up metric alerts, you can proactively notify yourself when important conditions are
+found in your monitoring data. So, if you're looking to gain insight into how your systems are performing and understand
+the impact of changes, metric alerts are the way to go!
+
+<p align="right">(<a href="#table-of-contents">back to top</a>)</p>
+
+---
