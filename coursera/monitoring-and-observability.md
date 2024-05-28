@@ -36,7 +36,21 @@
       </ul>
   </li>
   <li>
-    <a href="#module-3">Module 3</a>
+    <a href="#module-3">Methodologies and Tools in Logging</a>
+      <ul>
+        <li>
+          <a href="#introduction-to-logging">Introduction to Logging</a>
+        </li>
+        <li>
+          <a href="#logging-implementation">Logging Implementation</a>
+        </li>
+        <li>
+          <a href="#introduction-to-mezmo">Introduction to Mezmo</a>
+        </li>
+        <li>
+          <a href="#methodologies-and-tools-in-logging">Summary</a>
+        </li>
+      </ul>
   </li>
   <li>
     <a href="#module-4">Module 4</a>
@@ -703,6 +717,71 @@ changes made to your applications or infrastructure.
 By monitoring metrics and setting up metric alerts, you can proactively notify yourself when important conditions are
 found in your monitoring data. So, if you're looking to gain insight into how your systems are performing and understand
 the impact of changes, metric alerts are the way to go!
+
+<p align="right">(<a href="#table-of-contents">back to top</a>)</p>
+
+---
+
+#### Module 3
+
+#### Introduction to Logging
+
+#### Q1. Which of the following is typically included in logged events?
+
+1. [x] Completed operations
+2. [ ] Proprietary information
+3. [ ] Solutions for debugging operations
+4. [ ] Unlogged events
+
+#### Explanation
+
+Logged events typically include completed operations. These logs record the details of actions that have been executed,
+which is essential for monitoring, auditing, and debugging purposes.
+
+#### Q2. Which of the following is one of the many important reasons to use application logs?
+
+1. [x] Logs can be used for auditing purposes.
+2. [ ] Logs contain the program code kernel that the application runs on.
+3. [ ] Logs can automatically fix message flow issues and resolve application problems.
+4. [ ] Logs are a security issue and should never be used in applications.
+
+#### Explanation
+
+Application logs are essential for various reasons, and one important reason is that they can be used for auditing
+purposes. Logs help track and record significant events within an application, making it possible to review and analyze
+these events for security, compliance, and troubleshooting.
+
+#### Q3. Which of the following tools shape log data to make it more actionable by using automatic and custom parsing?
+
+1. [ ] Sumo Logic
+2. [ ] IBM Instana Observability (Instana)
+3. [ ] Datadog
+4. [x] Mezmo
+
+#### Explanation
+
+The tool that shapes log data to make it more actionable by using automatic and custom parsing is
+Mezmo.
+
+Mezmo makes it easy to centralize log data with support for a broad range of ingestion options. Its Automatic and Custom
+Parsing feature allows you to shape log data, making it more valuable and actionable.
+
+#### Q4.  __________ involves adding code to applications or services to generate traces and spans.
+
+1. [ ] Context propagation
+2. [ ] Distributed logging
+3. [ ] Distributed tracing
+4. [x] Instrumentation
+
+#### Explanation
+
+<div style="text-align: center;">
+  <img src="../src/monitoring-and-observability/distributed-tracing.png" alt="What is Distributed Tracing" width="500"/>
+</div>
+
+Instrumentation involves adding code to applications or services to generate traces and spans. This process is crucial
+in distributed tracing, where instrumentation allows the collection of detailed performance and diagnostic data, which
+is essential for monitoring and troubleshooting complex, distributed systems.
 
 <p align="right">(<a href="#table-of-contents">back to top</a>)</p>
 
