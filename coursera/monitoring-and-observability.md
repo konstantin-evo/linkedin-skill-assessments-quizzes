@@ -27,6 +27,9 @@
         <li>
           <a href="#implementing-monitoring">Implementing Monitoring</a>
         </li>
+        <li>
+          <a href="#monitoring-techniques">Monitoring Techniques</a>
+        </li>
       </ul>
   </li>
   <li>
@@ -482,3 +485,43 @@ Here’s why the correct answer best describes Grafana:
 <p align="right">(<a href="#table-of-contents">back to top</a>)</p>
 
 ---
+
+#### Monitoring Techniques
+
+#### Q1. Which of the following is an important reason for using data visualization to help developers understand the data their monitoring tools have collected?
+
+- [ ] Visualization helps developers understand the benefits and components of monitoring.
+- [ ] Data visualization eliminates the need for metrics, numbers, and data by presenting information in stories and
+  pictures.
+- [x] Data visualization is important because it can present massive amounts of data, allowing an operator to spot any
+  trends or problems quickly.
+- [ ] Visualization helps developers use illustrator programs that create graphically stunning and aesthetically
+  pleasing art.
+
+#### Explanation
+
+Data visualization is crucial because it enables developers to quickly identify trends, patterns, and anomalies in large
+datasets, facilitating faster and more effective decision-making.
+
+#### Q2. Which one of the four types of alerts analyzes telemetry sent by your application to warn of potential failure anomalies?
+
+- [ ] Log alerts
+- [x] Smart detection
+- [ ] Activity log alerts
+- [ ] Metric alerts
+
+#### Explanation
+
+
+<div style="text-align: center;">
+  <img src="../src/monitoring-and-observability/alert-types.png" alt="Alert types" width="500"/>
+</div>
+
+Smart detection alerts analyze telemetry data from your application to detect potential failure anomalies. This type of
+alert use advanced algorithms to identify issues that might not be immediately obvious through standard metric or log
+monitoring.
+
+<p align="right">(<a href="#table-of-contents">back to top</a>)</p>
+
+---
+
