@@ -786,3 +786,43 @@ is essential for monitoring and troubleshooting complex, distributed systems.
 <p align="right">(<a href="#table-of-contents">back to top</a>)</p>
 
 ---
+
+#### Logging Implementation
+
+#### Q1. Which type of application log is useful for troubleshooting issues, detecting security breaches, and recording user actions?
+
+1. [ ] Access Logs
+2. [ ] Error Logs
+3. [ ] Performance Logs
+4. [x] Event Logs
+
+#### Explanation:
+
+<div style="text-align: center;">
+  <img src="../src/monitoring-and-observability/log-types.png" alt="Types of application logs" width="500"/>
+</div>
+
+The type of application log that is useful for troubleshooting issues, detecting security breaches, and recording user
+actions is Event Logs.
+
+These logs capture information about events that occur on a system, including application-specific events,
+security-related events, and user actions. Event logs are essential for monitoring and diagnosing problems in software
+applications and systems. They provide valuable insights into system behavior, errors, and potential security threats.
+
+#### Q2. Which of the following statements about log storage is correct?
+
+1. [ ] Storing logs for a minimum of one year is not recommended
+2. [ ] Compliance mandates do not have log storage and retention requirements
+3. [ ] Storing logs in the cloud can impact retrieval speed
+4. [x] AES-256 encryption is used for data at rest when storing logs in the cloud
+
+#### Explanation:
+
+AES-256 encryption is commonly used for securing data at rest, including logs stored in the cloud. This ensures that
+sensitive log data is protected against unauthorized access. Other statements are incorrect because storing logs for a
+certain period is often required for compliance, compliance mandates do have storage requirements, and cloud storage can
+offer efficient retrieval mechanisms.
+
+<p align="right">(<a href="#table-of-contents">back to top</a>)</p>
+
+---
