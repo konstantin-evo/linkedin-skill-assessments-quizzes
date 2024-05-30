@@ -53,7 +53,21 @@
       </ul>
   </li>
   <li>
-    <a href="#module-4">Module 4</a>
+    <a href="#module-4">Observability and Concepts</a>
+      <ul>
+        <li>
+          <a href="#introduction-to-observability">Introduction to Observability</a>
+        </li>
+        <li>
+          <a href="#tracing-using-open-telemetry">Tracing using Open Telemetry</a>
+        </li>
+        <li>
+          <a href="#monitoring-containers">Monitoring Containers</a>
+        </li>
+        <li>
+          <a href="#observability-and-concepts">Summary</a>
+        </li>
+      </ul>
   </li>
   <li>
     <a href="#module-5">Module 5</a>
@@ -183,6 +197,7 @@ issues, ensuring the development process is smooth and the application performs 
 
 ---
 
+#### Module 1 - Summary
 #### Introduction to Monitoring for Applications
 
 #### Q1. Which one of the following statements is the most appropriate definition of application monitoring?
@@ -537,6 +552,7 @@ monitoring.
 
 ---
 
+#### Module 2 - Summary
 #### Monitoring Systems and Techniques
 
 #### Q1. Which one of the following statements is the most appropriate summary of application monitoring?
@@ -860,6 +876,7 @@ offer efficient retrieval mechanisms.
 
 ---
 
+#### Module 3 - Summary
 #### Methodologies and tools in logging
 
 #### Q1. Which one of the following statements is the most appropriate definition of application logging?
@@ -872,7 +889,7 @@ offer efficient retrieval mechanisms.
 4. [ ] Logging is how developers identify information, design applications based on that information, and then extract
    meaningful data.
 
-#### Explanation:
+#### Explanation
 
 Application logging refers to the practice of recording information about the execution of an application. This
 information typically includes messages about the application's state, errors, warnings, and other significant events
@@ -885,7 +902,7 @@ that occur during its operation.
 3. [ ] Logs contain the program code kernel that the application runs on.
 4. [x] Logs can be used for auditing purposes.
 
-#### Explanation:
+#### Explanation
 
 Application logs serve multiple important purposes, one of which is auditing. Logs provide a record of events and
 actions that have taken place within an application, which can be crucial for tracking changes, identifying unauthorized
@@ -898,7 +915,7 @@ access or modifications, and ensuring compliance with regulatory requirements.
 3. [x] Completed operations
 4. [ ] Copyright dates
 
-#### Explanation:
+#### Explanation
 
 Logged events usually include information about actions and operations that have been completed within the application.
 This can involve details such as when the operation started and finished, its outcome, any errors encountered, and other
@@ -911,7 +928,7 @@ relevant data that can help in understanding the application's behavior and diag
 3. [x] Application training and feedback
 4. [x] Service functions
 
-#### Explanation:
+#### Explanation
 
 For an enterprise application used by many businesses, it's crucial to log data and application operations. This
 includes information about transactions, user activities, system performance, errors, and other events that provide
@@ -926,7 +943,7 @@ applications.
 3. [ ] Sumo Logic
 4. [ ] Splunk
 
-#### Explanation:
+#### Explanation
 
 IBM Instana Observability (Instana) is specifically designed for the complexities and dynamic nature of microservices
 and cloud-native applications. It offers automated monitoring, tracing, and performance management to provide real-time
@@ -939,7 +956,7 @@ observability into these types of environments.
 3. [x] Monitor your logs
 4. [x] Define log retention policies
 
-#### Explanation:
+#### Explanation
 
 All the listed options (configure loggers, set up a centralized logging server, monitor your logs, and define log
 retention policies) are crucial steps to implement distributed logging.
@@ -965,7 +982,7 @@ Therefore, while all options are important, the most logical next step after cho
 3. [x] Timestamp and actual message being logged
 4. [ ] Programming language and needs
 
-#### Explanation:
+#### Explanation
 
 Formatted log messages typically **don't** include information about testing and adjustments or the programming language
 used. Their focus is on providing context and details about the logged event.
@@ -987,7 +1004,7 @@ Here's what you'll normally find in a formatted log message:
 3. [ ] Log parsing can be performed without explicitly determining the format of log files.
 4. [ ] Log parsing is the final step in the process of log formatting.
 
-#### Explanation:
+#### Explanation
 
 Log parsing involves analyzing log files and converting them into a structured, readable format that can be ingested and
 utilized by log management systems. This process often includes extracting specific fields from the logs, such as
@@ -1001,7 +1018,7 @@ analyzed.
 3. [ ] Retention policies should be the same for all parts of the system, despite their criticality.
 4. [ ] Critical components of a system can have a shorter retention policy.
 
-#### Explanation:
+#### Explanation
 
 Less critical data for non-sensitive purposes can have a shorter storage duration.
 
@@ -1012,10 +1029,84 @@ Less critical data for non-sensitive purposes can have a shorter storage duratio
 3. [ ] Get notifications about the system’s activity
 4. [x] Set dynamic thresholds and alerts
 
-#### Explanation:
+#### Explanation
 
 This feature helps in setting thresholds and alerts dynamically to protect against sudden spikes or anomalies in the
 system's activity, allowing users to proactively monitor and respond to potential issues.
+
+<p align="right">(<a href="#table-of-contents">back to top</a>)</p>
+
+---
+
+#### Module 4
+
+#### Introduction to Observability
+
+#### Q1. What is the goal of observability?
+
+1. [ ] Faster identification and resolution of issues
+2. [ ] Ensure that an application or service is up and responding
+3. [x] Identify issues, track trends, and make informed decisions
+4. [ ] Ensure that applications and web pages are responsive
+
+#### Explanation
+
+Observability goes beyond simply knowing if something is wrong. It allows you to see how the system is behaving over
+time, identify patterns, and make data-driven decisions for
+improvement.
+
+#### Q2. Which of the following is an advantage of metrics?
+
+1. [ ] Metrics can debug issues in a distributed system
+2. [ ] Metrics are an extremely easy format to generate
+3. [x] Metrics are highly quantitative to associate with alerting thresholds
+4. [ ] The granular information from metrics allows retrospective replaying of support incidents
+
+#### Explanation
+
+Quantitative metrics allow you to set precise alerting thresholds. For example:
+
+* If the error rate exceeds 5%, trigger an alert.
+* If CPU utilization exceeds 80%, send a notification.
+
+These thresholds are based on specific numeric values, making it easier to define actionable alerts.
+
+#### Q3. How does implementing a robust observability solution provide an advantage in terms of reducing Mean Time to Repair (MTTR)?
+
+1. [ ] By enabling a reactive approach to troubleshoot
+2. [ ] By gaining insights into system resource utilization
+3. [ ] By monitoring individual systems effectively
+4. [x] By identifying correlations between events for expedited troubleshooting
+
+#### Explanation
+
+Observability tools correlate logs, metrics, and traces across distributed systems, providing a holistic view of the
+environment. This correlation helps quickly pinpoint the root cause of issues, significantly speeding up the
+troubleshooting process.
+
+#### Q4. Which of the following cloud observability tools enables unlimited storage capacity for Prometheus deployments?
+
+1. [x] Thanos
+2. [ ] FluentD
+3. [ ] New Relic
+4. [ ] AWS CloudWatch
+
+#### Explanation
+
+Thanos is designed to extend Prometheus with features like unlimited storage capacity, global querying, and high
+availability. It allows for long-term storage of metrics and seamless scaling of Prometheus.
+
+#### Q5. Which of the following is the correct advantage of sampling in observability?
+
+1. [ ] Sampling accurately represents the actual data.
+2. [ ] Sampling always makes it easy to diagnose complex performance issues.
+3. [x] Sampling reduces computational overhead and storage requirements.
+4. [ ] Sampling provides high resolution in monitoring systems
+
+#### Explanation
+
+Sampling helps manage large volumes of data by reducing the amount of data collected and stored. This approach lowers
+computational overhead and storage requirements while still providing a representative view of the system's performance.
 
 <p align="right">(<a href="#table-of-contents">back to top</a>)</p>
 
