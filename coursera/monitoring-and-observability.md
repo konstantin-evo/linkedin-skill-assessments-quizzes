@@ -826,3 +826,36 @@ offer efficient retrieval mechanisms.
 <p align="right">(<a href="#table-of-contents">back to top</a>)</p>
 
 ---
+
+#### Introduction to Mezmo
+
+#### Q1. What is the primary purpose of Mezmo?
+
+1. [x] Mezmo is a robust observability platform to manage and take action on your telemetry data.
+2. [ ] Mezmo is a cloud storage platform to manage, store, and retrieve telemetry data.
+3. [ ] Mezmo is a security platform with analytics and troubleshooting features.
+4. [ ] Mezmo is a network analytics tool to manage and secure data networks.
+
+#### Explanation:
+
+Mezmo, previously known as LogDNA, is a robust observability platform for managing and taking action on your telemetry
+data. Mezmo Log analysis gives operations teams control over their data flow and empowers developers to quickly find
+value from their logs.
+
+#### Q2. Which of the following statements about log storage is correct?
+
+1. [ ] Storing logs for a minimum of one year is not recommended
+2. [ ] Compliance mandates do not have log storage and retention requirements
+3. [ ] Storing logs in the cloud can impact retrieval speed
+4. [x] AES-256 encryption is used for data at rest when storing logs in the cloud
+
+#### Explanation:
+
+AES-256 encryption is commonly used for securing data at rest, including logs stored in the cloud. This ensures that
+sensitive log data is protected against unauthorized access. Other statements are incorrect because storing logs for a
+certain period is often required for compliance, compliance mandates do have storage requirements, and cloud storage can
+offer efficient retrieval mechanisms.
+
+<p align="right">(<a href="#table-of-contents">back to top</a>)</p>
+
+---
