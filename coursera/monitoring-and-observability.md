@@ -859,3 +859,164 @@ offer efficient retrieval mechanisms.
 <p align="right">(<a href="#table-of-contents">back to top</a>)</p>
 
 ---
+
+#### Methodologies and tools in logging
+
+#### Q1. Which one of the following statements is the most appropriate definition of application logging?
+
+1. [ ] Logging contains developer notes about how the application works, how it was designed, when the last update was
+   made, and whom to contact if there’s an issue.
+2. [x] Logging is a recording of a series of messages containing information about events within an application.
+3. [ ] Logging is a pre-emptive activity performed by professional arborists to prevent destructive wildfires in
+   forests.
+4. [ ] Logging is how developers identify information, design applications based on that information, and then extract
+   meaningful data.
+
+#### Explanation:
+
+Application logging refers to the practice of recording information about the execution of an application. This
+information typically includes messages about the application's state, errors, warnings, and other significant events
+that occur during its operation.
+
+#### Q2. Which of the following is one of the many important reasons to use application logs?
+
+1. [ ] Logs can automatically fix message flow issues and resolve application problems before they become an issue.
+2. [ ] Logs are a security issue and should never be used in applications.
+3. [ ] Logs contain the program code kernel that the application runs on.
+4. [x] Logs can be used for auditing purposes.
+
+#### Explanation:
+
+Application logs serve multiple important purposes, one of which is auditing. Logs provide a record of events and
+actions that have taken place within an application, which can be crucial for tracking changes, identifying unauthorized
+access or modifications, and ensuring compliance with regulatory requirements.
+
+#### Q3. Which of the following are items that are typically included in logged events?
+
+1. [ ] End User License Agreement (EULA) details
+2. [ ] Open source or proprietary information
+3. [x] Completed operations
+4. [ ] Copyright dates
+
+#### Explanation:
+
+Logged events usually include information about actions and operations that have been completed within the application.
+This can involve details such as when the operation started and finished, its outcome, any errors encountered, and other
+relevant data that can help in understanding the application's behavior and diagnosing issues.
+
+#### Q4. Imagine your application is an enterprise application used by many businesses. When you are determining what your application should log, you should consider which one of the following?
+
+1. [x] Application testing
+2. [x] Data and application operations
+3. [x] Application training and feedback
+4. [x] Service functions
+
+#### Explanation:
+
+For an enterprise application used by many businesses, it's crucial to log data and application operations. This
+includes information about transactions, user activities, system performance, errors, and other events that provide
+insights into the application's behavior and help in troubleshooting issues. Effective logging of these operations aids
+in maintaining the application's reliability, performance, and security, which are vital for business-critical
+applications.
+
+#### Q5. Which of the following is a fully automated application performance management (APM) solution designed for the challenges of managing microservice and cloud-native applications?
+
+1. [ ] Datadog
+2. [x] IBM Instana Observability (Instana)
+3. [ ] Sumo Logic
+4. [ ] Splunk
+
+#### Explanation:
+
+IBM Instana Observability (Instana) is specifically designed for the complexities and dynamic nature of microservices
+and cloud-native applications. It offers automated monitoring, tracing, and performance management to provide real-time
+observability into these types of environments.
+
+#### Q6. After choosing a logging framework, what is the next step to implement distributed logging?
+
+1. [x] Configure loggers
+2. [x] Set up a centralized logging server
+3. [x] Monitor your logs
+4. [x] Define log retention policies
+
+#### Explanation:
+
+All the listed options (configure loggers, set up a centralized logging server, monitor your logs, and define log
+retention policies) are crucial steps to implement distributed logging.
+
+1. **Configure Loggers:** This involves integrating the chosen logging framework within your applications. You'll define
+   what gets logged, the log level (debug, info, error etc.), and the format of the log messages.
+2. **Set up a Centralized Logging Server:**  Here, you establish a central location to aggregate logs from all your
+   distributed applications. This could be a dedicated log server, a cloud-based service, or even a distributed file
+   system.
+3. **Monitor Your Logs:** Once logs are collected centrally, set up log monitoring tools to analyze and identify any
+   issues. This could involve creating dashboards or alerts based on specific log patterns.
+4. **Define Log Retention Policies:**  Determine how long you want to store your logs. Factors to consider include
+   compliance regulations and the value of the data for troubleshooting purposes. Implement a strategy to archive or
+   delete logs after a set period.
+
+Therefore, while all options are important, the most logical next step after choosing a logging framework would be:
+**Configure Loggers** within your applications.
+
+#### Q7. What information is typically included in a formatted log message?
+
+1. [ ] Testing and adjustment of the logging setup
+2. [ ] Output options such as console or file
+3. [x] Timestamp and actual message being logged
+4. [ ] Programming language and needs
+
+#### Explanation:
+
+Formatted log messages typically **don't** include information about testing and adjustments or the programming language
+used. Their focus is on providing context and details about the logged event.
+
+Here's what you'll normally find in a formatted log message:
+
+1. **Timestamp:** This indicates the exact time the event occurred, crucial for troubleshooting and sequencing events.
+2. **Log Level:** This categorizes the severity of the event (e.g., debug, info, warning, error, critical).
+3. **Source:**  This identifies the application or component that generated the log message.
+4. **Message:** This is the actual content of the log, describing the event in detail. It may include relevant data or
+   error codes.
+5. **Additional Context (Optional):**  Some logging frameworks allow including supplementary details like thread IDs,
+   hostnames, or user information for further troubleshooting.
+
+#### Q8. Which of the following statements about log parsing is correct?
+
+1. [x] Log parsing converts log files into a readable format for log management systems.
+2. [ ] Log parsing is a feature only available in certain log management solutions.
+3. [ ] Log parsing can be performed without explicitly determining the format of log files.
+4. [ ] Log parsing is the final step in the process of log formatting.
+
+#### Explanation:
+
+Log parsing involves analyzing log files and converting them into a structured, readable format that can be ingested and
+utilized by log management systems. This process often includes extracting specific fields from the logs, such as
+timestamps, log levels, messages, and other relevant data, so that the logs can be effectively searched, filtered, and
+analyzed.
+
+#### Q9. Which of the following is the correct consideration for the log retention policies regarding the criticality and security dimensions?
+
+1. [x] Services tracking customer behavior for improvement purposes can have a shorter retention policy.
+2. [ ] Applications involving sensitive or personal data should have a shorter retention policy.
+3. [ ] Retention policies should be the same for all parts of the system, despite their criticality.
+4. [ ] Critical components of a system can have a shorter retention policy.
+
+#### Explanation:
+
+Less critical data for non-sensitive purposes can have a shorter storage duration.
+
+#### Q10. What is the spike protection feature of Mezmo used for?
+
+1. [ ] Visualize your log data over a time period
+2. [ ] Easily surface the data from logs
+3. [ ] Get notifications about the system’s activity
+4. [x] Set dynamic thresholds and alerts
+
+#### Explanation:
+
+This feature helps in setting thresholds and alerts dynamically to protect against sudden spikes or anomalies in the
+system's activity, allowing users to proactively monitor and respond to potential issues.
+
+<p align="right">(<a href="#table-of-contents">back to top</a>)</p>
+
+---
