@@ -1150,3 +1150,28 @@ developers analyze performance and behavior issues within their applications.
 <p align="right">(<a href="#table-of-contents">back to top</a>)</p>
 
 ---
+
+#### Monitoring Containers
+
+#### Q1. What are the steps to visualize data and monitor end-to-end requests using monitoring tools?
+
+- [x] Instrumentation, Trace context, Metrics and metadata, Analysis and visualization
+- [ ] Tags, Queries, Stack traces, Logs, Context-giving events
+- [ ] Allocate unique external request ID, Pass ID to all services handling the request, Include ID in log messages,
+  Record information about requests and operations
+- [ ] Latency, Traffic, Errors, Saturation
+
+#### Explanation
+
+Visualizing data and monitoring end-to-end requests involves several key steps:
+
+1. **Instrumentation**: Adding code to your application to collect data on requests and performance.
+2. **Trace context**: Ensuring that tracing information is propagated across different services and components.
+3. **Metrics and metadata**: Collecting detailed metrics and metadata about the requests.
+4. **Analysis and visualization**: Analyzing the collected data and visualizing it to understand system performance and
+   behavior.
+
+<p align="right">(<a href="#table-of-contents">back to top</a>)</p>
+
+---
+
