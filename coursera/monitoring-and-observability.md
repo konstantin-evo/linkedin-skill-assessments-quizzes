@@ -198,6 +198,7 @@ issues, ensuring the development process is smooth and the application performs 
 ---
 
 #### Module 1 - Summary
+
 #### Introduction to Monitoring for Applications
 
 #### Q1. Which one of the following statements is the most appropriate definition of application monitoring?
@@ -553,6 +554,7 @@ monitoring.
 ---
 
 #### Module 2 - Summary
+
 #### Monitoring Systems and Techniques
 
 #### Q1. Which one of the following statements is the most appropriate summary of application monitoring?
@@ -877,6 +879,7 @@ offer efficient retrieval mechanisms.
 ---
 
 #### Module 3 - Summary
+
 #### Methodologies and tools in logging
 
 #### Q1. Which one of the following statements is the most appropriate definition of application logging?
@@ -1107,6 +1110,42 @@ availability. It allows for long-term storage of metrics and seamless scaling of
 
 Sampling helps manage large volumes of data by reducing the amount of data collected and stored. This approach lowers
 computational overhead and storage requirements while still providing a representative view of the system's performance.
+
+<p align="right">(<a href="#table-of-contents">back to top</a>)</p>
+
+---
+
+#### Tracing using Open Telemetry
+
+#### Q1. Which type of telemetry provides information about how users interact with the application?
+
+- [x] Usage telemetry
+- [ ] Performance telemetry
+- [ ] Error telemetry
+- [ ] Security telemetry
+
+#### Explanation
+
+<div style="text-align: center;">
+  <img src="../src/monitoring-and-observability/type-of-telemetry.png" alt="Types of telemetry" width="500"/>
+</div>
+
+Usage telemetry collects data on how users interact with the application, such as which features are
+used most often, user workflows, and user behavior patterns. This helps developers understand how the application is
+being utilized and can guide improvements and enhancements.
+
+#### Q2. Which of the following distributed tracing tools’ visibility into the request flow between microservices allows developers to analyze the performance and behavior of their applications?
+
+- [ ] New Relic
+- [x] Jaeger
+- [ ] Sumo Logic
+- [ ] Instana
+
+#### Explanation
+
+Jaeger is a distributed tracing tool specifically designed to monitor and troubleshoot
+microservices-based applications. It provides detailed visibility into the request flow between microservices, helping
+developers analyze performance and behavior issues within their applications.
 
 <p align="right">(<a href="#table-of-contents">back to top</a>)</p>
 
