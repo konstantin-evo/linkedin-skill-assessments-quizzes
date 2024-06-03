@@ -1175,3 +1175,172 @@ Visualizing data and monitoring end-to-end requests involves several key steps:
 
 ---
 
+#### Observability and Concepts
+
+#### Summary
+
+#### Q1. Which of the following statements is true about observability?
+
+- [ ] Observability involves looking at predefined metrics or logs to detect problems or anomalies over time.
+- [ ] Observability is a reactive approach that provides a limited system view.
+- [ ] Observability provides visibility into the external workings of a system.
+- [x] Observability allows teams to identify and resolve complex system issues quickly.
+
+#### Explanation
+
+Observability allows teams to gain insights into the internal state of a system from the data it produces, helping them
+identify and resolve complex issues quickly.
+
+#### Q2. By leveraging the 3 pillars of observability, you can gain which of the following to improve customer experience?
+
+- [ ] Understanding of problem indicators in an application
+- [ ] Understanding of request processing stages
+- [ ] Understanding of management tasks
+- [x] Understanding of the performance issues in microservices
+
+#### Explanation
+
+<div style="text-align: center;">
+  <img src="../src/monitoring-and-observability/three-pillars-of-observability.png" alt="The three pillars of observability" width="500"/>
+</div>
+
+The three pillars of observability — logs, metrics, and traces—provide a comprehensive understanding of performance
+issues, especially in microservices architectures, thereby improving customer experience.
+
+#### Q3. In technology, what does telemetry refer to?
+
+- [ ] Improve transmission of data between systems
+- [x] Collection of data from devices for analysis and optimization purposes
+- [ ] Enhance communication between systems for optimization purposes
+- [ ] Monitor and analyze collected data for optimization purposes
+
+#### Explanation
+
+Telemetry refers to the automated collection of data from devices, which is then used for analysis and optimization
+purposes.
+
+#### Q4. Which of the following techniques can enhance application performance and identify problems before they become critical?
+
+- [ ] Distributed tracing
+- [ ] Telemetry
+- [x] Both logging and tracing
+- [ ] Distributed logging
+
+#### Explanation
+
+Both logging and tracing provide comprehensive insights that can enhance application performance and identify potential
+issues before they become critical.
+
+#### Q5. What is one of the advantages of enterprise observability in optimizing resource performance?
+
+- [ ] Providing deep analysis without context
+- [ ] Automating system modifications
+- [x] Revealing interconnections between application components and services
+- [ ] Monitoring individual systems effectively
+
+#### Explanation
+
+Enterprise observability reveals interconnections between application components and services, which is crucial for
+optimizing resource performance.
+
+#### Q6. When sampling tracing data from distributed systems, what is the main objective?
+
+- [ ] Determine CPU usage of the applications
+- [x] Identify bottlenecks and other issues in the system
+- [ ] Collect logs from various sources to identify unusual trends
+- [ ] Analyze user behavior and improve the user experience
+
+#### Explanation
+
+The main objective of sampling tracing data is to identify bottlenecks and other issues within the system to ensure
+smooth operation.
+
+#### Q7. Which of the following best represents the significance of cloud native observability tools?
+
+- [ ] It can merely monitor application performance.
+- [x] It is a must-have tool to process and monitor real-time, data-heavy, and new-age digital systems.
+- [ ] It applies to smaller and more compact digital ecosystems.
+- [ ] It applies to e-commerce companies and social media platforms.
+
+#### Explanation
+
+Cloud-native observability tools are crucial for managing the complexity of modern applications, particularly those
+built with a cloud-native approach. Here's why:
+
+* **Real-time and data-heavy**: Cloud-native applications are dynamic and generate a vast amount of data. Observability
+  tools enable real-time monitoring of this data to identify issues and optimize performance.
+* **New-age digital systems**: Microservices architectures, containerization, and serverless functions are common in
+  cloud-native deployments. Observability tools are designed to handle the distributed nature and dynamic scaling of
+  these systems.
+
+#### Q8. Which of the following is the important factor to consider when selecting cloud native observability tools?
+
+- [ ] It must enable you to focus primarily on the health of the local business division.
+- [x] It works well with highly distributed cloud native applications and adopts new ways to handle huge data sets.
+- [ ] It is far from leveraging the power of AI and business intelligence in a cloud native environment.
+- [ ] It helps you monitor the transactions and events instead of diving into the root cause of the issues.
+
+#### Explanation
+
+The important factor to consider when selecting cloud-native observability tools is: It works well with highly
+distributed cloud-native applications and adopts new ways to handle huge data sets.
+
+Here's why this is the most crucial factor:
+
+* **Highly distributed applications**: Cloud-native deployments often involve microservices architectures and
+  distributed systems. The observability tool needs to be able to collect data and provide insights across these
+  distributed components.
+* **Huge data sets**: Cloud-native applications generate a significant amount of data, including logs, metrics, and
+  traces. The tool should efficiently handle this data volume for real-time analysis.
+
+#### Q9. Website monitoring is an important tool for understanding digital user experience. How does Instana support website monitoring?
+
+- [ ] By analyzing actual URL request times
+- [ ] By tag-based filtering, grouping, and visualization
+- [x] By analyzing actual browser request times and route loading times
+- [ ] By using an iOS/Android agent, which is installed as a dependency on mobile apps
+
+#### Explanation
+
+Instana supports website monitoring by analyzing actual browser request times and route loading times, providing
+insights into user experience.
+
+#### Q10. Select the correct sequence of the five steps followed to implement tracing for container-based applications.
+
+- [ ] Choose a tracing tool → Configure the tracing agent → Verify functionality → Instrument your code → Deploy the
+  tracer
+- [ ] Choose a tracing tool → Verify functionality → Instrument your code → Configure the tracing agent → Deploy the
+  tracer
+- [ ] Choose a tracing tool → Configure the tracing agent → Instrument your code → Deploy the tracer → Verify
+  functionality
+- [x] Choose a tracing tool → Instrument your code → Configure the tracing agent → Deploy the tracer → Verify
+  functionality
+
+#### Explanation
+
+<div style="text-align: center;">
+  <img src="../src/monitoring-and-observability/steps-to-implement-tracing-for-container-based-app.png" alt="Steps to implement tracing for container-based applications" width="500"/>
+</div>
+
+The correct sequence for implementing tracing in container-based applications is as follows:
+
+1. **Choose a Tracing Tool**: Begin by selecting an appropriate tracing tool. There are various options available, such
+   as OpenTelemetry, Jaeger, or Zipkin. Choose one that aligns with your application's requirements and ecosystem.
+
+2. **Instrument Your Code**: Next, instrument your application code. This involves adding tracing instrumentation to
+   your services, APIs, and other components. Instrumentation allows the tracing tool to collect data about requests,
+   spans, and traces.
+
+3. **Configure the Tracing Agent**: Configure the tracing agent (which is part of the chosen tracing tool) to
+   communicate with your application. Set up the agent to collect and transmit trace data to the backend.
+
+4. **Deploy the Tracer**: Deploy the tracing agent alongside your application. Ensure it runs within the same
+   containerized environment. The tracer will intercept requests and generate trace data.
+
+5. **Verify Functionality**: Finally, verify that tracing is functioning correctly. Monitor the traces, spans, and any
+   reported issues. Use the tracing dashboard or visualization tools to analyze the data and identify bottlenecks or
+   performance problems.
+
+<p align="right">(<a href="#table-of-contents">back to top</a>)</p>
+
+---
