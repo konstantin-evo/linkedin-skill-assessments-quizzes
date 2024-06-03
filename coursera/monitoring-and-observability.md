@@ -71,6 +71,11 @@
   </li>
   <li>
     <a href="#module-5">Module 5</a>
+      <ul>
+        <li>
+          <a href="#final-assessment">Final Assessment</a>
+        </li>
+      </ul>
   </li>
 </ol>
 
@@ -1344,3 +1349,361 @@ The correct sequence for implementing tracing in container-based applications is
 <p align="right">(<a href="#table-of-contents">back to top</a>)</p>
 
 ---
+
+#### Module 5
+
+#### Final Assessment
+
+#### Q1. Your organization has experienced several issues with performance, outages and is starting to see some loss in revenue. You have been tasked with finding a solution to help identify and resolve issues quickly and minimize downtime. What type of solution should you look for?
+
+- [x] Application monitoring
+- [ ] Incident prevention
+- [ ] Dynamic analysis
+- [ ] Alerting
+
+#### Explanation
+
+Application monitoring helps identify and resolve performance issues and outages quickly, thereby
+minimizing downtime and potential revenue loss.
+
+### Q2. Your company is looking for a way to gain a deeper insight into their business systems to understand how they perform and how customers utilize their web apps. Vast amounts of data are collected from business systems, but how can they make sense of it?
+
+- [ ] Application metrics
+- [ ] Performance indicators
+- [ ] System event logs
+- [x] Visualization
+
+#### Explanation
+
+Visualization tools help make sense of vast amounts of data by turning it into comprehensible and
+actionable insights, aiding in understanding performance and customer utilization of web apps.
+
+#### Q3. Your organization is experiencing rapid growth with several new systems and applications deployed. Your staff and budget haven’t expanded, and it’s becoming increasingly difficult to stay on top of issues and cumbersome trying to identify the root causes of problems. What solution can you implement to help you become more proactive and less reactive in this situation?
+
+- [x] A monitoring and alerting system
+- [ ] An alerting system could call immediate attention to problems
+- [ ] Hiring additional staff to help manage and respond to issues
+- [ ] A log analysis system could help pinpoint problems in applications
+
+#### Explanation
+
+Implementing a monitoring and alerting system helps proactively identify and address issues, which is
+crucial when dealing with rapid growth and limited resources.
+
+#### Q4. When looking into monitoring systems for your organization, what is an essential component that your monitoring solution should provide?
+
+- [ ] Event-driven architecture
+- [x] Metrics
+- [ ] Component-based monitoring
+- [ ] Service orientation
+
+#### Explanation
+
+Metrics are essential for a monitoring solution as they provide quantifiable data to track and analyze
+the performance of systems and applications.
+
+#### Q5. Your monitoring system notifies you of a latency issue with your web application. Instead of searching through hundreds of possible causes, what can help you quickly speed up the process?
+
+- [ ] Viewing system logs to see what might be causing the latency
+- [ ] Analysing log file timestamps to see where the latency is coming from
+- [ ] Using alerts to notify you about latency
+- [x] Using Golden Signals to help identify the issue
+
+#### Explanation
+
+<div style="text-align: center;">
+  <img src="../src/monitoring-and-observability/golden-signals.png" alt="Four Golden Signals Of Monitoring " width="500"/>
+</div>
+
+Golden Signals (latency, traffic, errors, and saturation) help quickly pinpoint the cause of latency
+issues by focusing on the most critical aspects of system performance.
+
+#### Q6. Your organization currently monitors all of its systems. You are trying to make the case that simply monitoring systems isn’t enough. What is your justification for using more than just system monitoring to give your organization more insight into its systems and infrastructure?
+
+- [ ] Security monitoring can collect and analyze log data to block potential threats before they happen
+- [ ] Real user monitoring could provide perspective on how users perceive and respond to application performance
+- [ ] Application monitoring could give your organization insight into metrics and app performance and send alerts to
+  warn of problems
+- [x] There are many types of monitoring tools that can help your organization
+
+#### Explanation
+
+To justify the need for more than just system monitoring in your organization, consider the following points:
+
+1. **Security Monitoring**:
+    - Security monitoring is essential because it not only collects and analyzes log data but also proactively
+      identifies and blocks potential threats before they can cause damage. This capability is crucial for preventing
+      data breaches, mitigating cyber attacks, and ensuring compliance with security regulations.
+
+2. **Real User Monitoring (RUM)**:
+    - RUM provides invaluable insights into the actual experience of users interacting with your applications. It
+      measures how real users perceive and respond to application performance, helping identify performance bottlenecks,
+      usability issues, and areas for improvement. This user-centric approach ensures that the applications meet user
+      expectations, leading to better user satisfaction and retention.
+
+3. **Application Monitoring**:
+    - Application monitoring goes beyond basic system monitoring by offering detailed metrics and performance data
+      related to specific applications. It can alert your organization to issues such as slow response times, high error
+      rates, or resource bottlenecks. This proactive alerting allows for quicker resolution of problems, minimizing
+      downtime and maintaining high levels of application performance and availability.
+
+4. **Diverse Monitoring Tools**:
+    - Relying on a variety of monitoring tools provides a comprehensive understanding of your IT environment. Different
+      tools can focus on various aspects such as network performance, database health, security events, and user
+      experience. This holistic approach ensures that all potential issues are detected and addressed promptly, leading
+      to more stable and efficient system operations.
+
+By implementing a multi-faceted monitoring strategy, your organization can gain deeper insights into its systems and
+infrastructure, leading to improved performance, security, and user satisfaction. This comprehensive approach ensures
+that all aspects of the IT environment are monitored, analyzed, and optimized effectively.
+
+#### Q7. Your company is currently using application monitoring to gather metrics about application performance and for alerting. Your director wants you to implement an evaluation solution, too. Why would your company think evaluation is necessary? Isn’t monitoring sufficient?
+
+- [x] Your company wants to know how well an application is performing
+- [ ] Implementing evaluation should have been done during the design phase of the application, and the development team
+  overlooked it
+- [ ] The CIO believes an evaluation solution is needed
+- [ ] The monitoring system should be sufficient because it can identify, measure, and evaluate your application’s
+  performance
+
+#### Explanation
+
+Evaluation solutions are necessary to assess application performance comprehensively, ensuring that the
+application meets expected standards and performs optimally.
+
+#### Q8. Your monitoring system has an alerting feature that you’ve configured to the best of your ability. It is working; however, it isn’t detecting some problems quickly enough. At other times, alarms are triggered by normal operations. What could be the cause?
+
+- [x] You receive genuine and false alerts indicating that the alert feature works. Perhaps you need to calibrate your
+  thresholds.
+- [ ] The servers you’re monitoring are overloaded, need upgrades, and are experiencing legitimate issues – causing the
+  alerting feature to misfire
+- [ ] You’re unsure because you’ve set up alerts to catch as many problems as possible
+- [ ] There are legitimate issues occurring that are triggering alarms, and you haven’t figured out what’s causing false
+  alarms
+
+#### Explanation
+
+Calibration of thresholds is crucial to minimize false positives and ensure that genuine issues are
+detected promptly.
+
+#### Q9. Your company is using Prometheus, an open-source monitoring and alerting system. You also have a time-series database and multiple other data sources and need to integrate them into a single, organized view. In conjunction with Prometheus, what could you use to make that happen?
+
+- [ ] Stride
+- [ ] Flask
+- [x] Grafana
+- [ ] Snyk
+
+#### Explanation
+
+Grafana integrates with Prometheus and other data sources to provide a unified view through rich,
+customizable dashboards.
+
+<div style="text-align: center;">
+  <img src="../src/monitoring-and-observability/grafana-prometheus.png" alt="Prometheus and Grafana" width="500"/>
+</div>
+
+#### Q10. Your organization is interested in collecting metrics to evaluate the health and performance of an individual machine, such as CPU usage or disk space, rather than its application stacks and services. What kind of metrics is your organization trying to gather?
+
+- [ ] Network and connectivity
+- [ ] Application
+- [ ] Server pool
+- [x] Host-based
+
+#### Explanation
+
+Host-based metrics focus on individual machine performance indicators like CPU usage and disk space,
+distinct from application stack metrics.
+
+#### Q11. After defining your telemetry goals and choosing the right data collection tools, what is the next step involved in implementing telemetry in application development?
+
+- [x] Design your telemetry schema
+- [ ] Analyze the collected data
+- [ ] Iterate on the design
+- [ ] Implement telemetry collection
+
+#### Explanation
+
+After defining goals and choosing tools, the next step is to design the telemetry schema, which
+structures how data will be collected and stored.
+
+#### Q12. You are a DevOps engineer working with an organization that has recently implemented a leading log monitoring tool. Which of the following tools enables your firm to ingest all of their log data to a single platform, normalize it, and route it to the appropriate teams?
+
+- [x] Mezmo
+- [ ] Instana
+- [ ] Datadog
+- [ ] Sumo Logic
+
+#### Explanation
+
+Mezmo (formerly known as LogDNA) enables the ingestion, normalization, and routing of log data to the
+appropriate teams on a single platform.
+
+#### Q13. Mark is an IT administrator for a medium-sized organization that handles sensitive customer data, which needs to be managed and analyzed effectively. He is responsible for implementing a log storage system that adheres to best practices. Considering the scenario, which of the following options would be the most suitable for storing logs in this organization?
+
+- [ ] Storing logs on individual servers or applications
+- [x] Using a cloud-based solution like AWS CloudWatch
+- [ ] Allowing unrestricted access to log data
+- [ ] Rotating logs regularly to prevent storage space issues
+
+#### Explanation
+
+Cloud-based log storage solutions like AWS CloudWatch adhere to best practices by providing scalable,
+secure, and manageable log storage.
+
+#### Q14. TecNet Company wants to implement sampling in their logging system to reduce storage requirements and improve analysis efficiency. Which sampling strategy should they consider?
+
+- [ ] Time-based sampling
+- [x] Event-based sampling
+- [ ] Random sampling
+- [ ] Size-based sampling
+
+#### Explanation
+
+For TecNet Company to implement sampling in their logging system to reduce storage requirements and improve analysis
+efficiency, the most appropriate sampling strategy to consider would be:
+
+- **Event-based sampling**
+
+Here’s why event-based sampling is the most suitable option:
+
+1. **Relevance of Data**:
+    - Event-based sampling allows the company to focus on capturing logs related to specific events that are of higher
+      importance or interest. This ensures that the most critical and relevant data is retained, making the analysis
+      more meaningful and efficient.
+
+2. **Storage Efficiency**:
+    - By only logging significant events, the amount of data stored is reduced significantly. This leads to lower
+      storage requirements and costs, as only the most pertinent information is being kept.
+
+3. **Improved Analysis**:
+    - Analyzing event-specific logs can be more straightforward and insightful as it filters out the noise of less
+      important logs. This helps in quicker identification and resolution of issues, and more accurate trend analysis.
+
+#### Q15. Which of the following processes explains how information about a trace is passed between different services and systems?
+
+- [ ] Distributed logging
+- [ ] Parent/Child relationship
+- [ ] Instrumentation
+- [x] Context propagation
+
+#### Explanation
+
+The process that explains how information about a trace is passed between different services and systems is context
+propagation.
+
+![context-propagation.png](..%2Fsrc%2Fmonitoring-and-observability%2Fcontext-propagation.png)
+
+Context propagation ensures that relevant contextual information (such as trace identifiers, correlation IDs, and other
+metadata) is carried along as requests flow through various components of a distributed system.
+
+#### Q16. You want to implement the synthetic monitoring solution to monitor your application's or website's performance. Which of the following statements is true about synthetic monitoring?
+
+- [ ] Synthetic monitoring fails to capture the diversity of page users.
+- [x] Synthetic monitoring provides long-term performance trends.
+- [ ] Synthetic monitoring relies on real user transactions to collect performance data.
+- [ ] Synthetic monitoring uses a snippet of JavaScript code to track individual users and report performance metrics.
+
+#### Explanation
+
+I'll provide a response combining the strengths of previous answers and addressing potential shortcomings:
+
+**Correct Answer:**
+
+- **Synthetic monitoring provides long-term performance trends.**
+
+**Explanation:**
+
+Synthetic monitoring offers a proactive approach to monitoring application and website performance. It simulates user
+actions through scripted transactions, enabling you to:
+
+- Establish performance baselines.
+- Track trends over time to identify performance improvements or regressions.
+- Gain insights into how performance varies across different factors:
+    - Geographic locations
+    - Device types
+    - Network conditions
+    - Time of day
+
+<div style="text-align: center;">
+  <img src="../src/monitoring-and-observability/synthetic-monitoring.png" alt="Synthetic monitoring" width="300"/>
+</div>
+
+#### Q17. You run an online store with a website with significant bounce rates and sluggish page load times. The development team used the three observability pillars to overcome these problems. Which of the following correctly defines the three pillars of observability?
+
+- [ ] Logs: Real-time data of events that show the health of system components.
+  Metrics: Real-time operating data generated by platform software, including middleware and operating systems.
+  Traces: Records that capture detailed information about individual events or transactions.
+- [ ] Logs: Records to identify the component or step in which the problem is occurring.
+  Metrics: Real-time providing context-specific details about a system's behavior.
+  Traces: Records of information for explicit integration of network components.
+- [x] Logs: Records of events, in textual or human-readable form, generated by infrastructure elements.
+  Metrics: Real-time operating data, typically accessed through an API using a pull or polling strategy.
+  Traces: Records of the information pathways or workflows created to follow a work item.
+- [ ] Logs: Records of events, typically accessed through an API using a pull or polling strategy xyz
+  Metrics: Real-time operating data generated by platform software, including middleware and operating systems.
+  Traces: Records containing granular details of an application’s request processing stages.
+
+#### Explanation
+
+This definition accurately describes the three pillars of observability:
+
+1. **logs** for event records,
+2. **metrics** for real-time data,
+3. **traces** for tracking information pathways.
+
+<div style="text-align: center;">
+  <img src="../src/monitoring-and-observability/three-pillars-of-observability.png" alt="The three pillars of observability" width="500"/>
+</div>
+
+#### Q18. You are using tracing tools to instrument your code with markers, revealing the intricate paths it takes during execution. Which of the following is true regarding tracing tools?
+
+- [ ] They allow you to manage the performance and availability of software applications.
+- [ ] They automatically collect, transmit, and measure data from remote sources.
+- [x] They allow instrumenting code to emit trace data at key points in the application.
+- [ ] They allow you to measure the current state of system-based generated information.
+
+#### Explanation
+
+Tracing tools empower you to strategically insert markers (spans or annotations) within your code at crucial execution
+points. These markers capture timing and contextual information, forming a trace that depicts the path your code takes
+through the application:
+
+- Function calls
+- Database interactions
+- External API calls
+- Other key events in the application's workflow
+
+#### Q19. Identify the correct order of the steps for implementing application monitoring from the steps listed below.
+
+1. Define the key metrics
+2. Choose a monitoring tool
+3. Identify monitoring goals
+4. Instrumentation
+5. Test and validate
+6. Set up alerts
+7. Data storage and visualization
+
+- [ ] 3>2>1>7>6>4>5
+- [ ] 2>1>4>5>3>7>6
+- [x] 3>2>1>4>6>7>5
+- [ ] 2>1>3>4>7>5>6
+
+#### Explanation
+
+The correct order starts with identifying goals, choosing tools, defining metrics, setting up
+instrumentation, alerts, data storage and visualization, and finally testing and validation.
+
+#### Q20. Which of the following statements about an ideal cloud native observability tool that empowers organizations is true?
+
+- [x] Leverage AI and business intelligence
+- [ ] Focus on specific aspects of the business
+- [ ] Support selected teams, including IT and engineering
+- [ ] Minimize the uses of modern applications
+
+#### Explanation
+
+Cloud-native observability tools often incorporate AI and machine learning to analyze large volumes of data, detect
+anomalies, and provide actionable insights. These technologies enhance observability by automating tasks and identifying
+patterns that might be missed manually. Therefore, this statement is true.
+
+<p align="right">(<a href="#table-of-contents">back to top</a>)</p>
